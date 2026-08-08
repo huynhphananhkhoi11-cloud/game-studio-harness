@@ -1,0 +1,6 @@
+design_pillar,player_experience,mechanic,rule_formula,data_id,code_module,ui_surface,telemetry,test,gdd_source_location
+Đời sống trước công danh,pressure with agency,Nếp routine,sum slots <= 9,balance_v0.constants.routine_max_slots,prototype/rules/scheduler.py,Nếp builder,routine_resolved,test_routine_limit,GDD v22 §7/26
+Chữ nghĩa có trọng lượng,cautious investigation,DOC01 compare,conclusion capped,item_DOC01_greybox,prototype/rules/engine.py,MQ01 document greybox,mq01_evidence_inspected,test_mq01_doc01_greybox,MQ01 scene brief + QA
+Trưởng thành qua lao động,earned competence,XP rank,round base*modifiers,actions/skills,prototype/rules/progression.py,Sổ học,xp_gained,test_xp_threshold_rounding,GDD v22 §10/28
+Ân nghĩa không miễn phí,uneasy aid,obligation ledger,source+due required,action_accept_help_vien_ngoai,prototype/rules/engine.py,Sổ nghĩa,obligation_added,test_obligation,GDD v22 §15
+Fail-forward có phẩm giá,setback with route,collapse forced rest,threshold triggers fail_forward,balance_v0.constants,prototype/rules/engine.py,Bảng kết Nếp,fail_forward_collapse,test_overwork_fail_forward,GDD v22 §20/39
