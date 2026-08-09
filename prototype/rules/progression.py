@@ -7,3 +7,9 @@ def novelty_multiplier(state, action_id, day, window, mult):
     for h in reversed(state.action_history):
         if h['action_id']==action_id and day-h['day']<=window: return 1.0
     return mult
+
+
+def state_multiplier(xpconf, state_label='normal'):
+    # OWNER_DECISION: no rule maps health/alertness/morale to strained/normal/rested yet.
+    # Callers may pass an explicit label; normal is the default resolver state.
+    return xpconf['state_multipliers'][state_label]

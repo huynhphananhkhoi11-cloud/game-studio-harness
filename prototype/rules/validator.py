@@ -15,21 +15,32 @@ def validate_data(data_dir):
             if r.get('id') in ids: errors.append(f'duplicate id {r.get("id")}')
             ids[r.get('id')]=name
             if r.get('design_status') not in VALID_STATUS: errors.append(f'{r.get("id")}: bad status')
-            for req in ('schema_version','source_reference'): 
+            for req in ('schema_version','source_reference'):
                 if req not in r: errors.append(f'{r.get("id")}: missing {req}')
     skills={r['id'] for r in loaded.get('skills',{}).get('records',[])}; jobs={r['id'] for r in loaded.get('jobs',{}).get('records',[])}; items={r['id'] for r in loaded.get('items',{}).get('records',[])}
+    quests={r['id']:r for r in loaded.get('quests',{}).get('records',[])}
     for a in loaded.get('actions',{}).get('records',[]):
         if a.get('time_slots',0)<1 or a.get('time_slots',0)>9: errors.append(f'{a["id"]}: bad time')
         for s in a.get('xp',{}):
             if s not in skills: errors.append(f'{a["id"]}: unknown skill {s}')
         if a.get('job') and a['job'] not in jobs: errors.append(f'{a["id"]}: unknown job')
-    for q in loaded.get('quests',{}).get('records',[]):
+        if a.get('requires_quest') and a['requires_quest'] not in quests: errors.append(f'{a["id"]}: unknown required quest {a["requires_quest"]}')
+    for qid,q in quests.items():
+        if q.get('initial_state') not in QUEST_STATES: errors.append(f'{qid}: bad initial quest state')
+        if q.get('initial_state') not in q.get('transitions',{}): errors.append(f'{qid}: initial state missing transition row')
+        for u in q.get('unlocks',[]):
+            if u not in quests: errors.append(f'{qid}: unlocks unknown quest {u}')
         for k, vs in q.get('transitions',{}).items():
-            if k not in QUEST_STATES: errors.append(f'{q["id"]}: bad quest state')
+            if k not in QUEST_STATES: errors.append(f'{qid}: bad quest state {k}')
             for v in vs:
-                if v not in QUEST_STATES: errors.append(f'{q["id"]}: bad transition target')
+                if v not in QUEST_STATES: errors.append(f'{qid}: bad transition target {v}')
+                if v not in q.get('transitions',{}): errors.append(f'{qid}: transition target missing row {v}')
         for it in q.get('items',[]):
-            if it not in items: errors.append(f'{q["id"]}: unknown item {it}')
+            if it not in items: errors.append(f'{qid}: unknown item {it}')
+    for qid,state in loaded.get('initial_state',{}).get('quests',{}).items():
+        if qid not in quests: errors.append(f'initial_state: unknown quest {qid}')
+        elif state not in QUEST_STATES: errors.append(f'initial_state: bad state {qid}={state}')
+        elif state not in quests[qid].get('transitions',{}): errors.append(f'initial_state: {qid} state has no transition row {state}')
     for o in loaded.get('opportunities',{}).get('records',[]):
         for c in o.get('conditions',[]):
             var=re.split(r'[<>=!]+',c)[0].strip()

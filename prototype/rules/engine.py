@@ -1,6 +1,6 @@
 from .models import StateDelta,DomainEvent
 from .loader import records
-from .progression import skill_rank, novelty_multiplier
+from .progression import skill_rank, novelty_multiplier, state_multiplier
 from .economy import apply_job
 
 def clamp(state,data):
@@ -10,7 +10,7 @@ def clamp(state,data):
         if 'max' in v: state.stats[k]=min(v['max'],state.stats[k])
     state.stats['money']=max(0,state.stats.get('money',0))
 
-def perform_action(data,state,action_id,quality='normal'):
+def perform_action(data,state,action_id,quality='normal',state_label='normal'):
     acts=records(data,'actions'); jobs=records(data,'jobs'); bal=data['balance_v0']; c=bal['constants']; xpconf=bal['xp']; a=acts[action_id]; d=StateDelta(trace=[f'1 validate {action_id}', '2 reserve time/resource'])
     if state.slot+a['time_slots']>c['routine_max_slots']: raise ValueError('routine day capacity exceeded')
     d.trace.append('3 consume mandatory costs')
@@ -29,8 +29,11 @@ def perform_action(data,state,action_id,quality='normal'):
         pay=apply_job(state,jobs[a['job']]); fee=bal['constants']['broker_fee'] if jobs[a['job']].get('broker')=='ba_ba' and state.jobs[a['job']]['mastery']<=jobs[a['job']]['direct_call_mastery'] else 0
         state.stats['money']+=max(0,pay-fee); d.events.append(DomainEvent('job_resolved',{'job':a['job'],'pay':pay,'broker_fee':fee}))
     for sid,base in a.get('xp',{}).items():
-        mult=xpconf['quality_multipliers'][quality]*novelty_multiplier(state,action_id,state.day,c['novelty_window_days'],xpconf['novelty_multiplier'])
-        gained=round(base*mult); state.skills[sid]['xp']+=gained; state.skills[sid]['rank']=skill_rank(state.skills[sid]['xp'],xpconf['thresholds']); state.skills[sid]['history'].append({'day':state.day,'action':action_id,'xp':gained}); d.events.append(DomainEvent('xp_gained',{'skill':sid,'xp':gained,'multiplier':mult}))
+        quality_mult=xpconf['quality_multipliers'][quality]
+        novelty_mult=novelty_multiplier(state,action_id,state.day,c['novelty_window_days'],xpconf['novelty_multiplier'])
+        state_mult=state_multiplier(xpconf,state_label)
+        mult=quality_mult*novelty_mult*state_mult
+        gained=round(base*mult); state.skills[sid]['xp']+=gained; state.skills[sid]['rank']=skill_rank(state.skills[sid]['xp'],xpconf['thresholds']); state.skills[sid]['history'].append({'day':state.day,'action':action_id,'xp':gained,'state':state_label}); d.events.append(DomainEvent('xp_gained',{'skill':sid,'xp':gained,'quality_multiplier':quality_mult,'novelty_multiplier':novelty_mult,'state_multiplier':state_mult,'multiplier':mult}))
     if 'obligation' in a: state.obligations.append(dict(a['obligation'])); d.events.append(DomainEvent('obligation_added',a['obligation']))
     state.slot+=a['time_slots']; state.action_history.append({'day':state.day,'action_id':action_id,'tags':a.get('tags',[])})
     clamp(state,data)

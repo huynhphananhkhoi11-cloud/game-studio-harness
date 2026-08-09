@@ -1,0 +1,3 @@
+timestamp_utc,activity,scope,result,notes
+not recorded,Milestone 2A prior source search,MQ01 evidence and DOC01 greybox,not recorded,Do not reconstruct prior search log retroactively.
+2026-08-09T00:00:00Z,Milestone 2A.1 repository inspection,source/MQ01_* and data/vertical_slice,used existing evidence register and QA report,No new external source search performed.
