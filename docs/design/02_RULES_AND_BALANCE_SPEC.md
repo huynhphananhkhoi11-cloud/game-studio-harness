@@ -11,7 +11,7 @@ Validate command/preconditions; reserve time/resource; consume costs; compute ba
 | Nếp | `sum(action.time_slots) <= 9` | sum slots, reject if > cap | 9 slots OK | 10 rejects | story-locked routine OWNER_DECISION | `test_routine_limit` |
 | Status cost | `delta = round(base_cost * cold * overwork)` | apply negative costs then clamp | -8 alertness | 3rd continuous non-rest uses 1.5 | clamps 0-100 | `test_overwork_modifier`, `test_clamp` |
 | stress_internal | `100 - morale` | never save duplicate | morale 62 => 38 | morale 0 => 100 | morale clamp first | `test_derived_stress` |
-| XP | `round(base * quality * novelty * state)` | add XP, recompute rank, no spend | 12*1.15=14 | 30 XP rank 2 | unknown skill invalid data | `test_xp_threshold_rounding` |
+| XP | `round(base * quality * novelty * state)` | explicit `state_label`; default resolver returns `normal` until OWNER_DECISION defines health/alertness/morale mapping | 12*1.15*1.0=14 | strained 0.8, normal 1.0, rested 1.1 in balance | unknown skill or state invalid data | `test_xp_threshold_rounding`, `test_xp_state_multiplier_explicit_labels` |
 | Novelty | `1.15 if no same action in prior 12 days else 1.0` | scan action history | first study bonus | day+12 no bonus | day+13 bonus | `test_novelty_window` |
 | Job pay | `money += max(0, base_pay - broker_fee)` | apply mastery/rep then pay | copyist 5-2=3 | mastery > direct unlock no fee | insufficient stat blocks later | `test_job_pay_mastery_reputation` |
 | Item sell/use | `quest_item => cannot sell` | reject sale if quest flag | rice sell allowed | DOC01 blocked | unknown item invalid | `test_quest_item_not_sellable` |
@@ -24,3 +24,8 @@ Validate command/preconditions; reserve time/resource; consume costs; compute ba
 A day contains three canh; a Nếp contains three days/nine canh. Travel is an action cost in later data; slice actions consume one slot. Story/exam locked days block builder. Interruptions refund unspent slots unless event consumes them. Pure routine bonus is a playtest assumption applied only after three planned days with no forced interrupt.
 
 Health, alertness and morale are displayed; satiety/cold are hidden support variables. Collapse is fail-forward forced rest, never game over. Relationships do not add exam points. Integrity changes only from concrete action cost, not moral-sounding dialogue. Obligations require source, due, repayment/refusal path and callback. Event director uses seeded deterministic weighted selection without replacement and avoids three cards from the same group unless explicitly overridden. Exam/ending remain interface contracts for Milestone 2A.
+
+
+## OWNER_DECISION pending
+
+- `OWNER_DECISION-XP-STATE-001`: No approved rule maps `health`, `alertness`, and `morale` into `strained`, `normal`, or `rested`. Milestone 2A.1 therefore exposes an explicit resolver/API label with `normal` as the default state and keeps all state multipliers in `balance_v0.json`. No health/alertness/morale thresholds are invented in code.

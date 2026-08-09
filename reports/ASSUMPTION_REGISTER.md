@@ -7,3 +7,4 @@
 | ASSUMP-003 | Overwork threshold 3 and multiplier 1.5. | Prototype tuning | Collapse too frequent | Does fail-forward teach rest? |
 | ASSUMP-004 | Job pay, broker fee and mastery unlock. | Prototype tuning | Self route under/overpays | Is Viên ngoại optional? |
 | ASSUMP-005 | Opportunity card weights and group rules. | Prototype tuning | Repetition or unfair draw | Do three cards feel varied? |
+| ASSUMP-006 | XP state multipliers are data-driven values in `balance_v0.json`; state classification itself is OWNER_DECISION and defaults to `normal` when not supplied. | Milestone 2A.1 rules hardening | XP may feel too generous/harsh once real status mapping exists | What health/alertness/morale bands should produce strained/rested? |
