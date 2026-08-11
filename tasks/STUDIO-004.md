@@ -25,7 +25,11 @@ Approved by: Studio Owner.
 
 Approval date: `2026-08-11`.
 
-Contract revision: `0.2`.
+Contract revision: `0.3`.
+
+Revision `0.3` change: correct the scope-validation procedure so the complete nine-file milestone is checked from repository baseline `12d5637`, while the implementation working tree and staged diff are checked against the eight authorized implementation files only.
+
+Pre-amendment contract commit: `ed36920` (`0.2`). Revision `0.3` must be committed on `studio-v0.4` before implementation begins. That clean post-amendment commit becomes the implementation contract baseline; implementation agents must leave `tasks/STUDIO-004.md` unchanged relative to it.
 
 Target memory schema: `1`.
 
@@ -890,10 +894,16 @@ Every result must be manually inspected. Wording that grants memory records bind
 
 ## 22. Scope and Diff Validation
 
-Use an exact allowed-path comparison rather than visual inspection alone:
+Revision `0.3` must already be committed, and the worktree must be clean, before implementation begins. Use separate exact comparisons for:
+
+1. the complete nine-file milestone relative to repository baseline `12d5637`; and
+2. the eight implementation files currently changed in the working tree.
 
 ```powershell
-$allowed = @(
+$ErrorActionPreference = "Stop"
+$milestoneBaseline = "12d5637"
+
+$implementationFiles = @(
     "AGENTS.md",
     "studio/HANDOFF_PROTOCOL.md",
     "studio/PROJECT_STUDIO_TEMPLATE.md",
@@ -901,59 +911,108 @@ $allowed = @(
     "studio/memory/templates/TASK.md",
     "studio/memory/templates/STATE.md",
     "studio/memory/templates/WORKLOG.md",
-    "studio/memory/templates/RESUME.md",
-    "tasks/STUDIO-004.md"
+    "studio/memory/templates/RESUME.md"
 )
 
-$changed = @(
-    @(git diff --name-only)
-    @(git diff --cached --name-only)
-    @(git ls-files --others --exclude-standard)
+$milestoneFiles = @($implementationFiles) + @("tasks/STUDIO-004.md")
+
+git cat-file -e "$milestoneBaseline`^{commit}"
+if ($LASTEXITCODE -ne 0) {
+    throw "Missing milestone baseline commit: $milestoneBaseline"
+}
+
+$untracked = @(git ls-files --others --exclude-standard)
+if ($LASTEXITCODE -ne 0) { throw "Unable to enumerate untracked files" }
+
+$milestoneDiff = @(git diff --name-only $milestoneBaseline --)
+if ($LASTEXITCODE -ne 0) {
+    throw "Unable to compare milestone against baseline $milestoneBaseline"
+}
+
+$milestoneChanged = @(
+    $milestoneDiff
+    $untracked
 ) | Where-Object { $_ } | Sort-Object -Unique
 
-$unexpected = $changed | Where-Object { $_ -notin $allowed }
-$missingFromMilestone = $allowed | Where-Object { $_ -notin $changed }
+$unexpectedMilestone = $milestoneChanged | Where-Object { $_ -notin $milestoneFiles }
+$missingMilestone = $milestoneFiles | Where-Object { $_ -notin $milestoneChanged }
 
-if ($unexpected) {
-    throw "Out-of-scope changed file(s): $($unexpected -join ', ')"
+if ($unexpectedMilestone) {
+    throw "Out-of-scope milestone file(s): $($unexpectedMilestone -join ', ')"
 }
-if ($missingFromMilestone) {
-    throw "Expected milestone file(s) not changed: $($missingFromMilestone -join ', ')"
+if ($missingMilestone) {
+    throw "Expected milestone file(s) absent from baseline diff: $($missingMilestone -join ', ')"
+}
+
+$implementationChanged = @(
+    @(git diff --name-only)
+    @(git diff --cached --name-only)
+    $untracked
+) | Where-Object { $_ } | Sort-Object -Unique
+
+$unexpectedImplementation = $implementationChanged |
+    Where-Object { $_ -notin $implementationFiles }
+$missingImplementation = $implementationFiles |
+    Where-Object { $_ -notin $implementationChanged }
+
+if ($unexpectedImplementation) {
+    throw "Out-of-scope implementation file(s): $($unexpectedImplementation -join ', ')"
+}
+if ($missingImplementation) {
+    throw "Expected implementation file(s) not changed: $($missingImplementation -join ', ')"
+}
+
+$contractChanges = @(
+    @(git diff --name-only -- "tasks/STUDIO-004.md")
+    @(git diff --cached --name-only -- "tasks/STUDIO-004.md")
+) | Where-Object { $_ } | Sort-Object -Unique
+
+if ($contractChanges) {
+    throw "Implementation modified the approved task contract: $($contractChanges -join ', ')"
 }
 
 git diff --check
 if ($LASTEXITCODE -ne 0) { throw "git diff --check failed" }
 
-"PASS: exact STUDIO-004 working-tree scope"
+"PASS: exact STUDIO-004 milestone and working-tree scope"
 ```
 
 Expected final line:
 
 ```text
-PASS: exact STUDIO-004 working-tree scope
+PASS: exact STUDIO-004 milestone and working-tree scope
 ```
 
-Because normal `git diff` does not include untracked files, final whitespace validation must occur after staging:
+Because untracked files are not covered by ordinary `git diff --check`, stage only the eight implementation files after the preceding check. Then run final whitespace and exact staged-scope validation:
 
 ```powershell
 git diff --cached --check
 if ($LASTEXITCODE -ne 0) { throw "git diff --cached --check failed" }
 
 $cached = @(git diff --cached --name-only) | Where-Object { $_ } | Sort-Object -Unique
-$unexpectedCached = $cached | Where-Object { $_ -notin $allowed }
-$missingCached = $allowed | Where-Object { $_ -notin $cached }
+$unexpectedCached = $cached | Where-Object { $_ -notin $implementationFiles }
+$missingCached = $implementationFiles | Where-Object { $_ -notin $cached }
 
 if ($unexpectedCached) {
     throw "Out-of-scope staged file(s): $($unexpectedCached -join ', ')"
 }
 if ($missingCached) {
-    throw "Expected milestone file(s) not staged: $($missingCached -join ', ')"
+    throw "Expected implementation file(s) not staged: $($missingCached -join ', ')"
+}
+if ($cached -contains "tasks/STUDIO-004.md") {
+    throw "Approved task contract must not be staged by implementation agents"
 }
 
 git diff --cached --stat
 git status --short
 
-"PASS: exact STUDIO-004 staged scope"
+"PASS: exact STUDIO-004 staged implementation scope"
+```
+
+Expected final line:
+
+```text
+PASS: exact STUDIO-004 staged implementation scope
 ```
 
 Staging is not authorization to commit. Commit, push, PR creation, and merge remain subject to `AGENTS.md`, explicit Studio Owner instruction, and the review gates below.
