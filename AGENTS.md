@@ -20,3 +20,11 @@ Các hướng dẫn này áp dụng cho toàn bộ repository.
 3. Xác nhận phạm vi nhiệm vụ và danh sách tệp được phép sửa.
 4. Thực hiện thay đổi nhỏ, có thể kiểm tra được.
 5. Ghi lại bằng chứng kiểm thử hoặc kiểm tra trong phần trả lời cuối.
+
+Resuming tasks with an activated persistent memory package:
+
+- Agents resuming such tasks must follow studio/MEMORY_PROTOCOL.md.
+- Read the canonical task contract and docs/DECISIONS.md, then read TASK.md, STATE.md, WORKLOG.md (relevant entries), and RESUME.md from the package.
+- Verify memory_schema_version, writer claim, durability state, memory claims, current Git, unrelated changes, and relevant tests before writing.
+- Update memory files only at material checkpoints defined by the protocol and only within the authorized task scope recorded in TASK.md; do not make routine or ephemeral edits to memory outside those checkpoints.
+- Avoid placing secrets, private transcripts, or private chain-of-thought into memory files.
