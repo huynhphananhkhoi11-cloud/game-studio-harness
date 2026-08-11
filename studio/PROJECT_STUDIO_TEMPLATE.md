@@ -14,8 +14,14 @@ Copy and complete this template only under a future project-creation task. Do no
 - `repository_or_namespace`: `<UNASSIGNED>`
 - `created_from_task`: `<TASK-ID>`
 - `binding_authority_reference`: `studio/STUDIO_CONSTITUTION.md`
+- `project_memory_root`: `<PROJECT_NAMESPACE>/memory/tasks` (required repository-relative root; do not use `NONE` in an instantiated Project Studio record)
+- `memory_task_package`: `<project_memory_root>/<TASK-ID>/` containing exactly `TASK.md`, `STATE.md`, `WORKLOG.md`, and `RESUME.md`
+- `memory_schema_requirement`: `memory_schema_version: 1` in all four records; stop and reconcile if missing, unsupported, or inconsistent
+- `durability_policy`: `Each live package declares WORKTREE_ONLY, COMMITTED_LOCAL, REMOTE_BRANCH, PR, or MERGED plus its evidence and last verified persisted reference.`
 
-The container does not create an additional owner-level or executive position. Final binding and non-reversible authority remains with the Studio Owner.
+The container does not create an additional owner-level or executive position. Final binding and non-reversible authority remains with the Studio Owner. Declaring a `project_memory_root` and following the [Persistent Memory Protocol](MEMORY_PROTOCOL.md) ensures project-specific packages are isolated and attributable to this Project Studio. Shared memory infrastructure may carry evidence, but it does not transfer project authority, canon, decisions, scope, acceptance status, or active-state ownership.
+
+Any evidence intentionally reused across Project Studios must retain its source Project Studio, task-package path, checkpoint or immutable reference, original scope, and acceptance status. Reuse never silently converts another project's state into this project's state.
 
 ## 3. Project scope
 
@@ -62,6 +68,7 @@ Repository-visible references are the source of continuity. Private conversation
 | Constraints | `<PATH>` | Not inherited by another project implicitly |
 | Code/content ownership | `<PATH OR RULE>` | Boundary is explicit |
 | Current operational state | `<PATH>` | Updated through durable handoff |
+| Memory task packages | `<project_memory_root>/<TASK-ID>/` | Exactly four records; project provenance remains attached |
 
 ## 6. Active Cells
 
@@ -124,6 +131,11 @@ Use [PLATFORM_STUDIO.md](PLATFORM_STUDIO.md). Listing a capability here does not
 - [ ] Shared capabilities receive only necessary project context.
 - [ ] Cross-project reuse is explicit and reversible where practical.
 - [ ] Runtime replacement can resume from repository-visible evidence.
+- [ ] A non-`NONE`, repository-relative project memory root is declared and linked to [MEMORY_PROTOCOL.md](MEMORY_PROTOCOL.md).
+- [ ] Each activated task package contains exactly `TASK.md`, `STATE.md`, `WORKLOG.md`, and `RESUME.md` under that root.
+- [ ] All four records declare one supported, consistent `memory_schema_version`, and durability claims cite the required evidence.
+- [ ] Reused evidence retains source-project provenance, scope, immutable reference or checkpoint, and acceptance status.
+- [ ] Shared memory infrastructure is not treated as a transfer of project authority.
 
 ## 12. Non-goals of this template
 

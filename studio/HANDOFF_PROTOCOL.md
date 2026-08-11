@@ -225,3 +225,11 @@ UNRESOLVED:
 - code graph implementation;
 - staffing nhiều instance;
 - department-specific benchmark suite.
+
+Note: For persistent memory guidance and package semantics, see studio/MEMORY_PROTOCOL.md. RESUME.md may point to a LEVEL 0/1/2 handoff but does not replace the handoff protocol; a memory package should be refreshed at handoff where appropriate.
+
+When a memory package is active, the protocol and the handoff process are complementary:
+
+- Persistent memory is continuous repository-visible operational state (the four-file package). Handoff is a discrete transfer event (LEVEL 0/1/2) that may be referenced by RESUME.md but is not replaced by it.
+- Planned interruption or runtime replacement: the outgoing writer must refresh STATE.md, append a final WORKLOG checkpoint, regenerate RESUME.md, and attempt to release or transfer the writer claim prior to handoff. The outcome (success or failure) must be recorded as a WORKLOG entry and referenced by the handoff package.
+- Unplanned interruption: follow the canonical `Unplanned interruption and recovery` procedure in `studio/MEMORY_PROTOCOL.md`.
