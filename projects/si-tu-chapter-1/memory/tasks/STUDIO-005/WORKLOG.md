@@ -186,6 +186,18 @@ canonical_task_contract: tasks/STUDIO-005.md
   resulting_state: HANDOFF to independent QA-01 rerun on the immutable corrected Pull Request #9 head
   correction_of: STUDIO-005-CP-0014
 
+- checkpoint_id: STUDIO-005-CP-0016
+  timestamp: 2026-08-15T20:00:00+07:00
+  actor: Cell SITU-BASELINE-001 closeout
+  action: Reconcile final QA, Review & Integration, and Studio Owner merge evidence; mark STUDIO-005 complete and dissolve the bootstrap Cell.
+  scope_files: projects/si-tu-chapter-1/PROJECT_STUDIO.md; projects/si-tu-chapter-1/ARTIFACT_MAP.md; projects/si-tu-chapter-1/cells/SITU-BASELINE-001.md; projects/si-tu-chapter-1/memory/tasks/STUDIO-005/{STATE,WORKLOG,RESUME}.md; scripts/validate_project_studio.py; tests/test_validate_project_studio.py
+  command_or_check: verify QA-01 v14 APPROVE with zero findings at correction head 8212a080f7a22a96a521829d81e00a7763bb2d50; verify Review & Integration APPROVE; verify Pull Request #9 merged into main as 4e812242c9bc6f96b141e60ff2cf4344bef30ea8; run project and evidence validators, validator unit tests, complete unit-test discovery, exact closeout scope, and whitespace checks
+  evidence_reference: Pull Request #9; QA-01 v14 result; correction head 8212a080f7a22a96a521829d81e00a7763bb2d50; implementation merge commit 4e812242c9bc6f96b141e60ff2cf4344bef30ea8
+  outcome: accepted
+  rationale: Every STUDIO-005 completion gate is now satisfied and durably visible: deterministic checks passed, QA and Review & Integration approved, and the Studio Owner merged the implementation.
+  resulting_state: COMPLETE; Cell SITU-BASELINE-001 dissolved; writer claim RELEASED; no remaining STUDIO-005 action
+  correction_of: NONE
+
 # Append-only rules
 
 Add only material checkpoints. Record attempted, failed, partial, completed, reviewed, and accepted outcomes distinctly. Corrections append a new checkpoint and reference the earlier ID; they never rewrite history. Do not store secrets, credentials, private transcripts, private chain-of-thought, or machine-specific absolute paths.

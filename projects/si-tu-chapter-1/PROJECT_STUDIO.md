@@ -4,7 +4,7 @@
 
 - `project_studio_id`: `SITU-CH1`
 - `project_name`: `Sĩ Tử — Hành Trình Thi Cử — Chương 1`
-- `status`: `HANDOFF`
+- `status`: `COMPLETE`
 - `repository_or_namespace`: `projects/si-tu-chapter-1/`
 - `created_from_task`: `STUDIO-005`
 - `binding_authority_reference`: `studio/STUDIO_CONSTITUTION.md`
@@ -43,6 +43,8 @@ The Project Studio provides an isolated, repository-visible home for project gov
 ### Completion boundary
 
 The bootstrap outcome is complete only after all STUDIO-005 deliverables and deterministic checks exist, independent QA and Review & Integration record `APPROVE`, and the Studio Owner decides the merge disposition. Project development may continue under later accepted tasks without keeping the bootstrap Cell active.
+
+STUDIO-005 met this boundary when QA-01 v14 returned `APPROVE` with zero findings, Review & Integration returned `APPROVE`, and the Studio Owner merged Pull Request `#9` into `main` as `4e812242c9bc6f96b141e60ff2cf4344bef30ea8`.
 
 ## 3. Source relationship and authority state
 
@@ -95,13 +97,13 @@ Repository-visible evidence is the continuity source. Private chat history and p
 
 Shared infrastructure or evidence does not transfer canon, decisions, scope, acceptance, or active-writer ownership across Project Studios.
 
-## 6. Active Cell
+## 6. Bootstrap Cell disposition
 
 | Cell ID | Bounded outcome | Required execution capabilities | State | Independent handoff targets | Completion condition |
 | --- | --- | --- | --- | --- | --- |
-| `SITU-BASELINE-001` | Establish and validate the Project Studio baseline | Producer / Coordination; Narrative / Research; Engineering | `HANDOFF` | QA, then Review & Integration | Contract scope, checks, verdicts, and handoff evidence complete |
+| `SITU-BASELINE-001` | Establish and validate the Project Studio baseline | Producer / Coordination; Narrative / Research; Engineering | `COMPLETE` | QA and Review & Integration approved; Studio Owner merged PR `#9` | Contract scope, checks, verdicts, and merge evidence complete |
 
-The Cell record is `projects/si-tu-chapter-1/cells/SITU-BASELINE-001.md`. It is temporary and may not continue into content selection, gameplay implementation, or permanent staffing.
+The Cell record is `projects/si-tu-chapter-1/cells/SITU-BASELINE-001.md`. The Cell is dissolved after completion and may not continue into content selection, gameplay implementation, or permanent staffing.
 
 ## 7. Borrowed Guild capabilities
 
@@ -171,6 +173,6 @@ This record does not select a platform implementation, runtime, model, provider,
 - [x] The STUDIO-005 package contains exactly four schema-1 records.
 - [x] Runtime replacement can resume from repository-visible evidence.
 - [x] Shared memory infrastructure is not treated as a transfer of project authority.
-- [ ] Independent QA verdict recorded.
-- [ ] Independent Review & Integration verdict recorded.
-- [ ] Studio Owner merge disposition recorded.
+- [x] Independent QA verdict recorded: QA-01 v14 `APPROVE`, zero findings, audited correction head `8212a080f7a22a96a521829d81e00a7763bb2d50`.
+- [x] Independent Review & Integration verdict recorded: `APPROVE` on Pull Request `#9` after QA approval.
+- [x] Studio Owner merge disposition recorded: Pull Request `#9` merged into `main` as `4e812242c9bc6f96b141e60ff2cf4344bef30ea8`.
