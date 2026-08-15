@@ -1,4 +1,4 @@
-import tempfile, unittest
+import os, tempfile, unittest
 from prototype.rules.loader import load_data, initial_state
 from prototype.rules.validator import validate_data
 from prototype.rules.engine import perform_action, clamp
@@ -32,7 +32,8 @@ class RulesTests(unittest.TestCase):
  def test_item_consumption_quest_sell(self): items={r['id']:r for r in self.data['items']['records']}; self.assertFalse(can_sell(items['item_DOC01_greybox'])); self.assertTrue(can_sell(items['item_rice_ball']))
  def test_obligation(self): perform_action(self.data,self.st,'action_accept_help_vien_ngoai'); self.assertEqual(self.st.obligations[0]['source'],'Vien ngoai stipend'); self.assertEqual(self.st.stats['integrity'],50)
  def test_save_roundtrip(self):
-  with tempfile.NamedTemporaryFile(delete=True) as f: save(self.st,f.name); self.assertEqual(self.st.to_dict(),load(f.name).to_dict())
+  with tempfile.TemporaryDirectory() as td:
+   path=os.path.join(td,'save.json'); save(self.st,path); save(self.st,path); self.assertEqual(self.st.to_dict(),load(path).to_dict())
 
  def test_validator_unknown_unlock(self):
   with tempfile.TemporaryDirectory() as td:
