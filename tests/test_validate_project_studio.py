@@ -198,11 +198,11 @@ class ValidateProjectStudioTests(unittest.TestCase):
             handle.write("\nNo engine is selected.\n")
         self.assert_valid()
 
-    def test_post_pr_delivery_sequence_regression_is_blocked(self):
+    def test_completion_sequence_regression_is_blocked(self):
         path = self.repo / MEMORY_PACKAGE / "STATE.md"
         content = path.read_text(encoding="utf-8")
         content = content.replace(
-            "  - Confirm Pull Request #9 current head contains the QA01-F001 correction recorded at STUDIO-005-CP-0015.",
+            "  - The Studio Owner merged Pull Request #9 into main as implementation merge commit 4e812242c9bc6f96b141e60ff2cf4344bef30ea8.",
             "  - Studio Owner authorization is required before commit, push, or draft Pull Request creation.",
             1,
         )
@@ -212,7 +212,7 @@ class ValidateProjectStudioTests(unittest.TestCase):
     def test_stale_worktree_only_durability_is_blocked(self):
         path = self.repo / MEMORY_PACKAGE / "STATE.md"
         content = path.read_text(encoding="utf-8")
-        content = content.replace("durability_state: PR", "durability_state: WORKTREE_ONLY", 1)
+        content = content.replace("durability_state: MERGED", "durability_state: WORKTREE_ONLY", 1)
         path.write_text(content, encoding="utf-8")
         self.assertIn("ANCHOR", self.codes())
 
@@ -220,12 +220,24 @@ class ValidateProjectStudioTests(unittest.TestCase):
         path = self.repo / MEMORY_PACKAGE / "STATE.md"
         content = path.read_text(encoding="utf-8")
         content = content.replace(
-            "last_verified_persisted_ref: Pull Request #9",
+            "last_verified_persisted_ref: main at implementation merge commit 4e812242c9bc6f96b141e60ff2cf4344bef30ea8; Pull Request #9 merged",
             "last_verified_persisted_ref: NONE",
             1,
         )
         path.write_text(content, encoding="utf-8")
         self.assertIn("ANCHOR", self.codes())
+
+    def test_project_studio_must_remain_complete(self):
+        path = self.repo / "projects/si-tu-chapter-1/PROJECT_STUDIO.md"
+        content = path.read_text(encoding="utf-8")
+        path.write_text(content.replace("- `status`: `COMPLETE`", "- `status`: `HANDOFF`", 1), encoding="utf-8")
+        self.assertIn("STATE", self.codes())
+
+    def test_complete_memory_requires_released_writer(self):
+        path = self.repo / MEMORY_PACKAGE / "STATE.md"
+        content = path.read_text(encoding="utf-8")
+        path.write_text(content.replace("  status: RELEASED", "  status: CLAIMED", 1), encoding="utf-8")
+        self.assertIn("WRITER_CLAIM", self.codes())
 
     def test_copying_cannot_automatically_create_official_content(self):
         path = self.repo / "projects/si-tu-chapter-1/SOURCE_AUTHORITY.md"

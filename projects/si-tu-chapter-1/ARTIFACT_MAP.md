@@ -4,7 +4,7 @@
 
 This is the central repository index for `SITU-CH1`. It locates artifacts without copying or moving them. Mapping an artifact preserves discovery and provenance; it does not grant historical truth, official content authority, acceptance, or precedence.
 
-Status values include `IMMUTABLE SOURCE`, `WORKING INPUT`, `EXISTING`, `ACTIVE`, `TEMPLATE`, `UNASSESSED`, `UNKNOWN`, `UNRESOLVED`, and `NONE`.
+Status values include `IMMUTABLE SOURCE`, `WORKING INPUT`, `EXISTING`, `ACTIVE`, `COMPLETE`, `TEMPLATE`, `UNASSESSED`, `UNKNOWN`, `UNRESOLVED`, and `NONE`.
 
 ## 2. Owner-created GDD source baselines
 
@@ -28,13 +28,13 @@ Neither row has automatic global or scoped precedence. See `SOURCE_AUTHORITY.md`
 
 | Path | Type | Status and authority | Provenance / producing task | Review, commit, or PR reference |
 | --- | --- | --- | --- | --- |
-| `projects/si-tu-chapter-1/PROJECT_STUDIO.md` | Project Studio record | `ACTIVE`; organizational source of project identity and isolation | STUDIO-005 | Contract commit `531235536db678ec93c1f8a11ed4e31bbb0bfeff`; Draft PR `#9` |
-| `projects/si-tu-chapter-1/SOURCE_AUTHORITY.md` | Source-authority rule | `ACTIVE`; canonical project operational rule | STUDIO-005 / `OWNER_DECISION-SOURCE-001` | Draft PR `#9`; QA-01 v13 audited implementation head `c22d75a4f3b1cc041cec4370d2571564d3f86744` |
-| `projects/si-tu-chapter-1/DECISIONS.md` | Project decision register | `ACTIVE`; scoped accepted decisions | STUDIO-005 | Approval evidence in contract; Draft PR `#9` |
-| `projects/si-tu-chapter-1/cells/SITU-BASELINE-001.md` | Cell record | `HANDOFF`; temporary bootstrap scope | STUDIO-005 | QA-01 v13: `REQUEST CHANGES` with finding `QA01-F001`; integration verdict `NONE` |
-| `projects/si-tu-chapter-1/memory/tasks/STUDIO-005/` | Four-record memory package | `HANDOFF`; operational evidence only | STUDIO-005 | Last checkpoint declared inside package; Draft PR `#9` |
+| `projects/si-tu-chapter-1/PROJECT_STUDIO.md` | Project Studio record | `ACTIVE`; STUDIO-005 bootstrap `COMPLETE`; organizational source of project identity and isolation | STUDIO-005 | Pull Request `#9` merged into `main` as `4e812242c9bc6f96b141e60ff2cf4344bef30ea8` |
+| `projects/si-tu-chapter-1/SOURCE_AUTHORITY.md` | Source-authority rule | `ACTIVE`; canonical project operational rule | STUDIO-005 / `OWNER_DECISION-SOURCE-001` | QA-01 v14 `APPROVE`; Pull Request `#9` merged as `4e812242c9bc6f96b141e60ff2cf4344bef30ea8` |
+| `projects/si-tu-chapter-1/DECISIONS.md` | Project decision register | `ACTIVE`; scoped accepted decisions | STUDIO-005 | Approval evidence in contract; Pull Request `#9` merged |
+| `projects/si-tu-chapter-1/cells/SITU-BASELINE-001.md` | Cell record | `COMPLETE`; temporary bootstrap Cell dissolved | STUDIO-005 | QA-01 v14 `APPROVE`; Review & Integration `APPROVE`; merge commit `4e812242c9bc6f96b141e60ff2cf4344bef30ea8` |
+| `projects/si-tu-chapter-1/memory/tasks/STUDIO-005/` | Four-record memory package | `COMPLETE`; operational evidence only | STUDIO-005 | Last checkpoint `STUDIO-005-CP-0016`; Pull Request `#9` merged |
 | `tasks/STUDIO-005.md` | Accepted task contract | `APPROVED`; binding implementation scope | Studio Owner | Commit `531235536db678ec93c1f8a11ed4e31bbb0bfeff` |
-| `tasks/STUDIO-005-AMENDMENT-001.md` | Accepted bounded amendment | `OWNER_APPROVED`; adds the amendment record and Windows-compatible save-roundtrip test to scope | Studio Owner | Draft PR `#9`; implementation head `c22d75a4f3b1cc041cec4370d2571564d3f86744` |
+| `tasks/STUDIO-005-AMENDMENT-001.md` | Accepted bounded amendment | `OWNER_APPROVED`; adds the amendment record and Windows-compatible save-roundtrip test to scope | Studio Owner | Correction head `8212a080f7a22a96a521829d81e00a7763bb2d50`; Pull Request `#9` merged |
 | `studio/PROJECT_STUDIO_TEMPLATE.md` | Reusable organizational template | `EXISTING`; template, not project truth | STUDIO-003/004 governance | Commit/reference `UNKNOWN` in this map |
 | `studio/MEMORY_PROTOCOL.md` | Persistent-memory protocol | `EXISTING`; canonical studio protocol | STUDIO-004 | Commit/reference `UNKNOWN` in this map |
 
@@ -42,7 +42,7 @@ Neither row has automatic global or scoped precedence. See `SOURCE_AUTHORITY.md`
 
 | Path or group | Type | Status and authority | Provenance | Review reference |
 | --- | --- | --- | --- | --- |
-| `AGENTS.md` | Repository instructions | `ACTIVE`; repository-wide and project-scoped rules | Studio governance plus STUDIO-005 | Draft PR `#9` |
+| `AGENTS.md` | Repository instructions | `ACTIVE`; repository-wide and project-scoped rules | Studio governance plus STUDIO-005 | Pull Request `#9` merged |
 | `docs/GAME_VISION.md` | Vision template | `TEMPLATE`; unfilled fields are not project truth | Repository bootstrap | `UNRESOLVED` |
 | `docs/DECISIONS.md` | Studio-wide decision register | `ACTIVE`; do not duplicate as project decisions | Repository governance | `UNKNOWN` |
 | `docs/HISTORICAL_CONTENT_SYSTEM.md` | Historical-content system | `ACTIVE`; evidence and QA rules | Historical-game workflow | Existing tests/validator where applicable |

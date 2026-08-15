@@ -16,9 +16,11 @@ from typing import Iterable, Mapping, Sequence
 BASELINE_COMMIT = "4e5f3ae84724271363b8f098cfeeceda8ffe9b98"
 CONTRACT_COMMIT = "531235536db678ec93c1f8a11ed4e31bbb0bfeff"
 AUDITED_IMPLEMENTATION_COMMIT = "c22d75a4f3b1cc041cec4370d2571564d3f86744"
+AUDITED_CORRECTION_COMMIT = "8212a080f7a22a96a521829d81e00a7763bb2d50"
+IMPLEMENTATION_MERGE_COMMIT = "4e812242c9bc6f96b141e60ff2cf4344bef30ea8"
 DELIVERY_PULL_REQUEST = "#9"
 CONTRACT_BLOB = "cf09f87461f78500e380a68600fae53df7dc1d02"
-EXPECTED_BRANCH = "studio-v0.5"
+EXPECTED_BRANCHES = {"agent/studio-005-closeout", "main"}
 
 CONTRACT_PATH = Path("tasks/STUDIO-005.md")
 AMENDMENT_PATH = Path("tasks/STUDIO-005-AMENDMENT-001.md")
@@ -278,8 +280,8 @@ def _validate_project_identity(root: Path, errors: list[ValidationError]) -> Non
         ],
     )
     status_match = re.search(r"(?m)^- `status`: `([A-Z]+)`$", project)
-    if not status_match or status_match.group(1) not in {"ACTIVE", "BLOCKED", "HANDOFF"}:
-        _error(errors, "STATE", project_path, "bootstrap status must be ACTIVE, BLOCKED, or HANDOFF")
+    if not status_match or status_match.group(1) != "COMPLETE":
+        _error(errors, "STATE", project_path, "closed bootstrap status must be COMPLETE")
 
     cell = contents.get(cell_path, "")
     _require_tokens(
@@ -298,8 +300,8 @@ def _validate_project_identity(root: Path, errors: list[ValidationError]) -> Non
         ],
     )
     cell_state_match = re.search(r"(?m)^- `state`: `([A-Z]+)`$", cell)
-    if not cell_state_match or cell_state_match.group(1) not in {"ACTIVE", "BLOCKED", "HANDOFF"}:
-        _error(errors, "STATE", cell_path, "Cell state must be ACTIVE, BLOCKED, or HANDOFF")
+    if not cell_state_match or cell_state_match.group(1) != "COMPLETE":
+        _error(errors, "STATE", cell_path, "closed Cell state must be COMPLETE")
     if status_match and cell_state_match and status_match.group(1) != cell_state_match.group(1):
         _error(errors, "STATE", cell_path, "Cell state must match Project Studio bootstrap status")
 
@@ -429,16 +431,18 @@ def _validate_memory(root: Path, errors: list[ValidationError]) -> None:
         MEMORY_PACKAGE / "STATE.md",
         state,
         [
-            "branch: studio-v0.5",
-            f"last_observed_HEAD: {AUDITED_IMPLEMENTATION_COMMIT}",
-            "durability_state: PR",
-            f"last_verified_persisted_ref: Pull Request {DELIVERY_PULL_REQUEST}",
+            "branch: main",
+            f"last_observed_HEAD: {IMPLEMENTATION_MERGE_COMMIT}",
+            "durability_state: MERGED",
+            f"last_verified_persisted_ref: main at implementation merge commit {IMPLEMENTATION_MERGE_COMMIT}; Pull Request {DELIVERY_PULL_REQUEST} merged",
             "official_integrated_gdd: NOT_YET_DESIGNATED",
             "exactly the 16 implementation paths",
+            f"QA-01 v14 returned APPROVE with zero findings against correction head {AUDITED_CORRECTION_COMMIT}",
+            f"merged Pull Request {DELIVERY_PULL_REQUEST} into main as implementation merge commit {IMPLEMENTATION_MERGE_COMMIT}",
             "active_writer_claim:",
         ],
     )
-    state_match = re.search(r"(?m)^state:\s*(ACTIVE|BLOCKED|HANDOFF)$", state)
+    state_match = re.search(r"(?m)^state:\s*(ACTIVE|BLOCKED|HANDOFF|COMPLETE)$", state)
     writer_match = re.search(r"(?ms)^active_writer_claim:\s*\n\s*status:\s*(CLAIMED|RELEASED|UNKNOWN|TRANSFER_PENDING)", state)
     if not state_match:
         _error(errors, "MEMORY_STATE", MEMORY_PACKAGE / "STATE.md", "invalid current state")
@@ -450,6 +454,8 @@ def _validate_memory(root: Path, errors: list[ValidationError]) -> None:
             _error(errors, "WRITER_CLAIM", MEMORY_PACKAGE / "STATE.md", "ACTIVE requires one CLAIMED writer")
         if current_state == "HANDOFF" and writer_state not in {"RELEASED", "TRANSFER_PENDING"}:
             _error(errors, "WRITER_CLAIM", MEMORY_PACKAGE / "STATE.md", "HANDOFF requires RELEASED or TRANSFER_PENDING")
+        if current_state == "COMPLETE" and writer_state != "RELEASED":
+            _error(errors, "WRITER_CLAIM", MEMORY_PACKAGE / "STATE.md", "COMPLETE requires a RELEASED writer")
 
     worklog = memory.get("WORKLOG.md", "")
     _require_tokens(
@@ -517,7 +523,7 @@ def _validate_memory(root: Path, errors: list[ValidationError]) -> None:
         ],
     )
     if state_match:
-        resume_state = re.search(r"(?m)^current_state:\s*(ACTIVE|BLOCKED|HANDOFF)$", resume)
+        resume_state = re.search(r"(?m)^current_state:\s*(ACTIVE|BLOCKED|HANDOFF|COMPLETE)$", resume)
         if not resume_state or resume_state.group(1) != state_match.group(1):
             _error(errors, "MEMORY_STATE", MEMORY_PACKAGE / "RESUME.md", "current_state must match STATE.md")
 
@@ -683,16 +689,16 @@ def _validate_no_technology_selection(root: Path, errors: list[ValidationError])
 def _validate_delivery_sequence(root: Path, errors: list[ValidationError]) -> None:
     targets = {
         MEMORY_PACKAGE / "STATE.md": (
-            r"(?ms)^remaining:\s*\|\s*\n(?P<body>.*?)(?=^blockers:)",
-            ("Pull Request #9", "QA01-F001 correction", "Independent QA-01", "Review & Integration"),
+            r"(?ms)^completed:\s*\|\s*\n(?P<body>.*?)(?=^remaining:)",
+            ("QA-01 v14", "Review & Integration", "merged Pull Request #9", "STUDIO-005 is COMPLETE"),
         ),
         MEMORY_PACKAGE / "RESUME.md": (
-            r"(?ms)^remaining_summary:\s*\|\s*\n(?P<body>.*?)(?=^blockers_and_authority_questions:)",
-            ("Pull Request #9", "QA01-F001 correction", "Independent QA-01", "Review & Integration"),
+            r"(?ms)^completed_summary:\s*\|\s*\n(?P<body>.*?)(?=^remaining_summary:)",
+            ("QA-01 v14", "Review & Integration", "merged Pull Request #9", "STUDIO-005 is COMPLETE"),
         ),
         PROJECT_ROOT / "cells/SITU-BASELINE-001.md": (
-            r"(?ms)^## 7\. Handoff targets\s*\n(?P<body>.*?)(?=^## 8\.)",
-            ("Pull Request #9", "QA01-F001 correction", "QA-01", "Review & Integration"),
+            r"(?ms)^## 7\. Completion evidence\s*\n(?P<body>.*?)(?=^## 8\.)",
+            ("QA-01 v14", "Review & Integration", "merged Pull Request `#9`", IMPLEMENTATION_MERGE_COMMIT),
         ),
     }
     for relative, (pattern, ordered_tokens) in targets.items():
@@ -710,7 +716,7 @@ def _validate_delivery_sequence(root: Path, errors: list[ValidationError]) -> No
                 errors,
                 "DELIVERY_SEQUENCE",
                 relative,
-                "must order existing PR #9 -> QA01-F001 correction -> independent QA rerun -> Review & Integration",
+                "must order QA approval -> Review & Integration approval -> PR #9 merge -> COMPLETE",
             )
 
     state = _read_text(root, MEMORY_PACKAGE / "STATE.md", errors)
@@ -720,6 +726,17 @@ def _validate_delivery_sequence(root: Path, errors: list[ValidationError]) -> No
         _error(errors, "DELIVERY_SEQUENCE", MEMORY_PACKAGE / "STATE.md", "memory cannot regress to a pre-delivery state after PR #9 exists")
     if resume is not None and forbidden in resume:
         _error(errors, "DELIVERY_SEQUENCE", MEMORY_PACKAGE / "RESUME.md", "memory cannot regress to a pre-delivery state after PR #9 exists")
+
+    stale_tokens = ("REQUEST CHANGES", "rerun required", "Review & Integration verdict: NONE", "Pull Request: #9 OPEN DRAFT")
+    for relative, content in (
+        (MEMORY_PACKAGE / "STATE.md", state),
+        (MEMORY_PACKAGE / "RESUME.md", resume),
+    ):
+        if content is None:
+            continue
+        for token in stale_tokens:
+            if token in content:
+                _error(errors, "DELIVERY_SEQUENCE", relative, f"completed memory retains stale state {token!r}")
 
 
 def _validate_agent_and_readme(root: Path, errors: list[ValidationError]) -> None:
@@ -794,8 +811,13 @@ def _validate_git_scope(root: Path, errors: list[ValidationError]) -> None:
     if branch.returncode != 0:
         _error(errors, "GIT", Path("."), f"cannot resolve branch: {branch.stderr.strip()}")
         return
-    if branch.stdout.strip() != EXPECTED_BRANCH:
-        _error(errors, "GIT", Path("."), f"expected branch {EXPECTED_BRANCH}, found {branch.stdout.strip()!r}")
+    if branch.stdout.strip() not in EXPECTED_BRANCHES:
+        _error(
+            errors,
+            "GIT",
+            Path("."),
+            f"expected one of {sorted(EXPECTED_BRANCHES)}, found {branch.stdout.strip()!r}",
+        )
 
     contract_blob = _run_git(root, "rev-parse", f"{CONTRACT_COMMIT}:{CONTRACT_PATH.as_posix()}")
     if contract_blob.returncode != 0 or contract_blob.stdout.strip() != CONTRACT_BLOB:

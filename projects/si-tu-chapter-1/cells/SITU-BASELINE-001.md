@@ -6,7 +6,7 @@
 - `parent_scope`: Project Studio `SITU-CH1`
 - `task_contract`: `tasks/STUDIO-005.md`
 - `authorized_amendment`: `tasks/STUDIO-005-AMENDMENT-001.md`
-- `state`: `HANDOFF`
+- `state`: `COMPLETE`
 - `handoff_level`: `LEVEL 2 — historical / architectural`
 - `memory_package`: `projects/si-tu-chapter-1/memory/tasks/STUDIO-005/`
 - `bounded_outcome`: Establish and deterministically validate the first real Project Studio baseline without changing game content or selecting technology.
@@ -29,9 +29,9 @@
 
 | Execution capability | Bounded responsibility | State |
 | --- | --- | --- |
-| Producer / Coordination | Maintain exact 16-file amended implementation scope, dependency visibility, checkpoints, and handoff readiness | `HANDOFF` |
-| Narrative / Research | Preserve co-equal source treatment, authority-layer separation, evidence classifications, and `DOC01` limits | `HANDOFF` |
-| Engineering | Implement the validator, tests, exact file structure, and deterministic checks | `HANDOFF` |
+| Producer / Coordination | Maintain exact 16-file amended implementation scope, dependency visibility, checkpoints, and handoff readiness | `COMPLETE` |
+| Narrative / Research | Preserve co-equal source treatment, authority-layer separation, evidence classifications, and `DOC01` limits | `COMPLETE` |
+| Engineering | Implement the validator, tests, exact file structure, and deterministic checks | `COMPLETE` |
 
 QA and Review & Integration are independent handoff recipients, not implementation authors or permanent Cell members. No runtime, model, or provider is assigned to a logical capability.
 
@@ -55,25 +55,25 @@ The Cell may create or modify only the 16 implementation paths authorized by `ta
 | --- | --- | --- |
 | Contract durability | Remote branch contains contract commit | `VERIFIED`: `studio-v0.5@531235536db678ec93c1f8a11ed4e31bbb0bfeff` |
 | GDD immutability | Exact Git blob SHAs | `VERIFIED AT INITIALIZATION`; recheck before commit |
-| Exact scope | Git status/diff contains only authorized paths | `PASS at STUDIO-005-CP-0015` |
-| Deterministic tests | Validators and unit-test suite exit 0 | `PASS at STUDIO-005-CP-0015` |
-| Durable delivery | Authorized commit, push, and draft Pull Request | `VERIFIED`: Draft Pull Request `#9`; audited implementation head `c22d75a4f3b1cc041cec4370d2571564d3f86744` |
-| Independent QA | Repository-visible verdict on immutable draft Pull Request head | `REQUEST CHANGES`: QA-01 v13 finding `QA01-F001`; corrected at `STUDIO-005-CP-0015`, rerun required |
-| Review & Integration | Repository-visible verdict after QA | `PENDING` |
+| Exact scope | Git status/diff contains only authorized paths | `PASS at STUDIO-005-CP-0016` |
+| Deterministic tests | Validators and unit-test suite exit 0 | `PASS at STUDIO-005-CP-0016` |
+| Durable delivery | Authorized commit, push, and Pull Request merge | `VERIFIED`: correction head `8212a080f7a22a96a521829d81e00a7763bb2d50`; Pull Request `#9` merged as `4e812242c9bc6f96b141e60ff2cf4344bef30ea8` |
+| Independent QA | Repository-visible verdict on immutable Pull Request head | `APPROVE`: QA-01 v14, zero findings, audited correction head `8212a080f7a22a96a521829d81e00a7763bb2d50` |
+| Review & Integration | Repository-visible verdict after QA | `APPROVE` on Pull Request `#9` |
 
 Enter `BLOCKED` if source hashes change, scope expands, evidence/canon authority conflicts, writer state cannot be reconciled, or any required check fails.
 
-## 7. Handoff targets
+## 7. Completion evidence
 
-1. Verify that Pull Request #9 current head contains the QA01-F001 correction recorded at STUDIO-005-CP-0015.
-2. Independent QA-01 reruns against that immutable corrected head and attempts to falsify scope, source immutability, co-equal status, authority separation, memory accuracy, external-candidate safety, and validator negative cases.
-3. Review & Integration acts only after QA approves and checks architectural consistency, authority boundaries, source-of-truth placement, duplication, readability, and evidence sufficiency.
-4. The Studio Owner reviews the final Pull Request and decides merge and branch disposition.
+1. Pull Request `#9` contains the QA01-F001 correction at head `8212a080f7a22a96a521829d81e00a7763bb2d50`.
+2. QA-01 v14 returned `APPROVE` with zero findings against that immutable head.
+3. Review & Integration returned `APPROVE` after QA approval.
+4. The Studio Owner merged Pull Request `#9` into `main` as `4e812242c9bc6f96b141e60ff2cf4344bef30ea8`.
 
 Allowed independent verdicts are `APPROVE`, `REQUEST CHANGES`, or `BLOCK`.
 
 ## 8. Completion and dissolution
 
-The Cell may enter `COMPLETE` only when all deliverables exist, deterministic checks pass, QA and Review & Integration approve, residual risks are explicit, and a downstream disposition is recorded. It then dissolves or becomes `INACTIVE`.
+The Cell entered `COMPLETE` at `STUDIO-005-CP-0016` after all deliverables existed, deterministic checks passed, QA and Review & Integration approved, residual risks were explicit, and the Studio Owner merged Pull Request `#9`. The Cell is dissolved.
 
 The Cell may not persist into gameplay implementation, content comparison, GDD integration, external-capability evaluation, or permanent staffing without a new accepted task.
