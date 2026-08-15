@@ -198,16 +198,34 @@ class ValidateProjectStudioTests(unittest.TestCase):
             handle.write("\nNo engine is selected.\n")
         self.assert_valid()
 
-    def test_qa_before_draft_pr_is_blocked(self):
+    def test_post_pr_delivery_sequence_regression_is_blocked(self):
         path = self.repo / MEMORY_PACKAGE / "STATE.md"
         content = path.read_text(encoding="utf-8")
         content = content.replace(
+            "  - Confirm Pull Request #9 current head contains the QA01-F001 correction recorded at STUDIO-005-CP-0015.",
             "  - Studio Owner authorization is required before commit, push, or draft Pull Request creation.",
-            "  - Independent QA-01 must act before delivery.",
             1,
         )
         path.write_text(content, encoding="utf-8")
         self.assertIn("DELIVERY_SEQUENCE", self.codes())
+
+    def test_stale_worktree_only_durability_is_blocked(self):
+        path = self.repo / MEMORY_PACKAGE / "STATE.md"
+        content = path.read_text(encoding="utf-8")
+        content = content.replace("durability_state: PR", "durability_state: WORKTREE_ONLY", 1)
+        path.write_text(content, encoding="utf-8")
+        self.assertIn("ANCHOR", self.codes())
+
+    def test_missing_delivered_pr_reference_is_blocked(self):
+        path = self.repo / MEMORY_PACKAGE / "STATE.md"
+        content = path.read_text(encoding="utf-8")
+        content = content.replace(
+            "last_verified_persisted_ref: Pull Request #9",
+            "last_verified_persisted_ref: NONE",
+            1,
+        )
+        path.write_text(content, encoding="utf-8")
+        self.assertIn("ANCHOR", self.codes())
 
     def test_copying_cannot_automatically_create_official_content(self):
         path = self.repo / "projects/si-tu-chapter-1/SOURCE_AUTHORITY.md"

@@ -174,7 +174,18 @@ canonical_task_contract: tasks/STUDIO-005.md
   resulting_state: HANDOFF awaiting Studio Owner authorization for commit, push, and draft Pull Request creation
   correction_of: STUDIO-005-CP-0012
 
+- checkpoint_id: STUDIO-005-CP-0015
+  timestamp: 2026-08-15T16:30:00+07:00
+  actor: Cell SITU-BASELINE-001
+  action: Reconcile repository-visible delivery and official QA-01 v13 evidence, correct QA01-F001, and harden the validator against stale pre-delivery memory.
+  scope_files: projects/si-tu-chapter-1/ARTIFACT_MAP.md; projects/si-tu-chapter-1/cells/SITU-BASELINE-001.md; projects/si-tu-chapter-1/memory/tasks/STUDIO-005/{STATE,WORKLOG,RESUME}.md; scripts/validate_project_studio.py; tests/test_validate_project_studio.py
+  command_or_check: verify Draft Pull Request #9 at audited implementation head c22d75a4f3b1cc041cec4370d2571564d3f86744; inspect QA-01 v13 PASS execution and REQUEST CHANGES verdict; run project and evidence validators, validator unit tests, complete unit-test discovery, exact correction scope, and whitespace checks
+  evidence_reference: Draft Pull Request #9; audited implementation head c22d75a4f3b1cc041cec4370d2571564d3f86744; QA-01 v13 ran 67 tests successfully and reported QA01-F001; correction head is recorded by the Pull Request ref and delivery comment
+  outcome: completed
+  rationale: The implementation and amendment were already durable in Draft Pull Request #9, but the artifact map, Cell record, and task memory still described a pre-delivery worktree. The correction records the actual delivery and QA state without claiming acceptance or merge.
+  resulting_state: HANDOFF to independent QA-01 rerun on the immutable corrected Pull Request #9 head
+  correction_of: STUDIO-005-CP-0014
+
 # Append-only rules
 
 Add only material checkpoints. Record attempted, failed, partial, completed, reviewed, and accepted outcomes distinctly. Corrections append a new checkpoint and reference the earlier ID; they never rewrite history. Do not store secrets, credentials, private transcripts, private chain-of-thought, or machine-specific absolute paths.
-

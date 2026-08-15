@@ -15,6 +15,8 @@ from typing import Iterable, Mapping, Sequence
 
 BASELINE_COMMIT = "4e5f3ae84724271363b8f098cfeeceda8ffe9b98"
 CONTRACT_COMMIT = "531235536db678ec93c1f8a11ed4e31bbb0bfeff"
+AUDITED_IMPLEMENTATION_COMMIT = "c22d75a4f3b1cc041cec4370d2571564d3f86744"
+DELIVERY_PULL_REQUEST = "#9"
 CONTRACT_BLOB = "cf09f87461f78500e380a68600fae53df7dc1d02"
 EXPECTED_BRANCH = "studio-v0.5"
 
@@ -428,9 +430,9 @@ def _validate_memory(root: Path, errors: list[ValidationError]) -> None:
         state,
         [
             "branch: studio-v0.5",
-            f"last_observed_HEAD: {CONTRACT_COMMIT}",
-            "durability_state: WORKTREE_ONLY",
-            "last_verified_persisted_ref: NONE",
+            f"last_observed_HEAD: {AUDITED_IMPLEMENTATION_COMMIT}",
+            "durability_state: PR",
+            f"last_verified_persisted_ref: Pull Request {DELIVERY_PULL_REQUEST}",
             "official_integrated_gdd: NOT_YET_DESIGNATED",
             "exactly the 16 implementation paths",
             "active_writer_claim:",
@@ -682,15 +684,15 @@ def _validate_delivery_sequence(root: Path, errors: list[ValidationError]) -> No
     targets = {
         MEMORY_PACKAGE / "STATE.md": (
             r"(?ms)^remaining:\s*\|\s*\n(?P<body>.*?)(?=^blockers:)",
-            ("Studio Owner authorization is required", "After that authorization, commit and push", "then open a draft Pull Request", "Independent QA-01", "Review & Integration"),
+            ("Pull Request #9", "QA01-F001 correction", "Independent QA-01", "Review & Integration"),
         ),
         MEMORY_PACKAGE / "RESUME.md": (
             r"(?ms)^remaining_summary:\s*\|\s*\n(?P<body>.*?)(?=^blockers_and_authority_questions:)",
-            ("Studio Owner authorization is required", "After that authorization, commit and push", "then open a draft Pull Request", "Independent QA-01", "Review & Integration"),
+            ("Pull Request #9", "QA01-F001 correction", "Independent QA-01", "Review & Integration"),
         ),
         PROJECT_ROOT / "cells/SITU-BASELINE-001.md": (
             r"(?ms)^## 7\. Handoff targets\s*\n(?P<body>.*?)(?=^## 8\.)",
-            ("Studio Owner authorization", "commit and push", "draft Pull Request", "QA", "Review & Integration"),
+            ("Pull Request #9", "QA01-F001 correction", "QA-01", "Review & Integration"),
         ),
     }
     for relative, (pattern, ordered_tokens) in targets.items():
@@ -708,16 +710,16 @@ def _validate_delivery_sequence(root: Path, errors: list[ValidationError]) -> No
                 errors,
                 "DELIVERY_SEQUENCE",
                 relative,
-                "must order Studio Owner authorization -> commit/push -> draft PR -> independent QA -> Review & Integration",
+                "must order existing PR #9 -> QA01-F001 correction -> independent QA rerun -> Review & Integration",
             )
 
     state = _read_text(root, MEMORY_PACKAGE / "STATE.md", errors)
     resume = _read_text(root, MEMORY_PACKAGE / "RESUME.md", errors)
-    forbidden = "QA-01 should independently verify the exact 16-path diff"
+    forbidden = "Studio Owner authorization is required before commit, push, or draft Pull Request creation"
     if state is not None and forbidden in state:
-        _error(errors, "DELIVERY_SEQUENCE", MEMORY_PACKAGE / "STATE.md", "official QA cannot be the next action before a draft PR exists")
+        _error(errors, "DELIVERY_SEQUENCE", MEMORY_PACKAGE / "STATE.md", "memory cannot regress to a pre-delivery state after PR #9 exists")
     if resume is not None and forbidden in resume:
-        _error(errors, "DELIVERY_SEQUENCE", MEMORY_PACKAGE / "RESUME.md", "official QA cannot be the next action before a draft PR exists")
+        _error(errors, "DELIVERY_SEQUENCE", MEMORY_PACKAGE / "RESUME.md", "memory cannot regress to a pre-delivery state after PR #9 exists")
 
 
 def _validate_agent_and_readme(root: Path, errors: list[ValidationError]) -> None:

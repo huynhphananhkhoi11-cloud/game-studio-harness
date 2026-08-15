@@ -55,21 +55,20 @@ The Cell may create or modify only the 16 implementation paths authorized by `ta
 | --- | --- | --- |
 | Contract durability | Remote branch contains contract commit | `VERIFIED`: `studio-v0.5@531235536db678ec93c1f8a11ed4e31bbb0bfeff` |
 | GDD immutability | Exact Git blob SHAs | `VERIFIED AT INITIALIZATION`; recheck before commit |
-| Exact scope | Git status/diff contains only authorized paths | `PASS at STUDIO-005-CP-0014` |
-| Deterministic tests | Validators and unit-test suite exit 0 | `PASS at STUDIO-005-CP-0014` |
-| Durable delivery | Authorized commit, push, and draft Pull Request | `PENDING STUDIO OWNER AUTHORIZATION` |
-| Independent QA | Repository-visible verdict on immutable draft Pull Request head | `PENDING AFTER DRAFT PR` |
+| Exact scope | Git status/diff contains only authorized paths | `PASS at STUDIO-005-CP-0015` |
+| Deterministic tests | Validators and unit-test suite exit 0 | `PASS at STUDIO-005-CP-0015` |
+| Durable delivery | Authorized commit, push, and draft Pull Request | `VERIFIED`: Draft Pull Request `#9`; audited implementation head `c22d75a4f3b1cc041cec4370d2571564d3f86744` |
+| Independent QA | Repository-visible verdict on immutable draft Pull Request head | `REQUEST CHANGES`: QA-01 v13 finding `QA01-F001`; corrected at `STUDIO-005-CP-0015`, rerun required |
 | Review & Integration | Repository-visible verdict after QA | `PENDING` |
 
 Enter `BLOCKED` if source hashes change, scope expands, evidence/canon authority conflicts, writer state cannot be reconciled, or any required check fails.
 
 ## 7. Handoff targets
 
-1. Obtain explicit Studio Owner authorization for the delivery operation; the correction itself does not authorize Git writes.
-2. After authorization, commit and push the validated 16-path implementation, then open a draft Pull Request to `main`.
-3. QA independently audits the immutable draft Pull Request head and attempts to falsify scope, source immutability, co-equal status, authority separation, memory accuracy, external-candidate safety, and validator negative cases.
-4. Review & Integration acts only after QA and checks architectural consistency, authority boundaries, source-of-truth placement, duplication, readability, and evidence sufficiency.
-5. The Studio Owner reviews the final Pull Request and decides merge and branch disposition.
+1. Verify that Pull Request #9 current head contains the QA01-F001 correction recorded at STUDIO-005-CP-0015.
+2. Independent QA-01 reruns against that immutable corrected head and attempts to falsify scope, source immutability, co-equal status, authority separation, memory accuracy, external-candidate safety, and validator negative cases.
+3. Review & Integration acts only after QA approves and checks architectural consistency, authority boundaries, source-of-truth placement, duplication, readability, and evidence sufficiency.
+4. The Studio Owner reviews the final Pull Request and decides merge and branch disposition.
 
 Allowed independent verdicts are `APPROVE`, `REQUEST CHANGES`, or `BLOCK`.
 
