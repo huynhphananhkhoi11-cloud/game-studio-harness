@@ -73,9 +73,9 @@ Neither row has automatic global or scoped precedence. See `SOURCE_AUTHORITY.md`
 | Path or evidence | Type | Status and authority | Provenance | Review, commit, or PR reference |
 | --- | --- | --- | --- | --- |
 | `tasks/STUDIO-006.md` | Accepted task contract | `APPROVED`; evaluation-only authority | Studio Owner | Pull Request `#11` merged into `main` as `0e2d7bab5c7c876338a246be16d46a8f1073b95c` |
-| `studio/EXTERNAL_CAPABILITY_CANDIDATES.md` | Evaluated candidate register | `EVALUATED`; every candidate remains `NOT INSTALLED` and `NO DECISION` | STUDIO-006 | `__PR_URL__` at delivery commit `__DELIVERY_COMMIT__`; independent QA pending |
-| `studio/EXTERNAL_CAPABILITY_EVALUATION.md` | Evidence-based evaluation report | `HANDOFF`; non-binding recommendations only | STUDIO-006 | Ten immutable candidate commits; `__PR_URL__` at delivery commit `__DELIVERY_COMMIT__` |
-| `projects/si-tu-chapter-1/memory/tasks/STUDIO-006/` | Four-record schema-1 memory package | `HANDOFF`; operational evidence only | STUDIO-006 | Last checkpoint `STUDIO-006-CP-0005`; writer claim `RELEASED` for QA; `__PR_URL__` |
+| `studio/EXTERNAL_CAPABILITY_CANDIDATES.md` | Evaluated candidate register | `EVALUATED`; every candidate remains `NOT INSTALLED` and `NO DECISION` | STUDIO-006 | `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12` at delivery commit `51bd7b8de00585e7345dce48637c4b3ed06c98b1`; independent QA pending |
+| `studio/EXTERNAL_CAPABILITY_EVALUATION.md` | Evidence-based evaluation report | `HANDOFF`; non-binding recommendations only | STUDIO-006 | Ten immutable candidate commits; `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12` at delivery commit `51bd7b8de00585e7345dce48637c4b3ed06c98b1` |
+| `projects/si-tu-chapter-1/memory/tasks/STUDIO-006/` | Four-record schema-1 memory package | `HANDOFF`; operational evidence only | STUDIO-006 | Last checkpoint `STUDIO-006-CP-0005`; writer claim `RELEASED` for QA; `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12` |
 | Pull Request `#11` | Contract review and merge evidence | `MERGED` | STUDIO-006 contract | Merge commit `0e2d7bab5c7c876338a246be16d46a8f1073b95c` |
 
 The report accepts no candidate for use. An `ADOPT` or `ADAPT` recommendation still requires a separate accepted implementation contract before external bytes, instructions, dependencies, hooks, or runtime behavior enter the repository.

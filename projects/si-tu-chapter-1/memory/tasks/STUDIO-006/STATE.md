@@ -13,14 +13,14 @@ logical_role: STUDIO-006-EVALUATION
 repository_context: game-studio-harness
 worktree_context: primary repository worktree
 branch: agent/studio-006-evaluation
-last_observed_HEAD: __DELIVERY_COMMIT__
+last_observed_HEAD: 51bd7b8de00585e7345dce48637c4b3ed06c98b1
 durability_state: PR
-last_verified_persisted_ref: __PR_URL__ at delivery commit __DELIVERY_COMMIT__; final administrative handoff head must be verified from the Pull Request because a commit cannot embed its own future SHA
+last_verified_persisted_ref: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12 at delivery commit 51bd7b8de00585e7345dce48637c4b3ed06c98b1; final administrative handoff head must be verified from the Pull Request because a commit cannot embed its own future SHA
 
 # Worktree and change boundary
 
 worktree_status_summary: |
-  - Exactly seven contract-authorized evaluation paths are delivered in __PR_URL__.
+  - Exactly seven contract-authorized evaluation paths are delivered in https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12.
   - tasks/STUDIO-006.md remains unchanged from merged main at 0e2d7bab5c7c876338a246be16d46a8f1073b95c.
   - The two GDD source blobs, MQ01 support, prototype code/data, dependencies, workflows, and completed STUDIO-005 package remain outside scope.
   - No unrelated or pre-existing change was claimed by STUDIO-006 at delivery.
@@ -34,7 +34,7 @@ completed: |
   - Produced one complete eleven-dimension assessment and one non-binding recommendation per candidate.
   - Updated the register without changing NOT INSTALLED or NO DECISION.
   - Updated the artifact map and created this four-record schema-1 package.
-  - Delivered the seven-path result to __PR_URL__ at delivery commit __DELIVERY_COMMIT__.
+  - Delivered the seven-path result to https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12 at delivery commit 51bd7b8de00585e7345dce48637c4b3ed06c98b1.
 remaining: |
   - Independent QA must verify completeness, evidence links, immutable references, exact scope, recommendation vocabulary, and prohibited actions.
   - Independent Review & Integration must run after QA approval.
@@ -64,7 +64,7 @@ latest_checks: |
   - exact seven-path scope and whitespace: PASS at STUDIO-006-CP-0005
 
 last_safe_checkpoint_id: STUDIO-006-CP-0005
-exact_next_action: Independent QA-06 verifies the immutable evaluation head in __PR_URL__; do not merge or implement any recommendation.
+exact_next_action: Independent QA-06 verifies the immutable evaluation head in https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12; do not merge or implement any recommendation.
 
 # Active writer claim
 

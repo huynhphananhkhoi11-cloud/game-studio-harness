@@ -61,8 +61,8 @@ log_mode: APPEND_ONLY
   actor: STUDIO-006-EVALUATION
   action: Deliver the corrected seven-path evaluation and release the writer claim for independent QA.
   scope_files: exactly the seven evaluation paths listed in TASK.md
-  command_or_check: commit and push delivery commit __DELIVERY_COMMIT__; create and verify Draft Pull Request __PR_URL__; refresh memory and artifact-map delivery evidence; rerun applicable checks; verify final PR head and seven-file scope
-  evidence_reference: __PR_URL__; delivery commit __DELIVERY_COMMIT__; final administrative handoff head resolved from PR metadata
+  command_or_check: commit and push delivery commit 51bd7b8de00585e7345dce48637c4b3ed06c98b1; create and verify Draft Pull Request https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12; refresh memory and artifact-map delivery evidence; rerun applicable checks; verify final PR head and seven-file scope
+  evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12; delivery commit 51bd7b8de00585e7345dce48637c4b3ed06c98b1; final administrative handoff head resolved from PR metadata
   outcome: completed
   rationale: Repository-visible PR evidence is required before independent QA; the report creates no candidate adoption authority.
   resulting_state: HANDOFF to Independent QA-06; writer claim RELEASED

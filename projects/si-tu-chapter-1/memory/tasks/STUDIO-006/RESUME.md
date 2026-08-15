@@ -25,9 +25,9 @@ required_read_order:
 repository_context: game-studio-harness
 worktree_context: primary repository worktree
 branch: agent/studio-006-evaluation
-last_observed_HEAD: __DELIVERY_COMMIT__
+last_observed_HEAD: 51bd7b8de00585e7345dce48637c4b3ed06c98b1
 durability_state: PR
-last_verified_persisted_ref: __PR_URL__ at delivery commit __DELIVERY_COMMIT__; verify final administrative handoff head from PR metadata
+last_verified_persisted_ref: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12 at delivery commit 51bd7b8de00585e7345dce48637c4b3ed06c98b1; verify final administrative handoff head from PR metadata
 
 expected_worktree_status: |
   - Exactly seven STUDIO-006 evaluation paths are present in the Draft Pull Request.
@@ -37,7 +37,7 @@ expected_worktree_status: |
 completed_summary: |
   - The contract was merged through Pull Request #11 as 0e2d7bab5c7c876338a246be16d46a8f1073b95c.
   - Exactly ten candidates were evaluated at immutable commits with direct GitHub evidence.
-  - The register, evaluation report, artifact map, and four-file memory package were delivered through __PR_URL__.
+  - The register, evaluation report, artifact map, and four-file memory package were delivered through https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12.
   - The writer claim is released for independent QA.
 remaining_summary: |
   - Independent QA-06, then Review & Integration, then Studio Owner merge disposition.
@@ -54,7 +54,7 @@ latest_checks: |
   - exact seven-path scope and whitespace: PASS
 
 first_verification_actions: |
-  - Verify __PR_URL__ is OPEN DRAFT and its head contains delivery commit __DELIVERY_COMMIT__.
+  - Verify https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12 is OPEN DRAFT and its head contains delivery commit 51bd7b8de00585e7345dce48637c4b3ed06c98b1.
   - Verify the PR changes exactly the seven paths listed in TASK.md.
   - Run git status --short --branch and preserve unrelated changes.
   - Verify all four memory records declare memory_schema_version: 1 and the writer claim is RELEASED.
