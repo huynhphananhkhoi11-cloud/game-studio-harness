@@ -23,6 +23,57 @@ from scripts.validate_project_studio import (  # noqa: E402
     validate_repository,
 )
 
+CANDIDATE_REGISTER_PATH = Path("studio/EXTERNAL_CAPABILITY_CANDIDATES.md")
+
+
+def candidate_register_fixture(mode: str) -> str:
+    """Build a register fixture independent of the repository's current mode."""
+    lines = ["# External Capability Candidate Register", ""]
+    for index, url in enumerate(EXTERNAL_CANDIDATES, start=1):
+        lines.extend(
+            [
+                f"## CANDIDATE-{index:02d} — fixture-{index:02d}",
+                "",
+                f"- URL: {url}",
+                f"- bounded evaluation purpose: Deterministic fixture purpose {index:02d}.",
+            ]
+        )
+        if mode == "BASELINE_UNASSESSED":
+            lines.extend(
+                [
+                    "- assessment: `UNASSESSED`",
+                    "- license: `NOT REVIEWED`",
+                    "- security: `NOT REVIEWED`",
+                    "- pinned commit or tag: `NONE`",
+                    "- compatibility: `UNRESOLVED`",
+                ]
+            )
+        elif mode == "EVALUATED":
+            reference = f"{index:040x}"
+            lines.extend(
+                [
+                    "- assessment: `EVALUATED`",
+                    f"- evaluated reference: `{reference}`",
+                    f"- immutable reference: {url}/commit/{reference}",
+                    "- license: `FIXTURE LICENSE CONCLUSION`",
+                    "- security: `FIXTURE SECURITY CONCLUSION`",
+                    "- compatibility: `FIXTURE COMPATIBILITY CONCLUSION`",
+                    "- recommendation: `REFERENCE`",
+                    f"- report anchor: `studio/EXTERNAL_CAPABILITY_EVALUATION.md#candidate-{index:02d}-fixture`",
+                    "- evidence limitation: Static fixture evidence only.",
+                ]
+            )
+        else:
+            raise ValueError(f"unsupported candidate-register fixture mode: {mode}")
+        lines.extend(
+            [
+                "- installation: `NOT INSTALLED`",
+                "- adoption decision: `NO DECISION`",
+                "",
+            ]
+        )
+    return "\n".join(lines)
+
 
 class ValidateProjectStudioTests(unittest.TestCase):
     def setUp(self):
@@ -36,6 +87,7 @@ class ValidateProjectStudioTests(unittest.TestCase):
             destination = self.repo / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)
+        self.write_candidate_register(candidate_register_fixture("BASELINE_UNASSESSED"))
 
     def tearDown(self):
         self.tempdir.cleanup()
@@ -46,12 +98,54 @@ class ValidateProjectStudioTests(unittest.TestCase):
     def codes(self):
         return {error.code for error in self.errors()}
 
+    def write_candidate_register(self, content):
+        path = self.repo / CANDIDATE_REGISTER_PATH
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
+
     def assert_valid(self):
         errors = self.errors()
         self.assertEqual([], errors, "\n".join(error.format() for error in errors))
 
     def test_valid_structure_passes(self):
         self.assert_valid()
+
+    def test_repository_candidate_register_state_passes(self):
+        shutil.copy2(ROOT / CANDIDATE_REGISTER_PATH, self.repo / CANDIDATE_REGISTER_PATH)
+        self.assert_valid()
+
+    def test_evaluated_structure_and_immutable_commit_urls_pass(self):
+        self.write_candidate_register(candidate_register_fixture("EVALUATED"))
+        self.assert_valid()
+
+    def test_mixed_candidate_transition_is_blocked(self):
+        content = candidate_register_fixture("EVALUATED")
+        content = content.replace("assessment: `EVALUATED`", "assessment: `UNASSESSED`", 1)
+        self.write_candidate_register(content)
+        self.assertIn("CANDIDATE_STATE", self.codes())
+
+    def test_malformed_evaluated_reference_is_blocked(self):
+        content = candidate_register_fixture("EVALUATED")
+        content = content.replace("evaluated reference: `0000000000000000000000000000000000000001`", "evaluated reference: `ABC123`", 1)
+        self.write_candidate_register(content)
+        self.assertIn("CANDIDATE_STATE", self.codes())
+
+    def test_mismatched_immutable_reference_is_blocked(self):
+        content = candidate_register_fixture("EVALUATED")
+        content = content.replace(
+            f"immutable reference: {EXTERNAL_CANDIDATES[0]}/commit/0000000000000000000000000000000000000001",
+            f"immutable reference: {EXTERNAL_CANDIDATES[0]}/commit/0000000000000000000000000000000000000002",
+            1,
+        )
+        self.write_candidate_register(content)
+        self.assertIn("CANDIDATE_STATE", self.codes())
+
+    def test_duplicate_explicit_canonical_url_is_blocked(self):
+        content = candidate_register_fixture("EVALUATED")
+        marker = f"- URL: {EXTERNAL_CANDIDATES[0]}"
+        content = content.replace(marker, marker + "\n" + marker, 1)
+        self.write_candidate_register(content)
+        self.assertIn("CANDIDATES", self.codes())
 
     def test_production_gdd_hash_constants_match_sources(self):
         for relative, expected in GDD_BLOBS.items():
