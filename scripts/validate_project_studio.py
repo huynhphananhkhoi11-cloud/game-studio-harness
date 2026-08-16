@@ -74,15 +74,27 @@ EXTERNAL_CANDIDATES = [
     "https://github.com/santifer/career-ops",
 ]
 
-CANDIDATE_SAFE_FIELDS = {
+CANDIDATE_SHARED_SAFE_FIELDS = {
+    "installation": "NOT INSTALLED",
+    "adoption decision": "NO DECISION",
+}
+
+CANDIDATE_BASELINE_FIELDS = {
     "assessment": "UNASSESSED",
     "license": "NOT REVIEWED",
     "security": "NOT REVIEWED",
     "pinned commit or tag": "NONE",
     "compatibility": "UNRESOLVED",
-    "installation": "NOT INSTALLED",
-    "adoption decision": "NO DECISION",
 }
+
+CANDIDATE_EVALUATED_RECOMMENDATIONS = {"ADOPT", "ADAPT", "REFERENCE", "DEFER", "REJECT"}
+CANDIDATE_EVALUATED_ONLY_FIELDS = (
+    "evaluated reference",
+    "immutable reference",
+    "recommendation",
+    "report anchor",
+    "evidence limitation",
+)
 
 CHECKPOINT_REQUIRED_FIELDS = (
     "timestamp",
@@ -546,48 +558,205 @@ def _validate_memory(root: Path, errors: list[ValidationError]) -> None:
             )
 
 
+def _candidate_field_values(block: str, field: str) -> list[str]:
+    """Return non-empty values from explicit candidate list fields."""
+    return re.findall(rf"(?mi)^\s*-\s*{re.escape(field)}:\s*(\S.*)$", block)
+
+
+def _candidate_backtick_values(block: str, field: str) -> list[str]:
+    """Return values when the complete field value is one backtick token."""
+    return re.findall(rf"(?mi)^\s*-\s*{re.escape(field)}:\s*`([^`]+)`\s*$", block)
+
+
+def _validate_exact_candidate_field(
+    errors: list[ValidationError],
+    relative: Path,
+    candidate_id: str,
+    block: str,
+    field: str,
+    expected_value: str,
+) -> None:
+    raw_values = _candidate_field_values(block, field)
+    values = _candidate_backtick_values(block, field)
+    if len(raw_values) != 1 or values != [expected_value]:
+        _error(
+            errors,
+            "CANDIDATE_STATE",
+            relative,
+            f"CANDIDATE-{candidate_id} requires exactly one {field!r} value "
+            f"equal to {expected_value!r}; found {values}",
+        )
+
+
 def _validate_external_candidates(root: Path, errors: list[ValidationError]) -> None:
     relative = Path("studio/EXTERNAL_CAPABILITY_CANDIDATES.md")
     content = _read_text(root, relative, errors)
     if content is None:
         return
-    urls = re.findall(r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", content)
-    counts = Counter(urls)
-    expected = Counter(EXTERNAL_CANDIDATES)
-    if counts != expected:
-        _error(errors, "CANDIDATES", relative, f"candidate URL multiset mismatch: {counts}")
 
     headers = list(re.finditer(r"(?m)^## CANDIDATE-(\d{2})\b.*$", content))
-    if [match.group(1) for match in headers] != [f"{number:02d}" for number in range(1, 11)]:
+    expected_ids = [f"{number:02d}" for number in range(1, 11)]
+    if [match.group(1) for match in headers] != expected_ids:
         _error(errors, "CANDIDATES", relative, "candidate sections must be exactly CANDIDATE-01 through CANDIDATE-10")
+        return
 
-    for index, match in enumerate(headers):
+    blocks: list[tuple[str, str, str]] = []
+    explicit_urls: list[str] = []
+    assessments: list[str | None] = []
+    for index, (match, expected_url) in enumerate(zip(headers, EXTERNAL_CANDIDATES)):
+        candidate_id = match.group(1)
         end = headers[index + 1].start() if index + 1 < len(headers) else len(content)
         block = content[match.end():end]
-        for field, expected_value in CANDIDATE_SAFE_FIELDS.items():
-            values = re.findall(
-                rf"(?mi)^\s*-\s*{re.escape(field)}:\s*`([^`]+)`\s*$",
-                block,
+        blocks.append((candidate_id, expected_url, block))
+
+        raw_urls = _candidate_field_values(block, "URL")
+        urls = [
+            value
+            for value in raw_urls
+            if re.fullmatch(r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", value)
+        ]
+        explicit_urls.extend(urls)
+        if len(raw_urls) != 1 or urls != [expected_url]:
+            _error(
+                errors,
+                "CANDIDATES",
+                relative,
+                f"CANDIDATE-{candidate_id} requires exactly one canonical URL equal to {expected_url!r}; found {urls}",
             )
-            if values != [expected_value]:
-                _error(
-                    errors,
-                    "CANDIDATE_STATE",
-                    relative,
-                    f"CANDIDATE-{match.group(1)} requires exactly one {field!r} value "
-                    f"equal to {expected_value!r}; found {values}",
-                )
-        purposes = re.findall(r"(?mi)^\s*-\s*bounded evaluation purpose:\s*(\S.*)$", block)
+
+        purposes = _candidate_field_values(block, "bounded evaluation purpose")
         if len(purposes) != 1:
             _error(
                 errors,
                 "CANDIDATE_STATE",
                 relative,
-                f"CANDIDATE-{match.group(1)} must contain exactly one non-empty bounded evaluation purpose",
+                f"CANDIDATE-{candidate_id} must contain exactly one non-empty bounded evaluation purpose",
             )
-        block_urls = re.findall(r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", block)
-        if len(block_urls) != 1:
-            _error(errors, "CANDIDATE_STATE", relative, f"CANDIDATE-{match.group(1)} must contain exactly one URL")
+
+        raw_assessments = _candidate_field_values(block, "assessment")
+        assessment_values = _candidate_backtick_values(block, "assessment")
+        assessments.append(
+            assessment_values[0]
+            if len(raw_assessments) == 1 and len(assessment_values) == 1
+            else None
+        )
+
+        for field, expected_value in CANDIDATE_SHARED_SAFE_FIELDS.items():
+            _validate_exact_candidate_field(
+                errors, relative, candidate_id, block, field, expected_value
+            )
+
+    if Counter(explicit_urls) != Counter(EXTERNAL_CANDIDATES):
+        _error(errors, "CANDIDATES", relative, "explicit canonical candidate URL multiset mismatch")
+
+    if all(value == "UNASSESSED" for value in assessments):
+        mode = "BASELINE_UNASSESSED"
+    elif all(value == "EVALUATED" for value in assessments):
+        mode = "EVALUATED"
+    else:
+        mode = None
+        _error(
+            errors,
+            "CANDIDATE_STATE",
+            relative,
+            f"candidate register must be wholly BASELINE_UNASSESSED or wholly EVALUATED; found {assessments}",
+        )
+
+    for candidate_id, expected_url, block in blocks:
+        if mode == "BASELINE_UNASSESSED":
+            for field, expected_value in CANDIDATE_BASELINE_FIELDS.items():
+                _validate_exact_candidate_field(
+                    errors, relative, candidate_id, block, field, expected_value
+                )
+            for field in CANDIDATE_EVALUATED_ONLY_FIELDS:
+                if _candidate_field_values(block, field):
+                    _error(
+                        errors,
+                        "CANDIDATE_STATE",
+                        relative,
+                        f"CANDIDATE-{candidate_id} baseline mode must not contain evaluated field {field!r}",
+                    )
+        elif mode == "EVALUATED":
+            if _candidate_field_values(block, "pinned commit or tag"):
+                _error(
+                    errors,
+                    "CANDIDATE_STATE",
+                    relative,
+                    f"CANDIDATE-{candidate_id} evaluated mode must not contain 'pinned commit or tag'",
+                )
+
+            raw_references = _candidate_field_values(block, "evaluated reference")
+            references = _candidate_backtick_values(block, "evaluated reference")
+            if (
+                len(raw_references) != 1
+                or len(references) != 1
+                or re.fullmatch(r"[0-9a-f]{40}", references[0]) is None
+            ):
+                _error(
+                    errors,
+                    "CANDIDATE_STATE",
+                    relative,
+                    f"CANDIDATE-{candidate_id} requires exactly one 40-lowercase-hex evaluated reference",
+                )
+                evaluated_reference = None
+            else:
+                evaluated_reference = references[0]
+
+            immutable_references = _candidate_field_values(block, "immutable reference")
+            expected_immutable = (
+                f"{expected_url}/commit/{evaluated_reference}" if evaluated_reference is not None else None
+            )
+            if expected_immutable is None or immutable_references != [expected_immutable]:
+                _error(
+                    errors,
+                    "CANDIDATE_STATE",
+                    relative,
+                    f"CANDIDATE-{candidate_id} immutable reference must match its canonical URL and evaluated reference",
+                )
+
+            for field in ("license", "security", "compatibility", "evidence limitation"):
+                values = _candidate_field_values(block, field)
+                if len(values) != 1 or not values[0].strip(" `;\t"):
+                    _error(
+                        errors,
+                        "CANDIDATE_STATE",
+                        relative,
+                        f"CANDIDATE-{candidate_id} requires exactly one non-empty {field!r} conclusion",
+                    )
+
+            raw_recommendations = _candidate_field_values(block, "recommendation")
+            recommendations = _candidate_backtick_values(block, "recommendation")
+            if (
+                len(raw_recommendations) != 1
+                or len(recommendations) != 1
+                or recommendations[0] not in CANDIDATE_EVALUATED_RECOMMENDATIONS
+            ):
+                _error(
+                    errors,
+                    "CANDIDATE_STATE",
+                    relative,
+                    f"CANDIDATE-{candidate_id} recommendation must be one of "
+                    f"{sorted(CANDIDATE_EVALUATED_RECOMMENDATIONS)}",
+                )
+
+            raw_report_anchors = _candidate_field_values(block, "report anchor")
+            report_anchors = _candidate_backtick_values(block, "report anchor")
+            if (
+                len(raw_report_anchors) != 1
+                or len(report_anchors) != 1
+                or re.fullmatch(
+                    r"studio/EXTERNAL_CAPABILITY_EVALUATION\.md#[a-z0-9][a-z0-9-]*",
+                    report_anchors[0],
+                )
+                is None
+            ):
+                _error(
+                    errors,
+                    "CANDIDATE_STATE",
+                    relative,
+                    f"CANDIDATE-{candidate_id} requires exactly one report anchor under "
+                    "studio/EXTERNAL_CAPABILITY_EVALUATION.md",
+                )
 
 
 def _claim_clauses(line: str) -> list[str]:
