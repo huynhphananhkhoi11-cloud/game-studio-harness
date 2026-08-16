@@ -5,6 +5,9 @@
 - Task: `STUDIO-006`
 - Contract: `tasks/STUDIO-006.md`
 - Contract merge: Pull Request `#11`, merge commit `0e2d7bab5c7c876338a246be16d46a8f1073b95c`
+- Authorized amendment: `tasks/STUDIO-006-AMENDMENT-001.md`, merged through Pull Request `#13` as `6476b65463815a1f5ccfbb373f8151426d63d8dc`
+- Validator transition: Pull Request `#14`, merged into `main` as `4258654fddd83b3f7e0d00936c22e3954e321767`
+- Reconciled evaluation head: `25f46f122023e6d900f87253799dec895e1bf218`
 - Evaluation branch: `agent/studio-006-evaluation`
 - Evaluation date: `2026-08-15`
 - Candidate count: exactly `10`
@@ -30,7 +33,9 @@ The public advisory API returned zero published repository advisories for each c
 
 ### Author-side validation boundary
 
-The existing `scripts/validate_project_studio.py` is a STUDIO-005 baseline guard. Its candidate-state rules deliberately require the original register values `UNASSESSED`, `NOT REVIEWED`, `NONE`, and `UNRESOLVED`; applying those assertions to this evaluated register would directly contradict the approved STUDIO-006 deliverables. The validator and complete 71-test suite were therefore run against an isolated archive of immutable `origin/main`, where their STUDIO-005 baseline and fixture assertions remain applicable. The changed STUDIO-006 register and report were checked separately for the fixed ten-candidate set, canonical URL identity, full immutable references, eleven dimensions, recommendation vocabulary, evidence limitations, and the preserved `NOT INSTALLED` and `NO DECISION` states. Five validator-fixture tests that copy the evaluated register and then demand the STUDIO-005 state are not applicable to this STUDIO-006 transition. This applicability distinction follows Sections 12 and 13 of `tasks/STUDIO-006.md`; it does not weaken or modify the protected validator or tests.
+**Historical pre-transition evidence.** Before the authorized validator transition, the validator modeled only the STUDIO-005 `BASELINE_UNASSESSED` state. Applying it to the contract-required evaluated register produced five fixture-test failures in the former 71-test suite. That failure is preserved as historical defect evidence in `tasks/STUDIO-006-AMENDMENT-001.md`; it is not the current validation state.
+
+**Current post-transition evidence.** The Studio Owner-approved amendment was merged through [Pull Request #13](https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/13) as `6476b65463815a1f5ccfbb373f8151426d63d8dc`. The dual-mode validator and transition tests were then merged through [Pull Request #14](https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/14) as `4258654fddd83b3f7e0d00936c22e3954e321767`. After Pull Request #12 was reconciled with that `main` baseline, its evaluated register passed `python scripts/validate_project_studio.py --skip-git-scope`, the evidence register passed `python scripts/validate_evidence_register.py source/MQ01_evidence_register.csv`, and the complete suite passed all 77 tests at reconciled head [`25f46f122023e6d900f87253799dec895e1bf218`](https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/commit/25f46f122023e6d900f87253799dec895e1bf218). [Rules CI run 31925302692](https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/31925302692) completed successfully with `Validate data` and `Unit tests` passing. These checks validate the evaluated state while preserving every candidate as `NOT INSTALLED` and `NO DECISION`.
 
 ## 3. Recommendation summary
 

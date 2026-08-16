@@ -7,15 +7,15 @@ memory_schema_version: 1
 task_id: STUDIO-006
 package_path: projects/si-tu-chapter-1/memory/tasks/STUDIO-006
 canonical_task_contract: tasks/STUDIO-006.md
-authorized_contract_amendment: NONE
+authorized_contract_amendment: tasks/STUDIO-006-AMENDMENT-001.md
 state: HANDOFF
 logical_role: STUDIO-006-EVALUATION
 repository_context: game-studio-harness
 worktree_context: primary repository worktree
 branch: agent/studio-006-evaluation
-last_observed_HEAD: 51bd7b8de00585e7345dce48637c4b3ed06c98b1
+last_observed_HEAD: 25f46f122023e6d900f87253799dec895e1bf218
 durability_state: PR
-last_verified_persisted_ref: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12 at delivery commit 51bd7b8de00585e7345dce48637c4b3ed06c98b1; final administrative handoff head must be verified from the Pull Request because a commit cannot embed its own future SHA
+last_verified_persisted_ref: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12 at observed reconciliation head 25f46f122023e6d900f87253799dec895e1bf218; verify the newer final author-correction head from Pull Request metadata because a commit cannot embed its own future SHA
 
 # Worktree and change boundary
 
@@ -34,9 +34,12 @@ completed: |
   - Produced one complete eleven-dimension assessment and one non-binding recommendation per candidate.
   - Updated the register without changing NOT INSTALLED or NO DECISION.
   - Updated the artifact map and created this four-record schema-1 package.
-  - Delivered the seven-path result to https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12 at delivery commit 51bd7b8de00585e7345dce48637c4b3ed06c98b1.
+  - Delivered the seven-path result to https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12.
+  - Recorded the Studio Owner-approved amendment merged through Pull Request #13 as 6476b65463815a1f5ccfbb373f8151426d63d8dc and the validator transition merged through Pull Request #14 as 4258654fddd83b3f7e0d00936c22e3954e321767.
+  - Reconciled Pull Request #12 with the transitioned main baseline at observed head 25f46f122023e6d900f87253799dec895e1bf218.
+  - Addressed Official QA-06 findings QA-06-001 through QA-06-003 in the six authorized correction files without changing candidate evidence or recommendations.
 remaining: |
-  - Independent QA must verify completeness, evidence links, immutable references, exact scope, recommendation vocabulary, and prohibited actions.
+  - Rules CI must pass on the final author-correction head, then Independent QA-06 must rerun against that immutable head.
   - Independent Review & Integration must run after QA approval.
   - Studio Owner must decide whether to merge the evaluation report.
 blockers: |
@@ -54,28 +57,29 @@ unresolved_items: |
 # Checks, checkpoints, and next action
 
 latest_checks: |
-  - Delivery v2 attempt stopped before commit and push because the STUDIO-005 validator was incorrectly applied to the evaluated STUDIO-006 register: recorded at STUDIO-006-CP-0003
-  - report candidate count, canonical URL identity, immutable references, dimensions, recommendations, limitations, and boundary anchors: PASS at STUDIO-006-CP-0004
-  - register safe states and recommendation vocabulary: PASS at STUDIO-006-CP-0004
-  - project studio baseline validator with --skip-git-scope on an isolated immutable origin/main archive: PASS at STUDIO-006-CP-0004
-  - legacy STUDIO-005 candidate-state assertions on the evaluated STUDIO-006 register: NOT APPLICABLE with the exact contract reason recorded at STUDIO-006-CP-0004
-  - evidence register validator and complete existing 71-test suite on the isolated immutable origin/main archive: PASS at STUDIO-006-CP-0004
-  - five STUDIO-005 validator-fixture tests against the evaluated STUDIO-006 register: NOT APPLICABLE for the same contract conflict at STUDIO-006-CP-0004
-  - exact seven-path scope and whitespace: PASS at STUDIO-006-CP-0005
+  - Historical pre-transition failure: the former 71-test suite failed five STUDIO-005-only fixture assertions; preserved at STUDIO-006-CP-0003 and superseded by the approved amendment and validator transition
+  - tasks/STUDIO-006-AMENDMENT-001.md merged through Pull Request #13 as 6476b65463815a1f5ccfbb373f8151426d63d8dc: VERIFIED
+  - dual-mode validator transition merged through Pull Request #14 as 4258654fddd83b3f7e0d00936c22e3954e321767: VERIFIED
+  - evaluated candidate register validator on reconciled head 25f46f122023e6d900f87253799dec895e1bf218: PASS
+  - evidence-register validator on reconciled head 25f46f122023e6d900f87253799dec895e1bf218: PASS
+  - complete 77-test suite on reconciled head 25f46f122023e6d900f87253799dec895e1bf218: PASS
+  - Rules CI run 31925302692: PASS (`Validate data`; `Unit tests`)
+  - exact seven-path Pull Request scope and no added-line trailing whitespace at Official QA-06 review: PASS
+  - final author-correction head and its Rules CI: MUST BE VERIFIED FROM PULL REQUEST METADATA
 
-last_safe_checkpoint_id: STUDIO-006-CP-0005
-exact_next_action: Independent QA-06 verifies the immutable evaluation head in https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12; do not merge or implement any recommendation.
+last_safe_checkpoint_id: STUDIO-006-CP-0007
+exact_next_action: Verify Pull Request #12 remains OPEN DRAFT, resolve its final author-correction head and exact seven-path scope from PR metadata, require Rules CI PASS on that head, then rerun Independent QA-06; do not run Review & Integration before QA approval.
 
 # Active writer claim
 
 active_writer_claim:
   status: RELEASED
-  writer: STUDIO-006-EVALUATION
-  claim_timestamp: 2026-08-15T22:17:34+07:00
-  transfer_intent: Independent QA-06 may read and review but must not edit and self-approve
+  writer: STUDIO-006-EVALUATION-AUTHOR-CORRECTION
+  claim_timestamp: 2026-08-16T11:10:40+07:00
+  transfer_intent: Independent QA-06 may rerun after final-head Rules CI passes; it may read and review but must not edit and self-approve
 
-updated_at: 2026-08-15T22:49:22+07:00
-updater: STUDIO-006-EVALUATION
+updated_at: 2026-08-16T11:10:40+07:00
+updater: STUDIO-006-EVALUATION-AUTHOR-CORRECTION
 
 # Notes
 

@@ -5,12 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-006
 package_path: projects/si-tu-chapter-1/memory/tasks/STUDIO-006
 canonical_task_contract: tasks/STUDIO-006.md
-authorized_contract_amendment: NONE
+authorized_contract_amendment: tasks/STUDIO-006-AMENDMENT-001.md
 current_state: HANDOFF
-last_safe_checkpoint_id: STUDIO-006-CP-0005
+last_safe_checkpoint_id: STUDIO-006-CP-0007
 required_read_order:
   - AGENTS.md
   - tasks/STUDIO-006.md
+  - tasks/STUDIO-006-AMENDMENT-001.md
   - docs/DECISIONS.md
   - studio/MEMORY_PROTOCOL.md
   - studio/HANDOFF_PROTOCOL.md
@@ -25,9 +26,9 @@ required_read_order:
 repository_context: game-studio-harness
 worktree_context: primary repository worktree
 branch: agent/studio-006-evaluation
-last_observed_HEAD: 51bd7b8de00585e7345dce48637c4b3ed06c98b1
+last_observed_HEAD: 25f46f122023e6d900f87253799dec895e1bf218
 durability_state: PR
-last_verified_persisted_ref: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12 at delivery commit 51bd7b8de00585e7345dce48637c4b3ed06c98b1; verify final administrative handoff head from PR metadata
+last_verified_persisted_ref: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12 at observed reconciliation head 25f46f122023e6d900f87253799dec895e1bf218; verify the newer final author-correction head from PR metadata
 
 expected_worktree_status: |
   - Exactly seven STUDIO-006 evaluation paths are present in the Draft Pull Request.
@@ -38,41 +39,43 @@ completed_summary: |
   - The contract was merged through Pull Request #11 as 0e2d7bab5c7c876338a246be16d46a8f1073b95c.
   - Exactly ten candidates were evaluated at immutable commits with direct GitHub evidence.
   - The register, evaluation report, artifact map, and four-file memory package were delivered through https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12.
-  - The writer claim is released for independent QA.
+  - The approved amendment merged through Pull Request #13 as 6476b65463815a1f5ccfbb373f8151426d63d8dc; the validator transition merged through Pull Request #14 as 4258654fddd83b3f7e0d00936c22e3954e321767.
+  - Pull Request #12 was reconciled at observed head 25f46f122023e6d900f87253799dec895e1bf218, where the evaluated validator, evidence validator, and complete 77-test suite passed in Rules CI run 31925302692.
+  - Official QA-06 requested three evidence-consistency corrections; the Evaluation Author addressed all three in six authorized files and released the writer claim for final-head verification and QA rerun.
 remaining_summary: |
-  - Independent QA-06, then Review & Integration, then Studio Owner merge disposition.
+  - Verify final author-correction head and Rules CI PASS, rerun Independent QA-06, then run Review & Integration only after QA approval, then obtain Studio Owner merge disposition.
 blockers_and_authority_questions: |
   - NONE for QA entry.
   - Recommendations do not authorize installation or adoption.
 latest_checks: |
-  - report and register deterministic structure: PASS
-  - project studio baseline validator with --skip-git-scope on an isolated immutable origin/main archive: PASS
-  - legacy STUDIO-005 candidate-state assertions on the evaluated STUDIO-006 register: NOT APPLICABLE because the approved contract requires evaluated immutable references and recommendations
-  - evidence register validator on isolated immutable origin/main: PASS
-  - complete existing 71-test suite on isolated immutable origin/main: PASS
-  - five STUDIO-005 validator-fixture tests against the evaluated register: NOT APPLICABLE for the documented contract conflict
-  - exact seven-path scope and whitespace: PASS
+  - historical pre-transition five-test failure: preserved in amendment evidence; superseded as current state
+  - tasks/STUDIO-006-AMENDMENT-001.md / Pull Request #13 merge: VERIFIED
+  - dual-mode validator transition / Pull Request #14 merge: VERIFIED
+  - evaluated candidate register validator at reconciled head 25f46f122023e6d900f87253799dec895e1bf218: PASS
+  - evidence-register validator at reconciled head 25f46f122023e6d900f87253799dec895e1bf218: PASS
+  - complete 77-test suite at reconciled head 25f46f122023e6d900f87253799dec895e1bf218: PASS
+  - Rules CI run 31925302692: PASS
+  - exact seven-path scope and added-line whitespace at Official QA-06 review: PASS
+  - final author-correction head and its Rules CI: verify from Pull Request metadata
 
 first_verification_actions: |
-  - Verify https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12 is OPEN DRAFT and its head contains delivery commit 51bd7b8de00585e7345dce48637c4b3ed06c98b1.
-  - Verify the PR changes exactly the seven paths listed in TASK.md.
-  - Run git status --short --branch and preserve unrelated changes.
-  - Verify all four memory records declare memory_schema_version: 1 and the writer claim is RELEASED.
-  - Verify exactly ten unique candidate IDs, repositories, full SHAs, dimension tables, recommendations, confidence statements, and limitations.
-  - Verify each material claim has a direct source URL and immutable file claims use commit-addressed URLs.
-  - Verify no installed, adopted, enabled, cloned, downloaded, vendored, executed, or authority-granting state appears as an action performed by STUDIO-006.
-  - Reproduce the project validator, evidence validator, and complete 71-test suite on an isolated archive of immutable origin/main; do not apply STUDIO-005 candidate-state or fixture assertions to the contract-required evaluated register.
-  - Run git diff --check and inspect the complete PR diff.
-next_implementation_action_after_verification: NONE; QA reviews only and must not edit then self-approve.
+  - Verify https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12 is OPEN DRAFT, not merged, and resolve its final author-correction head from PR metadata.
+  - Verify the PR still changes exactly the seven paths listed in TASK.md and that studio/EXTERNAL_CAPABILITY_CANDIDATES.md is unchanged by the author correction.
+  - Verify all four memory records declare memory_schema_version: 1, reference tasks/STUDIO-006-AMENDMENT-001.md where required, end at checkpoint STUDIO-006-CP-0007, and release the writer claim.
+  - Verify Rules CI passes on the final author-correction head, including `Validate data` and all 77 unit tests.
+  - Recheck the three Official QA-06 findings against the immutable final head.
+  - Verify every candidate remains EVALUATED, NOT INSTALLED, and NO DECISION and no candidate evidence or recommendation changed.
+  - Run git diff --check or equivalent added-line whitespace inspection and inspect the complete Pull Request diff.
+next_implementation_action_after_verification: NONE; Independent QA-06 reruns only after final-head Rules CI passes and must not edit then self-approve.
 receiving_role: Independent QA-06
 writer_transfer_status: RELEASED
 
 generated_from:
   TASK: TASK.md
   STATE: STATE.md
-  WORKLOG: STUDIO-006-CP-0001 through STUDIO-006-CP-0005
+  WORKLOG: STUDIO-006-CP-0001 through STUDIO-006-CP-0007
 
-updated_at: 2026-08-15T22:49:22+07:00
+updated_at: 2026-08-16T11:10:40+07:00
 
 verify_instructions: |
   - Treat memory as operational evidence and reconcile it with current Git and PR state before acting.

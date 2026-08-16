@@ -68,6 +68,30 @@ log_mode: APPEND_ONLY
   resulting_state: HANDOFF to Independent QA-06; writer claim RELEASED
   correction_of: NONE
 
+- checkpoint_id: STUDIO-006-CP-0006
+  timestamp: 2026-08-16T11:10:40+07:00
+  actor: STUDIO-006-EVALUATION-AUTHOR-CORRECTION
+  action: Verify the released prior claim, acquire the single Evaluation Author Correction writer claim, and reconcile persistent memory with the approved amendment, merged validator transition, reconciled evaluation head, post-transition checks, and Official QA-06 result.
+  scope_files: projects/si-tu-chapter-1/memory/tasks/STUDIO-006/TASK.md; STATE.md; WORKLOG.md; RESUME.md
+  command_or_check: verify Pull Requests #13 and #14 merge metadata; verify Pull Request #12 reconciled head 25f46f122023e6d900f87253799dec895e1bf218; inspect Rules CI run 31925302692; inspect Official QA-06 comment 5305639897
+  evidence_reference: tasks/STUDIO-006-AMENDMENT-001.md; Pull Request #13 merge 6476b65463815a1f5ccfbb373f8151426d63d8dc; Pull Request #14 merge 4258654fddd83b3f7e0d00936c22e3954e321767; https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/31925302692; https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12#issuecomment-5305639897
+  outcome: observed
+  rationale: The package was stale after the Owner-authorized validator transition and reconciliation; deterministic GitHub evidence supersedes the former current-state claim while preserving its history.
+  resulting_state: STALE_MEMORY reconciled; writer claim CLAIMED by STUDIO-006-EVALUATION-AUTHOR-CORRECTION; evaluated validator PASS; evidence validator PASS; complete 77-test suite PASS; Official QA-06 REQUEST CHANGES remains the active review verdict
+  correction_of: STUDIO-006-CP-0004; STUDIO-006-CP-0005
+
+- checkpoint_id: STUDIO-006-CP-0007
+  timestamp: 2026-08-16T11:10:40+07:00
+  actor: STUDIO-006-EVALUATION-AUTHOR-CORRECTION
+  action: Address all three Official QA-06 findings and release the corrected evaluation for final-head CI verification and QA rerun.
+  scope_files: studio/EXTERNAL_CAPABILITY_EVALUATION.md; projects/si-tu-chapter-1/ARTIFACT_MAP.md; projects/si-tu-chapter-1/memory/tasks/STUDIO-006/TASK.md; STATE.md; WORKLOG.md; RESUME.md
+  command_or_check: replace stale current validation claims with historical and post-transition evidence; remove the artifact-map current-state contradiction; refresh all four schema-1 records; preserve append-only history; verify candidate register unchanged and correction limited to six authorized paths
+  evidence_reference: Official QA-06 findings QA-06-001 through QA-06-003 at comment 5305639897; observed reconciliation head 25f46f122023e6d900f87253799dec895e1bf218; final author-correction head must be verified from Pull Request #12 metadata
+  outcome: completed
+  rationale: The correction updates operational evidence only and does not change any candidate finding, recommendation, installation state, adoption state, or authority boundary.
+  resulting_state: HANDOFF; writer claim RELEASED; final author-correction head and Rules CI must be verified before Independent QA-06 rerun
+  correction_of: STUDIO-006-CP-0005
+
 # Append-only rules
 
 Add only material checkpoints. Record attempted, failed, partial, completed, reviewed, and accepted outcomes distinctly. Corrections append a new checkpoint and reference the earlier ID. Do not store secrets, private transcripts, private chain-of-thought, or machine-specific absolute paths.

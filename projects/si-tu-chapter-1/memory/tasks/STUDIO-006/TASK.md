@@ -8,7 +8,7 @@ task_id: STUDIO-006
 task_title: Evidence-based external capability evaluation
 task_type: LEVEL 2 — security / dependency / architectural evaluation
 canonical_task_contract: tasks/STUDIO-006.md
-authorized_contract_amendment: NONE
+authorized_contract_amendment: tasks/STUDIO-006-AMENDMENT-001.md
 memory_root: projects/si-tu-chapter-1/memory/tasks
 package_path: projects/si-tu-chapter-1/memory/tasks/STUDIO-006
 project_studio: SITU-CH1
@@ -50,11 +50,13 @@ accepted_constraints: |
   - projects/si-tu-chapter-1/SOURCE_AUTHORITY.md
   - projects/si-tu-chapter-1/DECISIONS.md
   - Pull Request #11 merged as 0e2d7bab5c7c876338a246be16d46a8f1073b95c
+  - tasks/STUDIO-006-AMENDMENT-001.md approved and merged through Pull Request #13 as 6476b65463815a1f5ccfbb373f8151426d63d8dc
+  - validator transition Pull Request #14 merged as 4258654fddd83b3f7e0d00936c22e3954e321767
 
 # Metadata and governance
 
 created_at: 2026-08-15T22:17:34+07:00
-authorized_amendments: NONE
+authorized_amendments: tasks/STUDIO-006-AMENDMENT-001.md
 
 # Notes
 
