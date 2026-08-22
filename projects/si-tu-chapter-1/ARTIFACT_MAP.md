@@ -4,7 +4,7 @@
 
 This is the central repository index for `SITU-CH1`. It locates artifacts without copying or moving them. Mapping an artifact preserves discovery and provenance; it does not grant historical truth, official content authority, acceptance, or precedence.
 
-Status values include `IMMUTABLE SOURCE`, `WORKING INPUT`, `EXISTING`, `ACTIVE`, `COMPLETE`, `TEMPLATE`, `UNASSESSED`, `UNKNOWN`, `UNRESOLVED`, and `NONE`.
+Status values include `IMMUTABLE SOURCE`, `WORKING INPUT`, `EXISTING`, `ACTIVE`, `COMPLETE`, `TEMPLATE`, `UNASSESSED`, `EVALUATED`, `UNKNOWN`, `UNRESOLVED`, and `NONE`.
 
 ## 2. Owner-created GDD source baselines
 
@@ -59,16 +59,30 @@ Neither row has automatic global or scoped precedence. See `SOURCE_AUTHORITY.md`
 | `prototype/rules/` | Prototype rules code | `EXISTING`; prototype implementation evidence | Milestone 2A/2A.2 | `tests/test_rules_prototype.py` |
 | `reports/` | Assumptions, decisions, gaps, QA, run reports, traceability | `EXISTING`; authority varies by artifact | Prior milestones | Inspect each artifact; unknowns remain explicit |
 | `scripts/validate_evidence_register.py` | Evidence-register validator | `EXISTING`; structural validation only | Historical-content workflow | `tests/test_validate_evidence_register.py` |
-| `scripts/validate_project_studio.py` | Project Studio validator | `ACTIVE`; deterministic structural guard | STUDIO-005 | `tests/test_validate_project_studio.py` |
-| `tests/` | Automated test suite and fixtures | `EXISTING`; deterministic operational evidence; save-roundtrip fixture amended for Windows compatibility | Multiple tasks plus STUDIO-005 Amendment 001 | Current run result recorded in task memory/PR |
+| `scripts/validate_project_studio.py` | Project Studio validator | `ACTIVE`; validates both `BASELINE_UNASSESSED` and `EVALUATED` whole-register modes while preserving shared safe states | STUDIO-005 plus `tasks/STUDIO-006-AMENDMENT-001.md` | Validator transition Pull Request `#14` merged as `4258654fddd83b3f7e0d00936c22e3954e321767`; evaluated register PASS at reconciled head `25f46f122023e6d900f87253799dec895e1bf218` |
+| `tests/` | Automated test suite and fixtures | `EXISTING`; deterministic operational evidence, including baseline/evaluated transition coverage and Windows-compatible save-roundtrip coverage | Multiple tasks, STUDIO-005 Amendment 001, and STUDIO-006 validator transition | Complete 77-test suite PASS in Rules CI run `31925302692` at reconciled head `25f46f122023e6d900f87253799dec895e1bf218` |
 
-## 7. External capability register
+## 7. External capability register — current state
 
 | Path | Type | Status and authority | Provenance | Review reference |
 | --- | --- | --- | --- | --- |
-| `studio/EXTERNAL_CAPABILITY_CANDIDATES.md` | Candidate register | `UNASSESSED`; `NOT INSTALLED`; `NO DECISION`; no repository authority | STUDIO-005 | Evaluation deferred to STUDIO-006 |
+| `studio/EXTERNAL_CAPABILITY_CANDIDATES.md` | Candidate register | `EVALUATED`; every candidate remains `NOT INSTALLED` and `NO DECISION`; no repository authority | Registered as `UNASSESSED` by STUDIO-005, then evaluated by STUDIO-006 under the approved contract and amendment | Evaluated register validator PASS at reconciled head `25f46f122023e6d900f87253799dec895e1bf218`; final Pull Request #12 head must be verified from PR metadata |
 
-## 8. Discovery and update rules
+## 8. STUDIO-006 external-capability evaluation
+
+| Path or evidence | Type | Status and authority | Provenance | Review, commit, or PR reference |
+| --- | --- | --- | --- | --- |
+| `tasks/STUDIO-006.md` | Accepted task contract | `APPROVED`; evaluation-only authority | Studio Owner | Pull Request `#11` merged into `main` as `0e2d7bab5c7c876338a246be16d46a8f1073b95c` |
+| `tasks/STUDIO-006-AMENDMENT-001.md` | Accepted bounded amendment | `APPROVED`; authorizes validator transition only | Studio Owner | Pull Request `#13` merged as `6476b65463815a1f5ccfbb373f8151426d63d8dc` |
+| `scripts/validate_project_studio.py` and `tests/test_validate_project_studio.py` | Dual-mode validator transition | `MERGED`; validates baseline and evaluated register modes | STUDIO-006 Amendment 001 implementation | Pull Request `#14` merged as `4258654fddd83b3f7e0d00936c22e3954e321767` |
+| `studio/EXTERNAL_CAPABILITY_CANDIDATES.md` | Evaluated candidate register | `EVALUATED`; every candidate remains `NOT INSTALLED` and `NO DECISION` | STUDIO-006 | Pull Request `#12`; reconciled head `25f46f122023e6d900f87253799dec895e1bf218`; final author-correction head must be verified from PR metadata |
+| `studio/EXTERNAL_CAPABILITY_EVALUATION.md` | Evidence-based evaluation report | `HANDOFF`; non-binding recommendations only | STUDIO-006 | Ten immutable candidate commits; Pull Request `#12`; Official QA-06 corrections from reconciled head `25f46f122023e6d900f87253799dec895e1bf218` addressed; QA rerun pending final-head CI |
+| `projects/si-tu-chapter-1/memory/tasks/STUDIO-006/` | Four-record schema-1 memory package | `HANDOFF`; operational evidence only | STUDIO-006 | Last checkpoint `STUDIO-006-CP-0007`; writer claim `RELEASED` for QA rerun; Pull Request `#12` |
+| Rules CI run `31925302692` | Reconciliation verification | `PASS`; `Validate data` and complete 77-test suite passed | Pull Request `#12` at reconciled head | https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/31925302692 |
+
+The report accepts no candidate for use. An `ADOPT` or `ADAPT` recommendation still requires a separate accepted implementation contract before external bytes, instructions, dependencies, hooks, or runtime behavior enter the repository.
+
+## 9. Discovery and update rules
 
 - Use this map to locate artifacts; do not assume that the newest filename is authoritative.
 - Preserve each artifact's source path and provenance. Do not move existing artifacts to simplify the map.
