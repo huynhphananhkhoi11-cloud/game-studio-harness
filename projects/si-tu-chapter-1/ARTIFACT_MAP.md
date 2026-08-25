@@ -66,7 +66,7 @@ Neither row has automatic global or scoped precedence. See `SOURCE_AUTHORITY.md`
 
 | Path | Type | Status and authority | Provenance | Review reference |
 | --- | --- | --- | --- | --- |
-| `studio/EXTERNAL_CAPABILITY_CANDIDATES.md` | Candidate register | `EVALUATED`; every candidate remains `NOT INSTALLED` and `NO DECISION`; no repository authority | Registered as `UNASSESSED` by STUDIO-005, then evaluated by STUDIO-006 under the approved contract and amendment | Evaluated register validator PASS at reconciled head `25f46f122023e6d900f87253799dec895e1bf218`; final Pull Request #12 head must be verified from PR metadata |
+| `studio/EXTERNAL_CAPABILITY_CANDIDATES.md` | Candidate register | `EVALUATED`; every candidate remains `NOT INSTALLED` and `NO DECISION`; no repository authority | Registered as `UNASSESSED` by STUDIO-005, then evaluated by STUDIO-006 under the approved contract and amendment | Final reviewed head `7b333766928869d6beadd96b1b82fe4507c5febf`; Pull Request `#12` merged as `aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9` |
 
 ## 8. STUDIO-006 external-capability evaluation
 
@@ -75,12 +75,12 @@ Neither row has automatic global or scoped precedence. See `SOURCE_AUTHORITY.md`
 | `tasks/STUDIO-006.md` | Accepted task contract | `APPROVED`; evaluation-only authority | Studio Owner | Pull Request `#11` merged into `main` as `0e2d7bab5c7c876338a246be16d46a8f1073b95c` |
 | `tasks/STUDIO-006-AMENDMENT-001.md` | Accepted bounded amendment | `APPROVED`; authorizes validator transition only | Studio Owner | Pull Request `#13` merged as `6476b65463815a1f5ccfbb373f8151426d63d8dc` |
 | `scripts/validate_project_studio.py` and `tests/test_validate_project_studio.py` | Dual-mode validator transition | `MERGED`; validates baseline and evaluated register modes | STUDIO-006 Amendment 001 implementation | Pull Request `#14` merged as `4258654fddd83b3f7e0d00936c22e3954e321767` |
-| `studio/EXTERNAL_CAPABILITY_CANDIDATES.md` | Evaluated candidate register | `EVALUATED`; every candidate remains `NOT INSTALLED` and `NO DECISION` | STUDIO-006 | Pull Request `#12`; reconciled head `25f46f122023e6d900f87253799dec895e1bf218`; final author-correction head must be verified from PR metadata |
-| `studio/EXTERNAL_CAPABILITY_EVALUATION.md` | Evidence-based evaluation report | `HANDOFF`; non-binding recommendations only | STUDIO-006 | Ten immutable candidate commits; Pull Request `#12`; Official QA-06 corrections from reconciled head `25f46f122023e6d900f87253799dec895e1bf218` addressed; QA rerun pending final-head CI |
-| `projects/si-tu-chapter-1/memory/tasks/STUDIO-006/` | Four-record schema-1 memory package | `HANDOFF`; operational evidence only | STUDIO-006 | Last checkpoint `STUDIO-006-CP-0007`; writer claim `RELEASED` for QA rerun; Pull Request `#12` |
-| Rules CI run `31925302692` | Reconciliation verification | `PASS`; `Validate data` and complete 77-test suite passed | Pull Request `#12` at reconciled head | https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/31925302692 |
+| `studio/EXTERNAL_CAPABILITY_CANDIDATES.md` | Evaluated candidate register | `EVALUATED`; every candidate remains `NOT INSTALLED` and `NO DECISION` | STUDIO-006 | Final reviewed head `7b333766928869d6beadd96b1b82fe4507c5febf`; Pull Request `#12` merged as `aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9` |
+| `studio/EXTERNAL_CAPABILITY_EVALUATION.md` | Evidence-based evaluation report | `COMPLETE`; durable non-binding research evidence only | STUDIO-006 | Official QA-06 `APPROVE`; Review & Integration-06 `APPROVE`; Pull Request `#12` merged as `aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9` |
+| `projects/si-tu-chapter-1/memory/tasks/STUDIO-006/` | Four-record schema-1 memory package | `COMPLETE`; operational evidence only; writer claim `RELEASED` | STUDIO-006 | Last checkpoint `STUDIO-006-CP-0008`; task result durable through Pull Request `#12` merge commit `aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9` |
+| Rules CI run `31926930737` | Final-head verification | `PASS`; `Validate data` and complete 77-test suite passed | Pull Request `#12` at final reviewed head `7b333766928869d6beadd96b1b82fe4507c5febf` | https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/31926930737 |
 
-The report accepts no candidate for use. An `ADOPT` or `ADAPT` recommendation still requires a separate accepted implementation contract before external bytes, instructions, dependencies, hooks, or runtime behavior enter the repository.
+The report accepts no candidate for use. Merging Pull Request #12 accepted only the evaluation evidence. An `ADOPT` or `ADAPT` recommendation still requires a separate accepted implementation contract before external bytes, instructions, dependencies, hooks, or runtime behavior enter the repository.
 
 ## 9. Discovery and update rules
 

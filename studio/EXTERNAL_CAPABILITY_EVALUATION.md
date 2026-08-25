@@ -8,6 +8,12 @@
 - Authorized amendment: `tasks/STUDIO-006-AMENDMENT-001.md`, merged through Pull Request `#13` as `6476b65463815a1f5ccfbb373f8151426d63d8dc`
 - Validator transition: Pull Request `#14`, merged into `main` as `4258654fddd83b3f7e0d00936c22e3954e321767`
 - Reconciled evaluation head: `25f46f122023e6d900f87253799dec895e1bf218`
+- Final reviewed head: `7b333766928869d6beadd96b1b82fe4507c5febf`
+- Final Rules CI: run [31926930737](https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/31926930737), `PASS` for `Validate data` and all 77 tests
+- Official QA-06 rerun: `APPROVE` at [comment 5305760498](https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12#issuecomment-5305760498)
+- Review & Integration-06: `APPROVE` at [comment 5305780479](https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12#issuecomment-5305780479)
+- Studio Owner disposition: Pull Request [#12](https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12) merged into `main`
+- Merge commit: [`aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9`](https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/commit/aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9), 2026-08-22T08:08:35Z
 - Evaluation branch: `agent/studio-006-evaluation`
 - Evaluation date: `2026-08-15`
 - Candidate count: exactly `10`
@@ -363,7 +369,7 @@ No candidate should introduce a second constitution, task authority, memory trut
 - No technical claim in candidate 08's book or translations was independently adjudicated.
 - No recommendation creates installation or adoption authority.
 
-## 6. Final boundary and next decision
+## 6. Final boundary and closeout
 
 The evaluation is complete as research evidence only. Every candidate remains:
 
@@ -371,4 +377,8 @@ The evaluation is complete as research evidence only. Every candidate remains:
 - adoption decision: `NO DECISION`
 - repository authority: `NONE`
 
-No candidate was cloned, downloaded as a repository/archive, installed, imported, copied, vendored, executed, enabled, or granted authority during STUDIO-006. Independent QA must verify completeness, immutable references, source traceability, recommendation vocabulary, exact file scope, and prohibited-action compliance before Review & Integration and Studio Owner merge disposition.
+No candidate was cloned, downloaded as a repository/archive, installed, imported, copied, vendored, executed, enabled, or granted authority during STUDIO-006.
+
+Official QA-06 and Review & Integration-06 both approved final reviewed head `7b333766928869d6beadd96b1b82fe4507c5febf` after Rules CI run `31926930737` passed. The Studio Owner then merged Pull Request #12 into `main` as `aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9`. STUDIO-006 is therefore `COMPLETE` as an evidence-evaluation task.
+
+The merge accepts this report as durable research evidence only. It does not install, adopt, adapt, execute, or grant authority to any candidate. Any later `ADOPT` or `ADAPT` action still requires a separate Owner-accepted implementation contract with exact scope, tests, security/license controls, rollback, and review gates.
