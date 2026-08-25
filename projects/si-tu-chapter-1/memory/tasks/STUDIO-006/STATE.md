@@ -8,79 +8,71 @@ task_id: STUDIO-006
 package_path: projects/si-tu-chapter-1/memory/tasks/STUDIO-006
 canonical_task_contract: tasks/STUDIO-006.md
 authorized_contract_amendment: tasks/STUDIO-006-AMENDMENT-001.md
-state: HANDOFF
-logical_role: STUDIO-006-EVALUATION
+state: COMPLETE
+logical_role: STUDIO-006-CLOSEOUT
 repository_context: game-studio-harness
-worktree_context: primary repository worktree
-branch: agent/studio-006-evaluation
-last_observed_HEAD: 25f46f122023e6d900f87253799dec895e1bf218
-durability_state: PR
-last_verified_persisted_ref: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12 at observed reconciliation head 25f46f122023e6d900f87253799dec895e1bf218; verify the newer final author-correction head from Pull Request metadata because a commit cannot embed its own future SHA
+worktree_context: closeout branch created from merged main
+branch: agent/studio-006-closeout
+last_observed_HEAD: aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9
+durability_state: MERGED
+last_verified_persisted_ref: Pull Request #12 merged into main as aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9 from final reviewed head 7b333766928869d6beadd96b1b82fe4507c5febf
 
 # Worktree and change boundary
 
 worktree_status_summary: |
-  - Exactly seven contract-authorized evaluation paths are delivered in https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12.
-  - tasks/STUDIO-006.md remains unchanged from merged main at 0e2d7bab5c7c876338a246be16d46a8f1073b95c.
-  - The two GDD source blobs, MQ01 support, prototype code/data, dependencies, workflows, and completed STUDIO-005 package remain outside scope.
-  - No unrelated or pre-existing change was claimed by STUDIO-006 at delivery.
+  - The terminal closeout is limited to five contract-authorized evaluation paths: the evaluation report, artifact map, STATE.md, WORKLOG.md, and RESUME.md.
+  - studio/EXTERNAL_CAPABILITY_CANDIDATES.md, TASK.md, the accepted contract, and the authorized amendment remain unchanged.
+  - Candidate evidence and recommendations remain unchanged.
+  - No candidate bytes, dependency, hook, workflow, executable, provider, credential, model, runtime, engine, framework, or production platform was introduced.
 
 # Progress and state
 
 completed: |
-  - Verified the contract merge and exact main baseline.
-  - Resolved exactly ten candidate default branches to immutable commit SHAs.
-  - Inspected public commit-addressed README, license, security, tree, manifest, hook, and installer evidence relevant to the registered purposes.
-  - Produced one complete eleven-dimension assessment and one non-binding recommendation per candidate.
-  - Updated the register without changing NOT INSTALLED or NO DECISION.
-  - Updated the artifact map and created this four-record schema-1 package.
-  - Delivered the seven-path result to https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12.
-  - Recorded the Studio Owner-approved amendment merged through Pull Request #13 as 6476b65463815a1f5ccfbb373f8151426d63d8dc and the validator transition merged through Pull Request #14 as 4258654fddd83b3f7e0d00936c22e3954e321767.
-  - Reconciled Pull Request #12 with the transitioned main baseline at observed head 25f46f122023e6d900f87253799dec895e1bf218.
-  - Addressed Official QA-06 findings QA-06-001 through QA-06-003 in the six authorized correction files without changing candidate evidence or recommendations.
+  - Exactly ten external candidates were evaluated through public read-only evidence at immutable commits.
+  - The evaluated register, report, artifact map, and four-record memory package were delivered through Pull Request #12.
+  - Rules CI run 31926930737 passed Validate data and all 77 tests for final reviewed head 7b333766928869d6beadd96b1b82fe4507c5febf.
+  - Official QA-06 rerun returned APPROVE for the same immutable head.
+  - Review & Integration-06 returned APPROVE for the same immutable head.
+  - The Studio Owner merged Pull Request #12 into main as aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9 on 2026-08-22T08:08:35Z.
+  - Every candidate remains NOT INSTALLED and NO DECISION with repository authority NONE.
 remaining: |
-  - Rules CI must pass on the final author-correction head, then Independent QA-06 must rerun against that immutable head.
-  - Independent Review & Integration must run after QA approval.
-  - Studio Owner must decide whether to merge the evaluation report.
+  - NONE within STUDIO-006.
 blockers: |
-  - NONE for independent QA entry.
+  - NONE.
 assumptions: |
-  - Public GitHub views accurately represented the inspected commits at evaluation time.
-  - Zero published advisories observed on 2026-08-15 is not evidence of safety.
-  - Static inspection does not prove runtime behavior.
+  - Static read-only inspection cannot establish runtime safety or absence of vulnerabilities.
+  - Upstream repository state and published advisories may change after the evaluated references and date.
 unresolved_items: |
-  - Candidate 02 requires per-skill license review before any copying or adaptation.
-  - Candidate 05 requires future UI/platform/art-direction scope.
-  - Candidate 06 requires privacy, generated-artifact, architecture, model/provider, token-budget, and pilot decisions.
-  - Every candidate remains NOT INSTALLED and NO DECISION.
+  - Candidate 02 still requires per-skill license review before any future copying or adaptation.
+  - Candidate 05 still requires an accepted UI/platform/art-direction scope.
+  - Candidate 06 still requires accepted privacy, generated-artifact, architecture, model/provider, budget, and pilot decisions.
+  - These are future-decision prerequisites, not unfinished STUDIO-006 work.
 
 # Checks, checkpoints, and next action
 
 latest_checks: |
-  - Historical pre-transition failure: the former 71-test suite failed five STUDIO-005-only fixture assertions; preserved at STUDIO-006-CP-0003 and superseded by the approved amendment and validator transition
-  - tasks/STUDIO-006-AMENDMENT-001.md merged through Pull Request #13 as 6476b65463815a1f5ccfbb373f8151426d63d8dc: VERIFIED
-  - dual-mode validator transition merged through Pull Request #14 as 4258654fddd83b3f7e0d00936c22e3954e321767: VERIFIED
-  - evaluated candidate register validator on reconciled head 25f46f122023e6d900f87253799dec895e1bf218: PASS
-  - evidence-register validator on reconciled head 25f46f122023e6d900f87253799dec895e1bf218: PASS
-  - complete 77-test suite on reconciled head 25f46f122023e6d900f87253799dec895e1bf218: PASS
-  - Rules CI run 31925302692: PASS (`Validate data`; `Unit tests`)
-  - exact seven-path Pull Request scope and no added-line trailing whitespace at Official QA-06 review: PASS
-  - final author-correction head and its Rules CI: MUST BE VERIFIED FROM PULL REQUEST METADATA
+  - final reviewed head 7b333766928869d6beadd96b1b82fe4507c5febf: VERIFIED
+  - Rules CI run 31926930737: PASS (Validate data; 77 tests)
+  - Official QA-06 rerun comment 5305760498: APPROVE
+  - Review & Integration-06 comment 5305780479: APPROVE
+  - Studio Owner merge disposition: Pull Request #12 MERGED
+  - merge commit aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9: VERIFIED
+  - candidate installation/adoption state: NOT INSTALLED / NO DECISION
 
-last_safe_checkpoint_id: STUDIO-006-CP-0007
-exact_next_action: Verify Pull Request #12 remains OPEN DRAFT, resolve its final author-correction head and exact seven-path scope from PR metadata, require Rules CI PASS on that head, then rerun Independent QA-06; do not run Review & Integration before QA approval.
+last_safe_checkpoint_id: STUDIO-006-CP-0008
+exact_next_action: NONE within STUDIO-006. Any later candidate ADOPT or ADAPT action requires a separate Owner-accepted implementation contract.
 
 # Active writer claim
 
 active_writer_claim:
   status: RELEASED
-  writer: STUDIO-006-EVALUATION-AUTHOR-CORRECTION
-  claim_timestamp: 2026-08-16T11:10:40+07:00
-  transfer_intent: Independent QA-06 may rerun after final-head Rules CI passes; it may read and review but must not edit and self-approve
+  writer: STUDIO-006-CLOSEOUT
+  claim_timestamp: 2026-08-25T15:50:02+07:00
+  transfer_intent: NONE; terminal package
 
-updated_at: 2026-08-16T11:10:40+07:00
-updater: STUDIO-006-EVALUATION-AUTHOR-CORRECTION
+updated_at: 2026-08-25T15:50:02+07:00
+updater: STUDIO-006-CLOSEOUT
 
 # Notes
 
-Recommendations are evidence, not adoption decisions. Verify the current PR head and repository state before acting.
+STUDIO-006 is complete as an evidence-evaluation task. The merge accepts research evidence only and grants no candidate installation, adoption, runtime, model, provider, tool, role, canon, or repository authority.

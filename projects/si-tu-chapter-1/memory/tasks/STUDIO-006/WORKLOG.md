@@ -92,6 +92,18 @@ log_mode: APPEND_ONLY
   resulting_state: HANDOFF; writer claim RELEASED; final author-correction head and Rules CI must be verified before Independent QA-06 rerun
   correction_of: STUDIO-006-CP-0005
 
+- checkpoint_id: STUDIO-006-CP-0008
+  timestamp: 2026-08-25T15:50:02+07:00
+  actor: STUDIO-006-CLOSEOUT
+  action: Reconcile the terminal STUDIO-006 repository record with final-head CI, independent QA approval, Review & Integration approval, and Studio Owner merge disposition.
+  scope_files: studio/EXTERNAL_CAPABILITY_EVALUATION.md; projects/si-tu-chapter-1/ARTIFACT_MAP.md; projects/si-tu-chapter-1/memory/tasks/STUDIO-006/STATE.md; WORKLOG.md; RESUME.md
+  command_or_check: verify final reviewed head 7b333766928869d6beadd96b1b82fe4507c5febf; Rules CI run 31926930737; Official QA-06 comment 5305760498; Review & Integration-06 comment 5305780479; merge commit aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9
+  evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/12; https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/31926930737; https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/commit/aaca4604acf4dcbd076f81e6aec12ab02ef6a5c9
+  outcome: completed
+  rationale: The prior memory snapshot correctly remained HANDOFF before Owner disposition; the merged Pull Request now supplies the durable evidence required for terminal completion.
+  resulting_state: COMPLETE; task result durability MERGED; writer claim RELEASED; no remaining STUDIO-006 implementation action; every candidate remains NOT INSTALLED and NO DECISION
+  correction_of: STUDIO-006-CP-0007
+
 # Append-only rules
 
 Add only material checkpoints. Record attempted, failed, partial, completed, reviewed, and accepted outcomes distinctly. Corrections append a new checkpoint and reference the earlier ID. Do not store secrets, private transcripts, private chain-of-thought, or machine-specific absolute paths.
