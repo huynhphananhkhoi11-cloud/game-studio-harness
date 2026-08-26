@@ -1,6 +1,10 @@
 # STUDIO-007A — Work Order & Producer Queue
 
-Status: `PROPOSED — NOT ACCEPTED — NOT IMPLEMENTED`
+Status: `APPROVED — NOT IMPLEMENTED`
+
+Owner approval: `2026-08-26`
+
+Implementation contract: `tasks/STUDIO-007A-IMPLEMENTATION.md`
 
 Parent: `STUDIO-007`
 
@@ -16,15 +20,15 @@ A work order must identify its ID, producer, requesting organizational unit, pro
 
 Queue state is data, not authority. Allowed v1.0 states are `DRAFT`, `READY`, `CLAIMABLE`, `CLAIMED`, `BLOCKED`, `QA_PENDING`, `OWNER_PENDING`, `DONE`, and `CANCELLED`. Every transition must record actor, timestamp, reason, and prior state. Only deterministic, append-safe local records are in scope.
 
-## Proposed future implementation scope
+## Approved implementation direction
 
 - `platform/orchestration/WORK_ORDER_QUEUE.md`
 - `platform/orchestration/schemas/work-order.schema.json`
 - `platform/orchestration/schemas/queue-entry.schema.json`
 - `platform/orchestration/fixtures/007a/`
-- focused validator and tests approved in the implementation contract
+- Python standard-library CLI/validator and focused tests defined by the implementation contract
 
-These paths are reserved proposals, not permission to create them.
+The exact authorized paths, behavior, tests, and rollback are controlled by `tasks/STUDIO-007A-IMPLEMENTATION.md`. That contract must merge before implementation begins.
 
 ## Out of scope
 
@@ -46,8 +50,11 @@ These paths are reserved proposals, not permission to create them.
 
 If queue records are ambiguous, non-deterministic, or permit scope escalation, the contract fails. Rollback removes only 007A implementation artifacts and returns intake to the existing manual task-contract process; existing task files and project truth remain intact.
 
-## Owner decisions required
+## Owner decisions resolved
 
-- Accept the work-order fields and state vocabulary.
-- Accept the implementation paths and validator approach.
-- Decide who may promote `DRAFT` to `READY` and who may cancel work.
+- The work-order fields and complete state vocabulary are accepted for compatibility.
+- JSON is the provider-neutral record format; a Python standard-library implementation may validate and operate the zero-cost local queue without adding a dependency.
+- `PRODUCER-01` may create and edit `DRAFT` records.
+- Only the Studio Owner may authorize `DRAFT` to `READY` or cancel a work order.
+- STUDIO-007A may activate only intake and basic queue transitions. `CLAIMED`, `QA_PENDING`, `OWNER_PENDING`, and `DONE` remain reserved and inactive until their dependent contracts are separately accepted and implemented.
+- No AI/provider, credential, external candidate, network queue, hosted service, or nonzero monetary budget is authorized.
