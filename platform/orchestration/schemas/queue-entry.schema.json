@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "game-studio-harness://platform/orchestration/queue-entry.schema.json",
+  "title": "STUDIO-007A Queue Transition Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "event_id", "work_order_id", "prior_state",
+    "next_state", "actor_id", "actor_role", "timestamp", "reason",
+    "attempt", "resulting_snapshot_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "event_id": {"type": "string", "pattern": "^EV-[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "work_order_id": {"type": "string", "pattern": "^WO-[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "prior_state": {"type": ["string", "null"]},
+    "next_state": {"type": "string"},
+    "actor_id": {"type": "string", "minLength": 1},
+    "actor_role": {"enum": ["PRODUCER-01", "STUDIO_OWNER"]},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "reason": {"type": "string", "minLength": 1},
+    "attempt": {"type": "integer", "minimum": 1},
+    "resulting_snapshot_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

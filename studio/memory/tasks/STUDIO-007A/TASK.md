@@ -33,6 +33,7 @@ review_target: QA-01 and REVIEW-INTEGRATION-01, then Studio Owner
 acceptance_criteria: tasks/STUDIO-007A-IMPLEMENTATION.md section 9
 accepted_constraints: |
   - tasks/STUDIO-007.md merged by Pull Request #16 at e04a933e2c0dd18438822f4c9fdabd2f6af9c4e5.
+  - tasks/STUDIO-007A-IMPLEMENTATION.md merged by Pull Request #17 at 4b98b36b39afd82aabd1144b9a88c44af6ad7de4.
   - Studio Owner approval on 2026-08-26: JSON records, Python standard library, zero-cost file queue, Owner-only READY/CANCELLED authority, and reserved downstream states.
   - AGENTS.md, studio/MEMORY_PROTOCOL.md, and studio/HANDOFF_PROTOCOL.md remain binding.
 
@@ -41,6 +42,7 @@ accepted_constraints: |
 created_at: 2026-08-26T11:26:06+07:00
 authorized_amendments: |
   - Studio Owner authorized the STUDIO-007A implementation contract on 2026-08-26; no implementation authority exists before its contract-only Pull Request merges.
+  - Pull Request #17 satisfied that prerequisite; implementation is authorized only within section 4 of the merged contract.
 
 # Notes
 
