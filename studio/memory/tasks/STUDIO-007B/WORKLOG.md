@@ -66,6 +66,18 @@ canonical_task_contract: tasks/STUDIO-007B-IMPLEMENTATION.md
   rationale: Correct the missing queue-event immutability evidence and replace contradicted WORKTREE_ONLY claims with verified Pull Request evidence before independent QA.
   resulting_state: Immutable implementation head 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e is persisted in Pull Request #20; writer transfer to QA-01 is pending; merge remains prohibited until required verdicts.
   correction_of: STUDIO-007B-CP-0004
+
+- checkpoint_id: STUDIO-007B-CP-0006
+  timestamp: 2026-08-29T16:02:16+07:00
+  actor: ENGINEERING-01
+  action: Corrected review-handoff encoding and distinguished the immutable implementation commit from later memory-only Pull Request commits.
+  scope_files: RESUME.md; STATE.md; WORKLOG.md
+  command_or_check: Verified Pull Request #20 has seventeen authorized paths; Rules CI run 33243469226 SUCCESS; no review threads recorded.
+  evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/20; implementation 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e; handoff memory 902ab0ec70f5a8040cc027ccc0e1bcae15495d06
+  outcome: corrected
+  rationale: Prevent reviewers from incorrectly requiring the Pull Request head itself to equal the immutable implementation commit after authorized memory-only commits were added.
+  resulting_state: QA and integration review target implementation commit 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e; later commits remain restricted to memory and review evidence.
+  correction_of: STUDIO-007B-CP-0005
 # Rules
 
 Append future material checkpoints. Do not rewrite earlier entries; corrections must append and reference the corrected checkpoint.

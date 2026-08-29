@@ -1,4 +1,4 @@
-# STATE.md â€” STUDIO-007B current snapshot
+# STATE.md — STUDIO-007B current snapshot
 
 memory_schema_version: 1
 
@@ -12,15 +12,15 @@ logical_role: ENGINEERING-01
 repository_context: game-studio-harness
 worktree_context: primary repository worktree
 branch: agent/studio-007b-manual-dispatch
-last_observed_HEAD: 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e
+last_observed_HEAD: 902ab0ec70f5a8040cc027ccc0e1bcae15495d06
 durability_state: PR
-last_verified_persisted_ref: 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e
+last_verified_persisted_ref: 902ab0ec70f5a8040cc027ccc0e1bcae15495d06
 pull_request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/20
 
 # Worktree and change boundary
 
 worktree_status_summary: |
-  - Local branch and origin/agent/studio-007b-manual-dispatch are synchronized at 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e.
+  - Immutable implementation commit 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e remains the review target; commit 902ab0ec70f5a8040cc027ccc0e1bcae15495d06 records authorized memory-only handoff evidence.
   - The implementation Pull Request changes exactly thirteen authorized implementation paths and four STUDIO-007B memory records.
   - The queue immutability correction modifies the already-authorized tests/test_orchestration_dispatch.py path.
   - Local worktree was clean after the correction commit was pushed.
@@ -64,9 +64,10 @@ latest_checks: |
   - python -m unittest tests.test_orchestration_dispatch -v: 22 tests PASS.
   - python -m unittest discover -s tests -p "test*.py" -v: 123 tests PASS.
   - git diff --check: exit code 0.
-  - GitHub Actions Rules CI run 33242305992: SUCCESS.
+  - Implementation Rules CI run 33242305992: SUCCESS.
+  - Review-handoff commit Rules CI run 33243469226: SUCCESS.
 
-last_safe_checkpoint_id: STUDIO-007B-CP-0005
+last_safe_checkpoint_id: STUDIO-007B-CP-0006
 exact_next_action: Transfer review responsibility to QA-01 for immutable head 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e; do not merge before both required verdicts.
 
 # Active writer claim
@@ -78,7 +79,7 @@ active_writer_claim:
   transfer_reference: Pull Request #20 at 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e
   transfer_timestamp: 2026-08-29T15:18:25+07:00
 
-updated_at: 2026-08-29T15:18:25+07:00
+updated_at: 2026-08-29T16:02:16+07:00
 updater: ENGINEERING-01
 
 # Notes
