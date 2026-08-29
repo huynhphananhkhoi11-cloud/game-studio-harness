@@ -1,0 +1,19 @@
+{
+  "fixture_base": "valid-dispatch-decision.json",
+  "registry_addition": {
+    "executor_id": "CANDIDATE-02",
+    "organizational_role": "External candidate reference",
+    "source_class": "EXTERNAL_CANDIDATE",
+    "eligibility": "REFERENCE",
+    "capability_tags": ["engineering.repository"],
+    "input_types": ["work-order-json"],
+    "output_types": ["repository-files"],
+    "constraints": [],
+    "availability": "AVAILABLE",
+    "cost_class": "ZERO_COST",
+    "trust_level": "EVIDENCE_VERIFIED",
+    "evidence_references": ["studio/EXTERNAL_CAPABILITY_EVALUATION.md"]
+  },
+  "mutations": {"selected_executor_id": "CANDIDATE-02"},
+  "expected_error": "external candidate"
+}

@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "registry_id": "REG-007B-001",
+  "updated_at": "2026-08-29T07:00:00Z",
+  "records": [
+    {
+      "executor_id": "PRODUCER-01",
+      "organizational_role": "Producer",
+      "source_class": "INTERNAL_ROLE",
+      "eligibility": "ELIGIBLE",
+      "capability_tags": ["production.coordination"],
+      "input_types": ["work-order-json"],
+      "output_types": ["dispatch-plan"],
+      "constraints": [],
+      "availability": "AVAILABLE",
+      "cost_class": "ZERO_COST",
+      "trust_level": "EVIDENCE_VERIFIED",
+      "evidence_references": ["tasks/STUDIO-002.md"]
+    },
+    {
+      "executor_id": "GAME-DESIGN-01",
+      "organizational_role": "Game Design",
+      "source_class": "INTERNAL_ROLE",
+      "eligibility": "ELIGIBLE",
+      "capability_tags": ["game-design.systems"],
+      "input_types": ["work-order-json", "research-notes"],
+      "output_types": ["design-spec"],
+      "constraints": [],
+      "availability": "AVAILABLE",
+      "cost_class": "ZERO_COST",
+      "trust_level": "EVIDENCE_VERIFIED",
+      "evidence_references": ["tasks/STUDIO-002.md"]
+    },
+    {
+      "executor_id": "NARRATIVE-RESEARCH-01",
+      "organizational_role": "Narrative Research",
+      "source_class": "INTERNAL_ROLE",
+      "eligibility": "ELIGIBLE",
+      "capability_tags": ["narrative.research"],
+      "input_types": ["work-order-json", "research-notes"],
+      "output_types": ["research-notes"],
+      "constraints": [],
+      "availability": "AVAILABLE",
+      "cost_class": "ZERO_COST",
+      "trust_level": "EVIDENCE_VERIFIED",
+      "evidence_references": ["tasks/STUDIO-002.md"]
+    },
+    {
+      "executor_id": "ENGINEERING-01",
+      "organizational_role": "Engineering",
+      "source_class": "INTERNAL_ROLE",
+      "eligibility": "ELIGIBLE",
+      "capability_tags": ["engineering.repository"],
+      "input_types": ["work-order-json", "design-spec"],
+      "output_types": ["repository-files"],
+      "constraints": ["No network access"],
+      "availability": "AVAILABLE",
+      "cost_class": "ZERO_COST",
+      "trust_level": "RESTRICTED",
+      "evidence_references": ["tasks/STUDIO-007A-IMPLEMENTATION.md"]
+    },
+    {
+      "executor_id": "QA-01",
+      "organizational_role": "Quality Assurance",
+      "source_class": "INTERNAL_ROLE",
+      "eligibility": "ELIGIBLE",
+      "capability_tags": ["qa.validation"],
+      "input_types": ["repository-files"],
+      "output_types": ["test-evidence"],
+      "constraints": [],
+      "availability": "AVAILABLE",
+      "cost_class": "ZERO_COST",
+      "trust_level": "EVIDENCE_VERIFIED",
+      "evidence_references": ["tasks/STUDIO-002.md"]
+    },
+    {
+      "executor_id": "REVIEW-INTEGRATION-01",
+      "organizational_role": "Review and Integration",
+      "source_class": "INTERNAL_ROLE",
+      "eligibility": "ELIGIBLE",
+      "capability_tags": ["review.integration"],
+      "input_types": ["repository-files", "test-evidence"],
+      "output_types": ["review-package"],
+      "constraints": [],
+      "availability": "AVAILABLE",
+      "cost_class": "ZERO_COST",
+      "trust_level": "EVIDENCE_VERIFIED",
+      "evidence_references": ["tasks/STUDIO-002.md"]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "fixture_base": "valid-dispatch-decision.json",
+  "mutations": {
+    "dispatcher_id": "PRODUCER-01",
+    "dispatcher_role": "PRODUCER-01"
+  },
+  "expected_error": "only STUDIO_OWNER"
+}
