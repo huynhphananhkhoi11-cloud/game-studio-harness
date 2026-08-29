@@ -2,86 +2,73 @@
 
 memory_schema_version: 1
 
-# Package identity and repository context
-
 task_id: STUDIO-007B
 package_path: studio/memory/tasks/STUDIO-007B
 canonical_task_contract: tasks/STUDIO-007B-IMPLEMENTATION.md
-state: REVIEW_PENDING
-logical_role: ENGINEERING-01
+state: COMPLETE
+logical_role: PRODUCER-01
 repository_context: game-studio-harness
 worktree_context: primary repository worktree
-branch: agent/studio-007b-manual-dispatch
-last_observed_HEAD: 902ab0ec70f5a8040cc027ccc0e1bcae15495d06
-durability_state: PR
-last_verified_persisted_ref: 902ab0ec70f5a8040cc027ccc0e1bcae15495d06
+branch: agent/studio-007b-closeout
+last_observed_HEAD: 2a559c420c72b835fb48da91699f3cda9717c516
+durability_state: MERGED
+last_verified_persisted_ref: 2a559c420c72b835fb48da91699f3cda9717c516
 pull_request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/20
-
-# Worktree and change boundary
+merge_commit: 2a559c420c72b835fb48da91699f3cda9717c516
 
 worktree_status_summary: |
-  - Immutable implementation commit 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e remains the review target; commit 902ab0ec70f5a8040cc027ccc0e1bcae15495d06 records authorized memory-only handoff evidence.
-  - The implementation Pull Request changes exactly thirteen authorized implementation paths and four STUDIO-007B memory records.
-  - The queue immutability correction modifies the already-authorized tests/test_orchestration_dispatch.py path.
-  - Local worktree was clean after the correction commit was pushed.
-  - Pre-existing or unrelated changed files: NONE.
+  - PR #20 is merged into main.
+  - main and origin/main were verified at 2a559c420c72b835fb48da91699f3cda9717c516.
+  - Closeout changes are limited to STATE.md, WORKLOG.md, and RESUME.md.
+  - No unrelated worktree changes were present when closeout began.
 
-# Progress and state
+completed:
+  - STUDIO-007B capability registry and manual dispatch implementation merged.
+  - Producer Queue snapshot and event immutability preserved and tested.
+  - Focused queue suite passed: 24 tests.
+  - Focused dispatch suite passed: 22 tests.
+  - Full suite passed: 123 tests.
+  - QA-01 returned PASS.
+  - REVIEW-INTEGRATION-01 returned APPROVE.
+  - Rules CI passed for the final pull-request head.
+  - Studio Owner merged PR #20 as 2a559c420c72b835fb48da91699f3cda9717c516.
 
-completed: |
-  - Implemented the capability registry, schemas, deterministic fixtures, manual-dispatch CLI, documentation, and focused tests.
-  - Added explicit byte-for-byte immutability evidence for the STUDIO-007A work-order snapshot and queue event fixture.
-  - Data validation PASS.
-  - STUDIO-007A retained tests: 24 PASS.
-  - STUDIO-007B focused tests: 22 PASS.
-  - Complete test suite: 123 PASS.
-  - git diff --check returned exit code 0.
-  - Pushed immutable implementation head 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e to Pull Request #20.
-  - GitHub Actions Rules CI run 33242305992 completed successfully.
+remaining:
+  - NONE.
 
-remaining: |
-  - QA-01 must review immutable implementation head 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e and return PASS or FAIL.
-  - REVIEW-INTEGRATION-01 must review the same implementation head and return APPROVE, REQUEST CHANGES, or BLOCK.
-  - Studio Owner must make the final merge decision after the required verdicts.
+blockers:
+  - NONE.
 
-blockers: |
-  - NONE. Required independent review verdicts remain pending.
+assumptions:
+  - NONE.
 
-assumptions: |
-  - Pull Request #20 continues to target main.
-  - No implementation commit will be added while QA and integration review evaluate 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e.
+unresolved_items:
+  - NONE.
 
-unresolved_items: |
-  - QA-01 verdict.
-  - REVIEW-INTEGRATION-01 verdict.
-  - Studio Owner merge decision and resulting merge commit.
+latest_checks:
+  - PR: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/20
+  - QA and integration verdicts: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/20#issuecomment-5461488688
+  - Successful Rules CI run: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/33244641564
+  - Merge commit: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/commit/2a559c420c72b835fb48da91699f3cda9717c516
+  - git diff --check: PASS before merge.
 
-# Checks, checkpoints, and next action
+last_safe_checkpoint_id: STUDIO-007B-CP-0007
 
-latest_checks: |
-  - python -m prototype.rules.cli validate-data --data-dir data/vertical_slice: PASS.
-  - python -m unittest tests.test_orchestration_queue -v: 24 tests PASS.
-  - python -m unittest tests.test_orchestration_dispatch -v: 22 tests PASS.
-  - python -m unittest discover -s tests -p "test*.py" -v: 123 tests PASS.
-  - git diff --check: exit code 0.
-  - Implementation Rules CI run 33242305992: SUCCESS.
-  - Review-handoff commit Rules CI run 33243469226: SUCCESS.
-
-last_safe_checkpoint_id: STUDIO-007B-CP-0006
-exact_next_action: Transfer review responsibility to QA-01 for immutable head 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e; do not merge before both required verdicts.
-
-# Active writer claim
+exact_next_action: |
+  No further STUDIO-007B implementation action is authorized.
+  Retain this package as completion evidence.
+  Any reopening or follow-on work requires separate authorization.
 
 active_writer_claim:
-  status: TRANSFER_PENDING
-  writer: ENGINEERING-01
-  intended_receiver: QA-01
-  transfer_reference: Pull Request #20 at 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e
-  transfer_timestamp: 2026-08-29T15:18:25+07:00
+  status: RELEASED
+  writer: NONE
+  released_by: PRODUCER-01
+  release_reference: 2a559c420c72b835fb48da91699f3cda9717c516
+  release_timestamp: 2026-08-29T16:18:56+07:00
 
-updated_at: 2026-08-29T16:02:16+07:00
-updater: ENGINEERING-01
+updated_at: 2026-08-29T16:18:56+07:00
+updater: PRODUCER-01
 
-# Notes
-
-The implementation records manual selection evidence only. It cannot claim queue work, execute an agent, authenticate an actor, or mutate STUDIO-007A queue state.
+notes: |
+  STUDIO-007B is complete and merged.
+  The Studio Owner retained and exercised the final merge decision.
