@@ -9,7 +9,7 @@ state: IMPLEMENTATION_AUTHORIZED
 logical_role: ENGINEERING-01
 repository_context: game-studio-harness
 worktree_context: primary repository worktree
-branch: agent/studio-007c-contract
+branch: agent/studio-007c-writer-worktree-handoff
 last_observed_HEAD: 633cbb319d2bc6c6361cf602ae67d5b4f49e308b
 durability_state: MERGED
 last_verified_persisted_ref: 633cbb319d2bc6c6361cf602ae67d5b4f49e308b
@@ -37,10 +37,11 @@ blockers: |
   - NONE.
 
 assumptions: |
-  - Current branch and baseline remain unchanged until the contract checkpoint is persisted.
+  - Implementation branch and merged contract baseline remain unchanged while STUDIO-007C-WRITER-0001 is active.
+  - Claim timing is evaluated from explicit UTC evidence rather than an implicit system clock.
 
-+
-  - Contract Pull Request number and merge commit are not yet available.
+unresolved_items: |
+  - If implementation is unfinished, ENGINEERING-01 must renew before 2026-08-30T11:16:13Z or stop and obtain a new Owner-authorized claim after expiry.
 
 latest_checks: |
   - Pull Request #22 was verified merged at 633cbb319d2bc6c6361cf602ae67d5b4f49e308b.
@@ -48,7 +49,7 @@ latest_checks: |
   - Worktree was verified clean before claim acquisition.
   - Claim window is explicit UTC from 2026-08-29T11:16:13Z through 2026-08-30T11:16:13Z.
 
-last_safe_checkpoint_id: STUDIO-007C-CP-0003
+last_safe_checkpoint_id: STUDIO-007C-CP-0004
 
 exact_next_action: Create only the sixteen implementation paths listed in section 4 while the writer claim remains active.
 
@@ -86,5 +87,5 @@ active_writer_claim:
     - studio/memory/tasks/STUDIO-007C/WORKLOG.md
     - studio/memory/tasks/STUDIO-007C/RESUME.md
 
-updated_at: 2026-08-29T18:16:13+07:00
+updated_at: 2026-08-29T18:19:14+07:00
 updater: ENGINEERING-01

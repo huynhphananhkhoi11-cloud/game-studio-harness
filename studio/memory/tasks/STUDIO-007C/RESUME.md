@@ -6,7 +6,7 @@ task_id: STUDIO-007C
 package_path: studio/memory/tasks/STUDIO-007C
 canonical_task_contract: tasks/STUDIO-007C-IMPLEMENTATION.md
 current_state: IMPLEMENTATION_AUTHORIZED
-last_safe_checkpoint_id: STUDIO-007C-CP-0003
+last_safe_checkpoint_id: STUDIO-007C-CP-0004
 
 required_read_order:
   - AGENTS.md
@@ -19,7 +19,7 @@ required_read_order:
   - studio/HANDOFF_PROTOCOL.md
   - TASK.md
   - STATE.md
-  - WORKLOG.md entries STUDIO-007C-CP-0001 through STUDIO-007C-CP-0003
+  - WORKLOG.md entries STUDIO-007C-CP-0001 through STUDIO-007C-CP-0004
 
 repository_context: game-studio-harness
 worktree_context: primary repository worktree
@@ -39,8 +39,11 @@ expected_worktree_status: |
 completed_summary: |
   Pull Request #22 merged at 633cbb319d2bc6c6361cf602ae67d5b4f49e308b. The implementation branch was created from that merge commit. Studio Owner authorized STUDIO-007C-WRITER-0001 for ENGINEERING-01 from 2026-08-29T11:16:13Z through 2026-08-30T11:16:13Z.
 
-+
-  Review, commit, push, and merge the contract-only package before starting implementation.
+remaining_work: |
+  - Create exactly the sixteen implementation paths authorized by contract section 4.
+  - Run retained STUDIO-007A and STUDIO-007B tests, focused STUDIO-007C tests, the full suite, and whitespace checks.
+  - Obtain independent QA and Review & Integration verdicts.
+  - Obtain the Studio Owner final merge decision.
 
 blockers:
   - NONE.
@@ -57,5 +60,5 @@ writer_transfer_status: CLAIMED by ENGINEERING-01 under STUDIO-007C-WRITER-0001 
 claim_issued_at: 2026-08-29T11:16:13Z
 claim_expires_at: 2026-08-30T11:16:13Z
 claim_lease_hours: 24
-generated_from_checkpoints: STUDIO-007C-CP-0001 through STUDIO-007C-CP-0003
-updated_at: 2026-08-29T18:16:13+07:00
+generated_from_checkpoints: STUDIO-007C-CP-0001 through STUDIO-007C-CP-0004
+updated_at: 2026-08-29T18:19:14+07:00

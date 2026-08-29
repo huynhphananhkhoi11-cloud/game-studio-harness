@@ -33,6 +33,7 @@ outcome: completed
 rationale: Durable memory must describe the actual persisted Pull Request state before review and merge.
 resulting_state: REVIEW_PENDING in Pull Request #22; implementation remains unauthorized until contract merge.
 correction_of: NONE
+
 ## Implementation writer-claim checkpoint
 
 checkpoint_id: STUDIO-007C-CP-0003
@@ -46,6 +47,20 @@ outcome: completed
 rationale: One bounded active writer must own the authorized implementation paths before implementation begins.
 resulting_state: IMPLEMENTATION_AUTHORIZED; ENGINEERING-01 holds STUDIO-007C-WRITER-0001 from 2026-08-29T11:16:13Z through 2026-08-30T11:16:13Z.
 correction_of: NONE
+## Implementation claim metadata correction checkpoint
+
+checkpoint_id: STUDIO-007C-CP-0004
+timestamp: 2026-08-29T18:19:14+07:00
+actor: ENGINEERING-01
+action: Corrected malformed resume and state metadata introduced while recording the implementation writer claim.
+scope_files: studio/memory/tasks/STUDIO-007C/RESUME.md; studio/memory/tasks/STUDIO-007C/STATE.md; studio/memory/tasks/STUDIO-007C/WORKLOG.md
+command_or_check: Restore remaining_work and unresolved_items keys; correct implementation branch identity; remove stray plus markers; run git diff --check.
+evidence_reference: commit af3364ca62cd00185c3b08a205ec9f668116b14d; claim STUDIO-007C-WRITER-0001.
+outcome: completed
+rationale: Durable re-entry metadata must be structurally valid and accurately identify the active implementation branch before code creation.
+resulting_state: IMPLEMENTATION_AUTHORIZED with STUDIO-007C-WRITER-0001 active until 2026-08-30T11:16:13Z.
+correction_of: STUDIO-007C-CP-0003
+
 # Rules
 
 Append future material checkpoints. Do not rewrite earlier entries; corrections must append and reference the corrected checkpoint.
