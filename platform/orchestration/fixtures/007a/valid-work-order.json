@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "work_order_id": "WO-007A-001",
+  "producer_id": "PRODUCER-01",
+  "requesting_unit": "Platform Studio",
+  "project_id": null,
+  "objective": "Validate the zero-cost STUDIO-007A queue fixture.",
+  "permitted_paths": [
+    "platform/orchestration/fixtures/007a"
+  ],
+  "prohibited_actions": [
+    "No network access",
+    "No credentials",
+    "No Git mutation"
+  ],
+  "capability_tags": [
+    "work-order",
+    "queue-validation"
+  ],
+  "input_references": [
+    "tasks/STUDIO-007A-IMPLEMENTATION.md"
+  ],
+  "expected_output_references": [
+    "platform/orchestration/fixtures/007a/valid-work-order.json"
+  ],
+  "acceptance_gates": [
+    "Standard-library validation passes",
+    "Budget remains zero"
+  ],
+  "priority": 50,
+  "budget_ceiling": 0,
+  "dependency_ids": [],
+  "attempt": 1,
+  "state": "DRAFT",
+  "owner_gate_required": true,
+  "created_at": "2026-08-26T05:00:00Z",
+  "updated_at": "2026-08-26T05:00:00Z",
+  "last_event_id": "EV-007A-001"
+}

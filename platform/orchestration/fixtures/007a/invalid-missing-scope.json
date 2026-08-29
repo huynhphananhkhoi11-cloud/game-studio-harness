@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "work_order_id": "WO-007A-002",
+  "producer_id": "PRODUCER-01",
+  "requesting_unit": "Platform Studio",
+  "project_id": null,
+  "objective": "This fixture intentionally omits permitted_paths.",
+  "prohibited_actions": ["No network access"],
+  "capability_tags": ["negative-test"],
+  "input_references": [],
+  "expected_output_references": ["tests/test_orchestration_queue.py"],
+  "acceptance_gates": ["Validation fails closed"],
+  "priority": 10,
+  "budget_ceiling": 0,
+  "dependency_ids": [],
+  "attempt": 1,
+  "state": "DRAFT",
+  "owner_gate_required": true,
+  "created_at": "2026-08-26T05:01:00Z",
+  "updated_at": "2026-08-26T05:01:00Z",
+  "last_event_id": "EV-007A-002"
+}
