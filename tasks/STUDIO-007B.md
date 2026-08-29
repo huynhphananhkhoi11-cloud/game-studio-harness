@@ -1,52 +1,82 @@
-# STUDIO-007B — Capability Registry & Manual Dispatcher
+# STUDIO-007B â€” Capability Registry & Manual Dispatcher
 
-Status: `PROPOSED — NOT ACCEPTED — NOT IMPLEMENTED`
+Status: `APPROVED â€” NOT IMPLEMENTED`
+
+Owner approval: `2026-08-29`
+
+Implementation contract: `tasks/STUDIO-007B-IMPLEMENTATION.md`
 
 Parent: `STUDIO-007`
 
-Dependency: accepted and verified `STUDIO-007A`
+Dependency: merged and verified `STUDIO-007A` implementation at Pull Request `#18`, merge commit `a8c4979dbedf827f1d9d9ff4570b37e0ae214c6f`
 
 Primary owner: Platform Studio
 
 ## Goal
 
-Describe available execution capabilities and let a human dispatcher make a recorded, explainable assignment without granting candidates or AI systems authority.
+Describe available execution capabilities and let the Studio Owner record one deterministic, explainable manual dispatch decision without granting candidates, role labels, or AI systems authority.
 
-## Proposed contract
+## Accepted contract
 
-A capability record describes an executor ID, capability tags, supported input/output types, constraints, availability, cost class, trust level, and evidence reference. A dispatch decision links one work order to one selected executor and records the human dispatcher, considered alternatives, reason, and expiry.
+A capability record describes an executor ID, organizational role, capability tags, supported input/output types, constraints, availability, zero-cost class, trust level, eligibility, and evidence references. A dispatch decision links one validated `CLAIMABLE` work order to one selected executor and records its immutable work-order digest, the Studio Owner dispatcher, considered alternatives, evidence-based reason, decision time, and expiry.
 
-Registry entries are claims to validate, not permissions. `REFERENCE` candidates never become executors. `ADAPT` recommendations cannot enter the registry as usable capabilities until a separate Owner-accepted adaptation contract is implemented and verified.
+Registry entries are evidence claims, not permissions or authentication. Only an `INTERNAL_ROLE` record with `ELIGIBLE`, `AVAILABLE`, `ZERO_COST`, compatible capabilities and supported data types may be selected. `REFERENCE`, `NOT_INSTALLED`, `NO_DECISION`, and `ADAPT_PENDING` records are never dispatchable.
 
-## Proposed future implementation scope
+Dispatch records do not execute work, mutate the Producer Queue, transition a work order to `CLAIMED`, create a worktree, or grant merge authority. Those actions remain reserved for later accepted contracts.
+
+## Approved implementation direction
 
 - `platform/orchestration/CAPABILITY_DISPATCH.md`
-- `platform/orchestration/schemas/capability-record.schema.json`
-- `platform/orchestration/schemas/dispatch-decision.schema.json`
-- `platform/orchestration/fixtures/007b/`
-- focused validator and tests approved in the implementation contract
+- provider-neutral JSON schemas and deterministic fixtures under `platform/orchestration/`
+- a Python standard-library manual-dispatch validator/CLI
+- focused no-network tests defined by `tasks/STUDIO-007B-IMPLEMENTATION.md`
+
+The exact authorized paths, vocabulary, behavior, tests, and rollback are controlled by the implementation contract. That contract must merge before implementation begins.
+
+## Accepted v1.0 vocabulary
+
+Capability tags:
+
+- `production.coordination`
+- `game-design.systems`
+- `narrative.research`
+- `engineering.repository`
+- `qa.validation`
+- `review.integration`
+
+Trust levels:
+
+- `EVIDENCE_PENDING` â€” claim exists but evidence is not yet sufficient for dispatch.
+- `EVIDENCE_VERIFIED` â€” declared evidence passed the bounded repository validation required by this contract.
+- `RESTRICTED` â€” usable only when every declared constraint is satisfied.
+
+Only `STUDIO_OWNER` may record an active dispatch decision in v1.0. `PRODUCER-01` may prepare work orders and non-binding alternatives but may not impersonate the human dispatcher or activate a selection.
 
 ## Out of scope
 
-- Automated ranking, routing, bidding, or load balancing.
-- New organizational roles or authority systems.
-- Candidate installation, repository grafting, external prompts, or dependencies.
-- Real providers, credentials, paid services, or network discovery.
+- Automated ranking, routing, bidding, matching, scheduling, or load balancing.
+- New organizational roles, authentication, identity providers, or authority systems.
+- Candidate installation, repository grafting, external prompts, dependencies, or network discovery.
+- Real providers, credentials, paid services, model calls, execution, claims, worktrees, handoffs, commits, pushes, merges, publishing, or deployment.
+- Changes to project truth, canon, source authority, or STUDIO-007A transition rules.
 
-## Required tests for a future implementation
+## Required tests
 
-- Reject unknown or unavailable executor IDs.
-- Reject capability mismatch and expired dispatch decisions.
-- Prove every dispatch has a human actor and evidence-based reason.
-- Prove `REFERENCE`, `NOT INSTALLED`, and `NO DECISION` candidates cannot be dispatched.
-- Deterministic manual-dispatch fixtures and no-network execution.
+- Reject unknown, unavailable, ineligible, nonzero-cost, or insufficiently evidenced executors.
+- Reject capability, input-type, output-type, constraint, work-order state, or work-order digest mismatch.
+- Reject expired decisions using an explicit deterministic `as_of` timestamp.
+- Prove every active dispatch has a `STUDIO_OWNER` actor, considered alternatives, evidence references, and a non-empty reason.
+- Prove external-candidate statuses cannot be dispatched.
+- Prove fixtures and CLI run without network access or repository mutation.
 
 ## Failure and rollback
 
-If the registry silently creates authority, accepts unevaluated capabilities, or performs automatic dispatch, the contract fails. Rollback removes only 007B artifacts; 007A remains usable as a manual queue.
+If the registry silently creates authority, accepts unevaluated capability claims, performs automatic dispatch, mutates queue state, or permits an external candidate, the contract fails. Rollback removes only STUDIO-007B implementation artifacts; STUDIO-007A remains usable as a manual queue.
 
-## Owner decisions required
+## Owner decisions resolved
 
-- Accept the initial capability vocabulary and trust levels.
-- Name the humans allowed to record dispatch decisions.
-- Approve any future executor or candidate adaptation separately.
+- The initial capability and trust vocabularies above are accepted for the bounded v1.0 implementation.
+- `STUDIO_OWNER` is the only active human dispatcher role in v1.0.
+- Existing logical roles may be represented only as evidence-backed executor records; no new role is created.
+- Dispatch expiry is evaluated against an explicit supplied UTC timestamp, never an implicit wall clock.
+- No external candidate, provider, credential, network action, automatic selection, or nonzero monetary cost is authorized.
