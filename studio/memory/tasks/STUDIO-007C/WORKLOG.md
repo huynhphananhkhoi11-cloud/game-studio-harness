@@ -20,6 +20,19 @@ rationale: Implementation requires a separately merged, reviewable contract with
 resulting_state: CONTRACT_APPROVED in worktree; implementation remains not started and unauthorized until contract merge.
 correction_of: NONE
 
+## Pull Request review handoff checkpoint
+
+checkpoint_id: STUDIO-007C-CP-0002
+timestamp: 2026-08-29T17:48:42+07:00
+actor: PRODUCER-01
+action: Recorded the persisted contract commit, Pull Request identity, exact scope, and successful Rules CI for review handoff.
+scope_files: studio/memory/tasks/STUDIO-007C/RESUME.md; studio/memory/tasks/STUDIO-007C/STATE.md; studio/memory/tasks/STUDIO-007C/WORKLOG.md
+command_or_check: Verify local and remote head 5c685161e8ff6d2f74a61e1e34e30f4f5026dcf4; verify Pull Request #22 contains exactly six authorized files; verify Rules CI success; run git diff --check.
+evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/22; commit 5c685161e8ff6d2f74a61e1e34e30f4f5026dcf4.
+outcome: completed
+rationale: Durable memory must describe the actual persisted Pull Request state before review and merge.
+resulting_state: REVIEW_PENDING in Pull Request #22; implementation remains unauthorized until contract merge.
+correction_of: NONE
 # Rules
 
 Append future material checkpoints. Do not rewrite earlier entries; corrections must append and reference the corrected checkpoint.
