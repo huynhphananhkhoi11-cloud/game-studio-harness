@@ -33,6 +33,19 @@ outcome: completed
 rationale: Durable memory must describe the actual persisted Pull Request state before review and merge.
 resulting_state: REVIEW_PENDING in Pull Request #22; implementation remains unauthorized until contract merge.
 correction_of: NONE
+## Implementation writer-claim checkpoint
+
+checkpoint_id: STUDIO-007C-CP-0003
+timestamp: 2026-08-29T18:16:13+07:00
+actor: ENGINEERING-01
+action: Recorded the merged contract baseline and acquired the Studio-Owner-authorized 24-hour implementation writer claim.
+scope_files: studio/memory/tasks/STUDIO-007C/TASK.md; studio/memory/tasks/STUDIO-007C/RESUME.md; studio/memory/tasks/STUDIO-007C/STATE.md; studio/memory/tasks/STUDIO-007C/WORKLOG.md
+command_or_check: Verify branch agent/studio-007c-writer-worktree-handoff; verify clean worktree; verify base commit 633cbb319d2bc6c6361cf602ae67d5b4f49e308b; record explicit UTC claim window.
+evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/22; merge commit 633cbb319d2bc6c6361cf602ae67d5b4f49e308b; claim STUDIO-007C-WRITER-0001.
+outcome: completed
+rationale: One bounded active writer must own the authorized implementation paths before implementation begins.
+resulting_state: IMPLEMENTATION_AUTHORIZED; ENGINEERING-01 holds STUDIO-007C-WRITER-0001 from 2026-08-29T11:16:13Z through 2026-08-30T11:16:13Z.
+correction_of: NONE
 # Rules
 
 Append future material checkpoints. Do not rewrite earlier entries; corrections must append and reference the corrected checkpoint.
