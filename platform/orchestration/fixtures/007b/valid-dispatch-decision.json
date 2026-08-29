@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "decision_id": "DSP-007B-001",
+  "work_order_id": "WO-007B-001",
+  "work_order_digest": "sha256:d17277016bf35cf8f8a77c60fa4f767431790b5a243cb0634559f5d9b2f4cb61",
+  "selected_executor_id": "ENGINEERING-01",
+  "required_capability_tags": ["engineering.repository"],
+  "required_input_types": ["work-order-json"],
+  "required_output_types": ["repository-files"],
+  "considered_alternatives": [
+    {
+      "executor_id": "GAME-DESIGN-01",
+      "outcome": "CONSIDERED_NOT_SELECTED",
+      "reason": "The work order requires repository engineering rather than game-system design."
+    }
+  ],
+  "dispatcher_id": "STUDIO_OWNER",
+  "dispatcher_role": "STUDIO_OWNER",
+  "reason": "ENGINEERING-01 has the required repository capability and the zero-network restriction is satisfied.",
+  "evidence_references": [
+    "tasks/STUDIO-007B-IMPLEMENTATION.md",
+    "platform/orchestration/fixtures/007b/valid-capability-registry.json"
+  ],
+  "decided_at": "2026-08-29T07:05:00Z",
+  "expires_at": "2026-08-30T07:05:00Z"
+}

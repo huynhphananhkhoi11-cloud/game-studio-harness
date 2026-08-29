@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "game-studio-harness://platform/orchestration/capability-registry.schema.json",
+  "title": "STUDIO-007B Capability Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "registry_id", "updated_at", "records"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "registry_id": {"type": "string", "pattern": "^REG-[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "executor_id", "organizational_role", "source_class", "eligibility",
+          "capability_tags", "input_types", "output_types", "constraints",
+          "availability", "cost_class", "trust_level", "evidence_references"
+        ],
+        "properties": {
+          "executor_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+          "organizational_role": {"type": "string", "minLength": 1},
+          "source_class": {"enum": ["INTERNAL_ROLE", "EXTERNAL_CANDIDATE"]},
+          "eligibility": {"enum": ["ELIGIBLE", "REFERENCE", "NOT_INSTALLED", "NO_DECISION", "ADAPT_PENDING"]},
+          "capability_tags": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["production.coordination", "game-design.systems", "narrative.research", "engineering.repository", "qa.validation", "review.integration"]}},
+          "input_types": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 2}},
+          "output_types": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 2}},
+          "constraints": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "availability": {"enum": ["AVAILABLE", "UNAVAILABLE"]},
+          "cost_class": {"const": "ZERO_COST"},
+          "trust_level": {"enum": ["EVIDENCE_PENDING", "EVIDENCE_VERIFIED", "RESTRICTED"]},
+          "evidence_references": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    }
+  }
+}

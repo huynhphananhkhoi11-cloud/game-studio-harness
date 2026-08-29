@@ -1,0 +1,6 @@
+{
+  "fixture_base": "valid-dispatch-decision.json",
+  "registry_mutations": {"ENGINEERING-01.availability": "UNAVAILABLE"},
+  "mutations": {},
+  "expected_error": "unavailable"
+}

@@ -1,0 +1,5 @@
+{
+  "fixture_base": "valid-dispatch-decision.json",
+  "mutations": {"selected_executor_id": "UNKNOWN-01"},
+  "expected_error": "unknown selected executor_id"
+}
