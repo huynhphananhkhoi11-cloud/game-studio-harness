@@ -54,6 +54,18 @@ canonical_task_contract: tasks/STUDIO-007B-IMPLEMENTATION.md
   resulting_state: Implementation package ready for receiving-worktree application and full repository verification.
   correction_of: NONE
 
+
+- checkpoint_id: STUDIO-007B-CP-0005
+  timestamp: 2026-08-29T15:18:25+07:00
+  actor: ENGINEERING-01
+  action: Reconciled stale memory after implementation, added queue snapshot/event immutability evidence, and transferred the immutable Pull Request head for independent review.
+  scope_files: tests/test_orchestration_dispatch.py and the current-state STUDIO-007B memory records
+  command_or_check: Data validation PASS; 24 retained queue tests PASS; 22 focused dispatcher tests PASS; 123 total tests PASS; git diff --check exit 0; Rules CI run 33242305992 SUCCESS
+  evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/20 at 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e; https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/33242305992
+  outcome: reviewed
+  rationale: Correct the missing queue-event immutability evidence and replace contradicted WORKTREE_ONLY claims with verified Pull Request evidence before independent QA.
+  resulting_state: Immutable implementation head 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e is persisted in Pull Request #20; writer transfer to QA-01 is pending; merge remains prohibited until required verdicts.
+  correction_of: STUDIO-007B-CP-0004
 # Rules
 
 Append future material checkpoints. Do not rewrite earlier entries; corrections must append and reference the corrected checkpoint.

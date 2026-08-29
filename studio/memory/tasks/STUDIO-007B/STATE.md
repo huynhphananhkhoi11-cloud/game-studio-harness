@@ -1,4 +1,4 @@
-# STATE.md — STUDIO-007B current snapshot
+# STATE.md â€” STUDIO-007B current snapshot
 
 memory_schema_version: 1
 
@@ -7,58 +7,78 @@ memory_schema_version: 1
 task_id: STUDIO-007B
 package_path: studio/memory/tasks/STUDIO-007B
 canonical_task_contract: tasks/STUDIO-007B-IMPLEMENTATION.md
-state: IMPLEMENTATION_PREPARED
+state: REVIEW_PENDING
 logical_role: ENGINEERING-01
 repository_context: game-studio-harness
 worktree_context: primary repository worktree
 branch: agent/studio-007b-manual-dispatch
-last_observed_HEAD: 475fb25e8d88c79c84a5fc117c9e8b1614aedfcb
-durability_state: WORKTREE_ONLY
-last_verified_persisted_ref: 475fb25e8d88c79c84a5fc117c9e8b1614aedfcb
+last_observed_HEAD: 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e
+durability_state: PR
+last_verified_persisted_ref: 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e
+pull_request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/20
 
 # Worktree and change boundary
 
 worktree_status_summary: |
-  - verified baseline target: clean branch agent/studio-007b-manual-dispatch at 475fb25e8d88c79c84a5fc117c9e8b1614aedfcb.
-  - changed_files_attributed_to_task: exactly thirteen implementation files from contract section 4 plus these four existing memory records.
-  - pre_existing_or_unrelated_changed_files: NONE required; the apply script stops if the worktree is not clean.
+  - Local branch and origin/agent/studio-007b-manual-dispatch are synchronized at 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e.
+  - The implementation Pull Request changes exactly thirteen authorized implementation paths and four STUDIO-007B memory records.
+  - The queue immutability correction modifies the already-authorized tests/test_orchestration_dispatch.py path.
+  - Local worktree was clean after the correction commit was pushed.
+  - Pre-existing or unrelated changed files: NONE.
 
 # Progress and state
 
 completed: |
-  - Verified the merged contract evidence from Pull Request #19 and the authorized implementation boundary.
-  - Prepared registry and decision schemas, deterministic fixtures, manual-dispatch CLI, documentation, and focused tests.
-  - Proved 21 focused tests pass in the preparation workspace with Python standard library only.
+  - Implemented the capability registry, schemas, deterministic fixtures, manual-dispatch CLI, documentation, and focused tests.
+  - Added explicit byte-for-byte immutability evidence for the STUDIO-007A work-order snapshot and queue event fixture.
+  - Data validation PASS.
+  - STUDIO-007A retained tests: 24 PASS.
+  - STUDIO-007B focused tests: 22 PASS.
+  - Complete test suite: 123 PASS.
+  - git diff --check returned exit code 0.
+  - Pushed immutable implementation head 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e to Pull Request #20.
+  - GitHub Actions Rules CI run 33242305992 completed successfully.
+
 remaining: |
-  - Apply the exact package to the receiving worktree and verify the exact seventeen-file boundary.
-  - Run data validation, retained STUDIO-007A tests, focused STUDIO-007B tests, full test discovery, and whitespace checks.
-  - Commit and push only after Studio Owner review, then obtain QA-01 and REVIEW-INTEGRATION-01 verdicts against one immutable head.
+  - QA-01 must review immutable implementation head 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e and return PASS or FAIL.
+  - REVIEW-INTEGRATION-01 must review the same implementation head and return APPROVE, REQUEST CHANGES, or BLOCK.
+  - Studio Owner must make the final merge decision after the required verdicts.
+
 blockers: |
-  - Receiving-worktree branch, baseline commit, and clean status must match exactly before application.
+  - NONE. Required independent review verdicts remain pending.
+
 assumptions: |
-  - The receiving branch was created from merge commit 475fb25e8d88c79c84a5fc117c9e8b1614aedfcb and has no unrelated changes.
+  - Pull Request #20 continues to target main.
+  - No implementation commit will be added while QA and integration review evaluate 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e.
+
 unresolved_items: |
-  - Implementation commit, remote branch evidence, Pull Request number, immutable review head, QA verdict, integration verdict, and merge commit are not yet assigned.
+  - QA-01 verdict.
+  - REVIEW-INTEGRATION-01 verdict.
+  - Studio Owner merge decision and resulting merge commit.
 
 # Checks, checkpoints, and next action
 
 latest_checks: |
-  - All implementation JSON documents parse successfully.
-  - python -m unittest tests.test_orchestration_dispatch -v: 21 tests PASS in the preparation workspace.
-  - No network, provider, credential, Git mutation, queue mutation, ranking, execution, or nonzero-cost behavior is implemented.
+  - python -m prototype.rules.cli validate-data --data-dir data/vertical_slice: PASS.
+  - python -m unittest tests.test_orchestration_queue -v: 24 tests PASS.
+  - python -m unittest tests.test_orchestration_dispatch -v: 22 tests PASS.
+  - python -m unittest discover -s tests -p "test*.py" -v: 123 tests PASS.
+  - git diff --check: exit code 0.
+  - GitHub Actions Rules CI run 33242305992: SUCCESS.
 
-last_safe_checkpoint_id: STUDIO-007B-CP-0004
-exact_next_action: Apply the bounded implementation package to the verified receiving branch and run all repository checks before any commit.
+last_safe_checkpoint_id: STUDIO-007B-CP-0005
+exact_next_action: Transfer review responsibility to QA-01 for immutable head 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e; do not merge before both required verdicts.
 
 # Active writer claim
 
 active_writer_claim:
-  status: CLAIMED
+  status: TRANSFER_PENDING
   writer: ENGINEERING-01
-  claim_timestamp: 2026-08-29T14:00:00+07:00
-  transfer_intent: QA-01 after an immutable implementation head exists
+  intended_receiver: QA-01
+  transfer_reference: Pull Request #20 at 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e
+  transfer_timestamp: 2026-08-29T15:18:25+07:00
 
-updated_at: 2026-08-29T14:00:00+07:00
+updated_at: 2026-08-29T15:18:25+07:00
 updater: ENGINEERING-01
 
 # Notes
