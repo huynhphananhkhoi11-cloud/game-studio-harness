@@ -22,6 +22,7 @@ from scripts.orchestration_queue import snapshot_digest
 
 FIXTURES = Path("platform/orchestration/fixtures/007b")
 QUEUE_FIXTURE = Path("platform/orchestration/fixtures/007a/valid-work-order.json")
+QUEUE_EVENTS_FIXTURE = Path("platform/orchestration/fixtures/007a/valid-events.jsonl")
 AS_OF = "2026-08-29T08:00:00Z"
 
 
@@ -238,6 +239,21 @@ class RecordingAndCliTests(unittest.TestCase):
         record_decision(self.root / "recorded", registry, work_order, decision, AS_OF)
         self.assertEqual(before, {name: path.read_bytes() for name, path in paths.items()})
 
+    def test_queue_snapshot_and_events_remain_byte_for_byte_unchanged(self):
+        registry, work_order, decision = valid_bundle()
+        queue_paths = [QUEUE_FIXTURE, QUEUE_EVENTS_FIXTURE]
+        before = {path: path.read_bytes() for path in queue_paths}
+
+        record_decision(
+            self.root / "queue-immutability",
+            registry,
+            work_order,
+            decision,
+            AS_OF,
+        )
+
+        after = {path: path.read_bytes() for path in queue_paths}
+        self.assertEqual(before, after)
     def test_cli_validate_explain_dispatch_and_exit_codes(self):
         _, _, _, paths = self.write_inputs()
         common = ["--registry", str(paths["registry"]), "--work-order",
