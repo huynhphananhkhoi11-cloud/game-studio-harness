@@ -78,6 +78,7 @@ canonical_task_contract: tasks/STUDIO-007B-IMPLEMENTATION.md
   rationale: Prevent reviewers from incorrectly requiring the Pull Request head itself to equal the immutable implementation commit after authorized memory-only commits were added.
   resulting_state: QA and integration review target implementation commit 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e; later commits remain restricted to memory and review evidence.
   correction_of: STUDIO-007B-CP-0005
+
 ## Completion checkpoint
 
 checkpoint_id: STUDIO-007B-CP-0007
