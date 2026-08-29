@@ -5,8 +5,8 @@ memory_schema_version: 1
 task_id: STUDIO-007B
 package_path: studio/memory/tasks/STUDIO-007B
 canonical_task_contract: tasks/STUDIO-007B-IMPLEMENTATION.md
-current_state: REVIEW_PENDING
-last_safe_checkpoint_id: STUDIO-007B-CP-0006
+current_state: COMPLETE
+last_safe_checkpoint_id: STUDIO-007B-CP-0007
 
 required_read_order:
   - AGENTS.md
@@ -20,60 +20,49 @@ required_read_order:
   - studio/MEMORY_PROTOCOL.md
   - TASK.md
   - STATE.md
-  - WORKLOG.md entries STUDIO-007B-CP-0001 through STUDIO-007B-CP-0006
+  - WORKLOG.md entries STUDIO-007B-CP-0001 through STUDIO-007B-CP-0007
 
 repository_context: game-studio-harness
 worktree_context: primary repository worktree
-branch: agent/studio-007b-manual-dispatch
-last_observed_HEAD: 902ab0ec70f5a8040cc027ccc0e1bcae15495d06
-durability_state: PR
-last_verified_persisted_ref: 902ab0ec70f5a8040cc027ccc0e1bcae15495d06
+branch: agent/studio-007b-closeout
+last_observed_HEAD: 2a559c420c72b835fb48da91699f3cda9717c516
+durability_state: MERGED
+last_verified_persisted_ref: 2a559c420c72b835fb48da91699f3cda9717c516
 pull_request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/20
+merge_commit: 2a559c420c72b835fb48da91699f3cda9717c516
 
 expected_worktree_status: |
-  - Immutable implementation commit 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e remains the QA/review target; later Pull Request commits are limited to authorized memory and review evidence.
-  - Pull Request #20 contains exactly seventeen authorized changed paths.
-  - Pre-existing or unrelated changed files: NONE.
+  - main and origin/main contain merge commit 2a559c420c72b835fb48da91699f3cda9717c516.
+  - The closeout branch changes only STATE.md, WORKLOG.md, and RESUME.md.
+  - No implementation changes remain pending.
 
 completed_summary: |
-  - STUDIO-007B implementation and the queue snapshot/event immutability correction are committed and pushed.
-  - Data validation PASS; 24 queue tests PASS; 22 dispatcher tests PASS; 123 total tests PASS.
-  - git diff --check returned exit code 0.
-  - GitHub Actions Rules CI run 33242305992 completed successfully.
+  STUDIO-007B capability registry and manual dispatch are merged.
+  QA-01 returned PASS and REVIEW-INTEGRATION-01 returned APPROVE.
+  The final accepted evidence includes 24 queue tests, 22 dispatch tests,
+  123 full-suite tests, successful Rules CI, and queue immutability proof.
 
-remaining_summary: |
-  - Obtain QA-01 PASS and REVIEW-INTEGRATION-01 APPROVE against immutable head 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e.
-  - Studio Owner decides whether to merge Pull Request #20.
+remaining_work:
+  - NONE.
 
-blockers_and_authority_questions: |
-  - No technical blocker is currently recorded.
-  - Final merge remains exclusively the Studio Owner decision after both required review verdicts.
+blockers:
+  - NONE.
 
-latest_checks: |
-  - Data validation: PASS.
-  - STUDIO-007A: 24 tests PASS.
-  - STUDIO-007B: 22 tests PASS.
-  - Full suite: 123 tests PASS.
-  - Whitespace check: PASS.
-  - Implementation Rules CI run 33242305992: SUCCESS.
-  - Review-handoff commit Rules CI run 33243469226: SUCCESS.
+latest_evidence:
+  - PR: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/20
+  - Review verdicts: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/20#issuecomment-5461488688
+  - CI run: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/33244641564
+  - Merge commit: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/commit/2a559c420c72b835fb48da91699f3cda9717c516
 
-first_verification_actions: |
-  - Confirm Pull Request #20 still contains immutable implementation commit 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e and that later commits change only authorized memory or review evidence.
-  - Confirm Rules CI run 33242305992 remains successful.
-  - Confirm the Pull Request still contains only the seventeen authorized paths.
-  - Confirm no newer implementation commit exists before issuing a verdict.
+first_verification_actions:
+  - Confirm main contains the recorded merge commit.
+  - Confirm PR #20 remains merged and its final CI remains successful.
+  - Do not resume implementation from this completed package.
 
-next_implementation_action_after_verification: No further implementation action; QA-01 and REVIEW-INTEGRATION-01 review immutable head 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e.
-receiving_role: QA-01
-writer_transfer_status: TRANSFER_PENDING from ENGINEERING-01 to QA-01 for Pull Request #20 at 5a2ea9cac192133c58935d8cf7f03b5d155f5a3e
+next_implementation_action_after_verification: |
+  NONE. Any amendment or follow-on task requires separate authorization.
 
-generated_from:
-  TASK: TASK.md
-  STATE: STATE.md
-  WORKLOG: STUDIO-007B-CP-0001 through STUDIO-007B-CP-0006
-
-updated_at: 2026-08-29T16:02:16+07:00
-
-verify_instructions: |
-  - If PR head, scope, CI, schema, writer transfer, or repository evidence differs, stop and reconcile under studio/MEMORY_PROTOCOL.md.
+receiving_role: NONE
+writer_transfer_status: RELEASED
+generated_from_checkpoints: STUDIO-007B-CP-0001 through STUDIO-007B-CP-0007
+updated_at: 2026-08-29T16:18:56+07:00
