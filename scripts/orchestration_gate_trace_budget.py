@@ -30,6 +30,7 @@ SECRET_KEYS = {
 SECRET_VALUE_PATTERNS = (
     re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
     re.compile(r"(?i)^bearer\s+[A-Za-z0-9._~+/=-]{12,}$"),
+    re.compile(r"(?i)\bbasic\s+[A-Za-z0-9+/]{8,}={0,2}"),
     re.compile(r"\bgh[opusr]_[A-Za-z0-9]{20,}\b"),
     re.compile(r"\bgithub_pat_[A-Za-z0-9_]{20,}\b"),
     re.compile(r"\bAKIA[0-9A-Z]{16}\b"),
@@ -256,7 +257,7 @@ def _effective_limits(record: dict[str, Any], *, as_of: str) -> dict[str, int]:
             _error("owner amendment is bound to a different attempt")
         decided = _timestamp(item["decided_at"], "decided_at")
         expires = _timestamp(item["expires_at"], "expires_at")
-        if decided > evaluated_at or decided > _as_of(as_of) or expires < evaluated_at:
+        if decided >= evaluated_at or decided > _as_of(as_of) or expires <= evaluated_at:
             _error("owner amendment is not effective at evaluation time")
         if (
             not isinstance(item["reason"], str) or not item["reason"]
@@ -345,7 +346,9 @@ def validate_trace(
         _identifier(record["next_state"], "next_state")
         _string_list(record["input_references"], "input_references")
         _string_list(record["output_references"], "output_references")
-        gate_ids = _string_list(record["gate_ids"], "gate_ids")
+        gate_ids = _string_list(
+            record["gate_ids"], "gate_ids", nonempty=record["outcome"] == "ACCEPTED"
+        )
         validate_artifact(record["artifact_identity"])
         observed = _timestamp(record["observed_at"], "observed_at")
         if observed > _as_of(as_of):
@@ -432,6 +435,10 @@ def validate_bundle(record: dict[str, Any], *, as_of: str) -> dict[str, Any]:
                 _error("gate predecessor is missing or mutated")
             if prior is not previous_gate:
                 _error("gate lineage must reference the immediately preceding result")
+        if previous_gate is not None and _timestamp(
+            gate["evaluated_at"], "gate evaluated_at"
+        ) < _timestamp(previous_gate["evaluated_at"], "prior gate evaluated_at"):
+            _error("gate chronology must be nondecreasing")
         previous_gate = gate
     required = required_gate_types(record["work_order_type"], record["repository_changing"])
     passing = {gate["gate_type"] for gate in gates if gate["verdict"] == "PASS"}
@@ -485,9 +492,12 @@ def explain_boundary(record: dict[str, Any] | None = None, *, as_of: str | None 
         _error("as_of is required when explaining a validation bundle")
     decision = evaluate_attempt(record, as_of=as_of)
     quota = record.get("quota", {}) if isinstance(record, dict) else {}
-    started = _timestamp(quota.get("started_at"), "started_at")
-    evaluated = _timestamp(quota.get("evaluated_at"), "evaluated_at")
-    elapsed = int((evaluated - started).total_seconds())
+    try:
+        started = _timestamp(quota.get("started_at"), "started_at")
+        evaluated = _timestamp(quota.get("evaluated_at"), "evaluated_at")
+        elapsed: int | None = int((evaluated - started).total_seconds())
+    except ValidationError:
+        elapsed = None
     usage = {
         "attempts": quota.get("observed_attempts"),
         "elapsed_seconds": elapsed,
@@ -495,7 +505,14 @@ def explain_boundary(record: dict[str, Any] | None = None, *, as_of: str | None 
         "output_bytes": quota.get("observed_output_bytes"),
         "money_minor_units": quota.get("monetary_spend_minor_units"),
     }
-    effective = _effective_limits(quota, as_of=as_of)
+    try:
+        effective = _effective_limits(quota, as_of=as_of)
+    except (KeyError, ValidationError):
+        effective = {
+            "max_elapsed_seconds": 7200,
+            "max_changed_paths": 25,
+            "max_output_bytes": 2097152,
+        }
     limits = dict(result["limits"])
     limits["elapsed_seconds"] = effective["max_elapsed_seconds"]
     limits["changed_paths"] = effective["max_changed_paths"]

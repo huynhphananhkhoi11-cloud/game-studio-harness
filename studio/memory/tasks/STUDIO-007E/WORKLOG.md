@@ -38,3 +38,11 @@ No merge has been performed or authorized by this checkpoint.
 - Remediated Review & Integration state continuity, credential detection, effective-limit explanation, and UTC schema findings.
 - Verified 60 focused tests and a 244-test retained target.
 - A new Rules CI, QA-01, and Review & Integration verdict are required on this commit before owner merge.
+
+## CP-0006 - Final Review and Integration remediation
+
+- Required evidence on accepted trace events.
+- Enforced gate chronology and strict amendment timing boundaries.
+- Added Basic-authentication detection and robust invalid-bundle explanation.
+- Verified 66 focused tests and a 250-test retained target.
+- New Rules CI, QA-01, and Review & Integration verdicts remain required on this immutable head.

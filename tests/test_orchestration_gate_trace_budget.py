@@ -52,6 +52,12 @@ class GateTraceBudgetTests(unittest.TestCase):
         self.assertEqual(23, result["remaining"]["changed_paths"])
         self.assertEqual("request independent QA and review", result["next_safe_action"])
 
+    def test_explain_invalid_bundle_reports_blocker(self):
+        self.bundle["quota"]["started_at"] = "not-a-time"
+        result = subject.explain_boundary(self.bundle, as_of=AS_OF)
+        self.assertTrue(result["blockers"])
+        self.assertEqual("stop and resolve blockers", result["next_safe_action"])
+
     def test_input_not_mutated(self):
         original = copy.deepcopy(self.bundle)
         subject.evaluate_attempt(self.bundle, as_of=AS_OF)
@@ -84,6 +90,10 @@ class GateTraceBudgetTests(unittest.TestCase):
     def test_future_gate(self):
         gate = load("valid-gate-result.json"); gate["evaluated_at"] = "2026-08-30T16:00:01Z"
         self.assertInvalid(lambda: subject.validate_gate(gate, as_of=AS_OF))
+
+    def test_gate_chronology_must_be_nondecreasing(self):
+        self.bundle["gates"][-1]["evaluated_at"] = "2026-08-30T15:06:30Z"
+        self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
 
     def test_prior_gate_pair_required(self):
         gate = load("valid-gate-result.json"); gate["prior_gate_id"] = "gate-old"
@@ -124,6 +134,10 @@ class GateTraceBudgetTests(unittest.TestCase):
 
     def test_trace_missing_gate_reference(self):
         self.bundle["trace_events"][0]["gate_ids"].append("gate-missing")
+        self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
+
+    def test_accepted_trace_requires_gate_evidence(self):
+        self.bundle["trace_events"][0]["gate_ids"] = []
         self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
 
     def test_artifact_paths_sorted(self):
@@ -170,6 +184,18 @@ class GateTraceBudgetTests(unittest.TestCase):
         quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","evidence_digest":"sha256:"+"b"*64,"work_order_id":"STUDIO-007E","attempt_number":1,"decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T15:29:59Z","reason":"scope"}]
         self.assertInvalid(lambda: subject.validate_budget(quota, as_of=AS_OF))
 
+    def test_owner_amendment_decided_at_reliance_is_late(self):
+        quota = load("valid-zero-cost-budget.json")
+        quota["observed_changed_paths"] = 26
+        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","evidence_digest":"sha256:"+"b"*64,"work_order_id":"STUDIO-007E","attempt_number":1,"decided_at":quota["evaluated_at"],"expires_at":"2026-08-30T17:00:00Z","reason":"scope"}]
+        self.assertInvalid(lambda: subject.validate_budget(quota, as_of=AS_OF))
+
+    def test_owner_amendment_expiring_at_reliance_is_expired(self):
+        quota = load("valid-zero-cost-budget.json")
+        quota["observed_changed_paths"] = 26
+        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","evidence_digest":"sha256:"+"b"*64,"work_order_id":"STUDIO-007E","attempt_number":1,"decided_at":"2026-08-30T15:00:00Z","expires_at":quota["evaluated_at"],"reason":"scope"}]
+        self.assertInvalid(lambda: subject.validate_budget(quota, as_of=AS_OF))
+
     def test_amendment_wrong_work_order_rejected(self):
         quota = load("valid-zero-cost-budget.json")
         quota["observed_changed_paths"] = 26
@@ -198,6 +224,11 @@ class GateTraceBudgetTests(unittest.TestCase):
 
     def test_token_assignment_rejected(self):
         gate = load("valid-gate-result.json"); gate["evidence_references"] = ["token:abc123secret"]
+        self.assertInvalid(lambda: subject.validate_gate(gate, as_of=AS_OF))
+
+    def test_basic_authentication_rejected(self):
+        gate = load("valid-gate-result.json")
+        gate["evidence_references"] = ["Basic dXNlcjpwYXNzd29yZA=="]
         self.assertInvalid(lambda: subject.validate_gate(gate, as_of=AS_OF))
 
     def test_explain_uses_effective_owner_limit(self):

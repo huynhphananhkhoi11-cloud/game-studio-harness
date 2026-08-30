@@ -14,8 +14,8 @@ The implementation has been prepared and locally validated against the merged co
 
 ## Expected evidence
 
-- 60 focused gate/trace/budget tests pass.
-- 244 total tests pass, based on the 184-test retained baseline.
+- 66 focused gate/trace/budget tests pass.
+- 250 total tests pass, based on the 184-test retained baseline.
 - Data validation, prior orchestration focused tests, and `git diff --check` pass.
 - Rules CI, QA-01, and Review & Integration remain pending after PR creation.
 
@@ -37,3 +37,11 @@ Wait for Rules CI on the checkpoint head, then collect QA-01 and Review & Integr
 - Rejects common credential assignments in reasons and references.
 - Computes remaining ceilings from effective Owner amendments.
 - Aligns amendment timestamps with explicit UTC Z in the schema.
+
+## Final integration boundaries
+
+- Accepted trace events require nonempty gate evidence.
+- Gate chronology is nondecreasing.
+- Basic authentication material is rejected.
+- Owner amendments must be decided strictly before reliance and expire strictly after it.
+- Invalid bundles remain explainable through blockers and next safe action.
