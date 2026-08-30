@@ -193,16 +193,13 @@ def _validate_renewal(claim: dict[str, Any], prior: dict[str, Any]) -> None:
              "renewal was issued after expiry")
 
 
-def _validate_exception(exception: Any, left: dict[str, Any], right: dict[str, Any],
-                        overlaps: list[str], as_of: str) -> bool:
+def _validate_exception_record(exception: Any, as_of: str) -> None:
     _exact_keys(exception, EXCEPTION_KEYS, "overlap exception")
     _identifier(exception["exception_id"], "exception_id")
     claim_ids = _strings(exception["claim_ids"], "exception.claim_ids", nonempty=True)
-    _require(len(claim_ids) == 2 and set(claim_ids) == {left["claim_id"], right["claim_id"]},
-             "exception claim IDs do not match")
+    _require(len(claim_ids) == 2, "exception must identify exactly two claims")
     paths = _strings(exception["overlapping_paths"], "exception.overlapping_paths",
                      nonempty=True)
-    _require(set(paths) == set(overlaps), "exception overlap scope does not match")
     for index, path in enumerate(paths):
         _repo_path(path, f"exception.overlapping_paths[{index}]")
     _require(exception["approver_role"] == "STUDIO_OWNER",
@@ -217,6 +214,15 @@ def _validate_exception(exception: Any, left: dict[str, Any], right: dict[str, A
     _require(expires > decided, "exception expiry must follow decision")
     _require(decided <= instant < expires, "overlap exception is expired or not active")
     _require(not _contains_secret(exception), "exception contains a credential-bearing value")
+
+
+def _validate_exception(exception: Any, left: dict[str, Any], right: dict[str, Any],
+                        overlaps: list[str], as_of: str) -> bool:
+    _validate_exception_record(exception, as_of)
+    _require(set(exception["claim_ids"]) == {left["claim_id"], right["claim_id"]},
+             "exception claim IDs do not match")
+    _require(set(exception["overlapping_paths"]) == set(overlaps),
+             "exception overlap scope does not match")
     return True
 
 
@@ -248,6 +254,13 @@ def validate_claim_set(claims: Any, as_of: str,
     active = [claim for claim in active_candidates
               if claim["claim_id"] not in superseded_ids]
     supplied = exceptions or []
+    exception_ids: set[str] = set()
+    for exception in supplied:
+        _validate_exception_record(exception, as_of)
+        _require(exception["exception_id"] not in exception_ids,
+                 f"duplicate exception_id: {exception['exception_id']}")
+        exception_ids.add(exception["exception_id"])
+    used_exception_ids: set[str] = set()
     for left_index, left in enumerate(active):
         for right in active[left_index + 1:]:
             if (left.get("prior_claim_id") == right["claim_id"] or
@@ -266,6 +279,9 @@ def validate_claim_set(claims: Any, as_of: str,
                 _require(len(matching) == 1,
                          "active writer claims have overlapping path scope")
                 _validate_exception(matching[0], left, right, overlaps, as_of)
+                used_exception_ids.add(matching[0]["exception_id"])
+    _require(used_exception_ids == exception_ids,
+             "claim set contains an unused overlap exception")
     return active
 
 

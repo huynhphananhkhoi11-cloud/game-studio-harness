@@ -198,6 +198,13 @@ class RenewalAndExceptionTests(unittest.TestCase):
         expected = case.pop("expected_error")
         with self.assertRaisesRegex(HandoffError, expected):
             validate_claim_set([left, right], AS_OF, [case])
+        independent = fixture("valid-independent-claims.json")["claims"]
+        unused = valid_exception(independent[0], independent[1], ["projects/alpha"])
+        with self.assertRaisesRegex(HandoffError, "unused overlap exception"):
+            validate_claim_set(independent, AS_OF, [unused])
+        unused["approver_role"] = "PRODUCER-01"
+        with self.assertRaisesRegex(HandoffError, "only STUDIO_OWNER"):
+            validate_claim_set(independent, AS_OF, [unused])
 
     def test_expired_or_scope_mismatched_exception_fails(self):
         left = valid_claim()

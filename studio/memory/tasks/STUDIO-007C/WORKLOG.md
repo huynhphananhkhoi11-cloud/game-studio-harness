@@ -89,6 +89,20 @@ rationale: Independent QA requires one repository-visible implementation and exa
 resulting_state: REVIEW_PENDING in Pull Request #23; next action is to persist this checkpoint and hand the resulting immutable remote head to QA-01.
 correction_of: NONE
 
+## Owner-requested exception-evidence hardening checkpoint
+
+checkpoint_id: STUDIO-007C-CP-0007
+timestamp: 2026-08-30T00:54:27Z
+actor: ENGINEERING-01
+action: Closed the sole Low QA/review observation by validating every supplied overlap exception and rejecting unused exception evidence before merge.
+scope_files: scripts/orchestration_handoff.py; tests/test_orchestration_handoff.py; studio/memory/tasks/STUDIO-007C/STATE.md; studio/memory/tasks/STUDIO-007C/WORKLOG.md; studio/memory/tasks/STUDIO-007C/RESUME.md.
+command_or_check: Data validation PASS; 24 queue tests PASS; 22 dispatch tests PASS; 23 handoff tests PASS; 146 total tests PASS; git diff --check PASS.
+evidence_reference: Pull Request #23 pre-hardening head 3cfdafddc6c1a23082f7834d1ccb8e01ec67fedd; QA-01 PASS; REVIEW-INTEGRATION-01 APPROVE; Studio Owner direction to finish all work before merge.
+outcome: completed
+rationale: Although the observation was non-blocking, strict bundle hygiene should fail closed for malformed, unauthorized, duplicate, inactive, or unused exception evidence.
+resulting_state: HARDENING_VALIDATED_LOCAL; prior verdicts remain evidence for the earlier head and must be rerun after persistence.
+correction_of: NONE
+
 # Rules
 
 Append future material checkpoints. Do not rewrite earlier entries; corrections must append and reference the corrected checkpoint.
