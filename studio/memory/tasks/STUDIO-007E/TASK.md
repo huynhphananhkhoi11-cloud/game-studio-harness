@@ -1,42 +1,23 @@
-# TASK.md - STUDIO-007E memory package
+# STUDIO-007E
 
-memory_schema_version: 1
+## Objective
 
-task_id: STUDIO-007E
-task_title: Gate, trace, quota and budget v1.0
-task_type: LEVEL 2 architectural implementation
-canonical_task_contract: tasks/STUDIO-007E-IMPLEMENTATION.md
-memory_root: studio/memory/tasks
-package_path: studio/memory/tasks/STUDIO-007E
-project_studio: NONE
+Implement deterministic gate evaluation, append-only trace validation, zero-cost quota enforcement, and secret-safe evidence boundaries for repository-changing orchestration work.
 
-goal: |
-  Implement deterministic zero-cost gate-result, append-only trace, and quota-budget validators after contract merge.
+## Approved scope
 
-allowed_scope: |
-  - Contract: tasks/STUDIO-007E.md, tasks/STUDIO-007E-IMPLEMENTATION.md, and this four-record package.
-  - Implementation after contract merge: the twenty-one section-4 paths.
-  - Material updates to this package, keeping total implementation-PR scope at or below 25.
+- 21 new implementation paths listed by `tasks/STUDIO-007E-IMPLEMENTATION.md`.
+- Material updates to these four task-memory records only: `TASK.md`, `STATE.md`, `WORKLOG.md`, and `RESUME.md`.
+- Maximum changed-path count: 25.
 
-non_goals: |
-  - Billing, nonzero spend, telemetry, providers/models, network, credentials, execution, automatic dispatch/retry/failover/reassignment, Git mutation, dependency, deletion, publication, deployment, or gate bypass.
-  - STUDIO-007F or changes to 007A through 007D implementation.
+## Accepted decisions
 
-responsible_role: PRODUCER-01 coordinates contract; ENGINEERING implements only after contract merge
-review_target: QA and REVIEW_INTEGRATION, then Studio Owner
-acceptance_criteria: tasks/STUDIO-007E-IMPLEMENTATION.md section 8
+- Gate authority is layered across `ENGINEERING`, `QA`, `REVIEW_INTEGRATION`, and `STUDIO_OWNER`; evaluator identity is separate.
+- Defaults are 3 attempts, 7,200 seconds, 25 changed paths, 2,097,152 output bytes, and zero monetary budget/spend.
+- Only time, path, and output ceilings may receive a bounded studio-owner amendment.
+- Secret-like fields or values are rejected; only safe references and digests are stored.
+- Merge authority remains external and belongs to the studio owner.
 
-accepted_constraints: |
-  - STUDIO-007A through STUDIO-007D are merged, closed out, and retained.
-  - Gate authority is layered by role; evaluator identity is separate.
-  - Money remains 0 and attempt ceiling remains 3.
-  - Defaults are 120 minutes, 25 paths, and 2 MiB output.
-  - Secret-like evidence is rejected.
-  - Accepted governance and memory/handoff protocols remain binding.
+## Completion boundary
 
-created_at: 2026-08-30T21:20:57+07:00
-authorized_amendments: |
-  - Studio Owner accepted bounded STUDIO-007E decisions on 2026-08-30.
-
-notes: |
-  Records are evidence only and grant no execution, merge, provider, budget, publication, deployment, or project-truth authority.
+Implementation is complete only after focused and retained tests pass, Rules CI passes, QA and Review & Integration approve, the studio owner merges, and a separate closeout records the merged identity.

@@ -1,44 +1,15 @@
-# STATE.md - STUDIO-007E current snapshot
+# STUDIO-007E State
 
-memory_schema_version: 1
+- lifecycle: `IMPLEMENTATION_REVIEW_PENDING`
+- contract_pr: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/28`
+- contract_merge: `294c8ce350b5fd989b976fffa1e7201ffc328679`
+- implementation_branch: `agent/studio-007e-gate-trace-budget`
+- implementation_pr: `PENDING`
+- implementation_commit: `PENDING`
+- checkpoint_commit: `PENDING`
+- expected_focused_tests: `44`
+- expected_total_tests: `228`
+- merge_status: `NOT_MERGED`
+- next_gate: `RULES_CI_THEN_QA_AND_REVIEW`
 
-task_id: STUDIO-007E
-package_path: studio/memory/tasks/STUDIO-007E
-canonical_task_contract: tasks/STUDIO-007E-IMPLEMENTATION.md
-state: CONTRACT_APPROVED
-logical_role: PRODUCER-01
-repository_context: game-studio-harness
-worktree_context: dedicated contract-only branch
-branch: agent/studio-007e-contract
-base_dependency_merge: 37da4427c4d0f82ce6ec550321c0ad92ac874a73
-durability_state: WORKTREE
-pull_request: NONE
-
-worktree_status_summary: |
-  - STUDIO-007D closeout PR #27 is merged and retained.
-  - Owner selected layered gates, balanced zero-cost ceilings, and fail-closed secret rejection.
-  - This phase changes exactly two contract files and four memory records.
-  - No 007E implementation path is authorized before contract merge.
-
-completed:
-  - Reconciled dependency baseline.
-  - Recorded Owner decisions.
-  - Drafted exact twenty-one-path implementation boundary and tests.
-remaining:
-  - Validate, commit, push, and open contract PR.
-  - Obtain Rules CI and Owner merge decision.
-  - Implement only after contract merge.
-blockers:
-  - NONE.
-
-last_safe_checkpoint_id: STUDIO-007E-CP-0001
-exact_next_action: Validate and open the contract-only Pull Request; create no implementation file.
-
-active_writer_claim:
-  status: CLAIMED
-  writer: PRODUCER-01
-  branch: agent/studio-007e-contract
-  scope: tasks/STUDIO-007E.md; tasks/STUDIO-007E-IMPLEMENTATION.md; studio/memory/tasks/STUDIO-007E/
-  transfer_reference: tasks/STUDIO-007E-IMPLEMENTATION.md
-
-updater: PRODUCER-01
+The implementation is deterministic, read-only, standard-library-only, zero-cost, and bounded to the approved 25-path maximum. This state does not authorize merge.

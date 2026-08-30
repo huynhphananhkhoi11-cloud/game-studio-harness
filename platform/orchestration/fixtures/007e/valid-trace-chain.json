@@ -1,0 +1,348 @@
+{
+  "artifact_identity": {
+    "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "changed_paths": [
+      "scripts/example.py",
+      "tests/test_example.py"
+    ],
+    "commit_sha": "1111111111111111111111111111111111111111",
+    "repository": "game-studio-harness"
+  },
+  "gates": [
+    {
+      "artifact_identity": {
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "changed_paths": [
+          "scripts/example.py",
+          "tests/test_example.py"
+        ],
+        "commit_sha": "1111111111111111111111111111111111111111",
+        "repository": "game-studio-harness"
+      },
+      "attempt_number": 1,
+      "evaluated_at": "2026-08-30T15:01:00Z",
+      "evaluator_id": "eval-01",
+      "evaluator_role": "ENGINEERING",
+      "evidence_references": [
+        "evidence:scope_boundary"
+      ],
+      "gate_id": "gate-01",
+      "gate_type": "SCOPE_BOUNDARY",
+      "prior_gate_digest": null,
+      "prior_gate_id": null,
+      "reasons": [
+        "validated"
+      ],
+      "schema_version": "1.0",
+      "verdict": "PASS",
+      "work_order_id": "STUDIO-007E"
+    },
+    {
+      "artifact_identity": {
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "changed_paths": [
+          "scripts/example.py",
+          "tests/test_example.py"
+        ],
+        "commit_sha": "1111111111111111111111111111111111111111",
+        "repository": "game-studio-harness"
+      },
+      "attempt_number": 1,
+      "evaluated_at": "2026-08-30T15:02:00Z",
+      "evaluator_id": "eval-02",
+      "evaluator_role": "ENGINEERING",
+      "evidence_references": [
+        "evidence:evidence_integrity"
+      ],
+      "gate_id": "gate-02",
+      "gate_type": "EVIDENCE_INTEGRITY",
+      "prior_gate_digest": "sha256:ccded26644f43d444be14a5bf716259a2a8f8df6893c6a89aa793220b4b912e1",
+      "prior_gate_id": "gate-01",
+      "reasons": [
+        "validated"
+      ],
+      "schema_version": "1.0",
+      "verdict": "PASS",
+      "work_order_id": "STUDIO-007E"
+    },
+    {
+      "artifact_identity": {
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "changed_paths": [
+          "scripts/example.py",
+          "tests/test_example.py"
+        ],
+        "commit_sha": "1111111111111111111111111111111111111111",
+        "repository": "game-studio-harness"
+      },
+      "attempt_number": 1,
+      "evaluated_at": "2026-08-30T15:03:00Z",
+      "evaluator_id": "eval-03",
+      "evaluator_role": "ENGINEERING",
+      "evidence_references": [
+        "evidence:quota_budget"
+      ],
+      "gate_id": "gate-03",
+      "gate_type": "QUOTA_BUDGET",
+      "prior_gate_digest": "sha256:ba8f883e84f0c3d70feed493ad78b1cc9e3e76f8d5197c65edcaadc5922b92d8",
+      "prior_gate_id": "gate-02",
+      "reasons": [
+        "validated"
+      ],
+      "schema_version": "1.0",
+      "verdict": "PASS",
+      "work_order_id": "STUDIO-007E"
+    },
+    {
+      "artifact_identity": {
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "changed_paths": [
+          "scripts/example.py",
+          "tests/test_example.py"
+        ],
+        "commit_sha": "1111111111111111111111111111111111111111",
+        "repository": "game-studio-harness"
+      },
+      "attempt_number": 1,
+      "evaluated_at": "2026-08-30T15:04:00Z",
+      "evaluator_id": "eval-04",
+      "evaluator_role": "ENGINEERING",
+      "evidence_references": [
+        "evidence:secret_safety"
+      ],
+      "gate_id": "gate-04",
+      "gate_type": "SECRET_SAFETY",
+      "prior_gate_digest": "sha256:41f48087f326b698411c0a86d1a80c138906a9d739a86211b0122c975a943a01",
+      "prior_gate_id": "gate-03",
+      "reasons": [
+        "validated"
+      ],
+      "schema_version": "1.0",
+      "verdict": "PASS",
+      "work_order_id": "STUDIO-007E"
+    },
+    {
+      "artifact_identity": {
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "changed_paths": [
+          "scripts/example.py",
+          "tests/test_example.py"
+        ],
+        "commit_sha": "1111111111111111111111111111111111111111",
+        "repository": "game-studio-harness"
+      },
+      "attempt_number": 1,
+      "evaluated_at": "2026-08-30T15:05:00Z",
+      "evaluator_id": "eval-05",
+      "evaluator_role": "ENGINEERING",
+      "evidence_references": [
+        "evidence:focused_tests"
+      ],
+      "gate_id": "gate-05",
+      "gate_type": "FOCUSED_TESTS",
+      "prior_gate_digest": "sha256:c3a131edba1f6878e12eba47fb8a348837e0bfd6357c140948b92bcde0338c05",
+      "prior_gate_id": "gate-04",
+      "reasons": [
+        "validated"
+      ],
+      "schema_version": "1.0",
+      "verdict": "PASS",
+      "work_order_id": "STUDIO-007E"
+    },
+    {
+      "artifact_identity": {
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "changed_paths": [
+          "scripts/example.py",
+          "tests/test_example.py"
+        ],
+        "commit_sha": "1111111111111111111111111111111111111111",
+        "repository": "game-studio-harness"
+      },
+      "attempt_number": 1,
+      "evaluated_at": "2026-08-30T15:06:00Z",
+      "evaluator_id": "eval-06",
+      "evaluator_role": "ENGINEERING",
+      "evidence_references": [
+        "evidence:retained_regression"
+      ],
+      "gate_id": "gate-06",
+      "gate_type": "RETAINED_REGRESSION",
+      "prior_gate_digest": "sha256:f7632af7cdddcb938f835fe2037025b2ce1e6528c803a4e44a2e3f6eeab2b245",
+      "prior_gate_id": "gate-05",
+      "reasons": [
+        "validated"
+      ],
+      "schema_version": "1.0",
+      "verdict": "PASS",
+      "work_order_id": "STUDIO-007E"
+    },
+    {
+      "artifact_identity": {
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "changed_paths": [
+          "scripts/example.py",
+          "tests/test_example.py"
+        ],
+        "commit_sha": "1111111111111111111111111111111111111111",
+        "repository": "game-studio-harness"
+      },
+      "attempt_number": 1,
+      "evaluated_at": "2026-08-30T15:07:00Z",
+      "evaluator_id": "eval-07",
+      "evaluator_role": "QA",
+      "evidence_references": [
+        "evidence:qa_acceptance"
+      ],
+      "gate_id": "gate-07",
+      "gate_type": "QA_ACCEPTANCE",
+      "prior_gate_digest": "sha256:072dc66f0dd239fa4990e66baccaeb73ce6b08e746899ea7d5d9739ba328ba45",
+      "prior_gate_id": "gate-06",
+      "reasons": [
+        "validated"
+      ],
+      "schema_version": "1.0",
+      "verdict": "PASS",
+      "work_order_id": "STUDIO-007E"
+    },
+    {
+      "artifact_identity": {
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "changed_paths": [
+          "scripts/example.py",
+          "tests/test_example.py"
+        ],
+        "commit_sha": "1111111111111111111111111111111111111111",
+        "repository": "game-studio-harness"
+      },
+      "attempt_number": 1,
+      "evaluated_at": "2026-08-30T15:08:00Z",
+      "evaluator_id": "eval-08",
+      "evaluator_role": "REVIEW_INTEGRATION",
+      "evidence_references": [
+        "evidence:review_integration"
+      ],
+      "gate_id": "gate-08",
+      "gate_type": "REVIEW_INTEGRATION",
+      "prior_gate_digest": "sha256:67563a42e93008163bdbbf94625743fdeddc42b92f901b2d81d5ec35f4310cb6",
+      "prior_gate_id": "gate-07",
+      "reasons": [
+        "validated"
+      ],
+      "schema_version": "1.0",
+      "verdict": "PASS",
+      "work_order_id": "STUDIO-007E"
+    }
+  ],
+  "quota": {
+    "attempt_number": 1,
+    "cost_class": "ZERO_COST",
+    "evaluated_at": "2026-08-30T15:30:00Z",
+    "max_attempts": 3,
+    "max_changed_paths": 25,
+    "max_elapsed_seconds": 7200,
+    "max_output_bytes": 2097152,
+    "monetary_budget": 0,
+    "monetary_spend": 0,
+    "observed_attempts": 1,
+    "observed_changed_paths": 2,
+    "observed_output_bytes": 4096,
+    "owner_amendments": [],
+    "quota_id": "quota-007e",
+    "schema_version": "1.0",
+    "started_at": "2026-08-30T14:00:00Z",
+    "work_order_id": "STUDIO-007E"
+  },
+  "repository_changing": true,
+  "schema_version": "1.0",
+  "trace_events": [
+    {
+      "actor_id": "writer-01",
+      "actor_role": "ENGINEERING",
+      "artifact_identity": {
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "changed_paths": [
+          "scripts/example.py",
+          "tests/test_example.py"
+        ],
+        "commit_sha": "1111111111111111111111111111111111111111",
+        "repository": "game-studio-harness"
+      },
+      "attempt_number": 1,
+      "capability": "validate",
+      "correlation_id": "corr-007e",
+      "gate_ids": [
+        "gate-01",
+        "gate-02",
+        "gate-03",
+        "gate-04",
+        "gate-05",
+        "gate-06",
+        "gate-07",
+        "gate-08"
+      ],
+      "input_references": [
+        "contract:STUDIO-007E"
+      ],
+      "next_state": "REVIEW_PENDING",
+      "observed_at": "2026-08-30T15:40:00Z",
+      "outcome": "ACCEPTED",
+      "output_references": [
+        "artifact:implementation"
+      ],
+      "prior_event_digest": null,
+      "prior_event_id": null,
+      "prior_state": "IMPLEMENTING",
+      "quota_id": "quota-007e",
+      "schema_version": "1.0",
+      "sequence_number": 1,
+      "trace_event_id": "trace-01",
+      "work_order_id": "STUDIO-007E"
+    },
+    {
+      "actor_id": "reviewer-01",
+      "actor_role": "REVIEW_INTEGRATION",
+      "artifact_identity": {
+        "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "changed_paths": [
+          "scripts/example.py",
+          "tests/test_example.py"
+        ],
+        "commit_sha": "1111111111111111111111111111111111111111",
+        "repository": "game-studio-harness"
+      },
+      "attempt_number": 1,
+      "capability": "review",
+      "correlation_id": "corr-007e",
+      "gate_ids": [
+        "gate-01",
+        "gate-02",
+        "gate-03",
+        "gate-04",
+        "gate-05",
+        "gate-06",
+        "gate-07",
+        "gate-08"
+      ],
+      "input_references": [
+        "artifact:implementation"
+      ],
+      "next_state": "READY_TO_MERGE",
+      "observed_at": "2026-08-30T15:50:00Z",
+      "outcome": "ACCEPTED",
+      "output_references": [
+        "review:approve"
+      ],
+      "prior_event_digest": "sha256:7548b89471a4a75cccb774be5554185f49d91e6d7545af43d33a1ba0fd31d8c1",
+      "prior_event_id": "trace-01",
+      "prior_state": "REVIEW_PENDING",
+      "quota_id": "quota-007e",
+      "schema_version": "1.0",
+      "sequence_number": 2,
+      "trace_event_id": "trace-02",
+      "work_order_id": "STUDIO-007E"
+    }
+  ],
+  "work_order_id": "STUDIO-007E",
+  "work_order_type": "IMPLEMENTATION"
+}

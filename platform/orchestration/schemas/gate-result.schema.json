@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://game-studio.local/schemas/gate-result.schema.json",
+  "title": "STUDIO-007E gate result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "gate_id", "work_order_id", "attempt_number", "gate_type", "evaluator_id", "evaluator_role", "evidence_references", "artifact_identity", "verdict", "reasons", "evaluated_at", "prior_gate_id", "prior_gate_digest"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "gate_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "work_order_id": {"type": "string", "minLength": 1},
+    "attempt_number": {"type": "integer", "minimum": 1, "maximum": 3},
+    "gate_type": {"enum": ["SCOPE_BOUNDARY", "EVIDENCE_INTEGRITY", "QUOTA_BUDGET", "SECRET_SAFETY", "FOCUSED_TESTS", "RETAINED_REGRESSION", "QA_ACCEPTANCE", "REVIEW_INTEGRATION", "OWNER_DECISION"]},
+    "evaluator_id": {"type": "string", "minLength": 1},
+    "evaluator_role": {"enum": ["ENGINEERING", "QA", "REVIEW_INTEGRATION", "STUDIO_OWNER"]},
+    "evidence_references": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 512}},
+    "artifact_identity": {"$ref": "#/$defs/artifact"},
+    "verdict": {"enum": ["PASS", "FAIL", "PAUSE"]},
+    "reasons": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 512}},
+    "evaluated_at": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "prior_gate_id": {"type": ["string", "null"]},
+    "prior_gate_digest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository", "commit_sha", "artifact_digest", "changed_paths"],
+      "properties": {
+        "repository": {"type": "string", "minLength": 1},
+        "commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "artifact_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "changed_paths": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}
