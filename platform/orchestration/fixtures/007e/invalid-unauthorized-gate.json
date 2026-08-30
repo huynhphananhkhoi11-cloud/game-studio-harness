@@ -1,0 +1,28 @@
+{
+  "artifact_identity": {
+    "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "changed_paths": [
+      "scripts/example.py",
+      "tests/test_example.py"
+    ],
+    "commit_sha": "1111111111111111111111111111111111111111",
+    "repository": "game-studio-harness"
+  },
+  "attempt_number": 1,
+  "evaluated_at": "2026-08-30T15:01:00Z",
+  "evaluator_id": "eval-01",
+  "evaluator_role": "ENGINEERING",
+  "evidence_references": [
+    "evidence:scope_boundary"
+  ],
+  "gate_id": "gate-01",
+  "gate_type": "QA_ACCEPTANCE",
+  "prior_gate_digest": null,
+  "prior_gate_id": null,
+  "reasons": [
+    "validated"
+  ],
+  "schema_version": "1.0",
+  "verdict": "PASS",
+  "work_order_id": "STUDIO-007E"
+}

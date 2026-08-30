@@ -1,0 +1,19 @@
+{
+  "attempt_number": 1,
+  "cost_class": "ZERO_COST",
+  "evaluated_at": "2026-08-30T15:30:00Z",
+  "max_attempts": 3,
+  "max_changed_paths": 25,
+  "max_elapsed_seconds": 7200,
+  "max_output_bytes": 2097152,
+  "monetary_budget_minor_units": 0,
+  "monetary_spend_minor_units": 0,
+  "observed_attempts": 1,
+  "observed_changed_paths": 2,
+  "observed_output_bytes": 4096,
+  "owner_amendments": [],
+  "quota_id": "quota-007e",
+  "schema_version": "1.0",
+  "started_at": "2026-08-30T14:00:00Z",
+  "work_order_id": "STUDIO-007E"
+}

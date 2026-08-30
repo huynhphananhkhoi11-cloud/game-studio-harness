@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://game-studio.local/schemas/trace-event.schema.json",
+  "title": "STUDIO-007E trace event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "trace_event_id", "correlation_id", "sequence_number", "work_order_id", "attempt_number", "actor_id", "actor_role", "capability", "prior_state", "next_state", "input_references", "output_references", "outcome", "gate_ids", "quota_id", "artifact_identity", "observed_at", "prior_event_id", "prior_event_digest"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "trace_event_id": {"type": "string", "minLength": 1},
+    "correlation_id": {"type": "string", "minLength": 1},
+    "sequence_number": {"type": "integer", "minimum": 1},
+    "work_order_id": {"type": "string", "minLength": 1},
+    "attempt_number": {"type": "integer", "minimum": 1, "maximum": 3},
+    "actor_id": {"type": "string", "minLength": 1},
+    "actor_role": {"enum": ["ENGINEERING", "QA", "REVIEW_INTEGRATION", "STUDIO_OWNER"]},
+    "capability": {"type": "string", "minLength": 1},
+    "prior_state": {"type": "string", "minLength": 1},
+    "next_state": {"type": "string", "minLength": 1},
+    "input_references": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "output_references": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "outcome": {"enum": ["ACCEPTED", "PAUSED", "FAILED"]},
+    "gate_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "quota_id": {"type": "string", "minLength": 1},
+    "artifact_identity": {"type": "object", "additionalProperties": false, "required": ["repository", "commit_sha", "artifact_digest", "changed_paths"], "properties": {"repository": {"type": "string"}, "commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"}, "artifact_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}, "changed_paths": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}}},
+    "observed_at": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "prior_event_id": {"type": ["string", "null"]},
+    "prior_event_digest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

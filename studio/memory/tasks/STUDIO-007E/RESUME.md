@@ -1,45 +1,52 @@
-# RESUME.md - STUDIO-007E re-entry packet
+# Resume STUDIO-007E
 
-memory_schema_version: 1
+## Current position
 
-task_id: STUDIO-007E
-package_path: studio/memory/tasks/STUDIO-007E
-canonical_task_contract: tasks/STUDIO-007E-IMPLEMENTATION.md
-current_state: CONTRACT_APPROVED
-last_safe_checkpoint_id: STUDIO-007E-CP-0001
+The implementation has been prepared and locally validated against the merged contract. The application script will create `agent/studio-007e-gate-trace-budget`, run retained checks, commit the exact approved scope, push it, open the implementation Pull Request, and record a durable checkpoint.
 
-required_read_order:
-  - AGENTS.md
-  - docs/GAME_VISION.md
-  - docs/DECISIONS.md
-  - tasks/STUDIO-007.md
-  - tasks/STUDIO-007E.md
-  - tasks/STUDIO-007E-IMPLEMENTATION.md
-  - studio/MEMORY_PROTOCOL.md
-  - studio/HANDOFF_PROTOCOL.md
-  - TASK.md
-  - STATE.md
-  - WORKLOG.md
+## Immutable references
 
-repository_context: game-studio-harness
-branch: agent/studio-007e-contract
-base_dependency_merge: 37da4427c4d0f82ce6ec550321c0ad92ac874a73
-planned_implementation_branch: agent/studio-007e-gate-trace-budget
-durability_state: WORKTREE
-pull_request: NONE
+- Contract PR: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/28`
+- Contract merge: `294c8ce350b5fd989b976fffa1e7201ffc328679`
+- Implementation PR: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/29`
+- Implementation commit: `8c030a5e59ea17e88379a4c950f288f94814d4a3`
+- Checkpoint commit: `RECORDED_BY_THIS_COMMIT`
 
-completed_summary: |
-  Owner accepted layered authority, zero-cost ceilings, and fail-closed secret rejection. Contract package is prepared without implementation.
-remaining_work:
-  - Validate and persist contract-only PR.
-  - Merge contract before implementation.
-blockers:
-  - NONE.
+## Expected evidence
 
-first_verification_actions:
-  - Confirm origin/main remains 37da4427c4d0f82ce6ec550321c0ad92ac874a73.
-  - Confirm exactly six contract paths changed.
-  - Run data, queue, dispatch, handoff, failover, full-suite, and whitespace checks.
-next_implementation_action_after_verification: Open contract-only PR and create no implementation file.
-receiving_role: PRODUCER-01
-writer_transfer_status: CLAIMED
+- 68 focused gate/trace/budget tests pass.
+- 252 total tests pass, based on the 184-test retained baseline.
+- Data validation, prior orchestration focused tests, and `git diff --check` pass.
+- Rules CI, QA-01, and Review & Integration remain pending after PR creation.
+
+## Next action
+
+Wait for Rules CI on the checkpoint head, then collect QA-01 and Review & Integration evidence. Do not merge without explicit studio-owner action.
+
+## Semantic hardening
+
+- Aligns PASS, FAIL, and PAUSE evaluation with the contract.
+- Binds Owner amendments to evidence digest, work order, and attempt.
+- Reports usage, remaining limits, blockers, and next safe action.
+- Rejects duplicate trace IDs and control characters.
+
+## Independent review remediation
+
+- Locks gate, trace, and quota evidence to one attempt identity.
+- Enforces trace state continuity.
+- Rejects common credential assignments in reasons and references.
+- Computes remaining ceilings from effective Owner amendments.
+- Aligns amendment timestamps with explicit UTC Z in the schema.
+
+## Final integration boundaries
+
+- Accepted trace events require nonempty gate evidence.
+- Gate chronology is nondecreasing.
+- Basic authentication material is rejected.
+- Owner amendments must be decided strictly before reliance and expire strictly after it.
+- Invalid bundles remain explainable through blockers and next safe action.
+
+## Final lineage and quota correlation
+
+- Every gate after the first must cite the immediately preceding result.
+- Explicit changed-path usage must equal the immutable artifact path count.
