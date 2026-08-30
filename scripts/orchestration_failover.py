@@ -244,7 +244,7 @@ def _claim_safe(claim: dict[str, Any], as_of: datetime) -> bool:
     return claim["status"] == "RELEASED" or _timestamp(claim["expires_at"], "expires_at") <= as_of
 
 
-def _validate_handoff(handoff: dict[str, Any], work_order_id: str) -> None:
+def _validate_handoff(handoff: dict[str, Any], work_order_id: str, as_of: datetime) -> None:
     _exact_keys(handoff, HANDOFF_KEYS, "handoff")
     for field in ("handoff_id", "work_order_id", "claim_id"):
         _identifier(handoff[field], field)
@@ -256,7 +256,7 @@ def _validate_handoff(handoff: dict[str, Any], work_order_id: str) -> None:
             if field == "changed_paths":
                 _repo_path(value, f"{field}[{index}]")
     _safe_text(handoff["exact_resume_action"], "exact_resume_action")
-    _timestamp(handoff["created_at"], "handoff created_at")
+    _require(_timestamp(handoff["created_at"], "handoff created_at") <= as_of, "handoff is in the future")
 
 
 def _validate_checkpoint(checkpoint: dict[str, Any], work_order_id: str, as_of: datetime) -> None:
@@ -317,7 +317,7 @@ def validate_chain(chain: dict[str, Any], as_of: str) -> dict[str, Any]:
     for claim in claims.values():
         _validate_claim(claim, work_order_id, now)
     for handoff in handoffs.values():
-        _validate_handoff(handoff, work_order_id)
+        _validate_handoff(handoff, work_order_id, now)
         _require(handoff["claim_id"] in claims, "handoff cites missing claim")
     for checkpoint in checkpoints.values():
         _validate_checkpoint(checkpoint, work_order_id, now)
@@ -339,12 +339,25 @@ def validate_chain(chain: dict[str, Any], as_of: str) -> dict[str, Any]:
             _require(attempt["prior_attempt_digest"] == canonical_digest(prior), "prior attempt digest mismatch")
             _require(attempt["failed_event_id"] in events, "later attempt cites missing failed event")
             _require(attempt["handoff_id"] in handoffs, "later attempt cites missing handoff")
+            failed_event = events[attempt["failed_event_id"]]
+            cited_handoff = handoffs[attempt["handoff_id"]]
+            _require(failed_event["attempt_id"] == prior["attempt_id"], "failed event does not belong to prior attempt")
+            _require(failed_event["failure_class"] != "NONE", "failed event lacks failure evidence")
+            _require(cited_handoff["claim_id"] == prior["claim_id"], "handoff does not belong to prior claim")
+            _require(
+                _timestamp(failed_event["observed_at"], "failed event observed_at")
+                <= _timestamp(cited_handoff["created_at"], "handoff created_at")
+                <= _timestamp(attempt["created_at"], "attempt created_at"),
+                "failed event, handoff, and attempt chronology invalid",
+            )
             _require(attempt["claim_id"] != prior["claim_id"], "reassignment must use a new claim")
             _require(_claim_safe(claims[prior["claim_id"]], now), "prior claim remains live")
     ordered_events = list(chain["events"])
     used_gates: set[str] = set()
     for index, event in enumerate(ordered_events):
         _require(event["attempt_id"] in attempts, "event cites missing attempt")
+        current_attempt = attempts[event["attempt_id"]]
+        _require(event["attempt_number"] == current_attempt["attempt_number"], "event attempt number mismatch")
         if index == 0:
             _require(event["prior_event_id"] is None, "first event cannot cite a prior event")
         else:
@@ -356,8 +369,10 @@ def validate_chain(chain: dict[str, Any], as_of: str) -> dict[str, Any]:
         if event["next_state"] == "READY_FOR_REASSIGNMENT":
             _require(event["handoff_id"] in handoffs, "READY_FOR_REASSIGNMENT requires handoff")
             _require(event["checkpoint_id"] in checkpoints and checkpoints[event["checkpoint_id"]]["status"] == "SAFE", "READY_FOR_REASSIGNMENT requires safe checkpoint")
-            current_attempt = attempts[event["attempt_id"]]
             _require(_claim_safe(claims[current_attempt["claim_id"]], now), "READY_FOR_REASSIGNMENT requires non-live claim")
+            expected_disposition = "RELEASED" if claims[current_attempt["claim_id"]]["status"] == "RELEASED" else "EXPIRED"
+            _require(event["claim_disposition"] == expected_disposition, "claim disposition does not match claim evidence")
+            _require(any(record["eligible"] for record in executors.values()), "READY_FOR_REASSIGNMENT requires eligible executor evidence")
         gate_action = None
         if event["prior_state"] == "READY_FOR_REASSIGNMENT" and event["next_state"] == "REASSIGNED":
             gate_action = "REASSIGN"
@@ -372,8 +387,30 @@ def validate_chain(chain: dict[str, Any], as_of: str) -> dict[str, Any]:
             used_gates.add(gate["gate_id"])
         else:
             _require(event["owner_gate_id"] is None, "unexpected owner gate")
-        if event["failure_class"] == "CHECKPOINT_MISSING" or event["next_state"] == "RESUMED":
+        if event["failure_class"] == "CHECKPOINT_MISSING":
+            _require(
+                event["checkpoint_id"] in checkpoints
+                and checkpoints[event["checkpoint_id"]]["status"] in {"MISSING", "INVALID"},
+                "CHECKPOINT_MISSING requires missing or invalid checkpoint evidence",
+            )
+        if event["next_state"] == "RESUMED":
             _require(event["checkpoint_id"] in checkpoints and checkpoints[event["checkpoint_id"]]["status"] == "SAFE", "resume requires newly supplied safe checkpoint")
+            prior_missing = [e for e in ordered_events[:index] if e["failure_class"] == "CHECKPOINT_MISSING"]
+            if prior_missing:
+                safe_checkpoint = checkpoints[event["checkpoint_id"]]
+                _require(
+                    _timestamp(safe_checkpoint["created_at"], "safe checkpoint created_at")
+                    >= _timestamp(prior_missing[-1]["observed_at"], "missing checkpoint observed_at"),
+                    "resume checkpoint predates missing-checkpoint evidence",
+                )
+    for attempt_index, attempt in enumerate(ordered_attempts):
+        attempt_events = [event for event in ordered_events if event["attempt_id"] == attempt["attempt_id"]]
+        if attempt_index == 0:
+            _require(attempt_events, "initial attempt has no event evidence")
+            _require(attempt_events[0]["prior_state"] == attempt["state"], "initial attempt state mismatch")
+        else:
+            creation_events = [event for event in attempt_events if event["next_state"] == "REASSIGNED"]
+            _require(len(creation_events) == 1 and attempt["state"] == "REASSIGNED", "later attempt lacks one reassignment event")
     _require(used_gates == set(gates), "duplicate or unused owner gate evidence")
     _require(chain == original, "validation mutated input")
     return chain

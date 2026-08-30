@@ -181,6 +181,48 @@ def simple_abort_chain(with_gate=True):
             "owner_gates": [abort_gate] if with_gate else []}
 
 
+def valid_checkpoint_recovery_chain(with_gate=True):
+    first = attempt("ATTEMPT-001", 1, "EXECUTOR-01", "CLAIM-001", "CHECKPOINT-001")
+    missing = checkpoint("CHECKPOINT-MISSING", "MISSING")
+    safe = checkpoint("CHECKPOINT-002", "SAFE")
+    safe["created_at"] = "2026-08-30T11:30:00Z"
+    events = [event(
+        "EVENT-001", "ATTEMPT-001", 1, "HEALTHY", "SUSPECTED",
+        "CHECKPOINT_MISSING", "2026-08-30T11:00:00Z",
+        checkpoint_id="CHECKPOINT-MISSING",
+    )]
+    events.append(event(
+        "EVENT-002", "ATTEMPT-001", 1, "SUSPECTED", "PAUSED",
+        "CHECKPOINT_MISSING", "2026-08-30T11:10:00Z", events[-1],
+        checkpoint_id="CHECKPOINT-MISSING",
+    ))
+    resume_gate = gate()
+    resume_gate.update({
+        "attempt_number": 1,
+        "prior_state": "PAUSED",
+        "next_state": "RESUMED",
+        "action": "EVIDENCE_RESUME",
+    })
+    events.append(event(
+        "EVENT-003", "ATTEMPT-001", 1, "PAUSED", "RESUMED",
+        "VALIDATION_FAILURE", "2026-08-30T11:40:00Z", events[-1],
+        checkpoint_id="CHECKPOINT-002",
+        owner_gate_id="GATE-001" if with_gate else None,
+    ))
+    return {
+        "schema_version": 1,
+        "work_order_id": "WO-007D-001",
+        "work_order_digest": DIGEST,
+        "events": events,
+        "attempts": [first],
+        "claims": [claim("CLAIM-001", "ENGINEERING-01")],
+        "handoffs": [],
+        "checkpoints": [checkpoint(), missing, safe],
+        "executors": [executor("EXECUTOR-01")],
+        "owner_gates": [resume_gate] if with_gate else [],
+    }
+
+
 class FailoverTests(unittest.TestCase):
     def load(self, name):
         return json.loads((FIXTURES / name).read_text(encoding="utf-8"))
@@ -264,10 +306,71 @@ class FailoverTests(unittest.TestCase):
         with self.assertRaisesRegex(failover.FailoverError, "unused"):
             failover.validate_chain(chain, AS_OF)
 
+    def test_duplicate_gate_rejected(self):
+        chain = valid_reassignment_chain()
+        chain["owner_gates"].append(copy.deepcopy(chain["owner_gates"][0]))
+        with self.assertRaisesRegex(failover.FailoverError, "duplicate"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_unauthorized_gate_role_rejected(self):
+        chain = valid_reassignment_chain()
+        chain["owner_gates"][0]["approver_role"] = "ENGINEERING-01"
+        with self.assertRaisesRegex(failover.FailoverError, "unauthorized"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_later_attempt_requires_reassignment_event(self):
+        chain = valid_reassignment_chain()
+        chain["events"] = chain["events"][:4]
+        with self.assertRaisesRegex(failover.FailoverError, "reassignment event"):
+            failover.validate_chain(chain, AS_OF)
+
     def test_missing_checkpoint_resume_rejected(self):
         chain = valid_reassignment_chain()
         chain["checkpoints"][1]["status"] = "MISSING"
         with self.assertRaisesRegex(failover.FailoverError, "safe checkpoint"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_checkpoint_missing_recovery_with_owner_gate_accepted(self):
+        failover.validate_chain(valid_checkpoint_recovery_chain(True), AS_OF)
+
+    def test_checkpoint_missing_recovery_without_owner_gate_rejected(self):
+        with self.assertRaisesRegex(failover.FailoverError, "owner gate"):
+            failover.validate_chain(valid_checkpoint_recovery_chain(False), AS_OF)
+
+    def test_resume_checkpoint_must_be_newer_than_missing_evidence(self):
+        chain = valid_checkpoint_recovery_chain(True)
+        chain["checkpoints"][2]["created_at"] = "2026-08-30T10:30:00Z"
+        with self.assertRaisesRegex(failover.FailoverError, "predates"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_event_attempt_number_mismatch_rejected(self):
+        chain = valid_reassignment_chain()
+        chain["events"][0]["attempt_number"] = 2
+        with self.assertRaisesRegex(failover.FailoverError, "attempt number mismatch"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_failed_event_must_belong_to_prior_attempt(self):
+        chain = valid_reassignment_chain()
+        chain["attempts"][1]["failed_event_id"] = "EVENT-005"
+        with self.assertRaisesRegex(failover.FailoverError, "prior attempt"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_handoff_must_belong_to_prior_claim(self):
+        chain = valid_reassignment_chain()
+        chain["handoffs"][0]["claim_id"] = "CLAIM-002"
+        with self.assertRaisesRegex(failover.FailoverError, "prior claim"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_future_handoff_rejected(self):
+        chain = valid_reassignment_chain()
+        chain["handoffs"][0]["created_at"] = "2026-09-01T00:00:00Z"
+        with self.assertRaisesRegex(failover.FailoverError, "future"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_claim_disposition_must_match_evidence(self):
+        chain = valid_reassignment_chain()
+        chain["events"][3]["claim_disposition"] = "EXPIRED"
+        with self.assertRaisesRegex(failover.FailoverError, "claim disposition"):
             failover.validate_chain(chain, AS_OF)
 
     def test_validation_does_not_mutate(self):
