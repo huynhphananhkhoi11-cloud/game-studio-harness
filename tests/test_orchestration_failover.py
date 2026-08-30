@@ -173,7 +173,7 @@ def simple_abort_chain(with_gate=True):
     events = [event("EVENT-001", "ATTEMPT-001", 1, "HEALTHY", "SUSPECTED", "MANUAL_STOP", "2026-08-30T11:00:00Z")]
     events.append(event("EVENT-002", "ATTEMPT-001", 1, "SUSPECTED", "PAUSED", "MANUAL_STOP", "2026-08-30T11:10:00Z", events[-1]))
     abort_gate = gate()
-    abort_gate.update({"attempt_number": 1, "prior_state": "PAUSED", "next_state": "ABORTED", "action": "ABORT"})
+    abort_gate.update({"attempt_number": 1, "prior_state": "PAUSED", "next_state": "ABORTED", "action": "ABORT", "decided_at": "2026-08-30T11:15:00Z"})
     events.append(event("EVENT-003", "ATTEMPT-001", 1, "PAUSED", "ABORTED", "MANUAL_STOP", "2026-08-30T11:20:00Z", events[-1], owner_gate_id="GATE-001" if with_gate else None))
     return {"schema_version": 1, "work_order_id": "WO-007D-001", "work_order_digest": DIGEST,
             "events": events, "attempts": [first], "claims": [claim("CLAIM-001", "ENGINEERING-01")],
@@ -202,6 +202,7 @@ def valid_checkpoint_recovery_chain(with_gate=True):
         "prior_state": "PAUSED",
         "next_state": "RESUMED",
         "action": "EVIDENCE_RESUME",
+        "decided_at": "2026-08-30T11:35:00Z",
     })
     events.append(event(
         "EVENT-003", "ATTEMPT-001", 1, "PAUSED", "RESUMED",
@@ -263,7 +264,7 @@ class FailoverTests(unittest.TestCase):
     def test_live_prior_claim_rejected(self):
         chain = valid_reassignment_chain()
         chain["claims"][0] = claim("CLAIM-001", "ENGINEERING-01")
-        with self.assertRaisesRegex(failover.FailoverError, "claim remains live"):
+        with self.assertRaisesRegex(failover.FailoverError, "claim.*live"):
             failover.validate_chain(chain, AS_OF)
 
     def test_same_claim_reassignment_rejected(self):
@@ -371,6 +372,43 @@ class FailoverTests(unittest.TestCase):
         chain = valid_reassignment_chain()
         chain["events"][3]["claim_disposition"] = "EXPIRED"
         with self.assertRaisesRegex(failover.FailoverError, "claim disposition"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_claim_release_must_precede_ready_transition(self):
+        chain = valid_reassignment_chain()
+        chain["claims"][0]["released_at"] = "2026-08-30T12:10:00Z"
+        with self.assertRaisesRegex(failover.FailoverError, "transition time"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_owner_gate_cannot_authorize_retroactively(self):
+        chain = valid_reassignment_chain()
+        chain["owner_gates"][0]["decided_at"] = "2026-08-30T12:25:00Z"
+        with self.assertRaisesRegex(failover.FailoverError, "not effective"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_event_chain_cannot_return_to_prior_attempt(self):
+        chain = valid_recovery_chain()
+        chain["events"][-1]["attempt_id"] = "ATTEMPT-001"
+        chain["events"][-1]["attempt_number"] = 1
+        with self.assertRaisesRegex(failover.FailoverError, "earlier attempt"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_attempt_claim_must_be_live_at_creation(self):
+        chain = valid_reassignment_chain()
+        chain["claims"][1]["expires_at"] = "2026-08-30T12:25:00Z"
+        with self.assertRaisesRegex(failover.FailoverError, "not live"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_attempt_checkpoint_must_exist_before_attempt(self):
+        chain = valid_reassignment_chain()
+        chain["checkpoints"][1]["created_at"] = "2026-08-30T12:35:00Z"
+        with self.assertRaisesRegex(failover.FailoverError, "postdates attempt"):
+            failover.validate_chain(chain, AS_OF)
+
+    def test_executor_evidence_must_exist_before_attempt(self):
+        chain = valid_reassignment_chain()
+        chain["executors"][1]["observed_at"] = "2026-08-30T12:35:00Z"
+        with self.assertRaisesRegex(failover.FailoverError, "postdates attempt"):
             failover.validate_chain(chain, AS_OF)
 
     def test_validation_does_not_mutate(self):
