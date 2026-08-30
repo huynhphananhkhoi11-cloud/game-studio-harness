@@ -14,6 +14,12 @@
 - Implemented gate-role authority, mandatory-gate evaluation, explicit `as_of` chronology, quota enforcement, owner-amendment constraints, and recursive secret detection.
 - Verified 44 focused STUDIO-007E tests.
 - Required retained suite target: 228 total tests.
-- Implementation commit and Pull Request identities remain `PENDING` until the application script records them.
+- Implementation commit: `8c030a5e59ea17e88379a4c950f288f94814d4a3`. Pull Request: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/29`.
 
 No merge has been performed or authorized by this checkpoint.
+
+## CP-0003 - Pull Request checkpoint
+
+- Implementation commit: `8c030a5e59ea17e88379a4c950f288f94814d4a3`.
+- Pull Request: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/29`.
+- Rules CI, QA-01, Review & Integration, and owner merge remain pending.

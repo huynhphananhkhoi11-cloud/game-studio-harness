@@ -8,9 +8,9 @@ The implementation has been prepared and locally validated against the merged co
 
 - Contract PR: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/28`
 - Contract merge: `294c8ce350b5fd989b976fffa1e7201ffc328679`
-- Implementation PR: `PENDING`
-- Implementation commit: `PENDING`
-- Checkpoint commit: `PENDING`
+- Implementation PR: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/29`
+- Implementation commit: `8c030a5e59ea17e88379a4c950f288f94814d4a3`
+- Checkpoint commit: `RECORDED_BY_THIS_COMMIT`
 
 ## Expected evidence
 
