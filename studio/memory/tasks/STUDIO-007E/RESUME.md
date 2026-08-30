@@ -14,11 +14,18 @@ The implementation has been prepared and locally validated against the merged co
 
 ## Expected evidence
 
-- 44 focused gate/trace/budget tests pass.
-- 228 total tests pass, based on the 184-test retained baseline.
+- 52 focused gate/trace/budget tests pass.
+- 236 total tests pass, based on the 184-test retained baseline.
 - Data validation, prior orchestration focused tests, and `git diff --check` pass.
 - Rules CI, QA-01, and Review & Integration remain pending after PR creation.
 
 ## Next action
 
 Wait for Rules CI on the checkpoint head, then collect QA-01 and Review & Integration evidence. Do not merge without explicit studio-owner action.
+
+## Semantic hardening
+
+- Aligns PASS, FAIL, and PAUSE evaluation with the contract.
+- Binds Owner amendments to evidence digest, work order, and attempt.
+- Reports usage, remaining limits, blockers, and next safe action.
+- Rejects duplicate trace IDs and control characters.

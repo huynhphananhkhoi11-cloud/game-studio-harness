@@ -66,7 +66,7 @@ TRACE_FIELDS = {
 }
 QUOTA_FIELDS = {
     "schema_version", "quota_id", "work_order_id", "attempt_number", "cost_class",
-    "monetary_budget", "monetary_spend", "max_attempts", "max_elapsed_seconds",
+    "monetary_budget_minor_units", "monetary_spend_minor_units", "max_attempts", "max_elapsed_seconds",
     "max_changed_paths", "max_output_bytes", "started_at", "evaluated_at",
     "observed_attempts", "observed_changed_paths", "observed_output_bytes",
     "owner_amendments",
@@ -77,7 +77,8 @@ BUNDLE_FIELDS = {
 }
 AMENDMENT_FIELDS = {
     "amendment_id", "limit_name", "prior_value", "new_value", "approved_by",
-    "approved_role", "decided_at", "expires_at", "reason",
+    "approved_role", "evidence_digest", "work_order_id", "attempt_number",
+    "decided_at", "expires_at", "reason",
 }
 
 
@@ -131,7 +132,11 @@ def _as_of(value: str) -> datetime:
 def _string_list(value: Any, label: str, *, nonempty: bool = False) -> list[str]:
     if not isinstance(value, list) or (nonempty and not value):
         _error(f"{label} must be a{' non-empty' if nonempty else ''} list")
-    if any(not isinstance(item, str) or not item or len(item) > 512 for item in value):
+    if any(
+        not isinstance(item, str) or not item or len(item) > 512
+        or any(ord(character) < 32 for character in item)
+        for item in value
+    ):
         _error(f"{label} contains an invalid string")
     if len(set(value)) != len(value):
         _error(f"{label} must not contain duplicates")
@@ -242,11 +247,21 @@ def _effective_limits(record: dict[str, Any], *, as_of: str) -> dict[str, int]:
         _identifier(item["approved_by"], "approved_by")
         if item["approved_role"] != "STUDIO_OWNER":
             _error("quota amendment requires STUDIO_OWNER approval")
+        if not isinstance(item["evidence_digest"], str) or not DIGEST_RE.fullmatch(item["evidence_digest"]):
+            _error("owner amendment requires a SHA-256 evidence digest")
+        if item["work_order_id"] != record["work_order_id"]:
+            _error("owner amendment is bound to a different work order")
+        if item["attempt_number"] != record["attempt_number"]:
+            _error("owner amendment is bound to a different attempt")
         decided = _timestamp(item["decided_at"], "decided_at")
         expires = _timestamp(item["expires_at"], "expires_at")
         if decided > evaluated_at or decided > _as_of(as_of) or expires < evaluated_at:
             _error("owner amendment is not effective at evaluation time")
-        if not isinstance(item["reason"], str) or not item["reason"]:
+        if (
+            not isinstance(item["reason"], str) or not item["reason"]
+            or len(item["reason"]) > 512
+            or any(ord(character) < 32 for character in item["reason"])
+        ):
             _error("owner amendment requires a reason")
         limits[name] = new
     return limits
@@ -262,10 +277,10 @@ def validate_budget(record: dict[str, Any], *, as_of: str) -> dict[str, Any]:
     attempt = _integer(record["attempt_number"], "attempt_number", 1)
     if record["cost_class"] != "ZERO_COST":
         _error("cost_class must be ZERO_COST")
-    if _number(record["monetary_budget"], "monetary_budget") != 0:
-        _error("monetary_budget must remain zero")
-    if _number(record["monetary_spend"], "monetary_spend") != 0:
-        _error("monetary_spend must remain zero")
+    if _number(record["monetary_budget_minor_units"], "monetary_budget_minor_units") != 0:
+        _error("monetary_budget_minor_units must remain zero")
+    if _number(record["monetary_spend_minor_units"], "monetary_spend_minor_units") != 0:
+        _error("monetary_spend_minor_units must remain zero")
     if record["max_attempts"] != 3:
         _error("max_attempts is immutable and must equal 3")
     if record["max_elapsed_seconds"] != 7200 or record["max_changed_paths"] != 25 or record["max_output_bytes"] != 2097152:
@@ -307,6 +322,7 @@ def validate_trace(
     if not isinstance(records, list) or not records:
         _error("trace_events must be a non-empty list")
     gate_index = {gate["gate_id"]: gate for gate in gates}
+    seen_event_ids: set[str] = set()
     first: dict[str, Any] | None = None
     previous: dict[str, Any] | None = None
     for index, record in enumerate(records):
@@ -316,6 +332,9 @@ def validate_trace(
             _error("unsupported trace schema_version")
         for key in ("trace_event_id", "correlation_id", "work_order_id", "actor_id", "capability", "quota_id"):
             _identifier(record[key], key)
+        if record["trace_event_id"] in seen_event_ids:
+            _error("trace event identifiers must be unique")
+        seen_event_ids.add(record["trace_event_id"])
         if record["actor_role"] not in {"ENGINEERING", "QA", "REVIEW_INTEGRATION", "STUDIO_OWNER"}:
             _error("invalid actor_role")
         if record["outcome"] not in {"ACCEPTED", "PAUSED", "FAILED"}:
@@ -388,6 +407,7 @@ def validate_bundle(record: dict[str, Any], *, as_of: str) -> dict[str, Any]:
     gates = [validate_gate(item, as_of=as_of) for item in record["gates"]]
     ids: set[str] = set()
     by_id: dict[str, dict[str, Any]] = {}
+    previous_gate: dict[str, Any] | None = None
     for gate in gates:
         if gate["gate_id"] in ids:
             _error("gate identifiers must be unique")
@@ -399,6 +419,9 @@ def validate_bundle(record: dict[str, Any], *, as_of: str) -> dict[str, Any]:
             prior = by_id.get(gate["prior_gate_id"])
             if prior is None or gate["prior_gate_digest"] != canonical_digest(prior):
                 _error("gate predecessor is missing or mutated")
+            if prior is not previous_gate:
+                _error("gate lineage must reference the immediately preceding result")
+        previous_gate = gate
     required = required_gate_types(record["work_order_type"], record["repository_changing"])
     passing = {gate["gate_type"] for gate in gates if gate["verdict"] == "PASS"}
     missing = sorted(required - passing)
@@ -420,17 +443,52 @@ def evaluate_attempt(record: dict[str, Any], *, as_of: str) -> dict[str, Any]:
     try:
         validate_bundle(copy.deepcopy(record), as_of=as_of)
     except ValidationError as exc:
-        return {"decision": "PAUSE", "reasons": [str(exc)]}
-    return {"decision": "ACCEPT", "reasons": ["all mandatory gates and quota boundaries passed"]}
+        reason = str(exc)
+        pause_markers = (
+            "attempt ceiling exceeded", "elapsed-time ceiling exceeded",
+            "changed-path ceiling exceeded", "output-size ceiling exceeded",
+        )
+        decision = "PAUSE" if any(marker in reason for marker in pause_markers) else "FAIL"
+        return {"decision": decision, "reasons": [reason]}
+    return {"decision": "PASS", "reasons": ["all mandatory gates and quota boundaries passed"]}
 
 
-def explain_boundary() -> dict[str, Any]:
-    return {
+def explain_boundary(record: dict[str, Any] | None = None, *, as_of: str | None = None) -> dict[str, Any]:
+    result: dict[str, Any] = {
+        "required_gate_types": sorted(required_gate_types("IMPLEMENTATION", True)),
         "cost_class": "ZERO_COST",
-        "default_limits": {"attempts": 3, "elapsed_seconds": 7200, "changed_paths": 25, "output_bytes": 2097152, "money": 0},
+        "limits": {"attempts": 3, "elapsed_seconds": 7200, "changed_paths": 25, "output_bytes": 2097152, "money_minor_units": 0},
+        "usage": None,
+        "remaining": None,
+        "blockers": ["validation bundle not supplied"],
+        "next_safe_action": "supply a bundle and explicit as_of for evaluation",
         "amendable_by_studio_owner": ["elapsed_seconds", "changed_paths", "output_bytes"],
-        "immutable": ["attempts", "money"],
+        "immutable": ["attempts", "money_minor_units"],
     }
+    if record is None:
+        return result
+    if as_of is None:
+        _error("as_of is required when explaining a validation bundle")
+    decision = evaluate_attempt(record, as_of=as_of)
+    quota = record.get("quota", {}) if isinstance(record, dict) else {}
+    started = _timestamp(quota.get("started_at"), "started_at")
+    evaluated = _timestamp(quota.get("evaluated_at"), "evaluated_at")
+    elapsed = int((evaluated - started).total_seconds())
+    usage = {
+        "attempts": quota.get("observed_attempts"),
+        "elapsed_seconds": elapsed,
+        "changed_paths": quota.get("observed_changed_paths"),
+        "output_bytes": quota.get("observed_output_bytes"),
+        "money_minor_units": quota.get("monetary_spend_minor_units"),
+    }
+    limits = result["limits"]
+    result["usage"] = usage
+    result["remaining"] = {
+        key: max(0, limits[key] - usage[key]) for key in limits if isinstance(usage.get(key), int)
+    }
+    result["blockers"] = [] if decision["decision"] == "PASS" else decision["reasons"]
+    result["next_safe_action"] = "request independent QA and review" if decision["decision"] == "PASS" else "stop and resolve blockers"
+    return result
 
 
 def _load(path: str) -> Any:
@@ -447,11 +505,13 @@ def main(argv: list[str] | None = None) -> int:
         command.add_argument("--as-of", required=True)
         if name == "validate-trace":
             command.add_argument("--gates", required=True)
-    sub.add_parser("explain-boundary")
+    explain = sub.add_parser("explain-boundary")
+    explain.add_argument("path", nargs="?")
+    explain.add_argument("--as-of")
     args = parser.parse_args(argv)
     try:
         if args.command == "explain-boundary":
-            result = explain_boundary()
+            result = explain_boundary(_load(args.path) if args.path else None, as_of=args.as_of)
         else:
             payload = _load(args.path)
             if args.command == "validate-gate":
@@ -464,7 +524,7 @@ def main(argv: list[str] | None = None) -> int:
                 result = validate_bundle(payload, as_of=args.as_of)
             else:
                 result = evaluate_attempt(payload, as_of=args.as_of)
-                if result["decision"] != "ACCEPT":
+                if result["decision"] != "PASS":
                     print(json.dumps(result, sort_keys=True))
                     return 1
         print(json.dumps({"status": "PASS", "result": result}, sort_keys=True))

@@ -19,7 +19,7 @@ Every gate and trace event binds to the same repository, 40-character commit SHA
 
 ## Zero-cost quota
 
-Defaults are three attempts, 7,200 elapsed seconds, 25 changed paths, 2,097,152 output bytes, and zero monetary budget/spend. Only the studio owner may extend time, path, or output limits with a bounded, effective amendment. Attempts and money cannot be amended. Exceeding a limit produces `PAUSE`.
+Defaults are three attempts, 7,200 elapsed seconds, 25 changed paths, 2,097,152 output bytes, and zero monetary budget/spend in minor units. Only the studio owner may extend time, path, or output limits with a bounded, effective amendment carrying work-order, attempt, and evidence-digest identity. Attempts and money cannot be amended. Exceeding a limit produces `PAUSE`.
 
 ## Determinism and safety
 

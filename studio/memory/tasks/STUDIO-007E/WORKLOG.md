@@ -23,3 +23,11 @@ No merge has been performed or authorized by this checkpoint.
 - Implementation commit: `8c030a5e59ea17e88379a4c950f288f94814d4a3`.
 - Pull Request: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/29`.
 - Rules CI, QA-01, Review & Integration, and owner merge remain pending.
+
+## CP-0004 - Semantic contract hardening
+
+- Corrected evaluation outcomes to PASS, FAIL, or PAUSE.
+- Added complete Owner-amendment evidence and identity fields.
+- Expanded boundary explanation and append-only trace checks.
+- Verified 52 focused tests and a 236-test retained target.
+- Rules CI, QA-01, Review & Integration, and owner merge remain pending on the new immutable head.

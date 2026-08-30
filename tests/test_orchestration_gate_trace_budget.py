@@ -36,11 +36,21 @@ class GateTraceBudgetTests(unittest.TestCase):
         self.assertEqual("STUDIO-007E", subject.validate_bundle(self.bundle, as_of=AS_OF)["work_order_id"])
 
     def test_evaluate_accept(self):
-        self.assertEqual("ACCEPT", subject.evaluate_attempt(self.bundle, as_of=AS_OF)["decision"])
+        self.assertEqual("PASS", subject.evaluate_attempt(self.bundle, as_of=AS_OF)["decision"])
 
     def test_evaluate_pause(self):
         self.bundle["quota"]["observed_changed_paths"] = 26
         self.assertEqual("PAUSE", subject.evaluate_attempt(self.bundle, as_of=AS_OF)["decision"])
+
+    def test_evaluate_fail_for_invalid_evidence(self):
+        self.bundle["gates"][0]["evidence_references"] = []
+        self.assertEqual("FAIL", subject.evaluate_attempt(self.bundle, as_of=AS_OF)["decision"])
+
+    def test_explain_valid_bundle(self):
+        result = subject.explain_boundary(self.bundle, as_of=AS_OF)
+        self.assertEqual([], result["blockers"])
+        self.assertEqual(23, result["remaining"]["changed_paths"])
+        self.assertEqual("request independent QA and review", result["next_safe_action"])
 
     def test_input_not_mutated(self):
         original = copy.deepcopy(self.bundle)
@@ -51,7 +61,7 @@ class GateTraceBudgetTests(unittest.TestCase):
         self.assertEqual(subject.canonical_digest({"a": 1, "b": 2}), subject.canonical_digest({"b": 2, "a": 1}))
 
     def test_boundary_defaults(self):
-        self.assertEqual(0, subject.explain_boundary()["default_limits"]["money"])
+        self.assertEqual(0, subject.explain_boundary()["limits"]["money_minor_units"])
 
     def test_missing_required_gate(self):
         self.bundle["gates"] = [g for g in self.bundle["gates"] if g["gate_type"] != "QA_ACCEPTANCE"]
@@ -79,6 +89,10 @@ class GateTraceBudgetTests(unittest.TestCase):
 
     def test_trace_gap(self):
         self.bundle["trace_events"][1]["sequence_number"] = 3
+        self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
+
+    def test_duplicate_trace_identifier(self):
+        self.bundle["trace_events"][1]["trace_event_id"] = "trace-01"
         self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
 
     def test_trace_attempt_regression(self):
@@ -112,24 +126,52 @@ class GateTraceBudgetTests(unittest.TestCase):
     def test_non_owner_amendment(self):
         quota = load("valid-zero-cost-budget.json")
         quota["observed_changed_paths"] = 26
-        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"reviewer","approved_role":"QA","decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T17:00:00Z","reason":"approved scope"}]
+        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"reviewer","approved_role":"QA","evidence_digest":"sha256:"+"b"*64,"work_order_id":"STUDIO-007E","attempt_number":1,"decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T17:00:00Z","reason":"approved scope"}]
         self.assertInvalid(lambda: subject.validate_budget(quota, as_of=AS_OF))
 
     def test_valid_owner_path_amendment(self):
         quota = load("valid-zero-cost-budget.json")
         quota["observed_changed_paths"] = 26
-        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T17:00:00Z","reason":"approved scope"}]
+        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","evidence_digest":"sha256:"+"b"*64,"work_order_id":"STUDIO-007E","attempt_number":1,"decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T17:00:00Z","reason":"approved scope"}]
         self.assertEqual(26, subject.validate_budget(quota, as_of=AS_OF)["observed_changed_paths"])
 
     def test_attempt_limit_not_amendable(self):
         quota = load("valid-zero-cost-budget.json")
-        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_attempts","prior_value":3,"new_value":4,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T17:00:00Z","reason":"retry"}]
+        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_attempts","prior_value":3,"new_value":4,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","evidence_digest":"sha256:"+"b"*64,"work_order_id":"STUDIO-007E","attempt_number":1,"decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T17:00:00Z","reason":"retry"}]
         self.assertInvalid(lambda: subject.validate_budget(quota, as_of=AS_OF))
 
     def test_unused_amendment_rejected(self):
         quota = load("valid-zero-cost-budget.json")
-        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T17:00:00Z","reason":"scope"}]
+        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","evidence_digest":"sha256:"+"b"*64,"work_order_id":"STUDIO-007E","attempt_number":1,"decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T17:00:00Z","reason":"scope"}]
         self.assertInvalid(lambda: subject.validate_budget(quota, as_of=AS_OF))
+
+    def test_expired_owner_amendment_rejected(self):
+        quota = load("valid-zero-cost-budget.json")
+        quota["observed_changed_paths"] = 26
+        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","evidence_digest":"sha256:"+"b"*64,"work_order_id":"STUDIO-007E","attempt_number":1,"decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T15:29:59Z","reason":"scope"}]
+        self.assertInvalid(lambda: subject.validate_budget(quota, as_of=AS_OF))
+
+    def test_amendment_wrong_work_order_rejected(self):
+        quota = load("valid-zero-cost-budget.json")
+        quota["observed_changed_paths"] = 26
+        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","evidence_digest":"sha256:"+"b"*64,"work_order_id":"OTHER","attempt_number":1,"decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T17:00:00Z","reason":"scope"}]
+        self.assertInvalid(lambda: subject.validate_budget(quota, as_of=AS_OF))
+
+    def test_amendment_wrong_attempt_rejected(self):
+        quota = load("valid-zero-cost-budget.json")
+        quota["observed_changed_paths"] = 26
+        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","evidence_digest":"sha256:"+"b"*64,"work_order_id":"STUDIO-007E","attempt_number":2,"decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T17:00:00Z","reason":"scope"}]
+        self.assertInvalid(lambda: subject.validate_budget(quota, as_of=AS_OF))
+
+    def test_amendment_missing_evidence_digest_rejected(self):
+        quota = load("valid-zero-cost-budget.json")
+        quota["observed_changed_paths"] = 26
+        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","work_order_id":"STUDIO-007E","attempt_number":1,"decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T17:00:00Z","reason":"scope"}]
+        self.assertInvalid(lambda: subject.validate_budget(quota, as_of=AS_OF))
+
+    def test_control_character_rejected(self):
+        gate = load("valid-gate-result.json"); gate["reasons"] = ["line\nbreak"]
+        self.assertInvalid(lambda: subject.validate_gate(gate, as_of=AS_OF))
 
     def test_secret_value_rejected(self):
         gate = load("valid-gate-result.json"); gate["reasons"] = ["Bearer abcdefghijklmnopqrstuvwxyz"]
@@ -154,7 +196,7 @@ class GateTraceBudgetTests(unittest.TestCase):
             self.assertEqual(0, subject.main(["validate-bundle", str(path), "--as-of", AS_OF]))
 
     def test_cli_invalid_bundle(self):
-        self.bundle["quota"]["monetary_spend"] = 1
+        self.bundle["quota"]["monetary_spend_minor_units"] = 1
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "bundle.json"
             path.write_text(json.dumps(self.bundle), encoding="utf-8")
