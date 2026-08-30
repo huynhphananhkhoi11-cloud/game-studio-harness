@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://game-studio.invalid/schemas/failover-event.schema.json",
+  "title": "STUDIO-007D failover event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "event_id", "work_order_id", "work_order_digest",
+    "attempt_id", "attempt_number", "prior_state", "next_state",
+    "failure_class", "detector_id", "evidence_references",
+    "checkpoint_id", "handoff_id", "claim_disposition",
+    "recovery_action", "owner_gate_id", "prior_event_id",
+    "prior_event_digest", "observed_at"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "event_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "work_order_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "work_order_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "attempt_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "attempt_number": {"type": "integer", "minimum": 1, "maximum": 3},
+    "prior_state": {"$ref": "#/$defs/state"},
+    "next_state": {"$ref": "#/$defs/state"},
+    "failure_class": {"enum": ["NONE", "TIMEOUT", "EXECUTOR_FAILURE", "MALFORMED_OUTPUT", "VALIDATION_FAILURE", "MANUAL_STOP", "CHECKPOINT_MISSING"]},
+    "detector_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "evidence_references": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "checkpoint_id": {"type": ["string", "null"]},
+    "handoff_id": {"type": ["string", "null"]},
+    "claim_disposition": {"enum": ["ACTIVE", "RELEASED", "EXPIRED"]},
+    "recovery_action": {"type": "string", "minLength": 1},
+    "owner_gate_id": {"type": ["string", "null"]},
+    "prior_event_id": {"type": ["string", "null"]},
+    "prior_event_digest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+    "observed_at": {"type": "string", "format": "date-time", "pattern": "Z$"}
+  },
+  "$defs": {
+    "state": {"enum": ["HEALTHY", "SUSPECTED", "PAUSED", "HANDOFF_REQUIRED", "READY_FOR_REASSIGNMENT", "REASSIGNED", "RESUMED", "RECOVERED", "ABORTED"]}
+  }
+}

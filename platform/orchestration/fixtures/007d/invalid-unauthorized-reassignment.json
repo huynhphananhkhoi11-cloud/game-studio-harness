@@ -1,0 +1,286 @@
+{
+  "attempts": [
+    {
+      "attempt_id": "ATTEMPT-001",
+      "attempt_number": 1,
+      "checkpoint_id": "CHECKPOINT-001",
+      "claim_id": "CLAIM-001",
+      "created_at": "2026-08-30T10:00:00Z",
+      "executor_id": "EXECUTOR-01",
+      "failed_event_id": null,
+      "handoff_id": null,
+      "prior_attempt_digest": null,
+      "prior_attempt_id": null,
+      "schema_version": 1,
+      "selected_executor_evidence": [
+        "studio/evidence/selection.txt"
+      ],
+      "state": "HEALTHY",
+      "validation_evidence": [
+        "studio/evidence/validation.txt"
+      ],
+      "work_order_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "work_order_id": "WO-007D-001"
+    },
+    {
+      "attempt_id": "ATTEMPT-002",
+      "attempt_number": 2,
+      "checkpoint_id": "CHECKPOINT-002",
+      "claim_id": "CLAIM-002",
+      "created_at": "2026-08-30T12:30:00Z",
+      "executor_id": "EXECUTOR-02",
+      "failed_event_id": "EVENT-003",
+      "handoff_id": "HANDOFF-001",
+      "prior_attempt_digest": "sha256:eca48e0577abcfcf9197c4c471d1af4c9e79fc5afc47b8a88588b8815ad5eec7",
+      "prior_attempt_id": "ATTEMPT-001",
+      "schema_version": 1,
+      "selected_executor_evidence": [
+        "studio/evidence/selection.txt"
+      ],
+      "state": "REASSIGNED",
+      "validation_evidence": [
+        "studio/evidence/validation.txt"
+      ],
+      "work_order_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "work_order_id": "WO-007D-001"
+    }
+  ],
+  "checkpoints": [
+    {
+      "checkpoint_id": "CHECKPOINT-001",
+      "content_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "created_at": "2026-08-30T10:30:00Z",
+      "evidence_references": [
+        "studio/evidence/checkpoint.txt"
+      ],
+      "status": "SAFE",
+      "work_order_id": "WO-007D-001"
+    },
+    {
+      "checkpoint_id": "CHECKPOINT-002",
+      "content_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "created_at": "2026-08-30T10:30:00Z",
+      "evidence_references": [
+        "studio/evidence/checkpoint.txt"
+      ],
+      "status": "SAFE",
+      "work_order_id": "WO-007D-001"
+    }
+  ],
+  "claims": [
+    {
+      "branch": "agent/studio-007d-simulated-failover",
+      "claim_id": "CLAIM-001",
+      "claimed_at": "2026-08-30T10:00:00Z",
+      "expires_at": "2026-08-31T00:00:00Z",
+      "path_scope": [
+        "platform/orchestration"
+      ],
+      "released_at": "2026-08-30T11:00:00Z",
+      "status": "RELEASED",
+      "work_order_id": "WO-007D-001",
+      "writer_id": "ENGINEERING-01"
+    },
+    {
+      "branch": "agent/studio-007d-simulated-failover",
+      "claim_id": "CLAIM-002",
+      "claimed_at": "2026-08-30T10:00:00Z",
+      "expires_at": "2026-08-31T00:00:00Z",
+      "path_scope": [
+        "platform/orchestration"
+      ],
+      "released_at": null,
+      "status": "CLAIMED",
+      "work_order_id": "WO-007D-001",
+      "writer_id": "ENGINEERING-02"
+    }
+  ],
+  "events": [
+    {
+      "attempt_id": "ATTEMPT-001",
+      "attempt_number": 1,
+      "checkpoint_id": "CHECKPOINT-001",
+      "claim_disposition": "ACTIVE",
+      "detector_id": "DETECTOR-01",
+      "event_id": "EVENT-001",
+      "evidence_references": [
+        "studio/evidence/failover.txt"
+      ],
+      "failure_class": "TIMEOUT",
+      "handoff_id": null,
+      "next_state": "SUSPECTED",
+      "observed_at": "2026-08-30T11:10:00Z",
+      "owner_gate_id": null,
+      "prior_event_digest": null,
+      "prior_event_id": null,
+      "prior_state": "HEALTHY",
+      "recovery_action": "Review immutable evidence and follow the legal transition graph.",
+      "schema_version": 1,
+      "work_order_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "work_order_id": "WO-007D-001"
+    },
+    {
+      "attempt_id": "ATTEMPT-001",
+      "attempt_number": 1,
+      "checkpoint_id": "CHECKPOINT-001",
+      "claim_disposition": "ACTIVE",
+      "detector_id": "DETECTOR-01",
+      "event_id": "EVENT-002",
+      "evidence_references": [
+        "studio/evidence/failover.txt"
+      ],
+      "failure_class": "TIMEOUT",
+      "handoff_id": null,
+      "next_state": "PAUSED",
+      "observed_at": "2026-08-30T11:20:00Z",
+      "owner_gate_id": null,
+      "prior_event_digest": "sha256:c8fcde1c36cd476f0e210d9b52e21a7a284f42e35c102910e2631938ae78df71",
+      "prior_event_id": "EVENT-001",
+      "prior_state": "SUSPECTED",
+      "recovery_action": "Review immutable evidence and follow the legal transition graph.",
+      "schema_version": 1,
+      "work_order_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "work_order_id": "WO-007D-001"
+    },
+    {
+      "attempt_id": "ATTEMPT-001",
+      "attempt_number": 1,
+      "checkpoint_id": "CHECKPOINT-001",
+      "claim_disposition": "ACTIVE",
+      "detector_id": "DETECTOR-01",
+      "event_id": "EVENT-003",
+      "evidence_references": [
+        "studio/evidence/failover.txt"
+      ],
+      "failure_class": "EXECUTOR_FAILURE",
+      "handoff_id": null,
+      "next_state": "HANDOFF_REQUIRED",
+      "observed_at": "2026-08-30T11:30:00Z",
+      "owner_gate_id": null,
+      "prior_event_digest": "sha256:d714d087c0f8f39e13c6a17bbe7e19da1c02735dd328f3bbeb66a1303b1c531c",
+      "prior_event_id": "EVENT-002",
+      "prior_state": "PAUSED",
+      "recovery_action": "Review immutable evidence and follow the legal transition graph.",
+      "schema_version": 1,
+      "work_order_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "work_order_id": "WO-007D-001"
+    },
+    {
+      "attempt_id": "ATTEMPT-001",
+      "attempt_number": 1,
+      "checkpoint_id": "CHECKPOINT-001",
+      "claim_disposition": "RELEASED",
+      "detector_id": "DETECTOR-01",
+      "event_id": "EVENT-004",
+      "evidence_references": [
+        "studio/evidence/failover.txt"
+      ],
+      "failure_class": "EXECUTOR_FAILURE",
+      "handoff_id": "HANDOFF-001",
+      "next_state": "READY_FOR_REASSIGNMENT",
+      "observed_at": "2026-08-30T12:05:00Z",
+      "owner_gate_id": null,
+      "prior_event_digest": "sha256:259913614ba32d2c1f815166f1e1af76e8161571a44e847278d6cb4ad109a162",
+      "prior_event_id": "EVENT-003",
+      "prior_state": "HANDOFF_REQUIRED",
+      "recovery_action": "Review immutable evidence and follow the legal transition graph.",
+      "schema_version": 1,
+      "work_order_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "work_order_id": "WO-007D-001"
+    },
+    {
+      "attempt_id": "ATTEMPT-002",
+      "attempt_number": 2,
+      "checkpoint_id": "CHECKPOINT-002",
+      "claim_disposition": "ACTIVE",
+      "detector_id": "DETECTOR-01",
+      "event_id": "EVENT-005",
+      "evidence_references": [
+        "studio/evidence/failover.txt"
+      ],
+      "failure_class": "EXECUTOR_FAILURE",
+      "handoff_id": "HANDOFF-001",
+      "next_state": "REASSIGNED",
+      "observed_at": "2026-08-30T12:20:00Z",
+      "owner_gate_id": null,
+      "prior_event_digest": "sha256:ebcad27458ad652833910760515c4e71c98ad645e3813aa661eee606b6c6e058",
+      "prior_event_id": "EVENT-004",
+      "prior_state": "READY_FOR_REASSIGNMENT",
+      "recovery_action": "Review immutable evidence and follow the legal transition graph.",
+      "schema_version": 1,
+      "work_order_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "work_order_id": "WO-007D-001"
+    },
+    {
+      "attempt_id": "ATTEMPT-002",
+      "attempt_number": 2,
+      "checkpoint_id": "CHECKPOINT-002",
+      "claim_disposition": "ACTIVE",
+      "detector_id": "DETECTOR-01",
+      "event_id": "EVENT-006",
+      "evidence_references": [
+        "studio/evidence/failover.txt"
+      ],
+      "failure_class": "VALIDATION_FAILURE",
+      "handoff_id": null,
+      "next_state": "RESUMED",
+      "observed_at": "2026-08-30T12:40:00Z",
+      "owner_gate_id": null,
+      "prior_event_digest": "sha256:569ba8cc191c46b265dc54afcc02e87fb4d8559104098fa8c3bc4b30734a4555",
+      "prior_event_id": "EVENT-005",
+      "prior_state": "REASSIGNED",
+      "recovery_action": "Review immutable evidence and follow the legal transition graph.",
+      "schema_version": 1,
+      "work_order_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "work_order_id": "WO-007D-001"
+    }
+  ],
+  "executors": [
+    {
+      "capabilities": [
+        "deterministic-validation"
+      ],
+      "eligible": true,
+      "evidence_references": [
+        "studio/evidence/executor.txt"
+      ],
+      "executor_id": "EXECUTOR-01",
+      "observed_at": "2026-08-30T10:30:00Z"
+    },
+    {
+      "capabilities": [
+        "deterministic-validation"
+      ],
+      "eligible": true,
+      "evidence_references": [
+        "studio/evidence/executor.txt"
+      ],
+      "executor_id": "EXECUTOR-02",
+      "observed_at": "2026-08-30T10:30:00Z"
+    }
+  ],
+  "handoffs": [
+    {
+      "base_commit": "1111111111111111111111111111111111111111",
+      "blockers": [
+        "NONE"
+      ],
+      "changed_paths": [
+        "platform/orchestration/FAILOVER.md"
+      ],
+      "checks": [
+        "focused tests PASS"
+      ],
+      "claim_id": "CLAIM-001",
+      "created_at": "2026-08-30T12:00:00Z",
+      "current_commit": "2222222222222222222222222222222222222222",
+      "exact_resume_action": "Validate the new claim and resume from CHECKPOINT-002.",
+      "handoff_id": "HANDOFF-001",
+      "work_order_id": "WO-007D-001"
+    }
+  ],
+  "owner_gates": [],
+  "schema_version": 1,
+  "work_order_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "work_order_id": "WO-007D-001"
+}

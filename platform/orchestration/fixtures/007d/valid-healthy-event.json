@@ -1,0 +1,23 @@
+{
+  "attempt_id": "ATTEMPT-001",
+  "attempt_number": 1,
+  "checkpoint_id": "CHECKPOINT-001",
+  "claim_disposition": "ACTIVE",
+  "detector_id": "DETECTOR-01",
+  "event_id": "EVENT-HEALTHY",
+  "evidence_references": [
+    "studio/evidence/failover.txt"
+  ],
+  "failure_class": "NONE",
+  "handoff_id": null,
+  "next_state": "HEALTHY",
+  "observed_at": "2026-08-30T11:00:00Z",
+  "owner_gate_id": null,
+  "prior_event_digest": null,
+  "prior_event_id": null,
+  "prior_state": "SUSPECTED",
+  "recovery_action": "Review immutable evidence and follow the legal transition graph.",
+  "schema_version": 1,
+  "work_order_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "work_order_id": "WO-007D-001"
+}
