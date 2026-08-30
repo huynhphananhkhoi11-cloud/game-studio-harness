@@ -6,7 +6,7 @@ task_id: STUDIO-007D
 package_path: studio/memory/tasks/STUDIO-007D
 canonical_task_contract: tasks/STUDIO-007D-IMPLEMENTATION.md
 current_state: REVIEW_PENDING
-last_safe_checkpoint_id: STUDIO-007D-CP-0005
+last_safe_checkpoint_id: STUDIO-007D-CP-0006
 
 required_read_order:
   - AGENTS.md

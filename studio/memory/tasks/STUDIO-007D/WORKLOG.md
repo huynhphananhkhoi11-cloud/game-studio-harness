@@ -72,3 +72,15 @@ outcome: semantic review findings corrected and persisted
 rationale: Passing CI did not cover every cross-record invariant required by the accepted STUDIO-007D contract.
 resulting_state: REVIEW_PENDING on the hardened immutable head
 correction_of: STUDIO-007D-CP-0004
+## Semantic hardening checkpoint
+
+checkpoint_id: STUDIO-007D-CP-0006
+actor: QA-01 and ENGINEERING-01
+action: Enforced transition-time chronology for attempt switching, claims, checkpoints, executor evidence, reassignment events, and Owner gates before independent acceptance.
+scope_files: scripts/orchestration_failover.py; tests/test_orchestration_failover.py; STATE.md; WORKLOG.md; RESUME.md
+command_or_check: Data validation; retained queue, dispatch, and handoff tests; 38 focused failover tests; 184 total tests; git diff --check.
+evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/26; hardening commit f5927439693183b99172a262fd8ddc13b6d848db
+outcome: semantic review findings corrected and persisted
+rationale: Evidence that exists at as-of cannot retroactively authorize an earlier attempt or transition.
+resulting_state: REVIEW_PENDING on the hardened immutable head
+correction_of: STUDIO-007D-CP-0005
