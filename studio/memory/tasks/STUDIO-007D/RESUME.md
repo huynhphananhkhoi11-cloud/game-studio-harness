@@ -5,8 +5,8 @@ memory_schema_version: 1
 task_id: STUDIO-007D
 package_path: studio/memory/tasks/STUDIO-007D
 canonical_task_contract: tasks/STUDIO-007D-IMPLEMENTATION.md
-current_state: CONTRACT_APPROVED
-last_safe_checkpoint_id: STUDIO-007D-CP-0001
+current_state: REVIEW_PENDING
+last_safe_checkpoint_id: STUDIO-007D-CP-0002
 
 required_read_order:
   - AGENTS.md
@@ -20,35 +20,40 @@ required_read_order:
   - studio/HANDOFF_PROTOCOL.md
   - TASK.md
   - STATE.md
-  - WORKLOG.md entry STUDIO-007D-CP-0001
+  - WORKLOG.md entries STUDIO-007D-CP-0001 through STUDIO-007D-CP-0002
 
 repository_context: game-studio-harness
 worktree_context: primary repository worktree
 branch: agent/studio-007d-contract
-last_observed_HEAD: 4a963abda65395034a4c6062e462f24e697a8f28
-durability_state: WORKTREE_ONLY
-last_verified_persisted_ref: NONE
-pull_request: NONE
+last_observed_HEAD: ac0ee5c0f57972ca9dcde1fb613b29e9cb3208df
+durability_state: PR
+last_verified_persisted_ref: ac0ee5c0f57972ca9dcde1fb613b29e9cb3208df
+pull_request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/25
 
 expected_worktree_status: |
-  - main and origin/main contain STUDIO-007C closeout merge 4a963abda65395034a4c6062e462f24e697a8f28.
-  - The contract branch changes exactly six STUDIO-007D contract-package files.
-  - No implementation file exists yet.
+  - PR #25 contains exactly six STUDIO-007D contract-package paths.
+  - Contract commit ac0ee5c0f57972ca9dcde1fb613b29e9cb3208df is persisted remotely.
+  - Rules CI run 33304501209 succeeded.
+  - No implementation file exists.
 
 completed_summary: |
-  Studio Owner accepted the failure classes, maximum of 3 attempts, and required Owner gates. The bounded contract-only package is prepared without runtime implementation.
+  Studio Owner accepted the bounded failover decisions. The six-file contract package is persisted in PR #25, exact scope is verified, regression tests passed, and Rules CI succeeded.
 remaining_work:
-  - Validate, commit, push, open the contract-only PR, and obtain Rules CI.
-  - Obtain Studio Owner decision to merge the contract.
+  - Persist this memory checkpoint and verify Rules CI on its resulting head.
+  - Obtain Studio Owner decision to merge the contract-only PR.
 blockers:
   - NONE.
 
+latest_evidence:
+  - PR: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/25
+  - Contract commit: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/commit/ac0ee5c0f57972ca9dcde1fb613b29e9cb3208df
+  - Rules CI: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/33304501209
 first_verification_actions:
-  - Confirm branch and HEAD.
-  - Confirm exact six-file scope and schema version 1.
-  - Run data validation, retained orchestration tests, full suite, and git diff --check.
-next_implementation_action_after_verification: Persist and review the contract-only Pull Request. Do not create implementation files.
-receiving_role: PRODUCER-01
-writer_transfer_status: CLAIMED by PRODUCER-01 for the exact six contract paths
-generated_from_checkpoints: STUDIO-007D-CP-0001
-updated_at: 2026-08-30T16:36:42+07:00
+  - Confirm PR #25 remains open with exact six-file scope.
+  - Confirm the latest PR head contains only authorized memory checkpoint changes after the contract commit.
+  - Confirm Rules CI succeeds on the latest head.
+next_implementation_action_after_verification: NONE until the Studio Owner merges the contract-only PR.
+receiving_role: STUDIO_OWNER
+writer_transfer_status: TRANSFER_PENDING from PRODUCER-01
+generated_from_checkpoints: STUDIO-007D-CP-0001 through STUDIO-007D-CP-0002
+updated_at: 2026-08-30T16:41:35+07:00

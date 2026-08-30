@@ -23,3 +23,16 @@ correction_of: NONE
 # Rules
 
 Append future material checkpoints. Do not rewrite earlier entries; corrections must append and reference the corrected checkpoint.
+## Pull Request review handoff checkpoint
+
+checkpoint_id: STUDIO-007D-CP-0002
+timestamp: 2026-08-30T16:41:35+07:00
+actor: PRODUCER-01
+action: Recorded the persisted contract commit, Pull Request identity, exact scope, and successful Rules CI for Studio Owner review.
+scope_files: studio/memory/tasks/STUDIO-007D/STATE.md; studio/memory/tasks/STUDIO-007D/WORKLOG.md; studio/memory/tasks/STUDIO-007D/RESUME.md
+command_or_check: Verify local and remote contract commit ac0ee5c0f57972ca9dcde1fb613b29e9cb3208df; verify PR #25 contains exactly six authorized files; verify Rules CI run 33304501209 success; run retained tests and git diff --check.
+evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/25; commit ac0ee5c0f57972ca9dcde1fb613b29e9cb3208df; https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/33304501209
+outcome: completed
+rationale: Durable memory must describe the repository-visible contract and CI state before the Studio Owner merge decision.
+resulting_state: REVIEW_PENDING in PR #25; implementation remains unauthorized until contract merge.
+correction_of: NONE
