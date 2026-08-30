@@ -14,8 +14,8 @@ The implementation has been prepared and locally validated against the merged co
 
 ## Expected evidence
 
-- 52 focused gate/trace/budget tests pass.
-- 236 total tests pass, based on the 184-test retained baseline.
+- 60 focused gate/trace/budget tests pass.
+- 244 total tests pass, based on the 184-test retained baseline.
 - Data validation, prior orchestration focused tests, and `git diff --check` pass.
 - Rules CI, QA-01, and Review & Integration remain pending after PR creation.
 
@@ -29,3 +29,11 @@ Wait for Rules CI on the checkpoint head, then collect QA-01 and Review & Integr
 - Binds Owner amendments to evidence digest, work order, and attempt.
 - Reports usage, remaining limits, blockers, and next safe action.
 - Rejects duplicate trace IDs and control characters.
+
+## Independent review remediation
+
+- Locks gate, trace, and quota evidence to one attempt identity.
+- Enforces trace state continuity.
+- Rejects common credential assignments in reasons and references.
+- Computes remaining ceilings from effective Owner amendments.
+- Aligns amendment timestamps with explicit UTC Z in the schema.

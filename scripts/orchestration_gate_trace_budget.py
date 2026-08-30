@@ -34,6 +34,7 @@ SECRET_VALUE_PATTERNS = (
     re.compile(r"\bgithub_pat_[A-Za-z0-9_]{20,}\b"),
     re.compile(r"\bAKIA[0-9A-Z]{16}\b"),
     re.compile(r"\bsk-[A-Za-z0-9_-]{20,}\b"),
+    re.compile(r"(?i)\b(?:password|passwd|pwd|token|secret|api[_-]?key|authorization|cookie)\s*[:=]\s*[^\s,;]+"),
 )
 
 GATE_ROLE = {
@@ -317,7 +318,8 @@ def validate_budget(record: dict[str, Any], *, as_of: str) -> dict[str, Any]:
 
 
 def validate_trace(
-    records: list[dict[str, Any]], *, gates: Iterable[dict[str, Any]], as_of: str
+    records: list[dict[str, Any]], *, gates: Iterable[dict[str, Any]],
+    as_of: str, quota: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     if not isinstance(records, list) or not records:
         _error("trace_events must be a non-empty list")
@@ -368,6 +370,8 @@ def validate_trace(
                 _error("trace attempt chronology is invalid")
             if observed < _timestamp(previous["observed_at"], "previous observed_at"):
                 _error("trace time chronology is invalid")
+            if record["prior_state"] != previous["next_state"]:
+                _error("trace state transition is disconnected")
             if record["prior_event_id"] != previous["trace_event_id"]:
                 _error("trace predecessor identifier is broken")
             if record["prior_event_digest"] != canonical_digest(previous):
@@ -378,6 +382,13 @@ def validate_trace(
                 _error("trace references a missing or non-passing gate")
             if _timestamp(gate["evaluated_at"], "gate evaluated_at") > observed:
                 _error("trace references a gate that was not yet effective")
+            if gate["attempt_number"] != attempt:
+                _error("trace references gate evidence from a different attempt")
+        if quota is not None:
+            if record["quota_id"] != quota["quota_id"]:
+                _error("trace is bound to a different quota")
+            if attempt != quota["attempt_number"] or attempt != quota["observed_attempts"]:
+                _error("trace, quota, and observed attempt identities differ")
         previous = record
     return records
 
@@ -430,7 +441,10 @@ def validate_bundle(record: dict[str, Any], *, as_of: str) -> dict[str, Any]:
     quota = validate_budget(record["quota"], as_of=as_of)
     if quota["work_order_id"] != work_order:
         _error("quota is bound to a different work order")
-    traces = validate_trace(record["trace_events"], gates=gates, as_of=as_of)
+    for gate in gates:
+        if gate["attempt_number"] != quota["attempt_number"]:
+            _error("gate and quota attempt identities differ")
+    traces = validate_trace(record["trace_events"], gates=gates, as_of=as_of, quota=quota)
     for trace in traces:
         if trace["work_order_id"] != work_order or trace["quota_id"] != quota["quota_id"]:
             _error("trace is bound to a different work order or quota")
@@ -481,7 +495,12 @@ def explain_boundary(record: dict[str, Any] | None = None, *, as_of: str | None 
         "output_bytes": quota.get("observed_output_bytes"),
         "money_minor_units": quota.get("monetary_spend_minor_units"),
     }
-    limits = result["limits"]
+    effective = _effective_limits(quota, as_of=as_of)
+    limits = dict(result["limits"])
+    limits["elapsed_seconds"] = effective["max_elapsed_seconds"]
+    limits["changed_paths"] = effective["max_changed_paths"]
+    limits["output_bytes"] = effective["max_output_bytes"]
+    result["limits"] = limits
     result["usage"] = usage
     result["remaining"] = {
         key: max(0, limits[key] - usage[key]) for key in limits if isinstance(usage.get(key), int)

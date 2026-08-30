@@ -57,6 +57,12 @@ class GateTraceBudgetTests(unittest.TestCase):
         subject.evaluate_attempt(self.bundle, as_of=AS_OF)
         self.assertEqual(original, self.bundle)
 
+    def test_failed_validation_does_not_mutate_input(self):
+        self.bundle["quota"]["observed_changed_paths"] = 26
+        original = copy.deepcopy(self.bundle)
+        self.assertEqual("PAUSE", subject.evaluate_attempt(self.bundle, as_of=AS_OF)["decision"])
+        self.assertEqual(original, self.bundle)
+
     def test_digest_deterministic(self):
         self.assertEqual(subject.canonical_digest({"a": 1, "b": 2}), subject.canonical_digest({"b": 2, "a": 1}))
 
@@ -97,6 +103,19 @@ class GateTraceBudgetTests(unittest.TestCase):
 
     def test_trace_attempt_regression(self):
         self.bundle["trace_events"][0]["attempt_number"] = 2
+        self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
+
+    def test_trace_attempt_must_match_gate_and_quota(self):
+        self.bundle["trace_events"][1]["attempt_number"] = 2
+        self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
+
+    def test_quota_attempt_must_match_gate_and_trace(self):
+        self.bundle["quota"]["attempt_number"] = 2
+        self.bundle["quota"]["observed_attempts"] = 2
+        self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
+
+    def test_trace_state_continuity(self):
+        self.bundle["trace_events"][1]["prior_state"] = "UNRELATED_STATE"
         self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
 
     def test_trace_future_gate_reference(self):
@@ -172,6 +191,29 @@ class GateTraceBudgetTests(unittest.TestCase):
     def test_control_character_rejected(self):
         gate = load("valid-gate-result.json"); gate["reasons"] = ["line\nbreak"]
         self.assertInvalid(lambda: subject.validate_gate(gate, as_of=AS_OF))
+
+    def test_password_assignment_rejected(self):
+        gate = load("valid-gate-result.json"); gate["reasons"] = ["password=hunter2"]
+        self.assertInvalid(lambda: subject.validate_gate(gate, as_of=AS_OF))
+
+    def test_token_assignment_rejected(self):
+        gate = load("valid-gate-result.json"); gate["evidence_references"] = ["token:abc123secret"]
+        self.assertInvalid(lambda: subject.validate_gate(gate, as_of=AS_OF))
+
+    def test_explain_uses_effective_owner_limit(self):
+        quota = self.bundle["quota"]
+        quota["observed_changed_paths"] = 26
+        quota["owner_amendments"] = [{"amendment_id":"amend-1","limit_name":"max_changed_paths","prior_value":25,"new_value":30,"approved_by":"owner-1","approved_role":"STUDIO_OWNER","evidence_digest":"sha256:"+"b"*64,"work_order_id":"STUDIO-007E","attempt_number":1,"decided_at":"2026-08-30T15:00:00Z","expires_at":"2026-08-30T17:00:00Z","reason":"approved scope"}]
+        result = subject.explain_boundary(self.bundle, as_of=AS_OF)
+        self.assertEqual(30, result["limits"]["changed_paths"])
+        self.assertEqual(4, result["remaining"]["changed_paths"])
+
+    def test_amendment_schema_requires_utc_z(self):
+        schema_path = Path(__file__).resolve().parents[1] / "platform/orchestration/schemas/quota-budget.schema.json"
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        amendment = schema["properties"]["owner_amendments"]["items"]["properties"]
+        self.assertEqual("Z$", amendment["decided_at"]["pattern"])
+        self.assertEqual("Z$", amendment["expires_at"]["pattern"])
 
     def test_secret_value_rejected(self):
         gate = load("valid-gate-result.json"); gate["reasons"] = ["Bearer abcdefghijklmnopqrstuvwxyz"]

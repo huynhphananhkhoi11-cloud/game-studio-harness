@@ -31,3 +31,10 @@ No merge has been performed or authorized by this checkpoint.
 - Expanded boundary explanation and append-only trace checks.
 - Verified 52 focused tests and a 236-test retained target.
 - Rules CI, QA-01, Review & Integration, and owner merge remain pending on the new immutable head.
+
+## CP-0005 - Independent QA and review remediation
+
+- Remediated QA-01 attempt-identity and failed-input immutability findings.
+- Remediated Review & Integration state continuity, credential detection, effective-limit explanation, and UTC schema findings.
+- Verified 60 focused tests and a 244-test retained target.
+- A new Rules CI, QA-01, and Review & Integration verdict are required on this commit before owner merge.
