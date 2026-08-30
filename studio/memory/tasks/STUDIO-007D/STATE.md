@@ -31,7 +31,7 @@ remaining:
 blockers:
   - NONE.
 
-last_safe_checkpoint_id: STUDIO-007D-CP-0003
+last_safe_checkpoint_id: STUDIO-007D-CP-0005
 exact_next_action: Run all retained and focused checks, commit, push, open the implementation Pull Request, and record its immutable checkpoint. Do not merge.
 
 active_writer_claim:

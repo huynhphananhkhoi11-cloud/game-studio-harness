@@ -60,3 +60,15 @@ outcome: implementation persisted for independent review
 rationale: Durable memory must identify the exact Pull Request and implementation head before QA and integration review.
 resulting_state: REVIEW_PENDING
 correction_of: NONE
+## Semantic hardening checkpoint
+
+checkpoint_id: STUDIO-007D-CP-0005
+actor: QA-01 and ENGINEERING-01
+action: Hardened cross-record attempt, failed-event, handoff, claim-disposition, checkpoint-recovery, and Owner-gate validation before independent acceptance.
+scope_files: scripts/orchestration_failover.py; tests/test_orchestration_failover.py; STATE.md; WORKLOG.md; RESUME.md
+command_or_check: Data validation; retained queue, dispatch, and handoff tests; 32 focused failover tests; 178 total tests; git diff --check.
+evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/26; hardening commit 53b3f624bf769c8c64a5c37a5fed055049642ea6
+outcome: semantic review findings corrected and persisted
+rationale: Passing CI did not cover every cross-record invariant required by the accepted STUDIO-007D contract.
+resulting_state: REVIEW_PENDING on the hardened immutable head
+correction_of: STUDIO-007D-CP-0004
