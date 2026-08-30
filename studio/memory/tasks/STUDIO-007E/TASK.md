@@ -6,9 +6,9 @@ Implement deterministic gate evaluation, append-only trace validation, zero-cost
 
 ## Approved scope
 
-- 21 new implementation paths listed by `tasks/STUDIO-007E-IMPLEMENTATION.md`.
-- Material updates to these four task-memory records only: `TASK.md`, `STATE.md`, `WORKLOG.md`, and `RESUME.md`.
-- Maximum changed-path count: 25.
+- 21 implementation paths listed by `tasks/STUDIO-007E-IMPLEMENTATION.md`.
+- Material updates to `TASK.md`, `STATE.md`, `WORKLOG.md`, and `RESUME.md`.
+- Maximum implementation changed-path count: 25.
 
 ## Accepted decisions
 
@@ -18,6 +18,14 @@ Implement deterministic gate evaluation, append-only trace validation, zero-cost
 - Secret-like fields or values are rejected; only safe references and digests are stored.
 - Merge authority remains external and belongs to the studio owner.
 
-## Completion boundary
+## Completion record
 
-Implementation is complete only after focused and retained tests pass, Rules CI passes, QA and Review & Integration approve, the studio owner merges, and a separate closeout records the merged identity.
+- Lifecycle: `COMPLETE`.
+- Durability: `MERGED`.
+- Contract PR: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/28`.
+- Implementation PR: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/29`.
+- Implementation merge: `eae11bd8e15d20a1e64a9f7a95ab5ae7fdb37059`.
+- Accepted evidence: 68 focused tests, 252 total tests, Rules CI success, QA PASS, and Review & Integration APPROVE.
+- Writer claim: `RELEASED` by the Studio Owner merge.
+
+No STUDIO-007E work remains. Later work requires a separately accepted contract and writer claim.
