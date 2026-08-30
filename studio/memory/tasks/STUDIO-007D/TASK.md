@@ -37,7 +37,7 @@ accepted_constraints: |
 created_at: 2026-08-30T16:36:42+07:00
 authorized_amendments: |
   - Studio Owner accepted the bounded STUDIO-007D decisions on 2026-08-30.
-  - Implementation remains unauthorized until the contract-only Pull Request merges.
+  - Implementation was authorized when contract PR #25 merged at c00dea3a8adc97f5b38e715aaf6c1c4759cca0fc.
 
 notes: |
   Failover records are operational evidence only. They do not authenticate actors or grant execution, project truth, QA acceptance, merge, provider, budget, publication, or deployment authority.

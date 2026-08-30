@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://game-studio.invalid/schemas/attempt-record.schema.json",
+  "title": "STUDIO-007D attempt record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "attempt_id", "work_order_id", "work_order_digest",
+    "attempt_number", "executor_id", "state", "claim_id",
+    "prior_attempt_id", "prior_attempt_digest", "failed_event_id",
+    "handoff_id", "checkpoint_id", "selected_executor_evidence",
+    "validation_evidence", "created_at"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "attempt_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "work_order_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "work_order_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "attempt_number": {"type": "integer", "minimum": 1, "maximum": 3},
+    "executor_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "state": {"enum": ["HEALTHY", "SUSPECTED", "PAUSED", "HANDOFF_REQUIRED", "READY_FOR_REASSIGNMENT", "REASSIGNED", "RESUMED", "RECOVERED", "ABORTED"]},
+    "claim_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "prior_attempt_id": {"type": ["string", "null"]},
+    "prior_attempt_digest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+    "failed_event_id": {"type": ["string", "null"]},
+    "handoff_id": {"type": ["string", "null"]},
+    "checkpoint_id": {"type": "string"},
+    "selected_executor_evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "validation_evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "created_at": {"type": "string", "format": "date-time", "pattern": "Z$"}
+  }
+}

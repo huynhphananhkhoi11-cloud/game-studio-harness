@@ -6,61 +6,39 @@ task_id: STUDIO-007D
 package_path: studio/memory/tasks/STUDIO-007D
 canonical_task_contract: tasks/STUDIO-007D-IMPLEMENTATION.md
 state: REVIEW_PENDING
-logical_role: PRODUCER-01
+logical_role: ENGINEERING-01
 repository_context: game-studio-harness
-worktree_context: primary repository worktree
-branch: agent/studio-007d-contract
-last_observed_HEAD: ac0ee5c0f57972ca9dcde1fb613b29e9cb3208df
+worktree_context: dedicated implementation branch
+branch: agent/studio-007d-simulated-failover
+base_contract_merge: c00dea3a8adc97f5b38e715aaf6c1c4759cca0fc
 durability_state: PR
-last_verified_persisted_ref: ac0ee5c0f57972ca9dcde1fb613b29e9cb3208df
-pull_request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/25
+pull_request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/26
 
 worktree_status_summary: |
-  - STUDIO-007C closeout remains merged at the verified base.
-  - Contract commit ac0ee5c0f57972ca9dcde1fb613b29e9cb3208df is pushed in PR #25.
-  - PR #25 contains exactly six authorized contract-package paths.
-  - Rules CI run 33304501209 succeeded.
-  - No implementation path has been created.
+  - Contract PR #25 is merged.
+  - Exactly sixteen approved implementation paths were created.
+  - STUDIO-007A through STUDIO-007C implementation paths remain unchanged.
+  - No real failover, provider, network, credential, subprocess, Git automation, execution, deletion, publication, or paid action was added.
 
 completed:
-  - Studio Owner accepted six failure classes.
-  - Studio Owner accepted a maximum of 3 attempts.
-  - Studio Owner accepted Owner gates for reassignment, evidence-exception resume, and abort.
-  - Bounded contract, exact implementation scope, tests, safety, and rollback were prepared.
-  - Contract commit was pushed and PR #25 was opened.
-  - Exact six-file PR scope was verified.
-  - Rules CI succeeded.
+  - Implemented deterministic event, attempt, chain, simulation, and explanation validation.
+  - Added normative schemas and the eleven required fixtures.
+  - Added focused positive, negative, transition, lineage, gate, no-mutation, and no-call tests.
 remaining:
-  - Obtain Studio Owner decision to merge the contract-only PR.
+  - Persist the implementation commit and Pull Request checkpoint.
+  - Verify Rules CI, QA-01, and Review and Integration on one immutable head.
+  - Obtain the Studio Owner merge decision.
 blockers:
   - NONE.
-assumptions:
-  - NONE.
-unresolved_items:
-  - NONE.
 
-latest_checks:
-  - PR: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/25
-  - Contract commit: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/commit/ac0ee5c0f57972ca9dcde1fb613b29e9cb3208df
-  - Rules CI: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/33304501209
-  - Data validation: PASS.
-  - Queue: 24 PASS.
-  - Dispatch: 22 PASS.
-  - Handoff: 23 PASS.
-  - Full suite: 146 PASS.
-  - git diff --check: PASS.
-
-last_safe_checkpoint_id: STUDIO-007D-CP-0002
-exact_next_action: Persist this PR checkpoint, verify Rules CI on the resulting memory-only head, then request the Studio Owner merge decision. Do not implement STUDIO-007D yet.
+last_safe_checkpoint_id: STUDIO-007D-CP-0006
+exact_next_action: Run all retained and focused checks, commit, push, open the implementation Pull Request, and record its immutable checkpoint. Do not merge.
 
 active_writer_claim:
-  status: TRANSFER_PENDING
-  writer: PRODUCER-01
-  intended_receiver: STUDIO_OWNER
-  branch: agent/studio-007d-contract
-  scope: the exact six contract-package paths
-  transfer_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/25
-  updated_at: 2026-08-30T16:41:35+07:00
+  status: CLAIMED
+  writer: ENGINEERING-01
+  branch: agent/studio-007d-simulated-failover
+  scope: the exact sixteen implementation paths and four STUDIO-007D memory records
+  transfer_reference: tasks/STUDIO-007D-IMPLEMENTATION.md
 
-updated_at: 2026-08-30T16:41:35+07:00
-updater: PRODUCER-01
+updater: ENGINEERING-01
