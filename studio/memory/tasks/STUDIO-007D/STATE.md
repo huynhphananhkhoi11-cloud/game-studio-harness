@@ -5,14 +5,14 @@ memory_schema_version: 1
 task_id: STUDIO-007D
 package_path: studio/memory/tasks/STUDIO-007D
 canonical_task_contract: tasks/STUDIO-007D-IMPLEMENTATION.md
-state: IMPLEMENTATION_IN_PROGRESS
+state: REVIEW_PENDING
 logical_role: ENGINEERING-01
 repository_context: game-studio-harness
 worktree_context: dedicated implementation branch
 branch: agent/studio-007d-simulated-failover
 base_contract_merge: c00dea3a8adc97f5b38e715aaf6c1c4759cca0fc
-durability_state: WORKTREE
-pull_request: PENDING
+durability_state: PR
+pull_request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/26
 
 worktree_status_summary: |
   - Contract PR #25 is merged.
