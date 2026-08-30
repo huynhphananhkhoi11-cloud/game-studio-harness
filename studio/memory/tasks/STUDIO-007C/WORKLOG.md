@@ -75,6 +75,20 @@ rationale: The implementation must be locally reproducible and remain within the
 resulting_state: IMPLEMENTATION_VALIDATED_LOCAL; no implementation commit, push, Pull Request, QA verdict, review verdict, or merge exists yet.
 correction_of: NONE
 
+## Implementation Pull Request checkpoint
+
+checkpoint_id: STUDIO-007C-CP-0006
+timestamp: 2026-08-30T00:37:08Z
+actor: ENGINEERING-01
+action: Recorded the persisted implementation commit, Pull Request identity, authorized PR scope, and successful Rules CI for independent review handoff.
+scope_files: studio/memory/tasks/STUDIO-007C/STATE.md; studio/memory/tasks/STUDIO-007C/WORKLOG.md; studio/memory/tasks/STUDIO-007C/RESUME.md.
+command_or_check: Verify local and remote implementation commit 2f2baf8d20da18ea072a9c664630c2341ca8aba6; verify Pull Request #23 contains exactly twenty authorized paths; verify Rules CI run 33283652897 success; run git diff --check.
+evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/23; commit 2f2baf8d20da18ea072a9c664630c2341ca8aba6; Rules CI run 33283652897.
+outcome: completed
+rationale: Independent QA requires one repository-visible implementation and exact PR evidence rather than local-only state.
+resulting_state: REVIEW_PENDING in Pull Request #23; next action is to persist this checkpoint and hand the resulting immutable remote head to QA-01.
+correction_of: NONE
+
 # Rules
 
 Append future material checkpoints. Do not rewrite earlier entries; corrections must append and reference the corrected checkpoint.
