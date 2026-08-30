@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "worktree_id": "PRIMARY-WORKTREE-01",
+  "branch": "agent/studio-007c-writer-worktree-handoff",
+  "base_commit": "633cbb319d2bc6c6361cf602ae67d5b4f49e308b",
+  "current_commit": "ad736df31294f0974ded6f78d0e8c4bdc4b8890c",
+  "permitted_paths": [
+    "platform/orchestration/fixtures/007c",
+    "platform/orchestration/schemas",
+    "platform/orchestration/WRITER_WORKTREE_HANDOFF.md",
+    "scripts/orchestration_handoff.py",
+    "tests/test_orchestration_handoff.py"
+  ],
+  "status": "CLEAN",
+  "evidence_references": ["studio/memory/tasks/STUDIO-007C/STATE.md"],
+  "observed_at": "2026-08-30T10:00:00Z"
+}

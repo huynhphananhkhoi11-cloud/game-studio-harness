@@ -1,0 +1,10 @@
+{
+  "mutations": {
+    "claim_id": "CLAIM-ANCESTOR-OVERLAP-02",
+    "executor_id": "QA-01",
+    "branch": "agent/ancestor-overlap",
+    "worktree_id": "WORKTREE-ANCESTOR-02"
+  },
+  "permitted_paths": ["platform/orchestration"],
+  "expected_error": "overlapping path scope"
+}

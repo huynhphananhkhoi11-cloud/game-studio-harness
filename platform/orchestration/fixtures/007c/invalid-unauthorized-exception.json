@@ -1,0 +1,11 @@
+{
+  "exception_id": "EXCEPTION-OVERLAP-001",
+  "claim_ids": ["STUDIO-007C-WRITER-0001", "CLAIM-EXACT-OVERLAP-02"],
+  "overlapping_paths": ["scripts/orchestration_handoff.py"],
+  "reason": "Bounded pair review.",
+  "approver_role": "PRODUCER-01",
+  "approval_reference": "studio/memory/tasks/STUDIO-007C/STATE.md",
+  "decided_at": "2026-08-30T09:00:00Z",
+  "expires_at": "2026-08-30T11:00:00Z",
+  "expected_error": "only STUDIO_OWNER"
+}

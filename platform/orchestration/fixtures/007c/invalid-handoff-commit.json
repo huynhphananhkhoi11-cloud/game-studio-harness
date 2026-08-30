@@ -1,0 +1,6 @@
+{
+  "mutations": {
+    "current_commit": "0000000000000000000000000000000000000000"
+  },
+  "expected_error": "current commit mismatch"
+}

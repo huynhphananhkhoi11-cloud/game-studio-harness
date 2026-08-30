@@ -30,6 +30,7 @@ acceptance_criteria: tasks/STUDIO-007C-IMPLEMENTATION.md section 10
 accepted_constraints: |
   - STUDIO-007A and STUDIO-007B are accepted, implemented, reviewed, merged, and retained.
   - One writer per overlapping path scope.
+  - Active implementation writer claims use a 24-hour lease; unfinished work requires pre-expiry renewal or a new Owner-authorized claim after expiry.
   - Same-writer renewal only before expiry; expiry does not transfer authority.
   - Studio Owner alone records overlap exceptions in v1.0.
   - Git automation remains prohibited.
@@ -40,6 +41,7 @@ created_at: 2026-08-29T17:33:00+07:00
 authorized_amendments: |
   - Studio Owner accepted the bounded STUDIO-007C decisions on 2026-08-29.
   - Implementation remains unauthorized until the contract-only Pull Request merges.
+  - Studio Owner authorized a 24-hour ENGINEERING-01 implementation writer claim after PR #22 merged.
 
 notes: |
   This package carries Platform Studio operational evidence only. Claim, worktree, and handoff records do not authenticate actors or grant project truth, merge, provider, budget, publication, or execution authority.

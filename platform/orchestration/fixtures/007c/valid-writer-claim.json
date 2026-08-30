@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "claim_id": "STUDIO-007C-WRITER-0001",
+  "work_order_id": "WO-STUDIO-007C-001",
+  "work_order_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "executor_id": "ENGINEERING-01",
+  "branch": "agent/studio-007c-writer-worktree-handoff",
+  "worktree_id": "PRIMARY-WORKTREE-01",
+  "base_commit": "633cbb319d2bc6c6361cf602ae67d5b4f49e308b",
+  "permitted_paths": [
+    "platform/orchestration/fixtures/007c",
+    "platform/orchestration/schemas",
+    "platform/orchestration/WRITER_WORKTREE_HANDOFF.md",
+    "scripts/orchestration_handoff.py",
+    "tests/test_orchestration_handoff.py"
+  ],
+  "issued_at": "2026-08-29T11:16:13Z",
+  "expires_at": "2026-08-30T11:16:13Z",
+  "status": "CLAIMED",
+  "lease_revision": 1,
+  "prior_claim_id": null,
+  "prior_claim_digest": null,
+  "evidence_references": [
+    "tasks/STUDIO-007C-IMPLEMENTATION.md",
+    "studio/memory/tasks/STUDIO-007C/STATE.md"
+  ]
+}

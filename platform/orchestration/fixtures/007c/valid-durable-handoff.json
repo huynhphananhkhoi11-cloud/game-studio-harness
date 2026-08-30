@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "handoff_id": "HANDOFF-STUDIO-007C-001",
+  "work_order_id": "WO-STUDIO-007C-001",
+  "claim_id": "STUDIO-007C-WRITER-0001",
+  "sender_id": "ENGINEERING-01",
+  "receiver_id": "QA-01",
+  "branch": "agent/studio-007c-writer-worktree-handoff",
+  "worktree_id": "PRIMARY-WORKTREE-01",
+  "base_commit": "633cbb319d2bc6c6361cf602ae67d5b4f49e308b",
+  "current_commit": "ad736df31294f0974ded6f78d0e8c4bdc4b8890c",
+  "completed_work": ["Created bounded STUDIO-007C validators and fixtures."],
+  "pending_work": ["Run independent QA and integration review."],
+  "changed_paths": [
+    "scripts/orchestration_handoff.py",
+    "tests/test_orchestration_handoff.py"
+  ],
+  "checks": ["Focused tests pass.", "Retained queue and dispatch tests pass."],
+  "evidence_references": ["tasks/STUDIO-007C-IMPLEMENTATION.md"],
+  "risks": ["Validator evidence does not authenticate actors."],
+  "blockers": ["NONE"],
+  "claim_disposition": "TRANSFER_PENDING",
+  "resume_action": "QA-01 must verify the immutable head and run the required checks.",
+  "created_at": "2026-08-30T10:05:00Z"
+}
