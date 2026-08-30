@@ -95,6 +95,11 @@ class GateTraceBudgetTests(unittest.TestCase):
         self.bundle["gates"][-1]["evaluated_at"] = "2026-08-30T15:06:30Z"
         self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
 
+    def test_gate_lineage_cannot_restart(self):
+        self.bundle["gates"][1]["prior_gate_id"] = None
+        self.bundle["gates"][1]["prior_gate_digest"] = None
+        self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
+
     def test_prior_gate_pair_required(self):
         gate = load("valid-gate-result.json"); gate["prior_gate_id"] = "gate-old"
         self.assertInvalid(lambda: subject.validate_gate(gate, as_of=AS_OF))
@@ -122,6 +127,10 @@ class GateTraceBudgetTests(unittest.TestCase):
     def test_quota_attempt_must_match_gate_and_trace(self):
         self.bundle["quota"]["attempt_number"] = 2
         self.bundle["quota"]["observed_attempts"] = 2
+        self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
+
+    def test_quota_path_usage_must_match_artifact(self):
+        self.bundle["quota"]["observed_changed_paths"] = 1
         self.assertInvalid(lambda: subject.validate_bundle(self.bundle, as_of=AS_OF))
 
     def test_trace_state_continuity(self):

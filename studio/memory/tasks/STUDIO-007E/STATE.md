@@ -7,11 +7,12 @@
 - implementation_pr: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/29`
 - implementation_commit: `8c030a5e59ea17e88379a4c950f288f94814d4a3`
 - checkpoint_commit: `RECORDED_BY_THIS_COMMIT`
-- expected_focused_tests: `66`
-- expected_total_tests: `250`
+- expected_focused_tests: `68`
+- expected_total_tests: `252`
 - hardening_commit: `RECORDED_BY_THIS_COMMIT`
 - final_hardening_commit: `RECORDED_BY_THIS_COMMIT`
 - review_remediation_commit: `RECORDED_BY_THIS_COMMIT`
+- final_review_remediation_commit: `RECORDED_BY_THIS_COMMIT`
 - merge_status: `NOT_MERGED`
 - next_gate: `RULES_CI_THEN_QA_AND_REVIEW`
 

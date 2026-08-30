@@ -46,3 +46,10 @@ No merge has been performed or authorized by this checkpoint.
 - Added Basic-authentication detection and robust invalid-bundle explanation.
 - Verified 66 focused tests and a 250-test retained target.
 - New Rules CI, QA-01, and Review & Integration verdicts remain required on this immutable head.
+
+## CP-0007 - Final lineage and quota correlation remediation
+
+- Rejected restarted or disconnected gate lineage.
+- Bound explicit changed-path usage to immutable artifact identity.
+- Verified 68 focused tests and a 252-test retained target.
+- New Rules CI, QA-01, and Review & Integration verdicts remain required on this immutable head.

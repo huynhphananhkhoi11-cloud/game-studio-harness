@@ -429,6 +429,8 @@ def validate_bundle(record: dict[str, Any], *, as_of: str) -> dict[str, Any]:
         by_id[gate["gate_id"]] = gate
         if gate["work_order_id"] != work_order or gate["artifact_identity"] != artifact:
             _error("gate is bound to a different work order or artifact")
+        if previous_gate is not None and gate["prior_gate_id"] is None:
+            _error("gate lineage must reference the immediately preceding result")
         if gate["prior_gate_id"] is not None:
             prior = by_id.get(gate["prior_gate_id"])
             if prior is None or gate["prior_gate_digest"] != canonical_digest(prior):
@@ -448,6 +450,8 @@ def validate_bundle(record: dict[str, Any], *, as_of: str) -> dict[str, Any]:
     quota = validate_budget(record["quota"], as_of=as_of)
     if quota["work_order_id"] != work_order:
         _error("quota is bound to a different work order")
+    if quota["observed_changed_paths"] != len(artifact["changed_paths"]):
+        _error("quota changed-path usage differs from artifact identity")
     for gate in gates:
         if gate["attempt_number"] != quota["attempt_number"]:
             _error("gate and quota attempt identities differ")
