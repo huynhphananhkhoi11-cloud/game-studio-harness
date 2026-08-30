@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "durable-handoff.schema.json",
+  "title": "STUDIO-007C durable handoff evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "handoff_id", "work_order_id", "claim_id", "sender_id", "receiver_id", "branch", "worktree_id", "base_commit", "current_commit", "completed_work", "pending_work", "changed_paths", "checks", "evidence_references", "risks", "blockers", "claim_disposition", "resume_action", "created_at"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "handoff_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "work_order_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "claim_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "sender_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "receiver_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "branch": {"type": "string", "minLength": 1},
+    "worktree_id": {"type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"},
+    "base_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "current_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "completed_work": {"$ref": "#/$defs/nonemptyStrings"},
+    "pending_work": {"$ref": "#/$defs/nonemptyStrings"},
+    "changed_paths": {"$ref": "#/$defs/nonemptyStrings"},
+    "checks": {"$ref": "#/$defs/nonemptyStrings"},
+    "evidence_references": {"$ref": "#/$defs/nonemptyStrings"},
+    "risks": {"$ref": "#/$defs/nonemptyStrings"},
+    "blockers": {"$ref": "#/$defs/nonemptyStrings"},
+    "claim_disposition": {"enum": ["CLAIMED", "TRANSFER_PENDING", "RELEASED", "UNKNOWN"]},
+    "resume_action": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"}
+  },
+  "$defs": {
+    "nonemptyStrings": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  }
+}

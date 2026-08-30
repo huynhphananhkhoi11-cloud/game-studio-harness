@@ -1,0 +1,10 @@
+{
+  "mutations": {
+    "claim_id": "CLAIM-EXACT-OVERLAP-02",
+    "executor_id": "QA-01",
+    "branch": "agent/exact-overlap",
+    "worktree_id": "WORKTREE-EXACT-02"
+  },
+  "permitted_paths": ["scripts/orchestration_handoff.py"],
+  "expected_error": "overlapping path scope"
+}

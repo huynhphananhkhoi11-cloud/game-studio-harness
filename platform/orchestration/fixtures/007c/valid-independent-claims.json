@@ -1,0 +1,41 @@
+{
+  "claims": [
+    {
+      "schema_version": 1,
+      "claim_id": "CLAIM-INDEPENDENT-01",
+      "work_order_id": "WO-INDEPENDENT-001",
+      "work_order_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "executor_id": "ENGINEERING-01",
+      "branch": "agent/independent-one",
+      "worktree_id": "WORKTREE-INDEPENDENT-01",
+      "base_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "permitted_paths": ["projects/alpha"],
+      "issued_at": "2026-08-29T10:00:00Z",
+      "expires_at": "2026-08-31T10:00:00Z",
+      "status": "CLAIMED",
+      "lease_revision": 1,
+      "prior_claim_id": null,
+      "prior_claim_digest": null,
+      "evidence_references": ["tasks/STUDIO-007C.md"]
+    },
+    {
+      "schema_version": 1,
+      "claim_id": "CLAIM-INDEPENDENT-02",
+      "work_order_id": "WO-INDEPENDENT-002",
+      "work_order_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "executor_id": "QA-01",
+      "branch": "agent/independent-two",
+      "worktree_id": "WORKTREE-INDEPENDENT-02",
+      "base_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "permitted_paths": ["projects/alphabet"],
+      "issued_at": "2026-08-29T10:00:00Z",
+      "expires_at": "2026-08-31T10:00:00Z",
+      "status": "CLAIMED",
+      "lease_revision": 1,
+      "prior_claim_id": null,
+      "prior_claim_digest": null,
+      "evidence_references": ["tasks/STUDIO-007C.md"]
+    }
+  ],
+  "exceptions": []
+}

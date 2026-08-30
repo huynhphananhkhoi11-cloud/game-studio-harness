@@ -1,0 +1,6 @@
+{
+  "mutations": {
+    "base_commit": "0000000000000000000000000000000000000000"
+  },
+  "expected_error": "base commit mismatch"
+}
