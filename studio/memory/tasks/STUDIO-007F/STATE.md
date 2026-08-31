@@ -25,3 +25,9 @@
 - No real provider, SDK, account, credential, network access, or nonzero cost exists.
 - Adapter results do not grant orchestration or merge authority.
 - Studio Owner retains the merge decision.
+## QA remediation checkpoint
+
+- hardening_commit: HARDENING_COMMIT_PLACEHOLDER
+- evidence: 98 focused provider-adapter tests and 350 total tests PASS
+- remediation: bind FAKE operations to deterministic results; enforce declared input/output kinds and lineage; reject duplicate/hidden/oversized/noncanonical/secret-bearing inputs
+- next_gate: repeat independent QA and Review & Integration on the checkpoint head; do not merge yet

@@ -5,6 +5,12 @@
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "result_id", "request_id", "work_order_id", "attempt_number", "adapter_type", "capability_id", "correlation_id", "artifact_identity", "status", "output_references", "evidence_references", "usage_counters", "error_class", "handoff_reference", "completed_at"],
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "SUCCESS"}}}, "then": {"properties": {"error_class": {"const": "NONE"}, "output_references": {"minItems": 1}}}},
+    {"if": {"properties": {"status": {"const": "REFUSED"}}}, "then": {"properties": {"error_class": {"const": "REFUSAL"}, "output_references": {"maxItems": 0}}}},
+    {"if": {"properties": {"status": {"const": "TIMEOUT"}}}, "then": {"properties": {"error_class": {"const": "TIMEOUT"}, "output_references": {"maxItems": 0}}}},
+    {"if": {"properties": {"status": {"const": "FAILURE"}}}, "then": {"properties": {"error_class": {"enum": ["MALFORMED_OUTPUT", "ADAPTER_FAILURE"]}, "output_references": {"maxItems": 0}}}}
+  ],
   "properties": {
     "schema_version": {"const": "1.0"},
     "result_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
@@ -31,7 +37,7 @@
     },
     "error_class": {"enum": ["NONE", "REFUSAL", "TIMEOUT", "MALFORMED_OUTPUT", "ADAPTER_FAILURE"]},
     "handoff_reference": {"type": ["string", "null"], "pattern": "^handoff://[A-Za-z0-9][A-Za-z0-9._:/-]{0,510}$"},
-    "completed_at": {"type": "string", "format": "date-time", "pattern": "Z$"}
+    "completed_at": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}
   },
   "$defs": {
     "artifact": {

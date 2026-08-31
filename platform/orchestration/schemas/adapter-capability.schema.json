@@ -5,13 +5,17 @@
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "capability_id", "adapter_type", "operation", "accepted_input_kinds", "produced_output_kinds", "deterministic", "cost_class", "network_access", "authority_grants"],
+  "allOf": [
+    {"if": {"properties": {"adapter_type": {"const": "MANUAL"}}}, "then": {"properties": {"operation": {"const": "NORMALIZE_MANUAL_RESULT"}}}},
+    {"if": {"properties": {"adapter_type": {"const": "FAKE"}}}, "then": {"properties": {"operation": {"enum": ["SIMULATE_SUCCESS", "SIMULATE_REFUSAL", "SIMULATE_TIMEOUT", "SIMULATE_FAILURE"]}}}}
+  ],
   "properties": {
     "schema_version": {"const": "1.0"},
     "capability_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
     "adapter_type": {"enum": ["MANUAL", "FAKE"]},
     "operation": {"enum": ["NORMALIZE_MANUAL_RESULT", "SIMULATE_SUCCESS", "SIMULATE_REFUSAL", "SIMULATE_TIMEOUT", "SIMULATE_FAILURE"]},
     "accepted_input_kinds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["ARTIFACT_REFERENCE", "EVIDENCE_REFERENCE", "WORK_ORDER_REFERENCE"]}},
-    "produced_output_kinds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["RESULT_REFERENCE", "HANDOFF_REFERENCE"]}},
+    "produced_output_kinds": {"type": "array", "minItems": 1, "uniqueItems": true, "contains": {"const": "RESULT_REFERENCE"}, "items": {"enum": ["RESULT_REFERENCE", "HANDOFF_REFERENCE"]}},
     "deterministic": {"const": true},
     "cost_class": {"const": "ZERO_COST"},
     "network_access": {"const": false},

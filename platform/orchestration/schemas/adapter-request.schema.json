@@ -18,8 +18,8 @@
     "gate_evidence_references": {"$ref": "#/$defs/references"},
     "trace_reference": {"type": "string", "pattern": "^trace://[A-Za-z0-9][A-Za-z0-9._:/-]{0,510}$"},
     "budget_reference": {"type": "string", "pattern": "^budget://[A-Za-z0-9][A-Za-z0-9._:/-]{0,510}$"},
-    "created_at": {"type": "string", "format": "date-time", "pattern": "Z$"},
-    "as_of": {"type": "string", "format": "date-time", "pattern": "Z$"}
+    "created_at": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "as_of": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}
   },
   "$defs": {
     "artifact": {

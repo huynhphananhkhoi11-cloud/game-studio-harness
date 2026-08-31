@@ -25,6 +25,8 @@ REFERENCE_RE = re.compile(
     r"^(?:artifact|evidence|gate|trace|budget|handoff|fixture)://"
     r"[A-Za-z0-9][A-Za-z0-9._:/-]{0,510}$"
 )
+TIMESTAMP_RE = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$")
+MAX_INPUT_BYTES = 2097152
 
 ADAPTER_TYPES = {"MANUAL", "FAKE"}
 OPERATIONS = {
@@ -93,6 +95,11 @@ FORBIDDEN_KEYS = {
     "password", "private_key", "provider", "refresh_token", "secret",
     "session_cookie", "token", "access_token",
 }
+FORBIDDEN_KEY_TOKENS = {
+    "account", "apikey", "authorization", "bearer", "credential",
+    "credentials", "endpoint", "model", "password", "provider", "secret",
+    "token",
+}
 FORBIDDEN_VALUE_PATTERNS = (
     re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
     re.compile(r"(?i)^bearer\s+[A-Za-z0-9._~+/=-]{12,}$"),
@@ -101,6 +108,7 @@ FORBIDDEN_VALUE_PATTERNS = (
     re.compile(r"\bAKIA[0-9A-Z]{16}\b"),
     re.compile(r"\bsk-[A-Za-z0-9_-]{20,}\b"),
     re.compile(r"(?i)\b(?:password|token|secret|api[_-]?key|authorization|cookie)\s*[:=]\s*\S+"),
+    re.compile(r"(?i)(?:^|[/:._-])(?:provider|model|endpoint|account)(?:[/:._=-]|$)"),
 )
 
 
@@ -131,8 +139,8 @@ def _integer(value: Any, label: str, minimum: int = 0) -> int:
 
 
 def _timestamp(value: Any, label: str) -> datetime:
-    if not isinstance(value, str) or not value.endswith("Z"):
-        _error(f"{label} must be an explicit UTC timestamp ending in Z")
+    if not isinstance(value, str) or not TIMESTAMP_RE.fullmatch(value):
+        _error(f"{label} must be a canonical UTC timestamp with whole seconds")
     try:
         parsed = datetime.fromisoformat(value[:-1] + "+00:00")
     except ValueError as exc:
@@ -146,7 +154,9 @@ def _scan_forbidden(value: Any, path: str = "$") -> None:
     if isinstance(value, dict):
         for key, child in value.items():
             lowered = str(key).lower()
-            if lowered in FORBIDDEN_KEYS:
+            normalized = re.sub(r"[^a-z0-9]+", "_", lowered).strip("_")
+            tokens = set(normalized.split("_"))
+            if lowered in FORBIDDEN_KEYS or normalized in FORBIDDEN_KEYS or tokens & FORBIDDEN_KEY_TOKENS:
                 _error(f"forbidden provider or secret field at {path}.{key}")
             _scan_forbidden(child, f"{path}.{key}")
     elif isinstance(value, list):
@@ -229,6 +239,8 @@ def validate_capability(record: Any) -> dict[str, Any]:
         _error("operation is not declared for this adapter type")
     _string_list(record["accepted_input_kinds"], "accepted_input_kinds", allowed=INPUT_KINDS, nonempty=True)
     _string_list(record["produced_output_kinds"], "produced_output_kinds", allowed=OUTPUT_KINDS, nonempty=True)
+    if "RESULT_REFERENCE" not in record["produced_output_kinds"]:
+        _error("capability must declare RESULT_REFERENCE output")
     if record["deterministic"] is not True:
         _error("v1.0 capabilities must be deterministic")
     if record["cost_class"] != "ZERO_COST":
@@ -261,12 +273,28 @@ def validate_request(record: Any, capability: Any, *, as_of: str) -> dict[str, A
     if record["capability_id"] != capability["capability_id"]:
         _error("request cites an undeclared capability")
     validate_artifact(record["artifact_identity"])
-    _references(record["input_references"], "input_references", nonempty=True)
+    inputs = _references(record["input_references"], "input_references", nonempty=True)
+    accepted = set(capability["accepted_input_kinds"])
+    for reference in inputs:
+        if reference.startswith("artifact://"):
+            required_kind = "ARTIFACT_REFERENCE"
+        elif reference.startswith("evidence://work-order/"):
+            required_kind = "WORK_ORDER_REFERENCE"
+        else:
+            required_kind = "EVIDENCE_REFERENCE"
+        if required_kind not in accepted:
+            _error(f"request uses undeclared input kind {required_kind}")
     gates = _references(record["gate_evidence_references"], "gate_evidence_references", nonempty=True)
     if not REQUIRED_GATES.issubset(gates):
         _error("request lacks required gate evidence")
     _reference(record["trace_reference"], "trace_reference", scheme="trace")
     _reference(record["budget_reference"], "budget_reference", scheme="budget")
+    correlation_suffix = record["correlation_id"].split(":", 1)[-1].replace(":", "-")
+    work_order_suffix = record["work_order_id"].split(":", 1)[-1].replace(":", "-")
+    if record["trace_reference"] != f"trace://correlation/{correlation_suffix}":
+        _error("trace_reference does not bind the request correlation_id")
+    if record["budget_reference"] != f"budget://zero-cost/{work_order_suffix}":
+        _error("budget_reference does not bind the request work_order_id")
     created = _timestamp(record["created_at"], "created_at")
     embedded_as_of = _timestamp(record["as_of"], "request as_of")
     supplied_as_of = _timestamp(as_of, "as_of")
@@ -333,6 +361,8 @@ def validate_result(
     handoff = record["handoff_reference"]
     if handoff is not None:
         _reference(handoff, "handoff_reference", scheme="handoff")
+        if "HANDOFF_REFERENCE" not in capability["produced_output_kinds"]:
+            _error("result uses undeclared HANDOFF_REFERENCE output")
     _validate_usage(record["usage_counters"], request, record)
     completed = _timestamp(record["completed_at"], "completed_at")
     if completed < _timestamp(request["created_at"], "created_at"):
@@ -359,6 +389,10 @@ def validate_bundle(bundle: Any, *, as_of: str | None = None) -> dict[str, Any]:
             bundle["result"], bundle["request"], bundle["capability"],
             as_of=effective_as_of,
         )
+        if bundle["capability"]["adapter_type"] == "FAKE":
+            expected = _build_fake_result(bundle["request"], bundle["capability"], as_of=effective_as_of)
+            if canonical_json(bundle["result"]) != canonical_json(expected):
+                _error("FAKE result does not match its declared deterministic operation")
     if bundle != original:
         _error("bundle validation mutated input")
     return bundle
@@ -377,10 +411,7 @@ def normalize_manual_result(
     return json.loads(canonical_json(supplied_result))
 
 
-def run_fake(request: Any, capability: Any, *, as_of: str) -> dict[str, Any]:
-    request_original = copy.deepcopy(request)
-    capability_original = copy.deepcopy(capability)
-    validate_request(request, capability, as_of=as_of)
+def _build_fake_result(request: dict[str, Any], capability: dict[str, Any], *, as_of: str) -> dict[str, Any]:
     operation = capability["operation"]
     if operation not in OPERATION_OUTCOME:
         _error("fake adapter requires a SIMULATE operation")
@@ -413,6 +444,14 @@ def run_fake(request: Any, capability: Any, *, as_of: str) -> dict[str, Any]:
         "handoff_reference": None,
         "completed_at": as_of,
     }
+    return result
+
+
+def run_fake(request: Any, capability: Any, *, as_of: str) -> dict[str, Any]:
+    request_original = copy.deepcopy(request)
+    capability_original = copy.deepcopy(capability)
+    validate_request(request, capability, as_of=as_of)
+    result = _build_fake_result(request, capability, as_of=as_of)
     validate_result(result, request, capability, as_of=as_of)
     if request != request_original or capability != capability_original:
         _error("fake adapter mutated input")
@@ -420,8 +459,20 @@ def run_fake(request: Any, capability: Any, *, as_of: str) -> dict[str, Any]:
 
 
 def load_json(path: str | Path) -> Any:
-    with Path(path).open("r", encoding="utf-8") as handle:
-        return json.load(handle)
+    source = Path(path)
+    if source.suffix.lower() != ".json" or any(part.startswith(".") for part in source.parts):
+        _error("input must be an explicit non-hidden JSON file")
+    if source.stat().st_size > MAX_INPUT_BYTES:
+        _error("input JSON exceeds the v1.0 size ceiling")
+    def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        result: dict[str, Any] = {}
+        for key, value in pairs:
+            if key in result:
+                _error(f"duplicate JSON key is forbidden: {key}")
+            result[key] = value
+        return result
+    with source.open("r", encoding="utf-8") as handle:
+        return json.load(handle, object_pairs_hook=reject_duplicates)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -459,6 +510,7 @@ def main(argv: list[str] | None = None) -> int:
                 as_of=args.as_of,
             )
         else:
+            _scan_forbidden(bundle)
             result = {"digest": canonical_digest(bundle)}
     except (AdapterError, OSError, json.JSONDecodeError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)

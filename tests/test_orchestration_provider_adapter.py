@@ -5,6 +5,7 @@ import copy
 import importlib.util
 import io
 import json
+import tempfile
 import unittest
 from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
@@ -68,6 +69,14 @@ class SchemaTests(unittest.TestCase):
     def test_capability_schema_requires_network_false(self):
         schema = json.loads((SCHEMAS / "adapter-capability.schema.json").read_text())
         self.assertEqual(schema["properties"]["network_access"], {"const": False})
+
+    def test_capability_schema_binds_adapter_to_operation(self):
+        schema = json.loads((SCHEMAS / "adapter-capability.schema.json").read_text())
+        self.assertGreaterEqual(len(schema["allOf"]), 2)
+
+    def test_result_schema_binds_status_to_error_class(self):
+        schema = json.loads((SCHEMAS / "adapter-result.schema.json").read_text())
+        self.assertGreaterEqual(len(schema["allOf"]), 4)
 
 
 class FixtureTests(unittest.TestCase):
@@ -176,6 +185,11 @@ class CapabilityTests(unittest.TestCase):
         with self.assertRaises(adapter.AdapterError):
             adapter.validate_capability(self.capability)
 
+    def test_capability_requires_result_output_kind(self):
+        self.capability["produced_output_kinds"] = ["HANDOFF_REFERENCE"]
+        with self.assertRaises(adapter.AdapterError):
+            adapter.validate_capability(self.capability)
+
 
 class RequestTests(unittest.TestCase):
     def setUp(self):
@@ -251,6 +265,36 @@ class RequestTests(unittest.TestCase):
     def test_request_validation_preserves_bytes(self):
         before = adapter.canonical_json(self.request)
         self.validate()
+        self.assertEqual(adapter.canonical_json(self.request), before)
+
+    def test_request_rejects_undeclared_artifact_input_kind(self):
+        self.capability["accepted_input_kinds"] = ["EVIDENCE_REFERENCE", "WORK_ORDER_REFERENCE"]
+        with self.assertRaises(adapter.AdapterError): self.validate()
+
+    def test_request_rejects_undeclared_work_order_input_kind(self):
+        self.capability["accepted_input_kinds"] = ["ARTIFACT_REFERENCE", "EVIDENCE_REFERENCE"]
+        with self.assertRaises(adapter.AdapterError): self.validate()
+
+    def test_request_rejects_trace_for_another_correlation(self):
+        self.request["trace_reference"] = "trace://correlation/007f-999"
+        with self.assertRaises(adapter.AdapterError): self.validate()
+
+    def test_request_rejects_budget_for_another_work_order(self):
+        self.request["budget_reference"] = "budget://zero-cost/007f-999"
+        with self.assertRaises(adapter.AdapterError): self.validate()
+
+    def test_request_rejects_provider_labeled_reference(self):
+        self.request["input_references"][1] = "evidence://provider/example"
+        with self.assertRaises(adapter.AdapterError): self.validate()
+
+    def test_request_rejects_noncanonical_timestamp(self):
+        self.request["created_at"] = "2026-08-31T00:30:00.000Z"
+        with self.assertRaises(adapter.AdapterError): self.validate()
+
+    def test_failed_request_validation_preserves_bytes(self):
+        self.request["trace_reference"] = "trace://correlation/007f-999"
+        before = adapter.canonical_json(self.request)
+        with self.assertRaises(adapter.AdapterError): self.validate()
         self.assertEqual(adapter.canonical_json(self.request), before)
 
 
@@ -346,6 +390,17 @@ class ResultTests(unittest.TestCase):
         self.validate()
         self.assertEqual(adapter.canonical_json(self.result), before)
 
+    def test_result_rejects_handoff_without_declared_output_kind(self):
+        self.capability["produced_output_kinds"] = ["RESULT_REFERENCE"]
+        self.result["handoff_reference"] = "handoff://007f/result"
+        with self.assertRaises(adapter.AdapterError): self.validate()
+
+    def test_failed_result_validation_preserves_bytes(self):
+        self.result["correlation_id"] = "correlation:other"
+        before = adapter.canonical_json(self.result)
+        with self.assertRaises(adapter.AdapterError): self.validate()
+        self.assertEqual(adapter.canonical_json(self.result), before)
+
 
 class AdapterBehaviorTests(unittest.TestCase):
     def test_manual_normalization_returns_canonical_copy(self):
@@ -388,6 +443,27 @@ class AdapterBehaviorTests(unittest.TestCase):
         bundle = load("fake/valid-failure-result.json")
         self.assertEqual(adapter.run_fake(bundle["request"], bundle["capability"], as_of=AS_OF), bundle["result"])
 
+    def test_fake_refusal_operation_is_deterministic(self):
+        bundle = valid_fake_success()
+        bundle["capability"]["capability_id"] = "capability:007f:fake-refusal"
+        bundle["capability"]["operation"] = "SIMULATE_REFUSAL"
+        bundle["request"]["capability_id"] = "capability:007f:fake-refusal"
+        first = adapter.run_fake(bundle["request"], bundle["capability"], as_of=AS_OF)
+        second = adapter.run_fake(bundle["request"], bundle["capability"], as_of=AS_OF)
+        self.assertEqual(first, second)
+        self.assertEqual((first["status"], first["error_class"]), ("REFUSED", "REFUSAL"))
+
+    def test_fake_bundle_rejects_outcome_not_declared_by_operation(self):
+        bundle = load("fake/valid-failure-result.json")
+        bundle["result"]["status"] = "TIMEOUT"
+        bundle["result"]["error_class"] = "TIMEOUT"
+        with self.assertRaises(adapter.AdapterError): adapter.validate_bundle(bundle, as_of=AS_OF)
+
+    def test_fake_bundle_rejects_tampered_deterministic_result_id(self):
+        bundle = valid_fake_success()
+        bundle["result"]["result_id"] = "result:tampered"
+        with self.assertRaises(adapter.AdapterError): adapter.validate_bundle(bundle, as_of=AS_OF)
+
     def test_fake_preserves_request_and_capability(self):
         bundle = valid_fake_success()
         before = copy.deepcopy(bundle)
@@ -425,6 +501,34 @@ class AdapterBehaviorTests(unittest.TestCase):
         source = SCRIPT.read_text(encoding="utf-8")
         for forbidden in ("subprocess.", "socket.", "urlopen(", "requests.", "os.system("):
             self.assertNotIn(forbidden, source)
+
+
+class JsonBoundaryTests(unittest.TestCase):
+    def write_json_text(self, text: str, *, name: str = "input.json") -> Path:
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        path = Path(directory.name) / name
+        path.write_text(text, encoding="utf-8")
+        return path
+
+    def test_loader_rejects_duplicate_json_keys(self):
+        path = self.write_json_text('{"schema_version":"1.0","schema_version":"1.0"}')
+        with self.assertRaises(adapter.AdapterError): adapter.load_json(path)
+
+    def test_loader_rejects_hidden_json_file(self):
+        path = self.write_json_text('{}', name=".secret.json")
+        with self.assertRaises(adapter.AdapterError): adapter.load_json(path)
+
+    def test_forbidden_scan_rejects_compound_provider_key(self):
+        with self.assertRaises(adapter.AdapterError): adapter._scan_forbidden({"provider_name": "example"})
+
+    def test_digest_cli_rejects_secret_bearing_json(self):
+        path = self.write_json_text('{"api_key":"not-allowed"}')
+        stdout, stderr = io.StringIO(), io.StringIO()
+        with redirect_stdout(stdout), redirect_stderr(stderr):
+            code = adapter.main(["digest", "--input", str(path)])
+        self.assertEqual((code, stdout.getvalue()), (1, ""))
+        self.assertIn("ERROR:", stderr.getvalue())
 
 
 class CliTests(unittest.TestCase):

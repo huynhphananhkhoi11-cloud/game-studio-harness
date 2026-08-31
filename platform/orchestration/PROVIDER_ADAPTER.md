@@ -22,6 +22,8 @@ Adapter records never grant authority. An adapter cannot change work-order scope
 
 A capability declares one adapter type, one operation, accepted reference kinds, produced reference kinds, deterministic behavior, `ZERO_COST`, `network_access: false`, and an empty authority list. It is evidence of an allowlist, not actor authentication.
 
+The runtime enforces that allowlist: every request input must map to a declared input kind, every capability must declare `RESULT_REFERENCE`, and a non-null handoff requires `HANDOFF_REFERENCE`.
+
 ### Request
 
 A request binds one work order and attempt to:
@@ -35,6 +37,8 @@ A request binds one work order and attempt to:
 - explicit creation and `as_of` times.
 
 The `as_of` value is supplied by the caller and must match the request. Validation never reads current time.
+
+`trace_reference` is bound to the request correlation ID and `budget_reference` is bound to the work-order ID. A safe-looking reference for another identity fails closed.
 
 ### Result
 
@@ -58,6 +62,8 @@ Only normalized references using `artifact`, `evidence`, `gate`, `trace`, `budge
 - Canonical JSON uses UTF-8, sorted keys, and compact separators.
 - Digests are lowercase SHA-256 with a `sha256:` prefix.
 - Validation and simulation use deep-copy checks to prove inputs remain unchanged.
+- JSON loading rejects duplicate keys, hidden input files, oversized input, and non-canonical timestamps.
+- A supplied `FAKE` result must byte-match the result derived from its declared operation; changing its status, identity, evidence, counters, or output is rejected.
 - No subprocess, network library, provider SDK, Git command, environment credential, filesystem write, or billing call is used.
 
 ## CLI

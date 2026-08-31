@@ -24,7 +24,7 @@
 - Added provider-neutral capability, request, and result schemas.
 - Added deterministic manual/fake fixtures and fail-closed invalid fixtures.
 - Added a standard-library, read-only validator and CLI.
-- Evidence: 79 focused tests and expected 331 total tests PASS.
+- Evidence: 79 focused tests and expected 350 total tests PASS.
 - Proved zero cost, no network/provider/credential behavior, deterministic fake results, and input immutability.
 
 ## CP-0005 - Implementation Pull Request checkpoint
@@ -33,3 +33,9 @@
 - PR checkpoint head: resolve from the Pull Request after this metadata commit.
 - Pull Request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/32
 - Implementation remains unmerged pending Rules CI, QA, Review and Integration, and Owner decision.
+## QA remediation checkpoint
+
+- hardening_commit: HARDENING_COMMIT_PLACEHOLDER
+- evidence: 98 focused provider-adapter tests and 350 total tests PASS
+- remediation: bind FAKE operations to deterministic results; enforce declared input/output kinds and lineage; reject duplicate/hidden/oversized/noncanonical/secret-bearing inputs
+- next_gate: repeat independent QA and Review & Integration on the checkpoint head; do not merge yet
