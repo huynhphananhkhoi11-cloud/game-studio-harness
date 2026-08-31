@@ -42,7 +42,7 @@
 ## Final QA and Review checkpoint
 
 - reviewed_head: 64c30dcb0a17610df064e8cbebbe7a4827b0136a
-- remediation_commit: FINAL_REMEDIATION_COMMIT_PLACEHOLDER
+- remediation_commit: c2ed85fe9a4fe10ff15c7d8556be9e0fb1a46fb7
 - qa_01: PASS
 - review_integration: APPROVE
 - evidence: 98 focused provider-adapter tests and 350 total tests PASS
