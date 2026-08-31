@@ -1,61 +1,46 @@
-# RESUME.md — STUDIO-007A re-entry packet
+# RESUME.md - STUDIO-007A re-entry packet
 
 memory_schema_version: 1
 
 task_id: STUDIO-007A
 package_path: studio/memory/tasks/STUDIO-007A
 canonical_task_contract: tasks/STUDIO-007A-IMPLEMENTATION.md
-current_state: ACTIVE
-last_safe_checkpoint_id: STUDIO-007A-CP-0004
+current_state: COMPLETE
+last_safe_checkpoint_id: STUDIO-007A-CP-0005
+
 required_read_order:
   - AGENTS.md
-  - docs/GAME_VISION.md
-  - docs/DECISIONS.md
   - tasks/STUDIO-007.md
   - tasks/STUDIO-007A.md
   - tasks/STUDIO-007A-IMPLEMENTATION.md
+  - platform/orchestration/WORK_ORDER_QUEUE.md
   - studio/MEMORY_PROTOCOL.md
+  - studio/HANDOFF_PROTOCOL.md
   - TASK.md
   - STATE.md
-  - WORKLOG.md entries STUDIO-007A-CP-0001 through STUDIO-007A-CP-0004
+  - WORKLOG.md
 
 repository_context: game-studio-harness
-worktree_context: primary repository worktree
-branch: agent/studio-007a-work-order-queue
-last_observed_HEAD: 4b98b36b39afd82aabd1144b9a88c44af6ad7de4
-durability_state: WORKTREE_ONLY
-last_verified_persisted_ref: NONE
-
-expected_worktree_status: |
-  - changed_files_attributed_to_task: exactly twelve authorized implementation files plus the four existing STUDIO-007A memory records.
-  - pre_existing_or_unrelated_changed_files: NONE; generated __pycache__ directories must remain untracked and excluded.
+branch: main
+contract_merge: 4b98b36b39afd82aabd1144b9a88c44af6ad7de4
+implementation_head: b01d92de5a1ad4001f9c4c94bff70af238faf105
+implementation_merge: a8c4979dbedf827f1d9d9ff4570b37e0ae214c6f
+durability_state: MERGED
+pull_request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/18
+rules_ci_run: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/33238063354
 
 completed_summary: |
-  - Pull Request #17 merge was reconciled, the writer claim moved to ENGINEERING-01, and the complete bounded 007A implementation passed 24 focused and 101 total tests.
-remaining_summary: |
-  - Apply and verify the package in the receiving worktree, commit/push one immutable head, then obtain QA-01 and REVIEW-INTEGRATION-01 verdicts before Owner review.
-blockers_and_authority_questions: |
-  - No technical implementation blocker is known. Merge remains prohibited until independent QA, integration review, Rules CI, and Studio Owner decision.
-latest_checks: |
-  - Vertical-slice data validation PASS.
-  - Focused STUDIO-007A suite PASS: 24 tests.
-  - Complete suite PASS: 101 tests.
-  - git diff --check PASS.
+  STUDIO-007A is complete. Its contract and implementation are merged. Persisted evidence includes Rules CI success, 24 focused tests, 101 original total tests, and Studio Owner merge of PR #18. Reconciliation also validates the current 350-test repository suite.
+evidence_limitation: |
+  The historical memory did not preserve a durable QA-01 or Review and Integration verdict. Do not infer one.
+remaining_work:
+  - NONE for STUDIO-007A.
+blockers:
+  - NONE.
 
-first_verification_actions: |
-  - Run git branch --show-current, git rev-parse HEAD, git status --short --branch, git diff --stat, and git diff --check.
-  - Confirm exactly sixteen scoped files and no tracked live queue records.
-  - Re-run the required data, focused, and complete test commands.
-next_implementation_action_after_verification: Review the exact diff, then commit and push one immutable implementation head for independent QA; do not merge.
-receiving_role: QA-01
-writer_transfer_status: CLAIMED by ENGINEERING-01; transfer to QA-01 is pending an immutable pushed head
-
-generated_from:
-  TASK: TASK.md
-  STATE: STATE.md
-  WORKLOG: STUDIO-007A-CP-0001 through STUDIO-007A-CP-0004
-
-updated_at: 2026-08-26T12:50:00+07:00
-
-verify_instructions: |
-  - If branch, HEAD, exact scope, schema, claim, tests, or worktree evidence differs, stop and follow reconciliation in studio/MEMORY_PROTOCOL.md.
+first_verification_actions:
+  - Confirm implementation merge a8c4979dbedf827f1d9d9ff4570b37e0ae214c6f remains reachable from main.
+  - Treat the work-order and queue implementation as accepted repository truth unless superseded by a separately reviewed change.
+next_implementation_action_after_verification: Start no additional STUDIO-007A work. Use a separately accepted contract for any later milestone.
+receiving_role: PRODUCER-01
+writer_transfer_status: RELEASED
