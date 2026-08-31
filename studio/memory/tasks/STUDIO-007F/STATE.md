@@ -7,8 +7,8 @@
 - canonical_task_contract: tasks/STUDIO-007F-IMPLEMENTATION.md
 - contract_merge: 3e678e8beb480e8d1aaa1c0aa8a85baccfbb64b8
 - implementation_branch: agent/studio-007f-provider-adapter
-- implementation_payload_commit: IMPLEMENTATION_COMMIT_PLACEHOLDER
-- implementation_pr: IMPLEMENTATION_PR_PLACEHOLDER
+- implementation_payload_commit: c5aefed34640d1df892b4fb191690f4317c4f78f
+- implementation_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/32
 - pr_checkpoint_head: RESOLVE_FROM_PULL_REQUEST
 - runtime_implementation_created: true
 - provider_boundary: MANUAL_AND_FAKE_ONLY

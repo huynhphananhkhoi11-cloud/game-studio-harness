@@ -29,7 +29,7 @@
 
 ## CP-0005 - Implementation Pull Request checkpoint
 
-- Implementation payload commit: `IMPLEMENTATION_COMMIT_PLACEHOLDER`.
+- Implementation payload commit: `c5aefed34640d1df892b4fb191690f4317c4f78f`.
 - PR checkpoint head: resolve from the Pull Request after this metadata commit.
-- Pull Request: IMPLEMENTATION_PR_PLACEHOLDER
+- Pull Request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/32
 - Implementation remains unmerged pending Rules CI, QA, Review and Integration, and Owner decision.

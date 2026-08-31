@@ -5,9 +5,9 @@
 The provider-neutral adapter implementation is committed on `agent/studio-007f-provider-adapter` and remains unmerged.
 
 - Contract merge: `3e678e8beb480e8d1aaa1c0aa8a85baccfbb64b8`
-- Implementation payload commit: `IMPLEMENTATION_COMMIT_PLACEHOLDER`
+- Implementation payload commit: `c5aefed34640d1df892b4fb191690f4317c4f78f`
 - PR checkpoint head: resolve from the Pull Request before every gate
-- Implementation Pull Request: `IMPLEMENTATION_PR_PLACEHOLDER`
+- Implementation Pull Request: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/32`
 - Evidence target: 79 focused tests and 331 total tests
 
 ## Resume sequence
