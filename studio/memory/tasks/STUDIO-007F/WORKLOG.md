@@ -18,6 +18,6 @@
 
 ## CP-0003 - Pull Request checkpoint
 
-- Contract commit: CONTRACT_COMMIT_PLACEHOLDER
-- Pull Request: CONTRACT_PR_PLACEHOLDER
+- Contract commit: 3d13ad940ab45e14f4c1e882b078c5762f036f55
+- Pull Request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/31
 - Contract remains unmerged.

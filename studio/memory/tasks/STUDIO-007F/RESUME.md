@@ -5,8 +5,8 @@
 The provider-neutral adapter contract is accepted and recorded on `agent/studio-007f-contract`.
 
 - Baseline: `2e0c661e438cc901e5a9f40e95357b2419e2665a`
-- Contract commit: `CONTRACT_COMMIT_PLACEHOLDER`
-- Contract Pull Request: `CONTRACT_PR_PLACEHOLDER`
+- Contract commit: `3d13ad940ab45e14f4c1e882b078c5762f036f55`
+- Contract Pull Request: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/31`
 - Runtime implementation: not started
 
 ## Resume sequence

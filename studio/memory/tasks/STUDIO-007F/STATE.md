@@ -8,8 +8,8 @@
 - dependency_baseline: 2e0c661e438cc901e5a9f40e95357b2419e2665a
 - contract_branch: agent/studio-007f-contract
 - implementation_branch: agent/studio-007f-provider-adapter
-- contract_commit: CONTRACT_COMMIT_PLACEHOLDER
-- contract_pr: CONTRACT_PR_PLACEHOLDER
+- contract_commit: 3d13ad940ab45e14f4c1e882b078c5762f036f55
+- contract_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/31
 - runtime_implementation_created: false
 - provider_boundary: MANUAL_AND_FAKE_ONLY
 - cost_class: ZERO_COST
