@@ -12,12 +12,12 @@
 - pr_checkpoint_head: RESOLVE_FROM_PULL_REQUEST
 - runtime_implementation_created: true
 - provider_boundary: MANUAL_AND_FAKE_ONLY
-- focused_tests: 79
+- focused_tests: 98
 - retained_baseline_tests: 252
-- expected_total_tests: 331
+- expected_total_tests: 350
 - cost_class: ZERO_COST
 - writer_claim: IMPLEMENTATION_BRANCH_ONLY
-- next_gate: RULES_CI_THEN_INDEPENDENT_QA_AND_REVIEW
+- next_gate: OWNER_MERGE_AFTER_FINAL_RULES_CI
 
 ## Invariants
 
@@ -31,3 +31,12 @@
 - evidence: 98 focused provider-adapter tests and 350 total tests PASS
 - remediation: bind FAKE operations to deterministic results; enforce declared input/output kinds and lineage; reject duplicate/hidden/oversized/noncanonical/secret-bearing inputs
 - next_gate: repeat independent QA and Review & Integration on the checkpoint head; do not merge yet
+## Final QA and Review checkpoint
+
+- reviewed_head: 64c30dcb0a17610df064e8cbebbe7a4827b0136a
+- remediation_commit: FINAL_REMEDIATION_COMMIT_PLACEHOLDER
+- qa_01: PASS
+- review_integration: APPROVE
+- evidence: 98 focused provider-adapter tests and 350 total tests PASS
+- blocking_findings: 0
+- next_gate: Rules CI on the final checkpoint head, then explicit Studio Owner merge decision
