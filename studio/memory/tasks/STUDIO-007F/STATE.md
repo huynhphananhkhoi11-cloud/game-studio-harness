@@ -2,23 +2,26 @@
 
 - memory_schema_version: 1
 - task_id: STUDIO-007F
-- lifecycle_state: CONTRACT_PR_OPEN
+- lifecycle_state: IMPLEMENTATION_PR_OPEN
 - durability_state: UNMERGED
 - canonical_task_contract: tasks/STUDIO-007F-IMPLEMENTATION.md
-- dependency_baseline: 2e0c661e438cc901e5a9f40e95357b2419e2665a
-- contract_branch: agent/studio-007f-contract
+- contract_merge: 3e678e8beb480e8d1aaa1c0aa8a85baccfbb64b8
 - implementation_branch: agent/studio-007f-provider-adapter
-- contract_commit: 3d13ad940ab45e14f4c1e882b078c5762f036f55
-- contract_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/31
-- runtime_implementation_created: false
+- implementation_payload_commit: IMPLEMENTATION_COMMIT_PLACEHOLDER
+- implementation_pr: IMPLEMENTATION_PR_PLACEHOLDER
+- pr_checkpoint_head: RESOLVE_FROM_PULL_REQUEST
+- runtime_implementation_created: true
 - provider_boundary: MANUAL_AND_FAKE_ONLY
+- focused_tests: 79
+- retained_baseline_tests: 252
+- expected_total_tests: 331
 - cost_class: ZERO_COST
-- writer_claim: CONTRACT_BRANCH_ONLY
-- next_gate: RULES_CI_AND_OWNER_CONTRACT_MERGE
+- writer_claim: IMPLEMENTATION_BRANCH_ONLY
+- next_gate: RULES_CI_THEN_INDEPENDENT_QA_AND_REVIEW
 
 ## Invariants
 
-- No STUDIO-007F implementation path exists on this contract branch.
-- Contract scope is exactly six paths.
-- A real provider cannot be enabled by configuration or fixture substitution.
-- The Studio Owner retains merge authority.
+- Scope is at most the exact 23 paths authorized by contract.
+- No real provider, SDK, account, credential, network access, or nonzero cost exists.
+- Adapter results do not grant orchestration or merge authority.
+- Studio Owner retains the merge decision.

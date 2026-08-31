@@ -2,24 +2,24 @@
 
 ## Current checkpoint
 
-The provider-neutral adapter contract is accepted and recorded on `agent/studio-007f-contract`.
+The provider-neutral adapter implementation is committed on `agent/studio-007f-provider-adapter` and remains unmerged.
 
-- Baseline: `2e0c661e438cc901e5a9f40e95357b2419e2665a`
-- Contract commit: `3d13ad940ab45e14f4c1e882b078c5762f036f55`
-- Contract Pull Request: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/31`
-- Runtime implementation: not started
+- Contract merge: `3e678e8beb480e8d1aaa1c0aa8a85baccfbb64b8`
+- Implementation payload commit: `IMPLEMENTATION_COMMIT_PLACEHOLDER`
+- PR checkpoint head: resolve from the Pull Request before every gate
+- Implementation Pull Request: `IMPLEMENTATION_PR_PLACEHOLDER`
+- Evidence target: 79 focused tests and 331 total tests
 
 ## Resume sequence
 
-1. Confirm the contract Pull Request head has successful Rules CI.
-2. Review that exactly six contract/memory paths changed and no implementation path exists.
-3. Merge only by explicit Studio Owner decision.
-4. Fetch the resulting `main` merge commit.
-5. Create `agent/studio-007f-provider-adapter` from that exact merge commit.
-6. Implement only the nineteen paths and four memory updates authorized by the contract.
-7. Run focused tests, retained regression, independent QA, Review and Integration, and Owner merge.
-8. Finish with a separate closeout Pull Request.
+1. Confirm Rules CI succeeds on the exact implementation head.
+2. Confirm the diff contains only the 19 authorized implementation paths and four memory paths.
+3. Conduct independent QA against schema, lineage, zero-cost, provider-neutrality, determinism, and immutability requirements.
+4. Conduct independent Review and Integration on the same immutable head.
+5. Remediate findings on the same branch and repeat all gates when needed.
+6. Merge only by explicit Studio Owner decision.
+7. Create a separate closeout Pull Request that records final evidence and releases the writer claim.
 
 ## Stop conditions
 
-Stop if the baseline changes unexpectedly, worktree is dirty, scope exceeds the contract, any provider/network/credential/cost field appears, Rules CI is absent or failing, or runtime implementation is requested before contract merge.
+Stop on a changed base, dirty worktree, scope beyond 23 paths, failing test, failed CI, mutable evidence, nondeterministic output, secret/provider/network field, nonzero cost, or any attempt to grant adapter authority.
