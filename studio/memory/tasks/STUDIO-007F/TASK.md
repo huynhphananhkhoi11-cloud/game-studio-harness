@@ -4,23 +4,21 @@
 
 Implement a provider-neutral request/result boundary with only deterministic `MANUAL` and `FAKE` adapters in v1.0.
 
-## Authorization
+## Accepted boundary
 
-The contract merged through PR #31 at `3e678e8beb480e8d1aaa1c0aa8a85baccfbb64b8`. Implementation is authorized only on `agent/studio-007f-provider-adapter`.
+- Normalized provider-neutral capability, request, and result records are repository truth.
+- v1.0 supports only deterministic `MANUAL` normalization and `FAKE` simulation.
+- Real providers, SDKs, accounts, credentials, endpoints, network access, and nonzero monetary cost remain prohibited.
+- Adapter results do not grant orchestration, gate, retry, failover, merge, publication, or deployment authority.
 
-## Implementation scope
+## Completion record
 
-- nineteen new documentation, schema, fixture, validator, and test paths listed in `tasks/STUDIO-007F-IMPLEMENTATION.md`;
-- four materially updated STUDIO-007F memory paths;
-- maximum 23 changed paths.
+- Lifecycle: `COMPLETE`.
+- Durability: `MERGED`.
+- Contract PR: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/31`.
+- Implementation PR: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/32`.
+- Implementation merge: `05eefaf1db29f66eb3c612e29cfc0044de9b2fae`.
+- Accepted evidence: 98 focused tests, 350 total tests, Rules CI success, QA PASS, and Review & Integration APPROVE.
+- Writer claim: `RELEASED` by the Studio Owner merge.
 
-## Safety boundary
-
-- standard library, caller-supplied time, safe references, and immutable evidence only;
-- only `MANUAL` result normalization and deterministic `FAKE` simulation;
-- zero monetary usage;
-- no provider, model, endpoint, account, credential, network, subprocess, Git mutation, execution, gate approval, merge, publication, or deployment.
-
-## Completion boundary
-
-Implementation remains unmerged until Rules CI, independent QA, independent Review and Integration, and the Studio Owner accept one immutable head. A separate closeout Pull Request is still required.
+No STUDIO-007F work remains. Any real-provider integration or later adapter expansion requires a separately accepted contract, threat review, credential plan, budget, tests, rollback, and writer claim.
