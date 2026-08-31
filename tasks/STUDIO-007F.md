@@ -1,55 +1,58 @@
-# STUDIO-007F — Provider-neutral adapter interface
+# STUDIO-007F - Provider-neutral executor adapter
 
-Status: `PROPOSED — NOT ACCEPTED — NOT IMPLEMENTED`
+Status: ACCEPTED - IMPLEMENTATION CONTRACT APPROVED - IMPLEMENTATION NOT STARTED
 
-Parent: `STUDIO-007`
+Parent: STUDIO-007
 
-Dependency: accepted and verified `STUDIO-007A` through `STUDIO-007E`
+Dependencies: STUDIO-007A through STUDIO-007E are accepted, implemented, reviewed, merged, and closed out.
 
-Primary owner: Platform Studio
+Canonical implementation contract: `tasks/STUDIO-007F-IMPLEMENTATION.md`
 
 ## Goal
 
-Define a narrow interface between orchestration records and an executor so future AI or tool providers can be evaluated without changing governance or project contracts.
+Define one narrow, provider-neutral request/result boundary between validated orchestration evidence and an executor adapter without granting execution, approval, merge, publication, credential, network, or spending authority.
 
-## Proposed contract
+## Accepted v1.0 boundary
 
-An adapter accepts a validated work order plus explicitly referenced inputs and returns a normalized result containing status, outputs, evidence, usage counters, error class, handoff reference, and trace correlation ID. The adapter cannot change scope, approve gates, merge work, publish, reveal credentials, or select its own successor.
+- An adapter request contains a validated work-order identity, attempt identity, immutable artifact identity, declared capability, safe input references, correlation ID, and explicit `as_of` time.
+- An adapter result contains the matching identity, one terminal status, safe output/evidence references, bounded usage counters, an error class, an optional durable-handoff reference, and the same correlation ID.
+- Exact fields are allowlisted; unknown and provider-specific fields fail closed.
+- Adapter records are evidence. They do not authenticate an actor, approve a gate, expand scope, select a successor, merge, publish, deploy, or authorize spend.
 
-v1.0 includes only deterministic `manual` and `fake` adapters. A provider-specific adapter requires a separate Owner-accepted contract, threat review, credential plan, budget, tests, and rollback.
+## Accepted adapters
 
-## Proposed future implementation scope
+- `manual`: validates and normalizes a result supplied by a human-controlled process. It never executes the work itself.
+- `fake`: returns deterministic fixture-driven outcomes for tests. It never sleeps, reads the system clock, calls a provider, or performs external I/O.
 
-- `platform/orchestration/PROVIDER_ADAPTER.md`
-- `platform/orchestration/schemas/adapter-request.schema.json`
-- `platform/orchestration/schemas/adapter-result.schema.json`
-- `platform/orchestration/schemas/adapter-capability.schema.json`
-- `platform/orchestration/fixtures/007f/manual/`
-- `platform/orchestration/fixtures/007f/fake/`
-- focused conformance validator and tests approved in the implementation contract
+No other adapter type is authorized in v1.0.
 
-## Out of scope
+## Accepted safety boundary
 
-- Real provider SDKs, endpoints, accounts, credentials, or paid calls.
-- DeepSeek harness, Agent Sprite Forge, repo graft, or any candidate integration.
-- Prompt libraries, autonomous tool execution, repository mutation, or authority delegation.
-- Provider-specific fields in the core work-order contract.
+- Python standard library only.
+- Supplied evidence and caller-supplied time only.
+- No network, provider SDK, provider/model name, account, credential, token, secret, subprocess, Git mutation, filesystem mutation outside explicit test fixtures, billing, or nonzero cost.
+- Secret-like keys and credential-bearing values are rejected rather than redacted into acceptance.
+- Validation must leave supplied evidence byte-for-byte unchanged.
 
-## Required tests for a future implementation
+## Real providers
 
-- Manual and fake adapter conformance against identical fixtures.
-- Deterministic success, refusal, malformed-output, timeout, and failure results.
-- Reject undeclared capabilities and scope expansion.
-- Prove no network access and no credential requirement.
-- Preserve gate, trace, quota, handoff, and failover semantics across adapters.
+A real provider is not a configuration change to v1.0. Each future provider requires a separately owner-accepted contract, threat review, credential plan, budget and cost controls, focused tests, retained regression tests, operational rollback, and explicit merge approval.
+
+## Implementation boundary
+
+Implementation may begin only after this contract Pull Request merges. It may create only the paths listed in section 4 of `tasks/STUDIO-007F-IMPLEMENTATION.md` and materially update the four STUDIO-007F memory records.
 
 ## Failure and rollback
 
-If provider details leak into core contracts, an adapter gains authority, or tests require network access or credentials, the contract fails. Rollback removes only 007F artifacts; manual execution through 007A–007E remains available.
+The implementation fails if an adapter can use undeclared capability, change orchestration identity, accept secrets, invoke an external system, create nonzero usage cost, fabricate authorization, or produce nondeterministic fake results.
 
-## Owner decisions required
+Rollback is an authorized revert of later STUDIO-007F implementation. This contract and memory remain evidence; STUDIO-007A through STUDIO-007E remain operational.
 
-- Accept the normalized request/result boundary.
-- Accept manual and fake adapter behavior.
-- Decide later whether any candidate warrants a separate adaptation contract.
-- Approve every real provider, credential, and nonzero budget separately.
+## Owner decisions accepted
+
+- The normalized request/result adapter boundary is accepted.
+- v1.0 contains only deterministic `manual` and `fake` adapters.
+- No real provider, SDK, account, credential, network access, or cost is authorized.
+- Every future real provider needs its own contract, threat review, credential plan, budget, tests, and rollback.
+
+Studio Owner acceptance date: 2026-08-31.
