@@ -2,27 +2,25 @@
 
 ## Objective
 
-Define and later implement a provider-neutral adapter boundary with only deterministic `manual` and `fake` adapters in v1.0.
+Implement a provider-neutral request/result boundary with only deterministic `MANUAL` and `FAKE` adapters in v1.0.
 
-## Current authorization
+## Authorization
 
-Contract-only work is authorized. Runtime implementation is not authorized until the contract Pull Request merges.
+The contract merged through PR #31 at `3e678e8beb480e8d1aaa1c0aa8a85baccfbb64b8`. Implementation is authorized only on `agent/studio-007f-provider-adapter`.
 
-## Contract Pull Request scope
+## Implementation scope
 
-Exactly six paths:
+- nineteen new documentation, schema, fixture, validator, and test paths listed in `tasks/STUDIO-007F-IMPLEMENTATION.md`;
+- four materially updated STUDIO-007F memory paths;
+- maximum 23 changed paths.
 
-- `tasks/STUDIO-007F.md`
-- `tasks/STUDIO-007F-IMPLEMENTATION.md`
-- the four files in `studio/memory/tasks/STUDIO-007F/`
+## Safety boundary
 
-## Accepted constraints
-
-- zero cost and no real provider;
-- no SDK, account, credential, secret, network, subprocess, Git mutation, merge, publication, or execution;
-- exact request/result/capability allowlists;
-- real providers require separate change control.
+- standard library, caller-supplied time, safe references, and immutable evidence only;
+- only `MANUAL` result normalization and deterministic `FAKE` simulation;
+- zero monetary usage;
+- no provider, model, endpoint, account, credential, network, subprocess, Git mutation, execution, gate approval, merge, publication, or deployment.
 
 ## Completion boundary
 
-STUDIO-007F becomes COMPLETE only after contract merge, bounded implementation, Rules CI, independent QA, independent Review and Integration, Owner merge, and a separate merged closeout Pull Request.
+Implementation remains unmerged until Rules CI, independent QA, independent Review and Integration, and the Studio Owner accept one immutable head. A separate closeout Pull Request is still required.

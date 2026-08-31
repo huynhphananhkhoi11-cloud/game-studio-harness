@@ -1,0 +1,80 @@
+{
+  "as_of": "2026-08-31T01:00:00Z",
+  "capability": {
+    "accepted_input_kinds": [
+      "ARTIFACT_REFERENCE",
+      "EVIDENCE_REFERENCE",
+      "WORK_ORDER_REFERENCE"
+    ],
+    "adapter_type": "MANUAL",
+    "authority_grants": [],
+    "capability_id": "capability:007f:manual",
+    "cost_class": "ZERO_COST",
+    "deterministic": true,
+    "network_access": false,
+    "operation": "NORMALIZE_MANUAL_RESULT",
+    "produced_output_kinds": [
+      "HANDOFF_REFERENCE",
+      "RESULT_REFERENCE"
+    ],
+    "schema_version": "1.0"
+  },
+  "request": {
+    "adapter_type": "MANUAL",
+    "artifact_identity": {
+      "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "commit_sha": "3e678e8beb480e8d1aaa1c0aa8a85baccfbb64b8",
+      "repository": "game-studio-harness"
+    },
+    "as_of": "2026-08-31T01:00:00Z",
+    "attempt_number": 1,
+    "budget_reference": "budget://zero-cost/007f-001",
+    "capability_id": "capability:007f:manual",
+    "correlation_id": "correlation:007f:001",
+    "created_at": "2026-08-31T00:30:00Z",
+    "gate_evidence_references": [
+      "gate://evidence-integrity",
+      "gate://quota-budget",
+      "gate://scope-boundary",
+      "gate://secret-safety"
+    ],
+    "input_references": [
+      "artifact://game-studio-harness/contract-head",
+      "evidence://work-order/007f-001"
+    ],
+    "request_id": "request:007f:manual",
+    "schema_version": "1.0",
+    "trace_reference": "trace://correlation/007f-001",
+    "work_order_id": "work-order:007f:001"
+  },
+  "result": {
+    "adapter_type": "MANUAL",
+    "artifact_identity": {
+      "artifact_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "commit_sha": "3e678e8beb480e8d1aaa1c0aa8a85baccfbb64b8",
+      "repository": "game-studio-harness"
+    },
+    "attempt_number": 1,
+    "capability_id": "capability:007f:manual",
+    "completed_at": "2026-08-31T01:00:00Z",
+    "correlation_id": "correlation:007f:001",
+    "error_class": "REFUSAL",
+    "evidence_references": [
+      "evidence://adapter/manual-refusal"
+    ],
+    "handoff_reference": null,
+    "output_references": [],
+    "request_id": "request:007f:manual",
+    "result_id": "result:007f:manual-refusal",
+    "schema_version": "1.0",
+    "status": "REFUSED",
+    "usage_counters": {
+      "input_references": 2,
+      "monetary_minor_units": 0,
+      "output_bytes": 2,
+      "output_references": 0
+    },
+    "work_order_id": "work-order:007f:001"
+  },
+  "schema_version": "1.0"
+}
