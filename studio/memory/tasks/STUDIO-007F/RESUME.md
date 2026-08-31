@@ -1,40 +1,43 @@
-# STUDIO-007F Resume
+# RESUME.md - STUDIO-007F re-entry packet
 
-## Current checkpoint
+memory_schema_version: 1
 
-The provider-neutral adapter implementation is committed on `agent/studio-007f-provider-adapter` and remains unmerged.
+task_id: STUDIO-007F
+package_path: studio/memory/tasks/STUDIO-007F
+canonical_task_contract: tasks/STUDIO-007F-IMPLEMENTATION.md
+current_state: COMPLETE
+last_safe_checkpoint_id: STUDIO-007F-CP-0008
 
-- Contract merge: `3e678e8beb480e8d1aaa1c0aa8a85baccfbb64b8`
-- Implementation payload commit: `c5aefed34640d1df892b4fb191690f4317c4f78f`
-- PR checkpoint head: resolve from the Pull Request before every gate
-- Implementation Pull Request: `https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/32`
-- Evidence target: 98 focused tests and 350 total tests
+required_read_order:
+  - AGENTS.md
+  - tasks/STUDIO-007F.md
+  - tasks/STUDIO-007F-IMPLEMENTATION.md
+  - platform/orchestration/PROVIDER_ADAPTER.md
+  - studio/MEMORY_PROTOCOL.md
+  - studio/HANDOFF_PROTOCOL.md
+  - TASK.md
+  - STATE.md
+  - WORKLOG.md
 
-## Resume sequence
+repository_context: game-studio-harness
+branch: main
+base_contract_merge: 3e678e8beb480e8d1aaa1c0aa8a85baccfbb64b8
+implementation_head: ea620cbc56f6b3816654a206e4f92a1637063ecb
+implementation_merge: 05eefaf1db29f66eb3c612e29cfc0044de9b2fae
+durability_state: MERGED
+pull_request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/32
+rules_ci_run: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/33375793911
 
-1. Confirm Rules CI succeeds on the exact implementation head.
-2. Confirm the diff contains only the 19 authorized implementation paths and four memory paths.
-3. Conduct independent QA against schema, lineage, zero-cost, provider-neutrality, determinism, and immutability requirements.
-4. Conduct independent Review and Integration on the same immutable head.
-5. Remediate findings on the same branch and repeat all gates when needed.
-6. Merge only by explicit Studio Owner decision.
-7. Create a separate closeout Pull Request that records final evidence and releases the writer claim.
+completed_summary: |
+  STUDIO-007F is complete. The contract and implementation are merged. Rules CI passed, QA passed, Review and Integration approved, and the Studio Owner merged PR #32. Evidence includes 98 focused tests and 350 total tests.
+remaining_work:
+  - NONE for STUDIO-007F.
+blockers:
+  - NONE.
 
-## Stop conditions
-
-Stop on a changed base, dirty worktree, scope beyond 23 paths, failing test, failed CI, mutable evidence, nondeterministic output, secret/provider/network field, nonzero cost, or any attempt to grant adapter authority.
-## QA remediation checkpoint
-
-- hardening_commit: 1cf60b54de7d6dd68a53dfe67a8a8a953a35ea06
-- evidence: 98 focused provider-adapter tests and 350 total tests PASS
-- remediation: bind FAKE operations to deterministic results; enforce declared input/output kinds and lineage; reject duplicate/hidden/oversized/noncanonical/secret-bearing inputs
-- next_gate: repeat independent QA and Review & Integration on the checkpoint head; do not merge yet
-## Final QA and Review checkpoint
-
-- reviewed_head: 64c30dcb0a17610df064e8cbebbe7a4827b0136a
-- remediation_commit: c2ed85fe9a4fe10ff15c7d8556be9e0fb1a46fb7
-- qa_01: PASS
-- review_integration: APPROVE
-- evidence: 98 focused provider-adapter tests and 350 total tests PASS
-- blocking_findings: 0
-- next_gate: Rules CI on the final checkpoint head, then explicit Studio Owner merge decision
+first_verification_actions:
+  - Confirm merge commit 05eefaf1db29f66eb3c612e29cfc0044de9b2fae remains reachable from main.
+  - Treat the implementation as accepted repository truth unless superseded by a separately reviewed change.
+next_implementation_action_after_verification: Start no additional STUDIO-007F work. Any later provider or adapter work requires a separately accepted contract.
+receiving_role: PRODUCER-01
+writer_transfer_status: RELEASED
