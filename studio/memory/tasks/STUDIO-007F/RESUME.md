@@ -25,7 +25,7 @@ The provider-neutral adapter implementation is committed on `agent/studio-007f-p
 Stop on a changed base, dirty worktree, scope beyond 23 paths, failing test, failed CI, mutable evidence, nondeterministic output, secret/provider/network field, nonzero cost, or any attempt to grant adapter authority.
 ## QA remediation checkpoint
 
-- hardening_commit: HARDENING_COMMIT_PLACEHOLDER
+- hardening_commit: 1cf60b54de7d6dd68a53dfe67a8a8a953a35ea06
 - evidence: 98 focused provider-adapter tests and 350 total tests PASS
 - remediation: bind FAKE operations to deterministic results; enforce declared input/output kinds and lineage; reject duplicate/hidden/oversized/noncanonical/secret-bearing inputs
 - next_gate: repeat independent QA and Review & Integration on the checkpoint head; do not merge yet
