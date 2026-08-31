@@ -54,6 +54,18 @@ canonical_task_contract: tasks/STUDIO-007A-IMPLEMENTATION.md
   resulting_state: Implementation is ready for receiving-worktree verification, immutable commit, independent QA, integration review, Rules CI, and Owner gate.
   correction_of: NONE
 
+- checkpoint_id: STUDIO-007A-CP-0005
+  timestamp: 2026-08-31T09:54:16Z
+  actor: PRODUCER-01
+  action: Reconciled the stale pre-merge memory after verifying the persisted STUDIO-007A implementation and the completed STUDIO-007 child sequence.
+  scope_files: tasks/STUDIO-007.md plus TASK.md, STATE.md, WORKLOG.md, and RESUME.md in the STUDIO-007A memory package
+  command_or_check: Git history verification; Rules CI evidence verification; data validation; 24 focused queue tests; current 350-test repository suite; exact five-path diff check
+  evidence_reference: Pull Request #18; implementation head b01d92de5a1ad4001f9c4c94bff70af238faf105; merge a8c4979dbedf827f1d9d9ff4570b37e0ae214c6f; Rules CI run 33238063354
+  outcome: completed
+  rationale: The implementation was merged but memory remained ACTIVE and WORKTREE_ONLY. Reconciliation records persisted evidence and explicitly preserves the missing historical QA and Review verdict as an evidence limitation.
+  resulting_state: STUDIO-007A COMPLETE and MERGED; writer claim RELEASED; STUDIO-007 umbrella child sequence reconciled.
+  correction_of: STUDIO-007A-CP-0004
+
 # Rules
 
 Append future material checkpoints. Do not rewrite earlier entries; corrections must append and reference the corrected checkpoint.

@@ -1,68 +1,52 @@
-# STATE.md — STUDIO-007A current snapshot
+# STATE.md - STUDIO-007A current snapshot
 
 memory_schema_version: 1
-
-# Package identity and repository context
 
 task_id: STUDIO-007A
 package_path: studio/memory/tasks/STUDIO-007A
 canonical_task_contract: tasks/STUDIO-007A-IMPLEMENTATION.md
-state: ACTIVE
-logical_role: ENGINEERING-01
+state: COMPLETE
+logical_role: PRODUCER-01
 repository_context: game-studio-harness
-worktree_context: primary repository worktree
-branch: agent/studio-007a-work-order-queue
-last_observed_HEAD: 4b98b36b39afd82aabd1144b9a88c44af6ad7de4
-durability_state: WORKTREE_ONLY
-last_verified_persisted_ref: NONE
-
-# Worktree and change boundary
+worktree_context: merged implementation on main; historical memory reconciled on a dedicated branch
+branch: main
+contract_merge: 4b98b36b39afd82aabd1144b9a88c44af6ad7de4
+implementation_head: b01d92de5a1ad4001f9c4c94bff70af238faf105
+implementation_merge: a8c4979dbedf827f1d9d9ff4570b37e0ae214c6f
+durability_state: MERGED
+pull_request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/18
+rules_ci_run: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/actions/runs/33238063354
 
 worktree_status_summary: |
-  - changed_files_attributed_to_task: exactly the twelve implementation files authorized by tasks/STUDIO-007A-IMPLEMENTATION.md section 4 plus TASK.md, STATE.md, WORKLOG.md, and RESUME.md in this package.
-  - pre_existing_or_unrelated_changed_files: NONE observed at the verified implementation baseline; Python __pycache__ directories are generated test residue and are not task deliverables.
+  - Contract PR #17 and implementation PR #18 are merged into main.
+  - Exactly twelve approved implementation paths and four STUDIO-007A memory records were integrated.
+  - Rules CI passed on immutable implementation head b01d92de5a1ad4001f9c4c94bff70af238faf105.
+  - Original validation passed 24 focused tests and 101 total tests.
+  - Reconciliation validates the same 24 focused queue tests and the current 350-test repository suite.
 
-# Progress and state
+evidence_limitations: |
+  - No durable QA-01 or Review and Integration verdict was preserved in the STUDIO-007A memory package before Owner merge.
+  - Reconciliation records the gap and does not infer or fabricate a missing verdict.
 
-completed: |
-  - Reconciled Pull Request #17 merge commit 4b98b36b39afd82aabd1144b9a88c44af6ad7de4 against clean main.
-  - Recovered stale pre-merge memory and acquired the single writer claim as ENGINEERING-01.
-  - Implemented the exact twelve-file JSON/JSONL queue, standard-library validator/CLI, schemas, fixtures, documentation, and tests.
-  - Focused 24-test suite, vertical-slice data validation, and complete 101-test suite passed.
-remaining: |
-  - Verify the exact sixteen-file scope and whitespace in the receiving worktree.
-  - Commit and push one immutable implementation head.
-  - Obtain independent QA-01 PASS and REVIEW-INTEGRATION-01 APPROVE against that same head.
-  - Submit the implementation Pull Request for the Studio Owner's merge decision.
-blockers: |
-  - Final acceptance remains gated by independent QA, integration review, Rules CI, and Studio Owner merge authority.
-assumptions: |
-  - The receiving branch remains based on 4b98b36b39afd82aabd1144b9a88c44af6ad7de4 with no unrelated changes.
-unresolved_items: |
-  - Implementation commit, remote branch evidence, Pull Request number, immutable review head, and final verdicts are not yet assigned.
+completed:
+  - Implemented deterministic zero-cost work-order and file-backed producer queue contracts.
+  - Added schemas, fixtures, documentation, standard-library validator and CLI, and focused tests.
+  - Merged the accepted implementation through PR #18.
+  - Reconciled stale pre-merge memory after the full STUDIO-007A through STUDIO-007F milestone sequence completed.
+remaining:
+  - NONE for STUDIO-007A.
+blockers:
+  - NONE.
 
-# Checks, checkpoints, and next action
-
-latest_checks: |
-  - python -m prototype.rules.cli validate-data --data-dir data/vertical_slice: PASS.
-  - python -m unittest tests.test_orchestration_queue -v: PASS, 24 tests.
-  - python -m unittest discover -s tests -p "test*.py" -v: PASS, 101 tests.
-  - git diff --check: PASS in the prepared implementation workspace.
-
-last_safe_checkpoint_id: STUDIO-007A-CP-0004
-exact_next_action: Apply the bounded implementation package to the verified branch, repeat all checks, and review the exact diff before committing.
-
-# Active writer claim
+last_safe_checkpoint_id: STUDIO-007A-CP-0005
+exact_next_action: Treat STUDIO-007A as complete and merged. Start no additional work without a separately accepted contract.
 
 active_writer_claim:
-  status: CLAIMED
+  status: RELEASED
   writer: ENGINEERING-01
-  claim_timestamp: 2026-08-26T12:50:00+07:00
-  transfer_intent: QA-01 after immutable implementation head is pushed
+  branch: agent/studio-007a-work-order-queue
+  scope: the exact twelve implementation paths and four STUDIO-007A memory records
+  transfer_reference: tasks/STUDIO-007A-IMPLEMENTATION.md
+  released_by: Studio Owner merge of PR #18
 
-updated_at: 2026-08-26T12:50:00+07:00
-updater: ENGINEERING-01
-
-# Notes
-
-Implementation evidence remains WORKTREE_ONLY until a matching commit or remote review artifact is verified. Queue roles are evidence claims and do not authenticate or grant Owner authority.
+updater: PRODUCER-01
