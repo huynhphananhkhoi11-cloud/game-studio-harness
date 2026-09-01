@@ -2,13 +2,13 @@
 
 Schema-Version: 1
 Task-ID: STUDIO-008
-Updated-At: 2026-09-01T05:15:38Z
-Phase: CONTRACT
-Status: CONTRACT_ACCEPTED
-Current-Branch: agent/studio-008-contract
-Base-Head: 31e912ea19d6308b84be2a036b98ec1989913cd0
-Implementation-Started: false
-Runtime-Paths-Created: false
+Updated-At: 2026-09-01T06:08:05Z
+Phase: CLOSEOUT
+Status: COMPLETE
+Current-Branch: agent/studio-008-closeout
+Base-Head: ac1367ee5726a2ba5d2c17664e40690324fd74d4
+Implementation-Started: true
+Runtime-Paths-Created: true
 Provider-Activity: false
 Network-Activity: false
 Credential-Activity: false
@@ -16,11 +16,11 @@ Nonzero-Spend: false
 
 ## Current truth
 
-The bounded contract for the STUDIO-008 zero-cost system pilot is prepared. Implementation may begin only after this contract Pull Request merges.
+The STUDIO-008 deterministic zero-cost pilot implementation passed final QA and Review and Integration with zero blocking findings, then merged into main at ac1367ee5726a2ba5d2c17664e40690324fd74d4.
 
 ## Next gate
 
-Validate, review, and merge the contract-only Pull Request. Then create a separate implementation branch from the resulting main head.
+Review and merge the memory-only closeout Pull Request. No additional STUDIO-008 runtime change is authorized by this closeout.
 
 Contract-PR: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/35
 Contract-Commit: f092619892e978be96c070ada63797ba13bbfc18
@@ -66,3 +66,26 @@ Checkpoint-At: 2026-09-01T05:15:56Z
 - Network activity: false
 - Credential activity: false
 - Nonzero spend: false
+
+## Implementation merge and closeout state - 2026-09-01T06:08:05Z
+
+- Phase: CLOSEOUT
+- Status: COMPLETE
+- Final implementation head: 5357cee2a34b13a40bfc6a2a014fe162767b171d
+- Implementation Pull Request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/36
+- Implementation merge: ac1367ee5726a2ba5d2c17664e40690324fd74d4
+- Focused tests: 47 PASS
+- Total tests: 397 PASS
+- QA-01: PASS
+- Review and Integration: APPROVE
+- Blocking findings: 0
+- Provider activity: false
+- Network activity: false
+- Credential activity: false
+- Nonzero spend: false
+
+## Closeout PR checkpoint - 2026-09-01T06:08:20Z
+
+- Pull Request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/37
+- Closeout commit: d6c59ecd2c6397fa57905432bb112c96baab0b7d
+- State: OPEN, NOT MERGED
