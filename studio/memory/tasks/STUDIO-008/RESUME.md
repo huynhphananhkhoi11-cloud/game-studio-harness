@@ -34,3 +34,10 @@ Review the contract-only Pull Request created from branch agent/studio-008-contr
 ## Implementation resume point - 2026-09-01T05:35:58Z
 
 Run focused and retained tests, inspect the exact 24-path diff, then review the separate implementation Pull Request. Do not merge without QA and Review and Integration evidence.
+
+## Implementation Pull Request
+
+- URL: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/36
+- Implementation commit: 9805181e9a7d8d202d0908c36867c16626832f30
+- State: OPEN, NOT MERGED
+- Next: independent QA and Review and Integration on the final immutable head.
