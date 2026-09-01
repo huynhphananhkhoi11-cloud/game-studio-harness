@@ -1,0 +1,41 @@
+{
+  "$id": "https://game-studio-harness.local/schemas/pilot-bundle.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "pattern": "Z$",
+      "type": "string"
+    },
+    "expected_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "pilot_bundle"
+    },
+    "scenario_digests": {
+      "maxProperties": 7,
+      "minProperties": 7,
+      "type": "object"
+    },
+    "scenario_files": {
+      "maxProperties": 7,
+      "minProperties": 7,
+      "type": "object"
+    },
+    "schema_version": {
+      "const": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "kind",
+    "as_of",
+    "scenario_files",
+    "scenario_digests",
+    "expected_digest"
+  ],
+  "title": "STUDIO-008 pilot bundle",
+  "type": "object"
+}

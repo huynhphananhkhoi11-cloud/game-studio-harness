@@ -1,0 +1,142 @@
+
+import copy
+import json
+import unittest
+from pathlib import Path
+
+from scripts.orchestration_pilot import PilotValidationError, canonical_digest, load_json, validate_bundle, validate_scenario
+
+
+ROOT = Path(__file__).resolve().parents[1]
+FIXTURES = ROOT / "platform/orchestration/fixtures/008"
+AS_OF = "2026-09-01T06:00:00Z"
+
+
+class PilotScenarioTests(unittest.TestCase):
+    def load(self, name):
+        return load_json(FIXTURES / name)
+
+    def assert_invalid_scenario(self, name, code):
+        record = self.load(name)
+        before = copy.deepcopy(record)
+        with self.assertRaisesRegex(PilotValidationError, code):
+            validate_scenario(record, AS_OF)
+        self.assertEqual(before, record)
+
+    def test_p01_research_handoff(self):
+        result = validate_scenario(self.load("valid-p01-research-handoff.json"), AS_OF)
+        self.assertEqual("P01", result["scenario_id"])
+
+    def test_p02_engineering_work(self):
+        self.assertEqual("PASS", validate_scenario(self.load("valid-p02-engineering-work.json"), AS_OF)["verdict"])
+
+    def test_p03_simulated_failover(self):
+        self.assertEqual("PASS", validate_scenario(self.load("valid-p03-simulated-failover.json"), AS_OF)["verdict"])
+
+    def test_p04_writer_conflict(self):
+        self.assertEqual("PASS", validate_scenario(self.load("valid-p04-writer-conflict.json"), AS_OF)["verdict"])
+
+    def test_p05_qa_correction(self):
+        self.assertEqual("PASS", validate_scenario(self.load("valid-p05-qa-correction.json"), AS_OF)["verdict"])
+
+    def test_p06_approve(self):
+        self.assertEqual("PASS", validate_scenario(self.load("valid-p06-owner-gate-approve.json"), AS_OF)["verdict"])
+
+    def test_p06_reject(self):
+        self.assertEqual("PASS", validate_scenario(self.load("valid-p06-owner-gate-reject.json"), AS_OF)["verdict"])
+
+    def test_key_order_stable_digest(self):
+        record = self.load("valid-p01-research-handoff.json")
+        reversed_record = dict(reversed(list(record.items())))
+        self.assertEqual(canonical_digest(record), canonical_digest(reversed_record))
+
+    def test_wrong_as_of_fails_closed(self):
+        record = self.load("valid-p01-research-handoff.json")
+        with self.assertRaisesRegex(PilotValidationError, "AS_OF"):
+            validate_scenario(record, "2026-09-01T06:00:01Z")
+
+    def test_extra_field_fails_closed(self):
+        record = self.load("valid-p01-research-handoff.json")
+        record["extra"] = True
+        record["expected_digest"] = canonical_digest(record)
+        with self.assertRaisesRegex(PilotValidationError, "FIELD_SET"):
+            validate_scenario(record, AS_OF)
+
+    def test_secret_like_key_fails_closed(self):
+        record = self.load("valid-p01-research-handoff.json")
+        record["evidence"]["api_key"] = "not-a-real-secret"
+        record["expected_digest"] = canonical_digest(record)
+        with self.assertRaisesRegex(PilotValidationError, "SECRET_LIKE_EVIDENCE"):
+            validate_scenario(record, AS_OF)
+
+    def test_trace_gap_fails_closed(self):
+        record = self.load("valid-p03-simulated-failover.json")
+        record["trace"][1]["sequence"] = 3
+        record["expected_digest"] = canonical_digest(record)
+        with self.assertRaisesRegex(PilotValidationError, "TRACE_SEQUENCE"):
+            validate_scenario(record, AS_OF)
+
+    def test_validation_is_read_only(self):
+        record = self.load("valid-p05-qa-correction.json")
+        before = json.dumps(record, sort_keys=True)
+        validate_scenario(record, AS_OF)
+        self.assertEqual(before, json.dumps(record, sort_keys=True))
+
+
+class PilotBundleTests(unittest.TestCase):
+    def load(self, name):
+        return load_json(FIXTURES / name)
+
+    def test_valid_bundle(self):
+        result = validate_bundle(self.load("valid-pilot-bundle.json"), FIXTURES, AS_OF)
+        self.assertEqual("PASS", result["verdict"])
+        self.assertEqual(6, result["required_scenarios_passed"])
+        self.assertEqual(2, result["owner_paths_passed"])
+
+    def test_bundle_replay_is_deterministic(self):
+        bundle = self.load("valid-pilot-bundle.json")
+        first = validate_bundle(copy.deepcopy(bundle), FIXTURES, AS_OF)
+        second = validate_bundle(copy.deepcopy(bundle), FIXTURES, AS_OF)
+        self.assertEqual(first, second)
+
+    def test_missing_scenario(self):
+        with self.assertRaisesRegex(PilotValidationError, "SCENARIO_COVERAGE"):
+            validate_bundle(self.load("invalid-missing-scenario.json"), FIXTURES, AS_OF)
+
+    def test_nondeterministic_digest(self):
+        with self.assertRaisesRegex(PilotValidationError, "BUNDLE_DIGEST"):
+            validate_bundle(self.load("invalid-nondeterministic-replay.json"), FIXTURES, AS_OF)
+
+    def test_unauthorized_write(self):
+        record = self.load("invalid-unauthorized-write.json")
+        with self.assertRaisesRegex(PilotValidationError, "ZERO_TOLERANCE"):
+            validate_scenario(record, AS_OF)
+
+    def test_duplicate_writer(self):
+        record = self.load("invalid-duplicate-writer.json")
+        with self.assertRaisesRegex(PilotValidationError, "ZERO_TOLERANCE"):
+            validate_scenario(record, AS_OF)
+
+    def test_duplicate_output(self):
+        record = self.load("invalid-duplicate-output.json")
+        with self.assertRaisesRegex(PilotValidationError, "ZERO_TOLERANCE"):
+            validate_scenario(record, AS_OF)
+
+    def test_gate_bypass(self):
+        record = self.load("invalid-gate-bypass.json")
+        with self.assertRaisesRegex(PilotValidationError, "ZERO_TOLERANCE"):
+            validate_scenario(record, AS_OF)
+
+    def test_incomplete_handoff_trace(self):
+        record = self.load("invalid-incomplete-handoff-trace.json")
+        with self.assertRaisesRegex(PilotValidationError, "HANDOFF_COVERAGE"):
+            validate_scenario(record, AS_OF)
+
+    def test_provider_or_spend(self):
+        record = self.load("invalid-provider-or-spend.json")
+        with self.assertRaisesRegex(PilotValidationError, "ZERO_COST"):
+            validate_scenario(record, AS_OF)
+
+
+if __name__ == "__main__":
+    unittest.main()

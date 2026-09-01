@@ -19,3 +19,11 @@ Run the final deterministic zero-cost v1.0 system pilot across six accepted scen
 ## Acceptance
 
 All six scenarios and every quantitative threshold in tasks/STUDIO-008.md must pass before an Owner disposition is recorded.
+
+## Implementation authorization used
+
+- Started: 2026-09-01T05:35:58Z
+- Branch: agent/studio-008-zero-cost-pilot
+- Base head: 141deb6938309f8f1b35cfd313bb9e954c94a0cb
+- Scope: exact 20 implementation paths plus four memory records
+- Runtime mode: deterministic read-only validator
