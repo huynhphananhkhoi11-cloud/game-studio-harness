@@ -62,3 +62,9 @@ Review and merge the memory-only STUDIO-008 closeout Pull Request. After that me
 - QA-01: PASS
 - Review and Integration: APPROVE
 - Blocking findings: 0
+
+## Closeout Pull Request
+
+- URL: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/37
+- Closeout commit: d6c59ecd2c6397fa57905432bb112c96baab0b7d
+- State: OPEN, NOT MERGED
