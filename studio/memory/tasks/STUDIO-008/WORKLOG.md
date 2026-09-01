@@ -30,3 +30,9 @@ Task-ID: STUDIO-008
 - Pull Request: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/36
 - Implementation commit: 9805181e9a7d8d202d0908c36867c16626832f30
 - No automatic merge or Owner disposition occurred.
+
+## 2026-09-01T05:45:19Z - QA hardening prepared
+
+- Reconciled the zero-cost pilot runtime against independent QA findings.
+- Added negative coverage for malformed lineage, unauthorized gates, unsafe paths, false overlap evidence, stale QA heads, invalid UTC, loose nested fields, and non-integer zero metrics.
+- Preserved the evidence-only boundary and updated the P03 gate to bind the completed recovery attempt.

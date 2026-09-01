@@ -44,3 +44,14 @@ Checkpoint-At: 2026-09-01T05:15:56Z
 - Focused tests: 23 PASS
 - Total tests: 373 PASS
 - State: OPEN, NOT MERGED
+
+## QA hardening state - 2026-09-01T05:45:19Z
+
+- Phase: QA_REMEDIATION
+- Reviewed head: a7ac89a2d18b0c048cfcb2174f36771edf3ee047
+- Status: VALIDATION_IN_PROGRESS
+- Blocking findings addressed: strict SHA/time/field validation; trace-attempt lineage; gate authority/head binding; derived claim overlap; failover writer release; safe relative paths; immutable fixture containment
+- Provider activity: false
+- Network activity: false
+- Credential activity: false
+- Nonzero spend: false

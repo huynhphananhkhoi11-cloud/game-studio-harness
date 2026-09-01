@@ -15,13 +15,89 @@
       "const": "pilot_bundle"
     },
     "scenario_digests": {
-      "maxProperties": 7,
-      "minProperties": 7,
+      "additionalProperties": false,
+      "properties": {
+        "P01": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "P02": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "P03": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "P04": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "P05": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "P06_APPROVE": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "P06_REJECT": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06_APPROVE",
+        "P06_REJECT"
+      ],
       "type": "object"
     },
     "scenario_files": {
-      "maxProperties": 7,
-      "minProperties": 7,
+      "additionalProperties": false,
+      "properties": {
+        "P01": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        },
+        "P02": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        },
+        "P03": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        },
+        "P04": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        },
+        "P05": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        },
+        "P06_APPROVE": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        },
+        "P06_REJECT": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06_APPROVE",
+        "P06_REJECT"
+      ],
       "type": "object"
     },
     "schema_version": {

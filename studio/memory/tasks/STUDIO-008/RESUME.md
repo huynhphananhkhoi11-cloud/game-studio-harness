@@ -41,3 +41,7 @@ Run focused and retained tests, inspect the exact 24-path diff, then review the 
 - Implementation commit: 9805181e9a7d8d202d0908c36867c16626832f30
 - State: OPEN, NOT MERGED
 - Next: independent QA and Review and Integration on the final immutable head.
+
+## QA hardening resume point - 2026-09-01T05:45:19Z
+
+Review the hardening commit on Pull Request #36. Merge only after the final QA and Review and Integration checkpoint reports zero blocking findings.

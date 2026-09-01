@@ -31,12 +31,12 @@
     "human_reassignment_approved": true,
     "old_attempt_writer_released": true
   },
-  "expected_digest": "ce5da10f5bc21b0d1763ea727a2682cf2ac2c7bae29f710bb9f22bf16414abb0",
+  "expected_digest": "831fb25211810a1e4fb51b77b0e0452a670fda5e81214df577a2f56af11a862e",
   "expected_outcome": "PASS",
   "gates": [
     {
       "gate_type": "EVIDENCE_INTEGRITY",
-      "head_sha": "1111111111111111111111111111111111111111",
+      "head_sha": "4444444444444444444444444444444444444444",
       "role": "ENGINEERING",
       "verdict": "PASS"
     }

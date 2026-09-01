@@ -23,6 +23,15 @@ class PilotScenarioTests(unittest.TestCase):
             validate_scenario(record, AS_OF)
         self.assertEqual(before, record)
 
+    def assert_mutation_fails(self, name, code, mutation, supplied_as_of=AS_OF):
+        record = self.load(name)
+        mutation(record)
+        record["expected_digest"] = canonical_digest(record)
+        before = copy.deepcopy(record)
+        with self.assertRaisesRegex(PilotValidationError, code):
+            validate_scenario(record, supplied_as_of)
+        self.assertEqual(before, record)
+
     def test_p01_research_handoff(self):
         result = validate_scenario(self.load("valid-p01-research-handoff.json"), AS_OF)
         self.assertEqual("P01", result["scenario_id"])
@@ -82,6 +91,85 @@ class PilotScenarioTests(unittest.TestCase):
         validate_scenario(record, AS_OF)
         self.assertEqual(before, json.dumps(record, sort_keys=True))
 
+    def test_nonhex_attempt_head_fails_closed(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "HEAD_SHA",
+            lambda value: value["attempts"][0].__setitem__("head_sha", "z" * 40),
+        )
+
+    def test_unknown_trace_attempt_fails_closed(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "TRACE_ATTEMPT",
+            lambda value: value["trace"][0].__setitem__("attempt_id", "unknown-attempt"),
+        )
+
+    def test_unauthorized_gate_role_fails_closed(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "GATE_AUTHORITY",
+            lambda value: value["gates"][0].__setitem__("role", "STUDIO_OWNER"),
+        )
+
+    def test_gate_head_must_bind_known_attempt(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "GATE_HEAD",
+            lambda value: value["gates"][0].__setitem__("head_sha", "2" * 40),
+        )
+
+    def test_p02_unsafe_relative_path_fails_closed(self):
+        self.assert_mutation_fails(
+            "valid-p02-engineering-work.json", "P02_PATHS",
+            lambda value: value["claims"][0].__setitem__("paths", ["../escape.txt"]),
+        )
+
+    def test_p03_requires_old_writer_release(self):
+        self.assert_mutation_fails(
+            "valid-p03-simulated-failover.json", "P03_WRITER_RELEASE",
+            lambda value: value["evidence"].__setitem__("old_attempt_writer_released", False),
+        )
+
+    def test_p04_derives_overlap_from_claim_paths(self):
+        self.assert_mutation_fails(
+            "valid-p04-writer-conflict.json", "P04_OVERLAP_PROOF",
+            lambda value: value["claims"][1].__setitem__("paths", ["different/path.txt"]),
+        )
+
+    def test_p05_corrected_gate_must_bind_new_head(self):
+        self.assert_mutation_fails(
+            "valid-p05-qa-correction.json", "P05_CORRECTED_GATE",
+            lambda value: value["gates"][1].__setitem__("head_sha", "5" * 40),
+        )
+
+    def test_p06_requires_owner_gate_type(self):
+        def mutate(value):
+            value["gates"][0]["gate_type"] = "EVIDENCE_INTEGRITY"
+            value["gates"][0]["role"] = "ENGINEERING"
+        self.assert_mutation_fails("valid-p06-owner-gate-approve.json", "P06_GATE_TYPE", mutate)
+
+    def test_invalid_utc_time_fails_closed(self):
+        invalid_time = "2026-09-01 06:00:00"
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "AS_OF",
+            lambda value: value.__setitem__("as_of", invalid_time), invalid_time,
+        )
+
+    def test_boolean_is_not_accepted_as_integer_zero(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "ZERO_TOLERANCE",
+            lambda value: value["metrics"].__setitem__("unauthorized_writes", False),
+        )
+
+    def test_nested_extra_field_fails_closed(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "ADAPTER_FIELDS",
+            lambda value: value["adapter"].__setitem__("extra", False),
+        )
+
+    def test_material_handoff_is_required(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "HANDOFF_MATERIAL",
+            lambda value: value["handoffs"][0].__setitem__("material_transition", False),
+        )
+
 
 class PilotBundleTests(unittest.TestCase):
     def load(self, name):
@@ -136,6 +224,13 @@ class PilotBundleTests(unittest.TestCase):
         record = self.load("invalid-provider-or-spend.json")
         with self.assertRaisesRegex(PilotValidationError, "ZERO_COST"):
             validate_scenario(record, AS_OF)
+
+    def test_duplicate_scenario_filename_fails_closed(self):
+        bundle = self.load("valid-pilot-bundle.json")
+        bundle["scenario_files"]["P03"] = bundle["scenario_files"]["P02"]
+        bundle["expected_digest"] = canonical_digest(bundle)
+        with self.assertRaisesRegex(PilotValidationError, "FIXTURE_UNIQUENESS"):
+            validate_bundle(bundle, FIXTURES, AS_OF)
 
 
 if __name__ == "__main__":
