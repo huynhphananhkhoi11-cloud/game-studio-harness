@@ -24,3 +24,9 @@ Review the contract-only Pull Request created from branch agent/studio-008-contr
 - Durable handoff and material trace coverage are complete.
 - Focused and retained test suites pass.
 - Independent QA and Review and Integration approve one immutable head.
+
+## Contract Pull Request
+
+- URL: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/35
+- Contract commit: f092619892e978be96c070ada63797ba13bbfc18
+- State: OPEN, NOT MERGED

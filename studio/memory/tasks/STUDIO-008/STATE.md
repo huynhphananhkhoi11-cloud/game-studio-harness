@@ -21,3 +21,7 @@ The bounded contract for the STUDIO-008 zero-cost system pilot is prepared. Impl
 ## Next gate
 
 Validate, review, and merge the contract-only Pull Request. Then create a separate implementation branch from the resulting main head.
+
+Contract-PR: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/35
+Contract-Commit: f092619892e978be96c070ada63797ba13bbfc18
+Checkpoint-At: 2026-09-01T05:15:56Z
