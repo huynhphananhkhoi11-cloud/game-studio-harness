@@ -55,3 +55,14 @@ Checkpoint-At: 2026-09-01T05:15:56Z
 - Network activity: false
 - Credential activity: false
 - Nonzero spend: false
+
+## Final review remediation state - 2026-09-01T05:56:16Z
+
+- Phase: REVIEW_INTEGRATION_REMEDIATION
+- Reviewed head: b4ffc4369c04b41a922fa2f4bb081f04395e9bc7
+- Status: VALIDATION_IN_PROGRESS
+- Findings addressed: integer-zero budget typing; gate-specific verdict allowlists; scenario-specific attempt statuses; controlled nested object validation; strict claim/source structures
+- Provider activity: false
+- Network activity: false
+- Credential activity: false
+- Nonzero spend: false

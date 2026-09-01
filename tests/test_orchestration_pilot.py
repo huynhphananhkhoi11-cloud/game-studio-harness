@@ -143,6 +143,7 @@ class PilotScenarioTests(unittest.TestCase):
         def mutate(value):
             value["gates"][0]["gate_type"] = "EVIDENCE_INTEGRITY"
             value["gates"][0]["role"] = "ENGINEERING"
+            value["gates"][0]["verdict"] = "PASS"
         self.assert_mutation_fails("valid-p06-owner-gate-approve.json", "P06_GATE_TYPE", mutate)
 
     def test_invalid_utc_time_fails_closed(self):
@@ -168,6 +169,60 @@ class PilotScenarioTests(unittest.TestCase):
         self.assert_mutation_fails(
             "valid-p01-research-handoff.json", "HANDOFF_MATERIAL",
             lambda value: value["handoffs"][0].__setitem__("material_transition", False),
+        )
+
+    def test_boolean_zero_cost_value_fails_closed(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "ZERO_COST_TYPE",
+            lambda value: value["budget"].__setitem__("network_calls", False),
+        )
+
+    def test_gate_verdict_must_match_gate_type(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "GATE_VERDICT",
+            lambda value: value["gates"][0].__setitem__("verdict", "REJECT"),
+        )
+
+    def test_unsupported_attempt_status_fails_closed(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "ATTEMPT_STATUS",
+            lambda value: value["attempts"][0].__setitem__("status", "UNKNOWN"),
+        )
+
+    def test_p05_requires_qa_failed_to_completed_statuses(self):
+        self.assert_mutation_fails(
+            "valid-p05-qa-correction.json", "P05_ATTEMPT_STATUS",
+            lambda value: value["attempts"][0].__setitem__("status", "COMPLETED"),
+        )
+
+    def test_unexpected_claims_fail_closed(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "UNEXPECTED_CLAIMS",
+            lambda value: value.__setitem__("claims", [{"claim_id": "claim-extra", "valid": True, "paths": ["extra.txt"]}]),
+        )
+
+    def test_p01_sources_must_be_a_list(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "P01_SOURCES",
+            lambda value: value["evidence"].__setitem__("source_refs", "source:not-a-list"),
+        )
+
+    def test_p03_gate_must_bind_recovery_head(self):
+        self.assert_mutation_fails(
+            "valid-p03-simulated-failover.json", "P03_GATE_HEAD",
+            lambda value: value["gates"][0].__setitem__("head_sha", "3" * 40),
+        )
+
+    def test_duplicate_claim_paths_fail_closed(self):
+        self.assert_mutation_fails(
+            "valid-p02-engineering-work.json", "P02_PATHS",
+            lambda value: value["claims"][0].__setitem__("paths", ["allowed/example.txt", "allowed/example.txt"]),
+        )
+
+    def test_non_object_attempt_fails_with_validation_error(self):
+        self.assert_mutation_fails(
+            "valid-p01-research-handoff.json", "ATTEMPT_FIELDS",
+            lambda value: value.__setitem__("attempts", ["not-an-object"]),
         )
 
 
@@ -230,6 +285,13 @@ class PilotBundleTests(unittest.TestCase):
         bundle["scenario_files"]["P03"] = bundle["scenario_files"]["P02"]
         bundle["expected_digest"] = canonical_digest(bundle)
         with self.assertRaisesRegex(PilotValidationError, "FIXTURE_UNIQUENESS"):
+            validate_bundle(bundle, FIXTURES, AS_OF)
+
+    def test_non_string_scenario_filename_fails_closed(self):
+        bundle = self.load("valid-pilot-bundle.json")
+        bundle["scenario_files"]["P03"] = 3
+        bundle["expected_digest"] = canonical_digest(bundle)
+        with self.assertRaisesRegex(PilotValidationError, "FIXTURE_PATH"):
             validate_bundle(bundle, FIXTURES, AS_OF)
 
 

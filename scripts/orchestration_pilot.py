@@ -80,6 +80,12 @@ GATE_AUTHORITIES = {
     "QA_ACCEPTANCE": "QA",
     "OWNER_DECISION": "STUDIO_OWNER",
 }
+GATE_VERDICTS = {
+    "EVIDENCE_INTEGRITY": {"PASS"},
+    "QA_ACCEPTANCE": {"PASS", "FAIL"},
+    "OWNER_DECISION": {"APPROVE", "REJECT"},
+}
+ATTEMPT_STATUSES = {"COMPLETED", "SAFE_STOP", "QA_FAILED"}
 HEX_SHA = re.compile(r"^[0-9a-f]{40}$")
 
 
@@ -164,17 +170,19 @@ def _validate_common(record: dict[str, Any], supplied_as_of: str) -> None:
 
     attempts = record["attempts"]
     _require(isinstance(attempts, list) and attempts, "ATTEMPTS", "at least one attempt is required")
+    _require(all(isinstance(attempt, dict) for attempt in attempts), "ATTEMPT_FIELDS", "attempts must be objects")
     _require(_ids_are_unique(attempts, "attempt_id"), "ATTEMPT_ID", "attempt IDs must be unique")
     for attempt in attempts:
         _require_exact_keys(attempt, ATTEMPT_KEYS, "ATTEMPT_FIELDS")
         _require_nonempty_string(attempt["attempt_id"], "ATTEMPT_ID", "attempt_id")
         _require(bool(HEX_SHA.fullmatch(attempt["head_sha"])), "HEAD_SHA", "attempt head must be forty lowercase hexadecimal characters")
-        _require_nonempty_string(attempt["status"], "ATTEMPT_STATUS", "attempt status")
+        _require(attempt["status"] in ATTEMPT_STATUSES, "ATTEMPT_STATUS", "unsupported attempt status")
     attempt_ids = {attempt["attempt_id"] for attempt in attempts}
     attempt_heads = {attempt["head_sha"] for attempt in attempts}
 
     trace = record["trace"]
     _require(isinstance(trace, list) and trace, "TRACE", "trace evidence is required")
+    _require(all(isinstance(event, dict) for event in trace), "TRACE_FIELDS", "trace events must be objects")
     _require(_ids_are_unique(trace, "event_id"), "TRACE_ID", "trace event IDs must be unique")
     for index, event in enumerate(trace, start=1):
         _require(
@@ -191,6 +199,7 @@ def _validate_common(record: dict[str, Any], supplied_as_of: str) -> None:
 
     handoffs = record["handoffs"]
     _require(isinstance(handoffs, list) and handoffs, "HANDOFF", "durable handoff evidence is required")
+    _require(all(isinstance(handoff, dict) for handoff in handoffs), "HANDOFF_FIELDS", "handoffs must be objects")
     _require(_ids_are_unique(handoffs, "handoff_id"), "HANDOFF_ID", "handoff IDs must be unique")
     for handoff in handoffs:
         _require_exact_keys(handoff, HANDOFF_KEYS, "HANDOFF_FIELDS")
@@ -199,15 +208,18 @@ def _validate_common(record: dict[str, Any], supplied_as_of: str) -> None:
 
     gates = record["gates"]
     _require(isinstance(gates, list) and gates, "GATES", "gate evidence is required")
+    _require(all(isinstance(gate, dict) for gate in gates), "GATE_FIELDS", "gates must be objects")
     for gate in gates:
         _require_exact_keys(gate, GATE_KEYS, "GATE_FIELDS")
         _require(gate["gate_type"] in GATE_AUTHORITIES, "GATE_TYPE", "unsupported gate type")
         _require(gate["role"] == GATE_AUTHORITIES[gate["gate_type"]], "GATE_AUTHORITY", "gate role is unauthorized")
         _require(gate["head_sha"] in attempt_heads, "GATE_HEAD", "gate head is not an attempt head")
-        _require_nonempty_string(gate["verdict"], "GATE_VERDICT", "gate verdict")
+        _require(gate["verdict"] in GATE_VERDICTS[gate["gate_type"]], "GATE_VERDICT", "unsupported verdict for gate type")
 
     budget = record["budget"]
     _require_exact_keys(budget, BUDGET_KEYS, "BUDGET_FIELDS")
+    for zero_key in ("monetary_budget_minor_units", "monetary_spend_minor_units", "network_calls", "credential_reads"):
+        _require(type(budget.get(zero_key)) is int and budget.get(zero_key) == 0, "ZERO_COST_TYPE", f"{zero_key} must be integer zero")
     _require(
         budget == {
             "cost_class": "ZERO_COST",
@@ -245,8 +257,8 @@ def validate_scenario(record: dict[str, Any], supplied_as_of: str) -> dict[str, 
 
     if scenario_id == "P01":
         _require_exact_keys(evidence, {"source_refs", "limitations", "canonical_promoted", "write_authority"}, "P01_EVIDENCE_FIELDS")
-        _require(len(evidence.get("source_refs", [])) >= 1, "P01_SOURCES", "research sources are required")
-        _require(len(evidence.get("limitations", [])) >= 1, "P01_LIMITATIONS", "limitations are required")
+        _require(isinstance(evidence.get("source_refs"), list) and evidence["source_refs"] and all(isinstance(item, str) and item.strip() for item in evidence["source_refs"]), "P01_SOURCES", "research sources must be a nonempty string list")
+        _require(isinstance(evidence.get("limitations"), list) and evidence["limitations"] and all(isinstance(item, str) and item.strip() for item in evidence["limitations"]), "P01_LIMITATIONS", "limitations must be a nonempty string list")
         _require(evidence.get("canonical_promoted") is False, "P01_CANON", "research cannot self-promote")
         _require(evidence.get("write_authority") is False, "P01_AUTHORITY", "research has no write authority")
     elif scenario_id == "P02":
@@ -257,6 +269,7 @@ def validate_scenario(record: dict[str, Any], supplied_as_of: str) -> dict[str, 
         _require_nonempty_string(claim["claim_id"], "P02_CLAIM_ID", "claim_id")
         _require(isinstance(claim["paths"], list) and claim["paths"], "P02_PATHS", "claim paths are required")
         _require(all(_safe_relative_path(path) for path in claim["paths"]), "P02_PATHS", "claim paths must be safe and relative")
+        _require(len(claim["paths"]) == len(set(claim["paths"])), "P02_PATHS", "claim paths must be unique")
         _require(evidence.get("isolated_worktree") is True, "P02_WORKTREE", "isolated worktree is required")
         _require(evidence.get("allowed_paths_only") is True, "P02_PATHS", "only allowed paths may change")
         _require(evidence.get("focused_tests") == "PASS", "P02_FOCUSED_TESTS", "focused tests must pass")
@@ -269,6 +282,7 @@ def validate_scenario(record: dict[str, Any], supplied_as_of: str) -> dict[str, 
         _require(evidence.get("human_reassignment_approved") is True, "P03_APPROVAL", "human approval is required")
         _require(evidence.get("old_attempt_writer_released") is True, "P03_WRITER_RELEASE", "old writer must be released")
         _require([event["attempt_id"] for event in record["trace"]] == [item["attempt_id"] for item in record["attempts"]], "P03_TRACE_ATTEMPTS", "failover trace must follow attempt order")
+        _require(len(record["gates"]) == 1 and record["gates"][0]["head_sha"] == record["attempts"][1]["head_sha"], "P03_GATE_HEAD", "failover gate must bind the completed recovery head")
     elif scenario_id == "P04":
         _require_exact_keys(evidence, {"overlap_detected", "failure_code", "output_created"}, "P04_EVIDENCE_FIELDS")
         _require(record["expected_outcome"] == "CLAIM_SCOPE_CONFLICT", "P04_OUTCOME", "conflict outcome is required")
@@ -280,12 +294,15 @@ def validate_scenario(record: dict[str, Any], supplied_as_of: str) -> dict[str, 
             _require_exact_keys(claim, {"claim_id", "valid", "paths"}, "P04_CLAIM_FIELDS")
             _require(isinstance(claim["paths"], list) and claim["paths"], "P04_PATHS", "claim paths are required")
             _require(all(_safe_relative_path(path) for path in claim["paths"]), "P04_PATHS", "claim paths must be safe and relative")
+            _require(len(claim["paths"]) == len(set(claim["paths"])), "P04_PATHS", "claim paths must be unique")
+        _require(_ids_are_unique(record["claims"], "claim_id"), "P04_CLAIM_ID", "claim IDs must be unique")
         overlap = set(record["claims"][0]["paths"]) & set(record["claims"][1]["paths"])
         _require(bool(overlap), "P04_OVERLAP_PROOF", "claim paths do not actually overlap")
         _require([claim["valid"] for claim in record["claims"]] == [True, False], "P04_CLAIM_RESULT", "second overlapping claim must fail")
     elif scenario_id == "P05":
         _require_exact_keys(evidence, {"prior_approval_head", "corrected_gate_head", "prior_approval_reused"}, "P05_EVIDENCE_FIELDS")
         _require(len(record["attempts"]) == 2, "P05_ATTEMPTS", "correction requires a new attempt")
+        _require([item["status"] for item in record["attempts"]] == ["QA_FAILED", "COMPLETED"], "P05_ATTEMPT_STATUS", "correction must transition from QA_FAILED to COMPLETED")
         old_head, new_head = (item["head_sha"] for item in record["attempts"])
         _require(old_head != new_head, "P05_HEAD", "corrected head must differ")
         _require(evidence.get("prior_approval_head") == old_head, "P05_PRIOR_GATE", "prior approval must bind old head")
@@ -309,6 +326,11 @@ def validate_scenario(record: dict[str, Any], supplied_as_of: str) -> dict[str, 
 
     expected = "CLAIM_SCOPE_CONFLICT" if scenario_id == "P04" else "PASS"
     _require(record["expected_outcome"] == expected, "EXPECTED_OUTCOME", "scenario outcome mismatch")
+    if scenario_id not in {"P02", "P04"}:
+        _require(record["claims"] == [], "UNEXPECTED_CLAIMS", "this scenario must not contain claims")
+    if scenario_id not in {"P03", "P05"}:
+        _require(len(record["attempts"]) == 1 and record["attempts"][0]["status"] == "COMPLETED", "SCENARIO_ATTEMPT_STATUS", "scenario requires one completed attempt")
+        _require(len(record["trace"]) == 1, "SCENARIO_TRACE", "scenario requires one trace event")
 
     _require(before == _canonical_bytes(record), "IMMUTABILITY", "validation mutated supplied evidence")
     return {"scenario_id": scenario_id, "verdict": "PASS", "digest": record["expected_digest"]}
@@ -325,9 +347,13 @@ def validate_bundle(bundle: dict[str, Any], fixture_directory: Path, supplied_as
 
     files = bundle["scenario_files"]
     digests = bundle["scenario_digests"]
+    _require(isinstance(files, dict), "SCENARIO_FILES", "scenario_files must be an object")
+    _require(isinstance(digests, dict), "SCENARIO_DIGESTS", "scenario_digests must be an object")
     _require(set(files) == REQUIRED_PILOT_PATHS, "SCENARIO_COVERAGE", "all pilot paths are required")
     _require(set(digests) == REQUIRED_PILOT_PATHS, "DIGEST_COVERAGE", "all scenario digests are required")
     _require(len(set(files.values())) == len(files), "FIXTURE_UNIQUENESS", "scenario files must be unique")
+    _require(all(isinstance(filename, str) and filename for filename in files.values()), "FIXTURE_PATH", "scenario filenames must be nonempty strings")
+    _require(all(isinstance(value, str) and bool(re.fullmatch(r"[0-9a-f]{64}", value)) for value in digests.values()), "SCENARIO_DIGEST_REFERENCE", "scenario digests must be lowercase SHA-256 values")
 
     results = []
     fixture_root = fixture_directory.resolve()

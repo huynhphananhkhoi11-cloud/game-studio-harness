@@ -36,3 +36,10 @@ Task-ID: STUDIO-008
 - Reconciled the zero-cost pilot runtime against independent QA findings.
 - Added negative coverage for malformed lineage, unauthorized gates, unsafe paths, false overlap evidence, stale QA heads, invalid UTC, loose nested fields, and non-integer zero metrics.
 - Preserved the evidence-only boundary and updated the P03 gate to bind the completed recovery attempt.
+
+## 2026-09-01T05:56:16Z - Final review remediation prepared
+
+- Closed the Python boolean-as-zero ambiguity in the zero-cost budget boundary.
+- Bound gate verdicts to gate types and P03 evidence to the completed recovery head.
+- Bound P05 to QA_FAILED-to-COMPLETED chronology and rejected unexpected claims or malformed nested evidence.
+- Added ten focused negative tests; focused coverage is now 47 tests.
