@@ -1,0 +1,117 @@
+{
+  "$id": "https://game-studio-harness.local/schemas/pilot-bundle.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "pattern": "Z$",
+      "type": "string"
+    },
+    "expected_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "pilot_bundle"
+    },
+    "scenario_digests": {
+      "additionalProperties": false,
+      "properties": {
+        "P01": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "P02": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "P03": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "P04": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "P05": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "P06_APPROVE": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "P06_REJECT": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06_APPROVE",
+        "P06_REJECT"
+      ],
+      "type": "object"
+    },
+    "scenario_files": {
+      "additionalProperties": false,
+      "properties": {
+        "P01": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        },
+        "P02": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        },
+        "P03": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        },
+        "P04": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        },
+        "P05": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        },
+        "P06_APPROVE": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        },
+        "P06_REJECT": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.json$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06_APPROVE",
+        "P06_REJECT"
+      ],
+      "type": "object"
+    },
+    "schema_version": {
+      "const": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "kind",
+    "as_of",
+    "scenario_files",
+    "scenario_digests",
+    "expected_digest"
+  ],
+  "title": "STUDIO-008 pilot bundle",
+  "type": "object"
+}

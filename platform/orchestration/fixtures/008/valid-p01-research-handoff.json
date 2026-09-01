@@ -1,0 +1,78 @@
+{
+  "adapter": {
+    "executed": false,
+    "name": "manual",
+    "network": false,
+    "provider": null
+  },
+  "as_of": "2026-09-01T06:00:00Z",
+  "attempts": [
+    {
+      "attempt_id": "attempt-p01-1",
+      "head_sha": "1111111111111111111111111111111111111111",
+      "status": "COMPLETED"
+    }
+  ],
+  "budget": {
+    "cost_class": "ZERO_COST",
+    "credential_reads": 0,
+    "monetary_budget_minor_units": 0,
+    "monetary_spend_minor_units": 0,
+    "network_calls": 0
+  },
+  "claims": [],
+  "correlation_id": "corr-008-p01",
+  "evidence": {
+    "canonical_promoted": false,
+    "limitations": [
+      "Manual/Fake zero-cost boundary only"
+    ],
+    "source_refs": [
+      "source:studio-blueprint-v1"
+    ],
+    "write_authority": false
+  },
+  "expected_digest": "0dc0d461ee02e29089e19475762f0feed1c3d157462e3e56795e1e59b7725c42",
+  "expected_outcome": "PASS",
+  "gates": [
+    {
+      "gate_type": "EVIDENCE_INTEGRITY",
+      "head_sha": "1111111111111111111111111111111111111111",
+      "role": "ENGINEERING",
+      "verdict": "PASS"
+    }
+  ],
+  "handoffs": [
+    {
+      "durable": true,
+      "handoff_id": "handoff-p01-1",
+      "material_transition": true
+    }
+  ],
+  "kind": "pilot_scenario",
+  "metrics": {
+    "duplicate_outputs": 0,
+    "duplicate_writers": 0,
+    "gate_bypasses": 0,
+    "handoff_coverage_percent": 100,
+    "trace_coverage_percent": 100,
+    "unauthorized_writes": 0
+  },
+  "rollback": {
+    "manual_demonstrated": true,
+    "procedure_ref": "rollback-p01"
+  },
+  "scenario_id": "P01",
+  "schema_version": 1,
+  "trace": [
+    {
+      "attempt_id": "attempt-p01-1",
+      "correlation_id": "corr-008-p01",
+      "event_id": "event-p01-1",
+      "prior_event_id": null,
+      "sequence": 1,
+      "transition": "QUEUED_TO_VALIDATED"
+    }
+  ],
+  "work_order_id": "WO-008-p01"
+}

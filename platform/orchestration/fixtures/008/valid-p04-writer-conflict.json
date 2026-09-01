@@ -1,0 +1,88 @@
+{
+  "adapter": {
+    "executed": false,
+    "name": "fake",
+    "network": false,
+    "provider": null
+  },
+  "as_of": "2026-09-01T06:00:00Z",
+  "attempts": [
+    {
+      "attempt_id": "attempt-p04-1",
+      "head_sha": "1111111111111111111111111111111111111111",
+      "status": "COMPLETED"
+    }
+  ],
+  "budget": {
+    "cost_class": "ZERO_COST",
+    "credential_reads": 0,
+    "monetary_budget_minor_units": 0,
+    "monetary_spend_minor_units": 0,
+    "network_calls": 0
+  },
+  "claims": [
+    {
+      "claim_id": "claim-p04-1",
+      "paths": [
+        "shared/path.txt"
+      ],
+      "valid": true
+    },
+    {
+      "claim_id": "claim-p04-2",
+      "paths": [
+        "shared/path.txt"
+      ],
+      "valid": false
+    }
+  ],
+  "correlation_id": "corr-008-p04",
+  "evidence": {
+    "failure_code": "CLAIM_SCOPE_CONFLICT",
+    "output_created": false,
+    "overlap_detected": true
+  },
+  "expected_digest": "364382d694cd66c2483d172cc136f47cd5d925728d842f1ed2d4d8566b198f19",
+  "expected_outcome": "CLAIM_SCOPE_CONFLICT",
+  "gates": [
+    {
+      "gate_type": "EVIDENCE_INTEGRITY",
+      "head_sha": "1111111111111111111111111111111111111111",
+      "role": "ENGINEERING",
+      "verdict": "PASS"
+    }
+  ],
+  "handoffs": [
+    {
+      "durable": true,
+      "handoff_id": "handoff-p04-1",
+      "material_transition": true
+    }
+  ],
+  "kind": "pilot_scenario",
+  "metrics": {
+    "duplicate_outputs": 0,
+    "duplicate_writers": 0,
+    "gate_bypasses": 0,
+    "handoff_coverage_percent": 100,
+    "trace_coverage_percent": 100,
+    "unauthorized_writes": 0
+  },
+  "rollback": {
+    "manual_demonstrated": true,
+    "procedure_ref": "rollback-p04"
+  },
+  "scenario_id": "P04",
+  "schema_version": 1,
+  "trace": [
+    {
+      "attempt_id": "attempt-p04-1",
+      "correlation_id": "corr-008-p04",
+      "event_id": "event-p04-1",
+      "prior_event_id": null,
+      "sequence": 1,
+      "transition": "QUEUED_TO_VALIDATED"
+    }
+  ],
+  "work_order_id": "WO-008-p04"
+}

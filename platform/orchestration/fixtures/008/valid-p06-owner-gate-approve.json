@@ -1,0 +1,73 @@
+{
+  "adapter": {
+    "executed": false,
+    "name": "fake",
+    "network": false,
+    "provider": null
+  },
+  "as_of": "2026-09-01T06:00:00Z",
+  "attempts": [
+    {
+      "attempt_id": "attempt-p06-approve-1",
+      "head_sha": "1111111111111111111111111111111111111111",
+      "status": "COMPLETED"
+    }
+  ],
+  "budget": {
+    "cost_class": "ZERO_COST",
+    "credential_reads": 0,
+    "monetary_budget_minor_units": 0,
+    "monetary_spend_minor_units": 0,
+    "network_calls": 0
+  },
+  "claims": [],
+  "correlation_id": "corr-008-p06-approve",
+  "evidence": {
+    "bypass_possible": false,
+    "decider_role": "STUDIO_OWNER",
+    "decision": "APPROVE"
+  },
+  "expected_digest": "cc6b21dff2b21ad13205060eecbcea517d80f9093e7181999f5e36a2c701e569",
+  "expected_outcome": "PASS",
+  "gates": [
+    {
+      "gate_type": "OWNER_DECISION",
+      "head_sha": "1111111111111111111111111111111111111111",
+      "role": "STUDIO_OWNER",
+      "verdict": "APPROVE"
+    }
+  ],
+  "handoffs": [
+    {
+      "durable": true,
+      "handoff_id": "handoff-p06-approve-1",
+      "material_transition": true
+    }
+  ],
+  "kind": "pilot_scenario",
+  "metrics": {
+    "duplicate_outputs": 0,
+    "duplicate_writers": 0,
+    "gate_bypasses": 0,
+    "handoff_coverage_percent": 100,
+    "trace_coverage_percent": 100,
+    "unauthorized_writes": 0
+  },
+  "rollback": {
+    "manual_demonstrated": true,
+    "procedure_ref": "rollback-p06-approve"
+  },
+  "scenario_id": "P06_APPROVE",
+  "schema_version": 1,
+  "trace": [
+    {
+      "attempt_id": "attempt-p06-approve-1",
+      "correlation_id": "corr-008-p06-approve",
+      "event_id": "event-p06-approve-1",
+      "prior_event_id": null,
+      "sequence": 1,
+      "transition": "QUEUED_TO_VALIDATED"
+    }
+  ],
+  "work_order_id": "WO-008-p06-approve"
+}

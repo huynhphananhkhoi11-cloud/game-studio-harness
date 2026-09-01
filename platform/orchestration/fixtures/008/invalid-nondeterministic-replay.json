@@ -1,0 +1,24 @@
+{
+  "as_of": "2026-09-01T06:00:00Z",
+  "expected_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+  "kind": "pilot_bundle",
+  "scenario_digests": {
+    "P01": "0dc0d461ee02e29089e19475762f0feed1c3d157462e3e56795e1e59b7725c42",
+    "P02": "510feffff4dd9fa5d732fabae35c5e6bb9735981d8763fc128a173f50a5e2fa8",
+    "P03": "cebc59ed52d9d0089e22f7a48a47affc2f0cbed06c314339d24e9bc7c436ad87",
+    "P04": "364382d694cd66c2483d172cc136f47cd5d925728d842f1ed2d4d8566b198f19",
+    "P05": "fe4ed934f1d08160ab157da8c84fb5460edde1b663949400905bfdaa65c17e14",
+    "P06_APPROVE": "cc6b21dff2b21ad13205060eecbcea517d80f9093e7181999f5e36a2c701e569",
+    "P06_REJECT": "ef7a9f88b4a89e16128df3e99534ac88fc0e57c7eb9c0f54e32cc07447303d5e"
+  },
+  "scenario_files": {
+    "P01": "valid-p01-research-handoff.json",
+    "P02": "valid-p02-engineering-work.json",
+    "P03": "valid-p03-simulated-failover.json",
+    "P04": "valid-p04-writer-conflict.json",
+    "P05": "valid-p05-qa-correction.json",
+    "P06_APPROVE": "valid-p06-owner-gate-approve.json",
+    "P06_REJECT": "valid-p06-owner-gate-reject.json"
+  },
+  "schema_version": 1
+}

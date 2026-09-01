@@ -1,0 +1,85 @@
+{
+  "adapter": {
+    "executed": false,
+    "name": "fake",
+    "network": false,
+    "provider": null
+  },
+  "as_of": "2026-09-01T06:00:00Z",
+  "attempts": [
+    {
+      "attempt_id": "attempt-p03-1",
+      "head_sha": "3333333333333333333333333333333333333333",
+      "status": "SAFE_STOP"
+    },
+    {
+      "attempt_id": "attempt-p03-2",
+      "head_sha": "4444444444444444444444444444444444444444",
+      "status": "COMPLETED"
+    }
+  ],
+  "budget": {
+    "cost_class": "ZERO_COST",
+    "credential_reads": 0,
+    "monetary_budget_minor_units": 0,
+    "monetary_spend_minor_units": 0,
+    "network_calls": 0
+  },
+  "claims": [],
+  "correlation_id": "corr-008-p03",
+  "evidence": {
+    "human_reassignment_approved": true,
+    "old_attempt_writer_released": true
+  },
+  "expected_digest": "9534cd9acd574f42026b878b16c6fc7383ec98d3bdb2d46711ee19da7fbed8d7",
+  "expected_outcome": "PASS",
+  "gates": [
+    {
+      "gate_type": "EVIDENCE_INTEGRITY",
+      "head_sha": "4444444444444444444444444444444444444444",
+      "role": "ENGINEERING",
+      "verdict": "PASS"
+    }
+  ],
+  "handoffs": [
+    {
+      "durable": true,
+      "handoff_id": "handoff-p03-1",
+      "material_transition": true
+    }
+  ],
+  "kind": "pilot_scenario",
+  "metrics": {
+    "duplicate_outputs": 0,
+    "duplicate_writers": 0,
+    "gate_bypasses": 0,
+    "handoff_coverage_percent": 100,
+    "trace_coverage_percent": 100,
+    "unauthorized_writes": 0
+  },
+  "rollback": {
+    "manual_demonstrated": true,
+    "procedure_ref": "rollback-p03"
+  },
+  "scenario_id": "P03",
+  "schema_version": 1,
+  "trace": [
+    {
+      "attempt_id": "attempt-p03-1",
+      "correlation_id": "corr-008-p03",
+      "event_id": "event-p03-1",
+      "prior_event_id": null,
+      "sequence": 1,
+      "transition": "ACTIVE_TO_SAFE_STOP"
+    },
+    {
+      "attempt_id": "attempt-p03-2",
+      "correlation_id": "corr-008-p03",
+      "event_id": "event-p03-2",
+      "prior_event_id": "event-p03-1",
+      "sequence": 2,
+      "transition": "APPROVED_TO_COMPLETED"
+    }
+  ],
+  "work_order_id": "WO-008-p03"
+}

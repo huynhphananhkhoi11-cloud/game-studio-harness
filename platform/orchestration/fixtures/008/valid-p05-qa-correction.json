@@ -1,0 +1,92 @@
+{
+  "adapter": {
+    "executed": false,
+    "name": "fake",
+    "network": false,
+    "provider": null
+  },
+  "as_of": "2026-09-01T06:00:00Z",
+  "attempts": [
+    {
+      "attempt_id": "attempt-p05-1",
+      "head_sha": "5555555555555555555555555555555555555555",
+      "status": "QA_FAILED"
+    },
+    {
+      "attempt_id": "attempt-p05-2",
+      "head_sha": "6666666666666666666666666666666666666666",
+      "status": "COMPLETED"
+    }
+  ],
+  "budget": {
+    "cost_class": "ZERO_COST",
+    "credential_reads": 0,
+    "monetary_budget_minor_units": 0,
+    "monetary_spend_minor_units": 0,
+    "network_calls": 0
+  },
+  "claims": [],
+  "correlation_id": "corr-008-p05",
+  "evidence": {
+    "corrected_gate_head": "6666666666666666666666666666666666666666",
+    "prior_approval_head": "5555555555555555555555555555555555555555",
+    "prior_approval_reused": false
+  },
+  "expected_digest": "fe4ed934f1d08160ab157da8c84fb5460edde1b663949400905bfdaa65c17e14",
+  "expected_outcome": "PASS",
+  "gates": [
+    {
+      "gate_type": "QA_ACCEPTANCE",
+      "head_sha": "5555555555555555555555555555555555555555",
+      "role": "QA",
+      "verdict": "FAIL"
+    },
+    {
+      "gate_type": "QA_ACCEPTANCE",
+      "head_sha": "6666666666666666666666666666666666666666",
+      "role": "QA",
+      "verdict": "PASS"
+    }
+  ],
+  "handoffs": [
+    {
+      "durable": true,
+      "handoff_id": "handoff-p05-1",
+      "material_transition": true
+    }
+  ],
+  "kind": "pilot_scenario",
+  "metrics": {
+    "duplicate_outputs": 0,
+    "duplicate_writers": 0,
+    "gate_bypasses": 0,
+    "handoff_coverage_percent": 100,
+    "trace_coverage_percent": 100,
+    "unauthorized_writes": 0
+  },
+  "rollback": {
+    "manual_demonstrated": true,
+    "procedure_ref": "rollback-p05"
+  },
+  "scenario_id": "P05",
+  "schema_version": 1,
+  "trace": [
+    {
+      "attempt_id": "attempt-p05-1",
+      "correlation_id": "corr-008-p05",
+      "event_id": "event-p05-1",
+      "prior_event_id": null,
+      "sequence": 1,
+      "transition": "QA_TO_CORRECTION"
+    },
+    {
+      "attempt_id": "attempt-p05-2",
+      "correlation_id": "corr-008-p05",
+      "event_id": "event-p05-2",
+      "prior_event_id": "event-p05-1",
+      "sequence": 2,
+      "transition": "CORRECTION_TO_QA_PASS"
+    }
+  ],
+  "work_order_id": "WO-008-p05"
+}
