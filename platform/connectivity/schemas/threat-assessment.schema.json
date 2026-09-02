@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://game-studio.invalid/schemas/threat-assessment.schema.json",
+  "title": "STUDIO-009A Threat Assessment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "assessment_id", "boundary_id", "boundary_digest", "assessed_at", "as_of", "threats", "canonical_digest"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "assessment_id": {"type": "string", "pattern": "^threat-assessment:[a-z0-9][a-z0-9._-]{2,63}$"},
+    "boundary_id": {"type": "string", "pattern": "^boundary:[a-z0-9][a-z0-9._-]{2,63}$"},
+    "boundary_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "assessed_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "as_of": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "threats": {"type": "array", "minItems": 9, "maxItems": 9, "items": {"$ref": "#/$defs/threat"}},
+    "canonical_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "reference": {"type": "string", "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"},
+    "zone": {"enum": ["OWNER_CONTROL", "STUDIO_CONTROL_PLANE", "REPOSITORY_CONTENT", "EXECUTION_SANDBOX", "EXTERNAL_PROVIDER", "SECRET_STORE"]},
+    "threat": {
+      "type": "object", "additionalProperties": false,
+      "required": ["threat_id", "source_zone", "target_zone", "decision", "controls", "evidence_refs"],
+      "properties": {
+        "threat_id": {"type": "string", "pattern": "^T-[A-Z0-9-]{3,63}$"},
+        "source_zone": {"$ref": "#/$defs/zone"}, "target_zone": {"$ref": "#/$defs/zone"},
+        "decision": {"enum": ["MITIGATED", "NOT_APPLICABLE"]},
+        "controls": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^C-[A-Z0-9-]{3,63}$"}},
+        "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/reference"}}
+      }
+    }
+  }
+}

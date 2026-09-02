@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0",
+  "assessment_id": "threat-assessment:studio-009a",
+  "boundary_id": "boundary:studio-009a-read",
+  "boundary_digest": "sha256:ce6d5a8a0986e5fb1680e13dea47a726dcd0cd33b163dfd76df96571fcf792d0",
+  "assessed_at": "2026-09-01T14:03:00Z",
+  "as_of": "2026-09-01T14:05:00Z",
+  "threats": [
+    {
+      "threat_id": "T-COST-RUNAWAY",
+      "source_zone": "EXTERNAL_PROVIDER",
+      "target_zone": "OWNER_CONTROL",
+      "decision": "MITIGATED",
+      "controls": [
+        "C-ZERO-COST"
+      ],
+      "evidence_refs": [
+        "evidence:studio-009a-contract"
+      ]
+    },
+    {
+      "threat_id": "T-DUPLICATE-WORK",
+      "source_zone": "STUDIO_CONTROL_PLANE",
+      "target_zone": "EXECUTION_SANDBOX",
+      "decision": "MITIGATED",
+      "controls": [
+        "C-WRITER-CLAIM"
+      ],
+      "evidence_refs": [
+        "evidence:studio-009a-contract"
+      ]
+    },
+    {
+      "threat_id": "T-OWNER-GATE-BYPASS",
+      "source_zone": "EXTERNAL_PROVIDER",
+      "target_zone": "OWNER_CONTROL",
+      "decision": "MITIGATED",
+      "controls": [
+        "C-OWNER-GATE"
+      ],
+      "evidence_refs": [
+        "evidence:studio-009a-contract"
+      ]
+    },
+    {
+      "threat_id": "T-PROMPT-INJECTION",
+      "source_zone": "REPOSITORY_CONTENT",
+      "target_zone": "STUDIO_CONTROL_PLANE",
+      "decision": "MITIGATED",
+      "controls": [
+        "C-UNTRUSTED-CONTENT"
+      ],
+      "evidence_refs": [
+        "evidence:studio-009a-contract"
+      ]
+    },
+    {
+      "threat_id": "T-PROVIDER-IDENTITY-CONFUSION",
+      "source_zone": "EXTERNAL_PROVIDER",
+      "target_zone": "STUDIO_CONTROL_PLANE",
+      "decision": "MITIGATED",
+      "controls": [
+        "C-PROVIDER-REF"
+      ],
+      "evidence_refs": [
+        "evidence:studio-009a-contract"
+      ]
+    },
+    {
+      "threat_id": "T-SECRET-LEAKAGE",
+      "source_zone": "SECRET_STORE",
+      "target_zone": "EXTERNAL_PROVIDER",
+      "decision": "MITIGATED",
+      "controls": [
+        "C-NO-SECRETS"
+      ],
+      "evidence_refs": [
+        "evidence:studio-009a-contract"
+      ]
+    },
+    {
+      "threat_id": "T-SUPPLY-CHAIN-EXECUTION",
+      "source_zone": "REPOSITORY_CONTENT",
+      "target_zone": "EXECUTION_SANDBOX",
+      "decision": "MITIGATED",
+      "controls": [
+        "C-NO-EXECUTION"
+      ],
+      "evidence_refs": [
+        "evidence:studio-009a-contract"
+      ]
+    },
+    {
+      "threat_id": "T-UNAUTHORIZED-WRITE",
+      "source_zone": "EXECUTION_SANDBOX",
+      "target_zone": "REPOSITORY_CONTENT",
+      "decision": "MITIGATED",
+      "controls": [
+        "C-READ-ONLY"
+      ],
+      "evidence_refs": [
+        "evidence:studio-009a-contract"
+      ]
+    },
+    {
+      "threat_id": "T-WEBHOOK-SPOOF-REPLAY",
+      "source_zone": "EXTERNAL_PROVIDER",
+      "target_zone": "STUDIO_CONTROL_PLANE",
+      "decision": "MITIGATED",
+      "controls": [
+        "C-NO-WEBHOOK"
+      ],
+      "evidence_refs": [
+        "evidence:studio-009a-contract"
+      ]
+    }
+  ],
+  "canonical_digest": "sha256:e20ed09671c07343c2239174b3abf69db4436aaded631722f1fad506a0d3d0f2"
+}

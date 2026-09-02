@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://game-studio.invalid/schemas/integration-boundary.schema.json",
+  "title": "STUDIO-009A Integration Boundary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "boundary_id", "task_id", "created_at", "as_of", "repository", "data_policy", "provider_request", "control_evidence", "money_ceiling", "canonical_digest"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "boundary_id": {"type": "string", "pattern": "^boundary:[a-z0-9][a-z0-9._-]{2,63}$"},
+    "task_id": {"type": "string", "pattern": "^STUDIO-[0-9]{3}[A-Z]?$"},
+    "created_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "as_of": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "repository": {"$ref": "#/$defs/repository"},
+    "data_policy": {"$ref": "#/$defs/dataPolicy"},
+    "provider_request": {"$ref": "#/$defs/providerRequest"},
+    "control_evidence": {"$ref": "#/$defs/controlEvidence"},
+    "money_ceiling": {"type": "integer", "const": 0},
+    "canonical_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "reference": {"type": "string", "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"},
+    "pathList": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 240, "pattern": "^[A-Za-z0-9._/-]+$"}},
+    "repository": {
+      "type": "object", "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties": {"access_tier": {"enum": ["BRANCH_WRITE", "PR_WRITE"]}}, "required": ["access_tier"]},
+          "then": {"properties": {"allowed_paths": {"items": {"not": {"pattern": "^(?:\\.github(?:/|$)|\\.gitmodules$|CODEOWNERS$)"}}}}}
+        }
+      ],
+      "required": ["repository_id", "revision", "default_branch", "access_tier", "allowed_paths", "denied_paths", "auth_profile_ref"],
+      "properties": {
+        "repository_id": {"$ref": "#/$defs/reference"},
+        "revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "default_branch": {"type": "string", "pattern": "^(?![/.])(?!.*//)(?!.*\\.\\.)(?!.*@\\{)(?!.*\\.lock$)[A-Za-z0-9._/-]{0,119}[A-Za-z0-9_-]$"},
+        "access_tier": {"enum": ["READ_ONLY", "BRANCH_WRITE", "PR_WRITE"]},
+        "allowed_paths": {"$ref": "#/$defs/pathList"},
+        "denied_paths": {"$ref": "#/$defs/pathList"},
+        "auth_profile_ref": {"$ref": "#/$defs/reference"}
+      }
+    },
+    "dataPolicy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["allowed_classifications", "instruction_authority_paths", "untrusted_content_default"],
+      "properties": {
+        "allowed_classifications": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["PUBLIC", "INTERNAL", "RESTRICTED"]}},
+        "instruction_authority_paths": {"$ref": "#/$defs/pathList"},
+        "untrusted_content_default": {"const": true}
+      }
+    },
+    "providerRequest": {
+      "type": "object", "additionalProperties": false,
+      "required": ["capability_id", "data_classification", "provider_profile_ref"],
+      "properties": {
+        "capability_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,63}$"},
+        "data_classification": {"enum": ["PUBLIC", "INTERNAL", "RESTRICTED"]},
+        "provider_profile_ref": {"$ref": "#/$defs/reference"}
+      }
+    },
+    "controlEvidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["queue_ref", "dispatch_ref", "writer_claim_ref", "worktree_ref", "gate_ref", "trace_ref", "quota_budget_ref", "adapter_ref", "owner_approval_ref", "threat_assessment_ref"],
+      "properties": {
+        "queue_ref": {"$ref": "#/$defs/reference"}, "dispatch_ref": {"$ref": "#/$defs/reference"},
+        "writer_claim_ref": {"anyOf": [{"$ref": "#/$defs/reference"}, {"type": "null"}]},
+        "worktree_ref": {"anyOf": [{"$ref": "#/$defs/reference"}, {"type": "null"}]},
+        "gate_ref": {"$ref": "#/$defs/reference"}, "trace_ref": {"$ref": "#/$defs/reference"},
+        "quota_budget_ref": {"$ref": "#/$defs/reference"}, "adapter_ref": {"$ref": "#/$defs/reference"},
+        "owner_approval_ref": {"$ref": "#/$defs/reference"}, "threat_assessment_ref": {"$ref": "#/$defs/reference"}
+      }
+    }
+  }
+}
