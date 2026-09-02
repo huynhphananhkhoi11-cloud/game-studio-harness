@@ -53,8 +53,10 @@ key for a different request fails with `IDEMPOTENCY_CONFLICT`.
 Results must match repository identity, repository-record digest, operation,
 request digest, idempotency key, base revision, target ref/path scope and
 caller `as_of`; response size is bounded and revisions must be immutable.
-File-update results must prove a new immutable revision. Read results must
-remain bound to the requested immutable revision.
+File-update results must prove a new immutable revision. Branch-creation
+results must prove that the created branch points at the requested immutable
+base revision. Read results must remain bound to the requested immutable
+revision.
 
 This implementation does not activate GitHub connectivity. Real transport
 remains gated by STUDIO-009C and the separately approved STUDIO-009F connected

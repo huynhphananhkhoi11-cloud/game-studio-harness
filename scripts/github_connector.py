@@ -424,6 +424,8 @@ def normalize_result(plan: TransportPlan, raw_result: dict[str, Any]) -> dict[st
         _fail("MUTABLE_REVISION", "transport result revision must be immutable")
     if plan.operation == "CREATE_OR_UPDATE_FILE" and resulting_revision == plan.base_revision:
         _fail("RESPONSE_MISMATCH", "file update result must prove a new immutable revision")
+    if plan.operation == "CREATE_BRANCH" and resulting_revision != plan.base_revision:
+        _fail("RESPONSE_MISMATCH", "created branch must point at the requested immutable base revision")
     if plan.operation in READ_OPERATIONS and resulting_revision != plan.base_revision:
         _fail("RESPONSE_MISMATCH", "read result revision must match the requested immutable revision")
 

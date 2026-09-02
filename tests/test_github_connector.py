@@ -462,6 +462,29 @@ class ConnectorExecutionTests(unittest.TestCase):
             connector.execute(record, operation, boundary=boundary, threat_assessment=threat)
         self.assertEqual(caught.exception.code, "RESPONSE_MISMATCH")
 
+    def test_create_branch_result_must_point_to_base_revision(self):
+        record, operation, boundary, threat = make_write_operation()
+        operation["operation"] = "CREATE_BRANCH"
+        operation["target_paths"] = []
+        reseal(operation)
+        plan = gc.plan_operation(record, operation, boundary=boundary, threat_assessment=threat)
+        result = make_result(plan)
+        result["resulting_revision"] = "f" * 40
+        reseal(result)
+        with self.assertRaises(gc.ConnectorValidationError) as caught:
+            gc.normalize_result(plan, result)
+        self.assertEqual(caught.exception.code, "RESPONSE_MISMATCH")
+
+    def test_create_branch_result_at_base_revision_is_accepted(self):
+        record, operation, boundary, threat = make_write_operation()
+        operation["operation"] = "CREATE_BRANCH"
+        operation["target_paths"] = []
+        reseal(operation)
+        plan = gc.plan_operation(record, operation, boundary=boundary, threat_assessment=threat)
+        result = make_result(plan)
+        normalized = gc.normalize_result(plan, result)
+        self.assertEqual(normalized["resulting_revision"], plan.base_revision)
+
     def test_mutable_result_revision_fails(self):
         record, operation, boundary, threat, _ = self.plan()
         fake = RecordingFakeTransport(lambda result: result.__setitem__("resulting_revision", "main"))

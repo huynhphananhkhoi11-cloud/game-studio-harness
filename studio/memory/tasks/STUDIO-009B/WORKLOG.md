@@ -55,3 +55,16 @@ canonical_task_contract: tasks/STUDIO-009B.md
   rationale: hand off one bounded implementation head for independent QA and Review & Integration.
   resulting_state: HANDOFF with implementation Pull Request open and unmerged; live connector runtime NONE.
   correction_of: NONE
+
+<!-- STUDIO-009B-QA-HARDENING-CHECKPOINT-0003 -->
+- checkpoint_id: STUDIO-009B-CP-0005
+  timestamp: 2026-09-02T16:49:11Z
+  actor: QA-01 / STUDIO-009B QA hardening runner
+  action: Hardened CREATE_BRANCH response verification so a branch-creation result must remain bound to the requested immutable base revision.
+  scope_files: platform/connectivity/GITHUB_CONNECTOR.md; scripts/github_connector.py; tests/test_github_connector.py; STATE.md; WORKLOG.md; RESUME.md
+  command_or_check: vertical-slice validation; 154 focused tests; 551 full tests; exact 24-path cumulative PR scope; git diff --check
+  evidence_reference: Pull Request #42 reviewed head a4efdaf4b15e2fc3c45d54ba53bbfdfb4e0601b4
+  outcome: completed
+  rationale: close a response-lineage gap without broadening transport, credential, provider, network, routing, or spend authority.
+  resulting_state: QA hardening applied; final independent Review & Integration remains required before Owner merge decision.
+  correction_of: NONE

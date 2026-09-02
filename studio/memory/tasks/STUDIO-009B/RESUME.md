@@ -90,3 +90,12 @@ implementation_code_head: dbb59e743c31714130fd00251b25e67810433b71
 implementation_pr_checkpoint_at: 2026-09-02T16:40:45Z
 next_action: Run independent STUDIO-009B QA and Review & Integration against the final implementation branch head; Studio Owner decides merge separately.
 do_not: Do not merge from automation and do not activate credentials, live transport, webhooks, providers, routing, connected execution, or spend.
+
+<!-- STUDIO-009B-QA-HARDENING-CHECKPOINT-0003 -->
+# QA hardening checkpoint
+
+qa_reviewed_head: a4efdaf4b15e2fc3c45d54ba53bbfdfb4e0601b4
+qa_checkpoint_at: 2026-09-02T16:49:11Z
+validated_evidence: 154 focused tests PASS; 551 total tests PASS; exact 24-path cumulative Pull Request boundary; Rules CI must pass again on the hardened head before final review.
+next_action: Run independent final Review & Integration against the hardened immutable head, then return the Pull Request to Studio Owner for merge decision.
+prohibited_next_action: Do not merge from automation and do not activate live transport, credentials, webhooks, providers, routing, connected execution, or spend.
