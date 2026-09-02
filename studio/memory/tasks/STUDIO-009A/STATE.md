@@ -7,83 +7,68 @@ memory_schema_version: 1
 task_id: STUDIO-009A
 package_path: studio/memory/tasks/STUDIO-009A
 canonical_task_contract: tasks/STUDIO-009A.md
-state: HANDOFF
+state: COMPLETE
 logical_role: Platform Studio / Security and Integration Cell
 repository_context: game-studio-harness
-worktree_context: STUDIO-009A implementation worktree
-branch: agent/studio-009a-boundary-validator
-last_observed_HEAD: f7a60b308594cde5cbdc97e06590dc410a30fae6
-durability_state: WORKTREE_ONLY
-last_verified_persisted_ref: f7a60b308594cde5cbdc97e06590dc410a30fae6; Pull Request #39 open
+worktree_context: STUDIO-009A closeout worktree
+branch: agent/studio-009a-closeout
+last_observed_HEAD: 10c722955d5525daa02447890e1fd5c0979bc7a0
+durability_state: MERGED
+last_verified_persisted_ref: 10c722955d5525daa02447890e1fd5c0979bc7a0; Pull Request #39 merged
 
 # Worktree and change boundary
 
 worktree_status_summary: |
-  - changed_files_attributed_to_task: the exact 19 implementation paths plus four memory records authorized by tasks/STUDIO-009A-IMPLEMENTATION.md
+  - changed_files_attributed_to_task: exactly four STUDIO-009A memory records
   - pre_existing_or_unrelated_changed_files: NONE
 
 # Progress and state
 
 completed: |
-  - Verified clean main at STUDIO-008 closeout merge d69a613dc50b59dcded83189d38d5e86ff9d70e6.
-  - Drafted the parent STUDIO-009 contract, STUDIO-009A contract, and bounded future implementation contract.
-  - Validated the exact seven-path contract boundary, confirmed no platform/connectivity implementation path exists, and passed all 397 retained tests.
-  - Verified contract commit 6266458f98b069b92af83a56b9bab10fa2b794f8 merged into main at 14802ce03e1d8ac6f5fdbcb6b354b59103a244cb.
-  - Implemented the exact deterministic boundary documentation, schemas, fixtures, validator, and focused tests.
-  - Validated 40 focused STUDIO-009A tests and 437 total tests with no runtime repository connector, credential, provider, network call, or spend.
-  - Verified implementation commit 8c489c7147ace1457a41b1b44fc0f27c88b99cef on Pull Request #39 with exactly 23 changed paths and successful Rules CI run 175.
-  - Hardened portable path and Git-branch validation, bounded JSON input, duplicate-key and UTF-8 handling, and non-recursive structure limits.
-  - Validated 53 focused STUDIO-009A tests and 450 total tests after QA hardening.
-  - Verified the pushed QA checkpoint at f7a60b308594cde5cbdc97e06590dc410a30fae6 and completed independent Review and Integration remediation.
-  - Added stable rejection for parser-depth exhaustion, malformed Unicode scalars, non-finite JSON numbers, protected repository-control write scopes, and threat assessments that predate their boundary.
-  - Validated 59 focused STUDIO-009A tests and 456 total tests with zero blocking findings after remediation.
+  - STUDIO-009A contract merged before implementation.
+  - The deterministic integration-boundary validator was implemented and hardened within the exact authorized 23-path scope.
+  - Final implementation head 598bd88c672ebcad5270256f9b4529571ffad145 merged through Pull Request #39 at 10c722955d5525daa02447890e1fd5c0979bc7a0.
+  - Final evidence: 59 focused tests PASS; 456 total tests PASS.
+  - QA-01 PASS; Review and Integration APPROVE; blocking findings 0.
+  - No runtime repository connector, credential, real provider, network call, or spend was activated.
 remaining: |
-  - Commit and push the validated final review remediation checkpoint to Pull Request #39.
-  - Await Studio Owner merge disposition.
+  - Review and merge the memory-only STUDIO-009A closeout Pull Request.
+  - After closeout merge, begin STUDIO-009B contract work only.
 blockers: |
   - NONE
 assumptions: |
-  - Money ceiling remains zero and all external activity remains prohibited during STUDIO-009A.
+  - Money ceiling remains zero until a later phase explicitly authorizes otherwise.
 unresolved_items: |
-  - Later repository, credential store, provider, runner, data export, and nonzero budget decisions remain deferred to STUDIO-009B onward.
+  - Repository identities and permissions, credential storage, provider identities, runners, exports, and nonzero budget remain deferred to STUDIO-009B onward.
 
 # Checks, checkpoints, and next action
 
 latest_checks: |
-  - repository baseline and clean status: PASS at d69a613dc50b59dcded83189d38d5e86ff9d70e6 before task writes
-  - contract changed-path boundary: PASS, exactly seven paths
-  - future implementation path absence: PASS, platform/connectivity not created
+  - final implementation head containment in merge commit: PASS
   - vertical-slice data validation: PASS
-  - retained regression suite: 397 PASS
+  - focused boundary suite: 59 PASS
+  - full regression suite: 456 PASS
+  - closeout changed-path boundary: PASS, exactly four memory paths
   - git diff --check: PASS
-  - contract merge containment: PASS, 6266458f98b069b92af83a56b9bab10fa2b794f8 is an ancestor of origin/main
-  - vertical-slice data validation after implementation: PASS
-  - focused boundary suite: 40 PASS
-  - full regression suite: 437 PASS
-  - JSON syntax for both schemas and all 12 fixtures: PASS
-  - implementation changed-path boundary: PASS, exactly 23 authorized paths
   - external runtime repository/provider/credential/network/spend activity: NONE
-  - Pull Request #39 head and exact 23-path scope: PASS at 8c489c7147ace1457a41b1b44fc0f27c88b99cef
-  - GitHub Rules CI run 175: PASS
-  - QA hardening focused boundary suite: 53 PASS
-  - QA hardening full regression suite: 450 PASS
-  - QA hardening git diff --check and JSON syntax: PASS
-  - QA checkpoint persisted on Pull Request #39: PASS at f7a60b308594cde5cbdc97e06590dc410a30fae6
-  - final review focused boundary suite: 59 PASS
-  - final review full regression suite: 456 PASS
-  - final review schema syntax, exact 23-path boundary, and git diff --check: PASS
-  - QA-01: PASS; Review and Integration: APPROVE; blocking findings: 0
 
-last_safe_checkpoint_id: STUDIO-009A-CP-0006
-exact_next_action: Materialize the validated final review remediation checkpoint on agent/studio-009a-boundary-validator, commit and push it to Pull Request #39, and await Studio Owner merge disposition.
+last_safe_checkpoint_id: STUDIO-009A-CP-0007
+exact_next_action: Review and merge the memory-only STUDIO-009A closeout Pull Request, then begin the separately gated STUDIO-009B contract.
 
 # Active writer claim
 
 active_writer_claim:
   status: TRANSFER_PENDING
-  writer: Codex / REVIEW-INTEGRATION-01
-  claim_timestamp: 2026-09-01T13:36:41Z
-  transfer_intent: Studio Owner runner will materialize the validated final review remediation checkpoint and return merge disposition to the Studio Owner.
+  writer: Studio Owner closeout runner
+  claim_timestamp: 2026-09-02T14:08:08Z
+  transfer_intent: Studio Owner reviews and merges the memory-only closeout, then separately authorizes STUDIO-009B contract work.
 
-updated_at: 2026-09-02T06:32:01Z
-updater: Codex / REVIEW-INTEGRATION-01
+updated_at: 2026-09-02T14:08:08Z
+updater: Studio Owner closeout runner
+
+# Closeout Pull Request checkpoint
+
+closeout_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/40
+closeout_first_commit: 581465067fa2d68fb80358a3890b17313196d236
+closeout_checkpoint_at: 2026-09-02T14:33:00Z
+closeout_disposition: OPEN; Studio Owner review and merge pending
