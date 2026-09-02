@@ -65,3 +65,10 @@ active_writer_claim:
 
 updated_at: 2026-09-02T14:08:08Z
 updater: Studio Owner closeout runner
+
+# Closeout Pull Request checkpoint
+
+closeout_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/40
+closeout_first_commit: 581465067fa2d68fb80358a3890b17313196d236
+closeout_checkpoint_at: 2026-09-02T14:33:00Z
+closeout_disposition: OPEN; Studio Owner review and merge pending

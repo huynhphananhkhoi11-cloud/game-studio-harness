@@ -89,3 +89,15 @@ canonical_task_contract: tasks/STUDIO-009A.md
   rationale: STUDIO-009A must be durably closed before the separately gated STUDIO-009B repository connector contract begins.
   resulting_state: COMPLETE with a memory-only closeout Pull Request pending Owner merge; zero external runtime activity.
   correction_of: NONE
+
+- checkpoint_id: STUDIO-009A-CP-0008
+  timestamp: 2026-09-02T14:33:00Z
+  actor: Studio Owner closeout recovery runner
+  action: Opened and durably recorded the memory-only STUDIO-009A closeout Pull Request.
+  scope_files: STATE.md; WORKLOG.md; RESUME.md within studio/memory/tasks/STUDIO-009A
+  command_or_check: normalized file endings; reran validation; pushed first closeout commit; created Pull Request; recorded URL and checkpoint
+  evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/40; closeout first commit 581465067fa2d68fb80358a3890b17313196d236
+  outcome: completed
+  rationale: The Pull Request identity must be persisted before transfer to Studio Owner review.
+  resulting_state: COMPLETE with closeout Pull Request open and unmerged; STUDIO-009B remains separately gated.
+  correction_of: NONE
