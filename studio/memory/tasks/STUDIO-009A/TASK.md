@@ -42,6 +42,7 @@ accepted_constraints: |
 created_at: 2026-09-01T13:36:41Z
 authorized_amendments: |
   - 2026-09-01: Studio Owner directed implementation of the accepted STUDIO-009 design; current checkpoint is contract-only STUDIO-009A.
+  - 2026-09-02: The merged STUDIO-009A implementation contract authorized the exact 23-path deterministic boundary-validator checkpoint.
 
 # Notes
 

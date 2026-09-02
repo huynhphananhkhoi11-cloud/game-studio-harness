@@ -10,16 +10,16 @@ canonical_task_contract: tasks/STUDIO-009A.md
 state: HANDOFF
 logical_role: Platform Studio / Security and Integration Cell
 repository_context: game-studio-harness
-worktree_context: primary repository worktree
-branch: agent/studio-009a-contract
-last_observed_HEAD: d69a613dc50b59dcded83189d38d5e86ff9d70e6
-durability_state: WORKTREE_ONLY
-last_verified_persisted_ref: NONE
+worktree_context: STUDIO-009A implementation worktree
+branch: agent/studio-009a-boundary-validator
+last_observed_HEAD: 14802ce03e1d8ac6f5fdbcb6b354b59103a244cb
+durability_state: MERGED
+last_verified_persisted_ref: 14802ce03e1d8ac6f5fdbcb6b354b59103a244cb
 
 # Worktree and change boundary
 
 worktree_status_summary: |
-  - changed_files_attributed_to_task: tasks/STUDIO-009.md; tasks/STUDIO-009A.md; tasks/STUDIO-009A-IMPLEMENTATION.md; studio/memory/tasks/STUDIO-009A/{TASK,STATE,WORKLOG,RESUME}.md
+  - changed_files_attributed_to_task: the exact 19 implementation paths plus four memory records authorized by tasks/STUDIO-009A-IMPLEMENTATION.md
   - pre_existing_or_unrelated_changed_files: NONE
 
 # Progress and state
@@ -28,11 +28,14 @@ completed: |
   - Verified clean main at STUDIO-008 closeout merge d69a613dc50b59dcded83189d38d5e86ff9d70e6.
   - Drafted the parent STUDIO-009 contract, STUDIO-009A contract, and bounded future implementation contract.
   - Validated the exact seven-path contract boundary, confirmed no platform/connectivity implementation path exists, and passed all 397 retained tests.
+  - Verified contract commit 6266458f98b069b92af83a56b9bab10fa2b794f8 merged into main at 14802ce03e1d8ac6f5fdbcb6b354b59103a244cb.
+  - Implemented the exact deterministic boundary documentation, schemas, fixtures, validator, and focused tests.
+  - Validated 40 focused STUDIO-009A tests and 437 total tests with no runtime repository connector, credential, provider, network call, or spend.
 remaining: |
-  - Commit, push, and open the contract-only Pull Request only when explicitly requested and credentials are available.
-  - Merge the contract Pull Request before creating any implementation path.
+  - Commit and push the validated implementation checkpoint and open its Pull Request.
+  - Obtain independent QA and Review and Integration evidence before Owner merge disposition.
 blockers: |
-  - Future implementation is blocked until the contract-only Pull Request merges.
+  - NONE
 assumptions: |
   - Money ceiling remains zero and all external activity remains prohibited during STUDIO-009A.
 unresolved_items: |
@@ -47,9 +50,16 @@ latest_checks: |
   - vertical-slice data validation: PASS
   - retained regression suite: 397 PASS
   - git diff --check: PASS
+  - contract merge containment: PASS, 6266458f98b069b92af83a56b9bab10fa2b794f8 is an ancestor of origin/main
+  - vertical-slice data validation after implementation: PASS
+  - focused boundary suite: 40 PASS
+  - full regression suite: 437 PASS
+  - JSON syntax for both schemas and all 12 fixtures: PASS
+  - implementation changed-path boundary: PASS, exactly 23 authorized paths
+  - external runtime repository/provider/credential/network/spend activity: NONE
 
-last_safe_checkpoint_id: STUDIO-009A-CP-0002
-exact_next_action: Persist the validated contract checkpoint on a remote branch and open a contract-only Pull Request without creating implementation paths.
+last_safe_checkpoint_id: STUDIO-009A-CP-0004
+exact_next_action: Materialize this validated checkpoint on agent/studio-009a-boundary-validator, commit, push, and open the implementation Pull Request without merging it.
 
 # Active writer claim
 
@@ -57,7 +67,7 @@ active_writer_claim:
   status: TRANSFER_PENDING
   writer: Codex / Platform Studio Security and Integration Cell
   claim_timestamp: 2026-09-01T13:36:41Z
-  transfer_intent: Studio Owner or authorized delivery runner
+  transfer_intent: Studio Owner runner will materialize the validated implementation checkpoint and transfer it to QA-01 and REVIEW-INTEGRATION-01.
 
-updated_at: 2026-09-01T13:40:07Z
+updated_at: 2026-09-02T05:25:14Z
 updater: Codex / Platform Studio Security and Integration Cell

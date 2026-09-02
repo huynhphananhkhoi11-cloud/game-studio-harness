@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "boundary:studio-009a-read",
+  "task_id": "STUDIO-009A",
+  "created_at": "2026-09-01T14:00:00Z",
+  "as_of": "2026-09-01T14:05:00Z",
+  "repository": {
+    "repository_id": "repository:game-studio-harness",
+    "revision": "14802ce03e1d8ac6f5fdbcb6b354b59103a244cb",
+    "default_branch": "main",
+    "access_tier": "READ_ONLY",
+    "allowed_paths": [
+      "AGENTS.md",
+      "platform/orchestration",
+      "tasks"
+    ],
+    "denied_paths": [
+      ".env",
+      ".git",
+      "credentials",
+      "secrets"
+    ],
+    "auth_profile_ref": "auth-profile:none"
+  },
+  "data_policy": {
+    "allowed_classifications": [
+      "INTERNAL",
+      "PUBLIC"
+    ],
+    "instruction_authority_paths": [
+      "AGENTS.md",
+      "tasks/STUDIO-009A.md"
+    ],
+    "untrusted_content_default": true
+  },
+  "provider_request": {
+    "capability_id": "BOUNDARY_VALIDATE",
+    "data_classification": "INTERNAL",
+    "provider_profile_ref": "provider-profile:unassigned"
+  },
+  "control_evidence": {
+    "queue_ref": "queue:studio-009a",
+    "dispatch_ref": "dispatch:studio-009a",
+    "writer_claim_ref": null,
+    "worktree_ref": null,
+    "gate_ref": "gate:studio-009a",
+    "trace_ref": "trace:studio-009a",
+    "quota_budget_ref": "quota-budget:studio-009a",
+    "adapter_ref": "adapter:manual",
+    "owner_approval_ref": "owner-approval:studio-009a",
+    "threat_assessment_ref": "threat-assessment:studio-009a"
+  },
+  "money_ceiling": 0,
+  "canonical_digest": "sha256:ce6d5a8a0986e5fb1680e13dea47a726dcd0cd33b163dfd76df96571fcf792d0"
+}

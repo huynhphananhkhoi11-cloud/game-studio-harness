@@ -29,3 +29,27 @@ canonical_task_contract: tasks/STUDIO-009A.md
   rationale: Contract evidence must be deterministic and isolated before any implementation authorization can be exercised.
   resulting_state: HANDOFF; no platform/connectivity implementation path exists and no external activity occurred.
   correction_of: NONE
+
+- checkpoint_id: STUDIO-009A-CP-0003
+  timestamp: 2026-09-02T05:19:23Z
+  actor: Codex / Platform Studio Security and Integration Cell
+  action: Reconciled the merged contract checkpoint after interruption and acquired the implementation writer claim.
+  scope_files: exact 23-path implementation boundary in tasks/STUDIO-009A-IMPLEMENTATION.md
+  command_or_check: fresh clone; branch and HEAD verification; merge-base containment; contract and governance reads; clean implementation branch verification
+  evidence_reference: contract commit 6266458f98b069b92af83a56b9bab10fa2b794f8; merge commit 14802ce03e1d8ac6f5fdbcb6b354b59103a244cb
+  outcome: observed
+  rationale: The prior TRANSFER_PENDING and WORKTREE_ONLY snapshot became stale after the contract was committed, reviewed, and merged.
+  resulting_state: ACTIVE on agent/studio-009a-boundary-validator with one CLAIMED writer and no unrelated changes.
+  correction_of: STUDIO-009A-CP-0002
+
+- checkpoint_id: STUDIO-009A-CP-0004
+  timestamp: 2026-09-02T05:25:14Z
+  actor: Codex / Platform Studio Security and Integration Cell
+  action: Implemented and validated the deterministic STUDIO-009A integration-boundary and threat-assessment validator checkpoint.
+  scope_files: exactly 19 implementation paths plus four authorized STUDIO-009A memory records
+  command_or_check: vertical-slice validation; 40 focused unit tests; 437-test discovery suite; JSON syntax checks; git diff --check; exact changed-path allowlist
+  evidence_reference: worktree-only checkpoint based on 14802ce03e1d8ac6f5fdbcb6b354b59103a244cb
+  outcome: completed
+  rationale: Later repository and AI-provider connections require a deterministic fail-closed boundary before any external authority is activated.
+  resulting_state: HANDOFF with zero external runtime activity, zero spend, and writer transfer pending to the Studio Owner runner.
+  correction_of: NONE
