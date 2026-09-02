@@ -99,3 +99,14 @@ qa_checkpoint_at: 2026-09-02T16:49:11Z
 validated_evidence: 154 focused tests PASS; 551 total tests PASS; exact 24-path cumulative Pull Request boundary; Rules CI must pass again on the hardened head before final review.
 next_action: Run independent final Review & Integration against the hardened immutable head, then return the Pull Request to Studio Owner for merge decision.
 prohibited_next_action: Do not merge from automation and do not activate live transport, credentials, webhooks, providers, routing, connected execution, or spend.
+<!-- STUDIO-009B-FINAL-REVIEW-CHECKPOINT-0001 -->
+# Final Review and Integration handoff
+
+reviewed_head: 087ee410c2f82a765ec92e111f741a1b867be02c
+reviewed_at: 2026-09-02T16:52:48Z
+qa_01: PASS
+review_and_integration: APPROVE
+blocking_findings: 0
+validated_evidence: 154 focused tests PASS; 551 total tests PASS; Rules CI #196 SUCCESS; exact 24-path cumulative scope; no external runtime activity
+next_action: Studio Owner may independently decide whether to merge Pull Request #42. If merged, create a separate STUDIO-009B closeout Pull Request; do not start STUDIO-009C implementation before 009B closeout is accepted.
+do_not: Do not merge from this runner. Do not activate live GitHub transport, credentials, webhooks, AI providers, routing, connected execution, or spend.
