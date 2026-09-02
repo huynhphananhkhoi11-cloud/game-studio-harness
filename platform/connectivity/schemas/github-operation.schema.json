@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "github-operation.schema.json",
+  "title": "STUDIO-009B GitHub Operation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "repository_id",
+    "repository_record_digest",
+    "operation",
+    "base_revision",
+    "target_ref",
+    "target_paths",
+    "data_classification",
+    "instruction_authority_path",
+    "control_evidence",
+    "limits",
+    "idempotency_key",
+    "replay",
+    "as_of",
+    "canonical_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "repository_id": {
+      "type": "string"
+    },
+    "repository_record_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "operation": {
+      "enum": [
+        "READ_METADATA",
+        "READ_TREE",
+        "READ_BLOB",
+        "CREATE_BRANCH",
+        "CREATE_OR_UPDATE_FILE",
+        "OPEN_PULL_REQUEST",
+        "READ_PULL_REQUEST",
+        "READ_CHECKS"
+      ]
+    },
+    "base_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "target_ref": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        }
+      ]
+    },
+    "target_paths": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 100,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 240
+      }
+    },
+    "data_classification": {
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "RESTRICTED"
+      ]
+    },
+    "instruction_authority_path": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        }
+      ]
+    },
+    "control_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_ref",
+        "attempt_ref",
+        "queue_ref",
+        "dispatch_ref",
+        "writer_claim_ref",
+        "worktree_ref",
+        "gate_ref",
+        "trace_ref",
+        "quota_budget_ref",
+        "boundary_ref",
+        "threat_assessment_ref",
+        "owner_approval_ref"
+      ],
+      "properties": {
+        "task_ref": {
+          "type": "string"
+        },
+        "attempt_ref": {
+          "type": "string"
+        },
+        "queue_ref": {
+          "type": "string"
+        },
+        "dispatch_ref": {
+          "type": "string"
+        },
+        "gate_ref": {
+          "type": "string"
+        },
+        "trace_ref": {
+          "type": "string"
+        },
+        "quota_budget_ref": {
+          "type": "string"
+        },
+        "boundary_ref": {
+          "type": "string"
+        },
+        "threat_assessment_ref": {
+          "type": "string"
+        },
+        "owner_approval_ref": {
+          "type": "string"
+        },
+        "writer_claim_ref": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "worktree_ref": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_payload_bytes",
+        "max_files",
+        "page",
+        "per_page",
+        "timeout_ms",
+        "max_response_bytes"
+      ],
+      "properties": {
+        "max_payload_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1048576
+        },
+        "max_files": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "per_page": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "timeout_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30000
+        },
+        "max_response_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2097152
+        }
+      }
+    },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^idem:[A-Za-z0-9._-]{8,120}$"
+    },
+    "replay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "issued_at",
+        "expires_at",
+        "prior_result_digest"
+      ],
+      "properties": {
+        "issued_at": {
+          "type": "string"
+        },
+        "expires_at": {
+          "type": "string"
+        },
+        "prior_result_digest": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          ]
+        }
+      }
+    },
+    "as_of": {
+      "type": "string"
+    },
+    "canonical_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

@@ -29,3 +29,54 @@ canonical_task_contract: tasks/STUDIO-009B.md
   rationale: STUDIO-009B implementation remains gated until the contract receives Owner merge disposition.
   resulting_state: HANDOFF with contract Pull Request open and unmerged; connector runtime activity NONE.
   correction_of: NONE
+
+<!-- STUDIO-009B-IMPLEMENTATION-CHECKPOINT-0001 -->
+- checkpoint_id: STUDIO-009B-CP-0003
+  timestamp: 2026-09-02T16:40:38Z
+  actor: Studio Owner implementation runner
+  action: Materialized and validated the deterministic repository registry and disabled GitHub connector core.
+  scope_files: 20 approved implementation paths plus 4 approved memory records
+  command_or_check: schema parse; vertical-slice validation; 152 focused tests; 549 full tests; exact path allowlist
+  evidence_reference: implementation branch agent/studio-009b-repository-connector at base 1b90a612c09895ec533ce93d35dc83e90490e125
+  outcome: completed
+  rationale: implement STUDIO-009B without activating a live GitHub transport, credentials, providers, or spend.
+  resulting_state: implementation validated; Pull Request creation pending in this runner.
+  correction_of: NONE
+
+<!-- STUDIO-009B-IMPLEMENTATION-PR-CHECKPOINT-0002 -->
+- checkpoint_id: STUDIO-009B-CP-0004
+  timestamp: 2026-09-02T16:40:45Z
+  actor: Studio Owner implementation runner
+  action: Committed, pushed, and opened the STUDIO-009B implementation Pull Request.
+  scope_files: exactly 24 unique authorized PR paths
+  command_or_check: implementation validation; commit; remote-head verification; Pull Request creation
+  evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/42; implementation code head dbb59e743c31714130fd00251b25e67810433b71
+  outcome: completed
+  rationale: hand off one bounded implementation head for independent QA and Review & Integration.
+  resulting_state: HANDOFF with implementation Pull Request open and unmerged; live connector runtime NONE.
+  correction_of: NONE
+
+<!-- STUDIO-009B-QA-HARDENING-CHECKPOINT-0003 -->
+- checkpoint_id: STUDIO-009B-CP-0005
+  timestamp: 2026-09-02T16:49:11Z
+  actor: QA-01 / STUDIO-009B QA hardening runner
+  action: Hardened CREATE_BRANCH response verification so a branch-creation result must remain bound to the requested immutable base revision.
+  scope_files: platform/connectivity/GITHUB_CONNECTOR.md; scripts/github_connector.py; tests/test_github_connector.py; STATE.md; WORKLOG.md; RESUME.md
+  command_or_check: vertical-slice validation; 154 focused tests; 551 full tests; exact 24-path cumulative PR scope; git diff --check
+  evidence_reference: Pull Request #42 reviewed head a4efdaf4b15e2fc3c45d54ba53bbfdfb4e0601b4
+  outcome: completed
+  rationale: close a response-lineage gap without broadening transport, credential, provider, network, routing, or spend authority.
+  resulting_state: QA hardening applied; final independent Review & Integration remains required before Owner merge decision.
+  correction_of: NONE
+<!-- STUDIO-009B-FINAL-REVIEW-CHECKPOINT-0001 -->
+- checkpoint_id: STUDIO-009B-CP-0006
+  timestamp: 2026-09-02T16:52:48Z
+  actor: QA-01 / Review and Integration
+  action: Independently revalidated the immutable STUDIO-009B QA head and approved the bounded implementation for Studio Owner merge consideration.
+  scope_files: cumulative exact 24-path STUDIO-009B implementation contract; final-review write limited to STATE.md, WORKLOG.md, and RESUME.md
+  command_or_check: immutable head lineage; exact six-path QA commit; exact 24-path cumulative scope; three schema parses; vertical-slice validation; 154 focused tests; 551 full tests; source no-external-runtime scan; git diff --check
+  evidence_reference: Pull Request #42 at 087ee410c2f82a765ec92e111f741a1b867be02c; Rules CI #196 SUCCESS
+  outcome: completed
+  rationale: QA and Review & Integration gates must pass on one immutable head before Studio Owner makes a separate merge decision.
+  resulting_state: QA-01 PASS; Review and Integration APPROVE; blocking findings 0; implementation Pull Request remains open and unmerged.
+  correction_of: NONE

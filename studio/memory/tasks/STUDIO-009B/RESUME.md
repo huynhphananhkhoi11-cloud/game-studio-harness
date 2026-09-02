@@ -71,3 +71,42 @@ contract_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pul
 contract_first_commit: f9f4f496fe5974913c75931bd97b0b491c4c4d74
 contract_checkpoint_at: 2026-09-02T15:02:35Z
 next_action: Review and merge this contract-only Pull Request; do not create STUDIO-009B implementation paths before merge.
+
+<!-- STUDIO-009B-IMPLEMENTATION-CHECKPOINT-0001 -->
+# Implementation checkpoint
+
+implementation_branch: agent/studio-009b-repository-connector
+implementation_base: 1b90a612c09895ec533ce93d35dc83e90490e125
+implementation_checkpoint_at: 2026-09-02T16:40:38Z
+validated_evidence: 152 focused tests PASS; 549 total tests PASS; exact 24-path maximum boundary
+next_action: Complete commit/push/Pull Request creation, then run independent QA and Review & Integration before any Owner merge decision.
+prohibited_next_action: Do not activate live GitHub transport, credentials, webhooks, AI providers, routing, connected execution, or STUDIO-009C implementation from this checkpoint.
+
+<!-- STUDIO-009B-IMPLEMENTATION-PR-CHECKPOINT-0002 -->
+# Implementation Pull Request checkpoint
+
+implementation_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/42
+implementation_code_head: dbb59e743c31714130fd00251b25e67810433b71
+implementation_pr_checkpoint_at: 2026-09-02T16:40:45Z
+next_action: Run independent STUDIO-009B QA and Review & Integration against the final implementation branch head; Studio Owner decides merge separately.
+do_not: Do not merge from automation and do not activate credentials, live transport, webhooks, providers, routing, connected execution, or spend.
+
+<!-- STUDIO-009B-QA-HARDENING-CHECKPOINT-0003 -->
+# QA hardening checkpoint
+
+qa_reviewed_head: a4efdaf4b15e2fc3c45d54ba53bbfdfb4e0601b4
+qa_checkpoint_at: 2026-09-02T16:49:11Z
+validated_evidence: 154 focused tests PASS; 551 total tests PASS; exact 24-path cumulative Pull Request boundary; Rules CI must pass again on the hardened head before final review.
+next_action: Run independent final Review & Integration against the hardened immutable head, then return the Pull Request to Studio Owner for merge decision.
+prohibited_next_action: Do not merge from automation and do not activate live transport, credentials, webhooks, providers, routing, connected execution, or spend.
+<!-- STUDIO-009B-FINAL-REVIEW-CHECKPOINT-0001 -->
+# Final Review and Integration handoff
+
+reviewed_head: 087ee410c2f82a765ec92e111f741a1b867be02c
+reviewed_at: 2026-09-02T16:52:48Z
+qa_01: PASS
+review_and_integration: APPROVE
+blocking_findings: 0
+validated_evidence: 154 focused tests PASS; 551 total tests PASS; Rules CI #196 SUCCESS; exact 24-path cumulative scope; no external runtime activity
+next_action: Studio Owner may independently decide whether to merge Pull Request #42. If merged, create a separate STUDIO-009B closeout Pull Request; do not start STUDIO-009C implementation before 009B closeout is accepted.
+do_not: Do not merge from this runner. Do not activate live GitHub transport, credentials, webhooks, AI providers, routing, connected execution, or spend.
