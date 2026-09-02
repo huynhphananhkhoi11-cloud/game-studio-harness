@@ -29,3 +29,16 @@ canonical_task_contract: tasks/STUDIO-009B.md
   rationale: STUDIO-009B implementation remains gated until the contract receives Owner merge disposition.
   resulting_state: HANDOFF with contract Pull Request open and unmerged; connector runtime activity NONE.
   correction_of: NONE
+
+<!-- STUDIO-009B-IMPLEMENTATION-CHECKPOINT-0001 -->
+- checkpoint_id: STUDIO-009B-CP-0003
+  timestamp: 2026-09-02T16:40:38Z
+  actor: Studio Owner implementation runner
+  action: Materialized and validated the deterministic repository registry and disabled GitHub connector core.
+  scope_files: 20 approved implementation paths plus 4 approved memory records
+  command_or_check: schema parse; vertical-slice validation; 152 focused tests; 549 full tests; exact path allowlist
+  evidence_reference: implementation branch agent/studio-009b-repository-connector at base 1b90a612c09895ec533ce93d35dc83e90490e125
+  outcome: completed
+  rationale: implement STUDIO-009B without activating a live GitHub transport, credentials, providers, or spend.
+  resulting_state: implementation validated; Pull Request creation pending in this runner.
+  correction_of: NONE

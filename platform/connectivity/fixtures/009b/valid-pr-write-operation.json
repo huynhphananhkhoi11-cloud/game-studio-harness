@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "repository_id": "repository:game-studio-harness",
+  "repository_record_digest": "sha256:b402ea572096d8684348e15e7d968e0a1aeaf4f96e8194a99804bd94d177f906",
+  "operation": "CREATE_OR_UPDATE_FILE",
+  "base_revision": "14802ce03e1d8ac6f5fdbcb6b354b59103a244cb",
+  "target_ref": "agent/studio-009b-fixture",
+  "target_paths": [
+    "platform/connectivity/REPOSITORY_REGISTRY.md"
+  ],
+  "data_classification": "INTERNAL",
+  "instruction_authority_path": "platform/connectivity/CONNECTION_BOUNDARY.md",
+  "control_evidence": {
+    "task_ref": "task:STUDIO-009B",
+    "attempt_ref": "attempt:studio-009b-001",
+    "queue_ref": "queue:studio-009a",
+    "dispatch_ref": "dispatch:studio-009a",
+    "writer_claim_ref": "writer-claim:studio-009a",
+    "worktree_ref": "worktree:studio-009a",
+    "gate_ref": "gate:studio-009a",
+    "trace_ref": "trace:studio-009a",
+    "quota_budget_ref": "quota-budget:studio-009a",
+    "boundary_ref": "boundary:studio-009a-write",
+    "threat_assessment_ref": "threat-assessment:studio-009a",
+    "owner_approval_ref": "owner-approval:studio-009b"
+  },
+  "limits": {
+    "max_payload_bytes": 262144,
+    "max_files": 10,
+    "page": 1,
+    "per_page": 50,
+    "timeout_ms": 5000,
+    "max_response_bytes": 524288
+  },
+  "idempotency_key": "idem:studio-009b-write-001",
+  "replay": {
+    "issued_at": "2026-09-01T14:04:00Z",
+    "expires_at": "2026-09-01T14:06:00Z",
+    "prior_result_digest": null
+  },
+  "as_of": "2026-09-01T14:05:00Z",
+  "canonical_digest": "sha256:d0b4865d657493b11a2a20760afd6845debfdf6d950795e9e373549be2418c2e"
+}

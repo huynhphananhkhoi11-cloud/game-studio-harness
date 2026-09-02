@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "repository_id": "repository:game-studio-harness",
+  "host": "github.com",
+  "owner": "huynhphananhkhoi11-cloud",
+  "name": "game-studio-harness",
+  "canonical_url": "https://github.com/huynhphananhkhoi11-cloud/game-studio-harness",
+  "default_branch": "main",
+  "registration_revision": "14802ce03e1d8ac6f5fdbcb6b354b59103a244cb",
+  "access_tier": "READ_ONLY",
+  "allowed_paths": [
+    "AGENTS.md",
+    "platform/orchestration",
+    "tasks"
+  ],
+  "denied_paths": [
+    ".env",
+    ".git",
+    "credentials",
+    "secrets"
+  ],
+  "allowed_branch_namespace": null,
+  "allowed_classifications": [
+    "INTERNAL",
+    "PUBLIC"
+  ],
+  "instruction_authority_paths": [
+    "AGENTS.md",
+    "tasks/STUDIO-009A.md"
+  ],
+  "auth_profile_ref": "auth-profile:none",
+  "owner_approval_ref": "owner-approval:studio-009b",
+  "boundary_digest": "sha256:ce6d5a8a0986e5fb1680e13dea47a726dcd0cd33b163dfd76df96571fcf792d0",
+  "threat_assessment_digest": "sha256:e20ed09671c07343c2239174b3abf69db4436aaded631722f1fad506a0d3d0f2",
+  "registry_version_ref": "registry-version:studio-009b-v1",
+  "status": "READ_ONLY_ACTIVE",
+  "kill_switch_ref": "kill-switch:studio-009b",
+  "read_only_downgrade_ref": "downgrade:studio-009b",
+  "as_of": "2026-09-01T14:05:00Z",
+  "expires_at": "2026-12-31T23:59:59Z",
+  "canonical_digest": "sha256:5bf2fb50009bbdf8b1384c6c1ca34f59f081c96b373b69a4cfa277ef4a1ebe04"
+}

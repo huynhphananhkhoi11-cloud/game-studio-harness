@@ -71,3 +71,13 @@ contract_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pul
 contract_first_commit: f9f4f496fe5974913c75931bd97b0b491c4c4d74
 contract_checkpoint_at: 2026-09-02T15:02:35Z
 next_action: Review and merge this contract-only Pull Request; do not create STUDIO-009B implementation paths before merge.
+
+<!-- STUDIO-009B-IMPLEMENTATION-CHECKPOINT-0001 -->
+# Implementation checkpoint
+
+implementation_branch: agent/studio-009b-repository-connector
+implementation_base: 1b90a612c09895ec533ce93d35dc83e90490e125
+implementation_checkpoint_at: 2026-09-02T16:40:38Z
+validated_evidence: 152 focused tests PASS; 549 total tests PASS; exact 24-path maximum boundary
+next_action: Complete commit/push/Pull Request creation, then run independent QA and Review & Integration before any Owner merge decision.
+prohibited_next_action: Do not activate live GitHub transport, credentials, webhooks, AI providers, routing, connected execution, or STUDIO-009C implementation from this checkpoint.

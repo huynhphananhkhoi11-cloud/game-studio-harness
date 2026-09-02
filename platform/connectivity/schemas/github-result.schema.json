@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "github-result.schema.json",
+  "title": "STUDIO-009B GitHub Result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "repository_id",
+    "repository_record_digest",
+    "operation",
+    "request_digest",
+    "idempotency_key",
+    "base_revision",
+    "resulting_revision",
+    "target_ref",
+    "paths",
+    "status",
+    "response_bytes",
+    "as_of",
+    "canonical_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "repository_id": {
+      "type": "string"
+    },
+    "repository_record_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "operation": {
+      "enum": [
+        "READ_METADATA",
+        "READ_TREE",
+        "READ_BLOB",
+        "CREATE_BRANCH",
+        "CREATE_OR_UPDATE_FILE",
+        "OPEN_PULL_REQUEST",
+        "READ_PULL_REQUEST",
+        "READ_CHECKS"
+      ]
+    },
+    "request_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "idempotency_key": {
+      "type": "string"
+    },
+    "base_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "resulting_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "target_ref": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "paths": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 100,
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "const": "OK"
+    },
+    "response_bytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2097152
+    },
+    "as_of": {
+      "type": "string"
+    },
+    "canonical_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}
