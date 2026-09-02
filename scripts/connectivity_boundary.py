@@ -7,6 +7,7 @@ import argparse
 import copy
 import hashlib
 import json
+import math
 import re
 import sys
 from datetime import datetime, timezone
@@ -102,6 +103,7 @@ WINDOWS_RESERVED_NAMES = {
     *(f"com{index}" for index in range(1, 10)),
     *(f"lpt{index}" for index in range(1, 10)),
 }
+WRITE_PROTECTED_ROOTS = {".github", ".gitmodules", "codeowners"}
 
 
 class BoundaryValidationError(ValueError):
@@ -178,17 +180,27 @@ def _walk(value: Any) -> Iterable[tuple[str | None, Any]]:
 def _preflight_content(value: Any) -> None:
     for key, child in _walk(value):
         if key is not None:
+            try:
+                key.encode("utf-8")
+            except UnicodeEncodeError:
+                _fail("INPUT_ENCODING", "object keys must contain valid Unicode scalar values")
             lowered = key.lower()
             if lowered in PROVIDER_IDENTITY_KEYS:
                 _fail("PROVIDER_IDENTITY", "provider-specific identity fields are forbidden")
             if key not in REFERENCE_KEY_EXCEPTIONS and any(term in lowered for term in SECRET_KEYS):
                 _fail("SECRET_MATERIAL", "secret-like fields are forbidden")
         if isinstance(child, str):
+            try:
+                child.encode("utf-8")
+            except UnicodeEncodeError:
+                _fail("INPUT_ENCODING", "string values must contain valid Unicode scalar values")
             lowered_value = child.lower()
             if any(pattern in lowered_value for pattern in PROMPT_INJECTION_PATTERNS):
                 _fail("PROMPT_INJECTION", "instruction-confusion content is forbidden")
             if any(pattern.search(child) for pattern in SECRET_VALUE_PATTERNS):
                 _fail("SECRET_MATERIAL", "credential-bearing values are forbidden")
+        elif isinstance(child, float) and not math.isfinite(child):
+            _fail("INPUT_NUMBER", "non-finite numbers are forbidden")
 
 
 def _validate_reference(value: Any, label: str, *, nullable: bool = False) -> str | None:
@@ -269,6 +281,13 @@ def _validate_paths(allowed_paths: Any, denied_paths: Any) -> tuple[list[str], l
     return allowed, denied
 
 
+def _validate_write_paths(allowed_paths: list[str]) -> None:
+    for path in allowed_paths:
+        root = path.split("/", 1)[0].casefold()
+        if root in WRITE_PROTECTED_ROOTS:
+            _fail("UNAUTHORIZED_WRITE", "write scope includes repository control files")
+
+
 def _path_is_allowed(path: str, allowed_paths: list[str]) -> bool:
     return any(_path_contains(allowed, path) for allowed in allowed_paths)
 
@@ -304,6 +323,8 @@ def validate_boundary(boundary: dict[str, Any]) -> dict[str, Any]:
     if access_tier not in ACCESS_TIERS:
         _fail("UNAUTHORIZED_WRITE", "repository access tier is not authorized")
     allowed_paths, _ = _validate_paths(repository["allowed_paths"], repository["denied_paths"])
+    if access_tier != "READ_ONLY":
+        _validate_write_paths(allowed_paths)
     _validate_reference(repository["auth_profile_ref"], "auth_profile_ref")
 
     data_policy = _require_exact_fields(record["data_policy"], DATA_POLICY_FIELDS, "data_policy")
@@ -401,6 +422,9 @@ def validate_threat_assessment(assessment: dict[str, Any], *, boundary: dict[str
             _fail("BOUNDARY_LINEAGE", "boundary threat reference does not match assessment identity")
         if record["as_of"] != boundary["as_of"]:
             _fail("BOUNDARY_LINEAGE", "boundary and assessment as_of values differ")
+        boundary_created_at = _parse_utc(boundary["created_at"], "created_at")
+        if assessed_at < boundary_created_at:
+            _fail("BOUNDARY_LINEAGE", "threat assessment predates its boundary")
     if canonical_json_bytes(assessment) != before:
         _fail("INPUT_MUTATION", "threat-assessment input was mutated")
     return {
@@ -425,6 +449,10 @@ def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
     return value
 
 
+def _reject_nonfinite_number(_: str) -> None:
+    _fail("INPUT_NUMBER", "non-finite numbers are forbidden")
+
+
 def _load_json(path: str) -> dict[str, Any]:
     with Path(path).open("rb") as handle:
         raw = handle.read(MAX_INPUT_BYTES + 1)
@@ -434,7 +462,14 @@ def _load_json(path: str) -> dict[str, Any]:
         text = raw.decode("utf-8")
     except UnicodeDecodeError:
         _fail("INPUT_ENCODING", "JSON input must use UTF-8")
-    value = json.loads(text, object_pairs_hook=_reject_duplicate_keys)
+    try:
+        value = json.loads(
+            text,
+            object_pairs_hook=_reject_duplicate_keys,
+            parse_constant=_reject_nonfinite_number,
+        )
+    except RecursionError:
+        _fail("STRUCTURE_LIMIT", "input structure exceeds validation limits")
     if not isinstance(value, dict):
         _fail("INVALID_TYPE", "fixture root must be an object")
     return value

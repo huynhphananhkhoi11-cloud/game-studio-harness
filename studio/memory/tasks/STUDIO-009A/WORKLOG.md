@@ -65,3 +65,15 @@ canonical_task_contract: tasks/STUDIO-009A.md
   rationale: Fail-closed boundary evidence must resist cross-platform path aliases, unsafe Git ref syntax, duplicate JSON keys, oversized or invalidly encoded input, and adversarial structure depth before later connectors are authorized.
   resulting_state: HANDOFF with QA hardening worktree-only, zero external runtime activity, and transfer pending to the Studio Owner runner.
   correction_of: NONE
+
+- checkpoint_id: STUDIO-009A-CP-0006
+  timestamp: 2026-09-02T06:32:01Z
+  actor: Codex / REVIEW-INTEGRATION-01
+  action: Reconciled the pushed QA checkpoint and completed final Review and Integration remediation for Pull Request #39.
+  scope_files: existing paths within the exact 23-path implementation boundary
+  command_or_check: GitHub PR head and scope reconciliation; adversarial parser, Unicode, number, write-scope, and temporal-lineage review; focused and full regression tests; schema syntax; git diff --check
+  evidence_reference: reviewed QA head f7a60b308594cde5cbdc97e06590dc410a30fae6; Pull Request #39; 59 focused tests PASS; 456 total tests PASS
+  outcome: completed
+  rationale: A future connector boundary must return stable fail-closed results for malformed JSON and must not authorize writes to repository control files or accept impossible threat-assessment chronology.
+  resulting_state: HANDOFF with QA-01 PASS, Review and Integration APPROVE, zero blocking findings, zero external runtime activity, and Owner merge disposition pending.
+  correction_of: NONE

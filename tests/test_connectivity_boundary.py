@@ -140,6 +140,15 @@ class BoundaryBehaviorTests(unittest.TestCase):
         record = self.boundary(); record["repository"]["allowed_paths"] = [".env", "AGENTS.md", "tasks"]; reseal(record)
         self.assertBoundaryCode(record, "UNSAFE_PATH")
 
+    def test_write_scope_rejects_repository_control_roots(self):
+        for protected in [".github/workflows", ".gitmodules", "CODEOWNERS"]:
+            with self.subTest(protected=protected):
+                record = load("valid-branch-write-boundary.json")
+                record["repository"]["allowed_paths"] = [protected, "platform/connectivity", "scripts", "tests"]
+                record["repository"]["allowed_paths"].sort()
+                reseal(record)
+                self.assertBoundaryCode(record, "UNAUTHORIZED_WRITE")
+
     def test_double_dot_branch_fails_closed(self):
         record = self.boundary(); record["repository"]["default_branch"] = "refs..main"; reseal(record)
         self.assertBoundaryCode(record, "INVALID_FORMAT")
@@ -209,6 +218,16 @@ class BoundaryBehaviorTests(unittest.TestCase):
         with self.assertRaises(cb.BoundaryValidationError) as caught: cb.validate_threat_assessment(record, boundary=self.boundary())
         self.assertEqual(caught.exception.code, "BOUNDARY_LINEAGE")
 
+    def test_assessment_cannot_predate_boundary(self):
+        record = self.threat(); record["assessed_at"] = "2026-09-01T13:59:59Z"; reseal(record)
+        with self.assertRaises(cb.BoundaryValidationError) as caught:
+            cb.validate_threat_assessment(record, boundary=self.boundary())
+        self.assertEqual(caught.exception.code, "BOUNDARY_LINEAGE")
+
+    def test_nonfinite_direct_input_fails_closed(self):
+        record = self.boundary(); record["money_ceiling"] = float("nan")
+        self.assertBoundaryCode(record, "INPUT_NUMBER")
+
     def test_threat_input_is_immutable(self):
         record = self.threat(); before = copy.deepcopy(record); cb.validate_threat_assessment(record)
         self.assertEqual(record, before)
@@ -277,6 +296,31 @@ class BoundaryCliTests(unittest.TestCase):
             result = self.run_cli("validate-boundary", path)
         self.assertEqual(result.returncode, 1)
         self.assertEqual(json.loads(result.stdout)["error_code"], "INPUT_ENCODING")
+
+    def test_unpaired_unicode_surrogate_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "surrogate.json"
+            path.write_bytes(b'{"unexpected":"\\ud800"}')
+            result = self.run_cli("validate-boundary", path)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(json.loads(result.stdout)["error_code"], "INPUT_ENCODING")
+
+    def test_nonstandard_json_number_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "nan.json"
+            path.write_text('{"money_ceiling":NaN}', encoding="utf-8")
+            result = self.run_cli("validate-boundary", path)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(json.loads(result.stdout)["error_code"], "INPUT_NUMBER")
+
+    def test_parser_depth_failure_is_stable(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "deep.json"
+            path.write_text('{"x":' + '[' * 2000 + '0' + ']' * 2000 + '}', encoding="utf-8")
+            result = self.run_cli("validate-boundary", path)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(json.loads(result.stdout)["error_code"], "STRUCTURE_LIMIT")
+        self.assertEqual(result.stderr, "")
 
 
 if __name__ == "__main__":

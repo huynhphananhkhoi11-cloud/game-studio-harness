@@ -12,9 +12,9 @@ logical_role: Platform Studio / Security and Integration Cell
 repository_context: game-studio-harness
 worktree_context: STUDIO-009A implementation worktree
 branch: agent/studio-009a-boundary-validator
-last_observed_HEAD: 8c489c7147ace1457a41b1b44fc0f27c88b99cef
+last_observed_HEAD: f7a60b308594cde5cbdc97e06590dc410a30fae6
 durability_state: WORKTREE_ONLY
-last_verified_persisted_ref: 8c489c7147ace1457a41b1b44fc0f27c88b99cef; Pull Request #39 open
+last_verified_persisted_ref: f7a60b308594cde5cbdc97e06590dc410a30fae6; Pull Request #39 open
 
 # Worktree and change boundary
 
@@ -34,9 +34,12 @@ completed: |
   - Verified implementation commit 8c489c7147ace1457a41b1b44fc0f27c88b99cef on Pull Request #39 with exactly 23 changed paths and successful Rules CI run 175.
   - Hardened portable path and Git-branch validation, bounded JSON input, duplicate-key and UTF-8 handling, and non-recursive structure limits.
   - Validated 53 focused STUDIO-009A tests and 450 total tests after QA hardening.
+  - Verified the pushed QA checkpoint at f7a60b308594cde5cbdc97e06590dc410a30fae6 and completed independent Review and Integration remediation.
+  - Added stable rejection for parser-depth exhaustion, malformed Unicode scalars, non-finite JSON numbers, protected repository-control write scopes, and threat assessments that predate their boundary.
+  - Validated 59 focused STUDIO-009A tests and 456 total tests with zero blocking findings after remediation.
 remaining: |
-  - Commit and push the validated QA hardening checkpoint to Pull Request #39.
-  - Obtain Review and Integration evidence before Owner merge disposition.
+  - Commit and push the validated final review remediation checkpoint to Pull Request #39.
+  - Await Studio Owner merge disposition.
 blockers: |
   - NONE
 assumptions: |
@@ -65,17 +68,22 @@ latest_checks: |
   - QA hardening focused boundary suite: 53 PASS
   - QA hardening full regression suite: 450 PASS
   - QA hardening git diff --check and JSON syntax: PASS
+  - QA checkpoint persisted on Pull Request #39: PASS at f7a60b308594cde5cbdc97e06590dc410a30fae6
+  - final review focused boundary suite: 59 PASS
+  - final review full regression suite: 456 PASS
+  - final review schema syntax, exact 23-path boundary, and git diff --check: PASS
+  - QA-01: PASS; Review and Integration: APPROVE; blocking findings: 0
 
-last_safe_checkpoint_id: STUDIO-009A-CP-0005
-exact_next_action: Materialize the validated QA hardening checkpoint on agent/studio-009a-boundary-validator, commit and push it to Pull Request #39 without merging it.
+last_safe_checkpoint_id: STUDIO-009A-CP-0006
+exact_next_action: Materialize the validated final review remediation checkpoint on agent/studio-009a-boundary-validator, commit and push it to Pull Request #39, and await Studio Owner merge disposition.
 
 # Active writer claim
 
 active_writer_claim:
   status: TRANSFER_PENDING
-  writer: Codex / QA-01
+  writer: Codex / REVIEW-INTEGRATION-01
   claim_timestamp: 2026-09-01T13:36:41Z
-  transfer_intent: Studio Owner runner will materialize the validated QA hardening checkpoint and transfer it to REVIEW-INTEGRATION-01.
+  transfer_intent: Studio Owner runner will materialize the validated final review remediation checkpoint and return merge disposition to the Studio Owner.
 
-updated_at: 2026-09-02T05:54:49Z
-updater: Codex / QA-01
+updated_at: 2026-09-02T06:32:01Z
+updater: Codex / REVIEW-INTEGRATION-01

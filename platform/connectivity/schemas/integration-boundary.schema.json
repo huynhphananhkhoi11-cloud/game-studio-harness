@@ -23,6 +23,12 @@
     "pathList": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 240, "pattern": "^[A-Za-z0-9._/-]+$"}},
     "repository": {
       "type": "object", "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties": {"access_tier": {"enum": ["BRANCH_WRITE", "PR_WRITE"]}}, "required": ["access_tier"]},
+          "then": {"properties": {"allowed_paths": {"items": {"not": {"pattern": "^(?:\\.github(?:/|$)|\\.gitmodules$|CODEOWNERS$)"}}}}}
+        }
+      ],
       "required": ["repository_id", "revision", "default_branch", "access_tier", "allowed_paths", "denied_paths", "auth_profile_ref"],
       "properties": {
         "repository_id": {"$ref": "#/$defs/reference"},
