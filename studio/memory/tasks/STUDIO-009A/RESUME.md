@@ -6,7 +6,7 @@ task_id: STUDIO-009A
 package_path: studio/memory/tasks/STUDIO-009A
 canonical_task_contract: tasks/STUDIO-009A.md
 current_state: HANDOFF
-last_safe_checkpoint_id: STUDIO-009A-CP-0004
+last_safe_checkpoint_id: STUDIO-009A-CP-0005
 required_read_order:
   - AGENTS.md
   - docs/GAME_VISION.md
@@ -22,9 +22,9 @@ required_read_order:
 repository_context: game-studio-harness
 worktree_context: STUDIO-009A implementation worktree
 branch: agent/studio-009a-boundary-validator
-last_observed_HEAD: 14802ce03e1d8ac6f5fdbcb6b354b59103a244cb
-durability_state: MERGED
-last_verified_persisted_ref: 14802ce03e1d8ac6f5fdbcb6b354b59103a244cb
+last_observed_HEAD: 8c489c7147ace1457a41b1b44fc0f27c88b99cef
+durability_state: WORKTREE_ONLY
+last_verified_persisted_ref: 8c489c7147ace1457a41b1b44fc0f27c88b99cef; Pull Request #39 open
 
 expected_worktree_status: |
   - changed_files_attributed_to_task: exact implementation paths and four memory records authorized by tasks/STUDIO-009A-IMPLEMENTATION.md
@@ -36,8 +36,11 @@ completed_summary: |
   - Contract PR #38 merged at 14802ce03e1d8ac6f5fdbcb6b354b59103a244cb; implementation branch and writer claim are active.
   - Exact 23-path implementation checkpoint is complete: documentation, two schemas, 12 fixtures, deterministic validator, 40 focused tests, and four memory records.
   - Vertical-slice validation, all 40 focused tests, and all 437 tests pass; no external runtime activity or spend occurred.
+  - Implementation Pull Request #39 is open at head 8c489c7147ace1457a41b1b44fc0f27c88b99cef with exactly 23 changed paths and Rules CI run 175 successful.
+  - QA hardening adds portable path/ref validation and bounded, duplicate-safe, UTF-8 JSON parsing with iterative structure limits.
+  - All 53 focused tests and all 450 total tests pass after hardening.
 remaining_summary: |
-  - Materialize, commit, push, and open the implementation PR; then obtain QA and Review and Integration evidence.
+  - Materialize, commit, and push the QA hardening checkpoint to Pull Request #39; then obtain Review and Integration evidence.
 blockers_and_authority_questions: |
   - Later repo/provider/credential/budget identities remain outside STUDIO-009A.
   - No current blocker.
@@ -52,19 +55,24 @@ latest_checks: |
   - focused boundary suite: 40 PASS
   - full regression suite: 437 PASS
   - external runtime repository/provider/credential/network/spend activity: NONE
+  - Pull Request #39 exact 23-path scope and head: PASS
+  - Rules CI run 175: PASS
+  - QA hardening focused boundary suite: 53 PASS
+  - QA hardening full regression suite: 450 PASS
+  - QA hardening JSON syntax and git diff --check: PASS
 
 first_verification_actions: |
   - Run git branch --show-current, git rev-parse HEAD, git status -sb, git diff --check, inspect all seven changed paths, verify schema version 1 across the package, and run the retained test suite.
-next_implementation_action_after_verification: Commit and push the exact validated checkpoint, open its implementation Pull Request, and stop before merge.
-receiving_role: QA-01 and REVIEW-INTEGRATION-01
+next_implementation_action_after_verification: Commit and push the exact validated QA hardening checkpoint to Pull Request #39 and stop before merge.
+receiving_role: REVIEW-INTEGRATION-01
 writer_transfer_status: TRANSFER_PENDING
 
 generated_from:
   TASK: TASK.md
   STATE: STATE.md
-  WORKLOG: STUDIO-009A-CP-0001; STUDIO-009A-CP-0002; STUDIO-009A-CP-0003; STUDIO-009A-CP-0004
+  WORKLOG: STUDIO-009A-CP-0001; STUDIO-009A-CP-0002; STUDIO-009A-CP-0003; STUDIO-009A-CP-0004; STUDIO-009A-CP-0005
 
-updated_at: 2026-09-02T05:25:14Z
+updated_at: 2026-09-02T05:54:49Z
 
 verify_instructions: |
   - If branch, HEAD, scope, schema, writer claim, or unrelated changes differ from this record, stop and reconcile under studio/MEMORY_PROTOCOL.md before writing.

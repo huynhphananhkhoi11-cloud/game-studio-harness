@@ -2,6 +2,7 @@ import copy
 import json
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -111,13 +112,45 @@ class BoundaryBehaviorTests(unittest.TestCase):
         record = self.boundary(); record["repository"]["denied_paths"] = [".env", ".git", "credentials", "tasks/private"]; reseal(record)
         self.assertBoundaryCode(record, "PATH_SCOPE_OVERLAP")
 
+    def test_case_insensitive_denied_overlap_fails_closed(self):
+        record = self.boundary(); record["repository"]["denied_paths"] = [".env", ".git", "PLATFORM/ORCHESTRATION/private", "credentials"]; reseal(record)
+        self.assertBoundaryCode(record, "PATH_SCOPE_OVERLAP")
+
+    def test_case_alias_duplicate_path_fails_closed(self):
+        record = self.boundary(); record["repository"]["allowed_paths"] = ["AGENTS.md", "Tasks", "platform/orchestration", "tasks"]; reseal(record)
+        self.assertBoundaryCode(record, "DUPLICATE_VALUE")
+
     def test_backslash_path_fails_closed(self):
         record = self.boundary(); record["repository"]["allowed_paths"] = ["AGENTS.md", "platform\\connectivity", "tasks"]; reseal(record)
+        self.assertBoundaryCode(record, "UNSAFE_PATH")
+
+    def test_alternate_data_stream_path_fails_closed(self):
+        record = self.boundary(); record["repository"]["allowed_paths"] = ["AGENTS.md", "platform/connectivity:file", "tasks"]; reseal(record)
+        self.assertBoundaryCode(record, "UNSAFE_PATH")
+
+    def test_windows_reserved_path_fails_closed(self):
+        record = self.boundary(); record["repository"]["allowed_paths"] = ["AGENTS.md", "con.json", "tasks"]; reseal(record)
+        self.assertBoundaryCode(record, "UNSAFE_PATH")
+
+    def test_trailing_dot_path_fails_closed(self):
+        record = self.boundary(); record["repository"]["allowed_paths"] = ["AGENTS.md", "platform/connectivity.", "tasks"]; reseal(record)
         self.assertBoundaryCode(record, "UNSAFE_PATH")
 
     def test_sensitive_allowed_root_fails_closed(self):
         record = self.boundary(); record["repository"]["allowed_paths"] = [".env", "AGENTS.md", "tasks"]; reseal(record)
         self.assertBoundaryCode(record, "UNSAFE_PATH")
+
+    def test_double_dot_branch_fails_closed(self):
+        record = self.boundary(); record["repository"]["default_branch"] = "refs..main"; reseal(record)
+        self.assertBoundaryCode(record, "INVALID_FORMAT")
+
+    def test_reflog_syntax_branch_fails_closed(self):
+        record = self.boundary(); record["repository"]["default_branch"] = "main@{1"; reseal(record)
+        self.assertBoundaryCode(record, "INVALID_FORMAT")
+
+    def test_lock_suffix_branch_fails_closed(self):
+        record = self.boundary(); record["repository"]["default_branch"] = "main.lock"; reseal(record)
+        self.assertBoundaryCode(record, "INVALID_FORMAT")
 
     def test_instruction_authority_must_be_allowed(self):
         record = self.boundary(); record["data_policy"]["instruction_authority_paths"] = ["README.md"]; reseal(record)
@@ -194,6 +227,16 @@ class BoundaryBehaviorTests(unittest.TestCase):
         path = FIXTURES / "valid-read-only-boundary.json"; before = path.read_bytes(); cb.validate_boundary(json.loads(before))
         self.assertEqual(path.read_bytes(), before)
 
+    def test_deep_structure_fails_closed_without_recursion_error(self):
+        record = self.boundary(); nested = "leaf"
+        for _ in range(cb.MAX_STRUCTURE_DEPTH + 2): nested = [nested]
+        record["unexpected"] = nested
+        self.assertBoundaryCode(record, "STRUCTURE_LIMIT")
+
+    def test_cyclic_input_fails_closed_without_hanging(self):
+        record = self.boundary(); cycle = []; cycle.append(cycle); record["unexpected"] = cycle
+        self.assertBoundaryCode(record, "STRUCTURE_LIMIT")
+
 
 class BoundaryCliTests(unittest.TestCase):
     def run_cli(self, *args):
@@ -210,6 +253,30 @@ class BoundaryCliTests(unittest.TestCase):
         payload = json.loads(result.stdout)
         self.assertEqual(payload["error_code"], "SECRET_MATERIAL")
         self.assertNotIn("redacted-value", result.stdout)
+
+    def test_duplicate_json_keys_fail_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "duplicate.json"
+            path.write_text('{"schema_version":"1.0","schema_version":"1.0"}', encoding="utf-8")
+            result = self.run_cli("validate-boundary", path)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(json.loads(result.stdout)["error_code"], "DUPLICATE_JSON_KEY")
+
+    def test_oversized_json_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "large.json"
+            path.write_bytes(b"{" + b" " * cb.MAX_INPUT_BYTES + b"}")
+            result = self.run_cli("validate-boundary", path)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(json.loads(result.stdout)["error_code"], "INPUT_SIZE")
+
+    def test_invalid_utf8_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "invalid.json"
+            path.write_bytes(b"{\xff}")
+            result = self.run_cli("validate-boundary", path)
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(json.loads(result.stdout)["error_code"], "INPUT_ENCODING")
 
 
 if __name__ == "__main__":

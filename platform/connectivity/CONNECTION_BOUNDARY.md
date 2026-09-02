@@ -26,7 +26,7 @@ Unknown fields fail closed at every controlled object level.
 
 Accepted tiers are `READ_ONLY`, `BRANCH_WRITE`, and `PR_WRITE`. Write-capable tiers require both writer-claim and worktree evidence. Direct/default-branch write, admin, settings mutation, repository deletion, workflow mutation, deployment, publication, and release are not representable.
 
-Paths use normalized repository-relative POSIX syntax. Absolute paths, backslashes, empty or dot segments, traversal, control characters, secret-bearing allowed paths, duplicates, unsorted lists, and allowed/denied overlap fail closed. Denied scope always wins.
+Paths use normalized, portable, ASCII repository-relative POSIX syntax and are compared case-insensitively for aliases and containment. Absolute paths, backslashes, alternate-data-stream colons, empty or dot segments, traversal, trailing dots or spaces, Windows reserved device names, control characters, secret-bearing allowed paths, exact or case-alias duplicates, unsorted lists, and allowed/denied overlap fail closed. Denied scope always wins.
 
 ## Data and provider request
 
@@ -36,7 +36,7 @@ The provider request declares only a generic capability ID, classification, and 
 
 ## Determinism and safety
 
-Validation uses caller-supplied objects and UTC `as_of` only. It does not read the system clock, environment credentials, Git state, network state, hidden files, or provider configuration. Inputs are not mutated. Error responses use stable codes and never echo secret-bearing values.
+Validation uses caller-supplied objects and UTC `as_of` only. It does not read the system clock, environment credentials, Git state, network state, hidden files, or provider configuration. Inputs are not mutated. JSON files are limited to 1 MiB, must use UTF-8, and reject duplicate keys. Excessive object depth or node count fails closed without recursive traversal. Error responses use stable codes and never echo secret-bearing values.
 
 Money ceiling is exactly integer zero in STUDIO-009A. Python booleans are rejected as money values even though `bool` subclasses `int`.
 

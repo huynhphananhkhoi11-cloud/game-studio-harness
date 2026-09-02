@@ -15,6 +15,9 @@ from typing import Any, Iterable
 
 
 SCHEMA_VERSION = "1.0"
+MAX_INPUT_BYTES = 1_048_576
+MAX_STRUCTURE_DEPTH = 32
+MAX_STRUCTURE_NODES = 10_000
 ACCESS_TIERS = {"READ_ONLY", "BRANCH_WRITE", "PR_WRITE"}
 CLASSIFICATIONS = {"PUBLIC", "INTERNAL", "RESTRICTED"}
 ZONES = {
@@ -67,6 +70,7 @@ CONTROL_RE = re.compile(r"^C-[A-Z0-9-]{3,63}$")
 DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 REVISION_RE = re.compile(r"^[0-9a-f]{40}$")
 BRANCH_RE = re.compile(r"^[A-Za-z0-9._/-]{1,120}$")
+PATH_SEGMENT_RE = re.compile(r"^[A-Za-z0-9._-]+$")
 UTC_RE = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$")
 
 SECRET_KEYS = {
@@ -92,6 +96,11 @@ SECRET_VALUE_PATTERNS = (
 SENSITIVE_ALLOWED_ROOTS = {
     ".env", ".git", ".ssh", "secrets", "credentials", "token-cache",
     "private-keys", "browser-profile",
+}
+WINDOWS_RESERVED_NAMES = {
+    "aux", "con", "nul", "prn",
+    *(f"com{index}" for index in range(1, 10)),
+    *(f"lpt{index}" for index in range(1, 10)),
 }
 
 
@@ -152,14 +161,18 @@ def _parse_utc(value: Any, label: str) -> datetime:
 
 
 def _walk(value: Any) -> Iterable[tuple[str | None, Any]]:
-    if isinstance(value, dict):
-        for key, child in value.items():
-            yield key, child
-            yield from _walk(child)
-    elif isinstance(value, list):
-        for child in value:
-            yield None, child
-            yield from _walk(child)
+    stack: list[tuple[str | None, Any, int]] = [(None, value, 0)]
+    observed = 0
+    while stack:
+        key, child, depth = stack.pop()
+        observed += 1
+        if observed > MAX_STRUCTURE_NODES or depth > MAX_STRUCTURE_DEPTH:
+            _fail("STRUCTURE_LIMIT", "input structure exceeds validation limits")
+        yield key, child
+        if isinstance(child, dict):
+            stack.extend((nested_key, nested, depth + 1) for nested_key, nested in reversed(list(child.items())))
+        elif isinstance(child, list):
+            stack.extend((None, nested, depth + 1) for nested in reversed(child))
 
 
 def _preflight_content(value: Any) -> None:
@@ -184,13 +197,21 @@ def _validate_reference(value: Any, label: str, *, nullable: bool = False) -> st
     return _require_string(value, REFERENCE_RE, label)
 
 
-def _validate_sorted_unique_strings(value: Any, label: str, *, allowed: set[str] | None = None) -> list[str]:
+def _validate_sorted_unique_strings(
+    value: Any,
+    label: str,
+    *,
+    allowed: set[str] | None = None,
+    case_insensitive: bool = False,
+) -> list[str]:
     if not isinstance(value, list) or not value:
         _fail("INVALID_LIST", f"{label} must be a non-empty list")
     if any(not isinstance(item, str) for item in value):
         _fail("INVALID_LIST", f"{label} must contain strings")
     if len(set(value)) != len(value):
         _fail("DUPLICATE_VALUE", f"{label} contains duplicates")
+    if case_insensitive and len({item.casefold() for item in value}) != len(value):
+        _fail("DUPLICATE_VALUE", f"{label} contains case-alias duplicates")
     if value != sorted(value):
         _fail("NONCANONICAL_ORDER", f"{label} must be sorted")
     if allowed is not None and not set(value).issubset(allowed):
@@ -208,6 +229,10 @@ def _validate_path(path: str, label: str, *, denied: bool = False) -> str:
     segments = path.split("/")
     if any(segment in {"", ".", ".."} for segment in segments):
         _fail("UNSAFE_PATH", f"{label} contains traversal or empty segments")
+    if any(not PATH_SEGMENT_RE.fullmatch(segment) or segment.endswith((".", " ")) for segment in segments):
+        _fail("UNSAFE_PATH", f"{label} contains non-portable path segments")
+    if any(segment.split(".", 1)[0].casefold() in WINDOWS_RESERVED_NAMES for segment in segments):
+        _fail("UNSAFE_PATH", f"{label} contains a reserved path segment")
     root = segments[0].lower()
     if not denied and root in SENSITIVE_ALLOWED_ROOTS:
         _fail("UNSAFE_PATH", f"{label} exposes a credential-bearing path")
@@ -215,12 +240,24 @@ def _validate_path(path: str, label: str, *, denied: bool = False) -> str:
 
 
 def _path_contains(parent: str, child: str) -> bool:
-    return child == parent or child.startswith(parent.rstrip("/") + "/")
+    normalized_parent = parent.casefold()
+    normalized_child = child.casefold()
+    return normalized_child == normalized_parent or normalized_child.startswith(normalized_parent.rstrip("/") + "/")
+
+
+def _validate_branch(value: Any, label: str) -> str:
+    branch = _require_string(value, BRANCH_RE, label)
+    if (
+        branch.startswith(("/", ".")) or branch.endswith(("/", ".", ".lock"))
+        or "//" in branch or ".." in branch or "@{" in branch
+    ):
+        _fail("INVALID_FORMAT", f"{label} is not a safe Git branch name")
+    return branch
 
 
 def _validate_paths(allowed_paths: Any, denied_paths: Any) -> tuple[list[str], list[str]]:
-    allowed = _validate_sorted_unique_strings(allowed_paths, "allowed_paths")
-    denied = _validate_sorted_unique_strings(denied_paths, "denied_paths")
+    allowed = _validate_sorted_unique_strings(allowed_paths, "allowed_paths", case_insensitive=True)
+    denied = _validate_sorted_unique_strings(denied_paths, "denied_paths", case_insensitive=True)
     for path in allowed:
         _validate_path(path, "allowed_paths")
     for path in denied:
@@ -247,8 +284,8 @@ def _validate_digest(record: dict[str, Any], label: str) -> str:
 
 
 def validate_boundary(boundary: dict[str, Any]) -> dict[str, Any]:
-    before = canonical_json_bytes(copy.deepcopy(boundary))
     _preflight_content(boundary)
+    before = canonical_json_bytes(copy.deepcopy(boundary))
     record = _require_exact_fields(boundary, BOUNDARY_FIELDS, "boundary")
     if record["schema_version"] != SCHEMA_VERSION:
         _fail("UNSUPPORTED_SCHEMA", "unsupported boundary schema version")
@@ -262,7 +299,7 @@ def validate_boundary(boundary: dict[str, Any]) -> dict[str, Any]:
     repository = _require_exact_fields(record["repository"], REPOSITORY_FIELDS, "repository")
     repository_id = _validate_reference(repository["repository_id"], "repository_id")
     _require_string(repository["revision"], REVISION_RE, "revision")
-    _require_string(repository["default_branch"], BRANCH_RE, "default_branch")
+    _validate_branch(repository["default_branch"], "default_branch")
     access_tier = repository["access_tier"]
     if access_tier not in ACCESS_TIERS:
         _fail("UNAUTHORIZED_WRITE", "repository access tier is not authorized")
@@ -317,8 +354,8 @@ def validate_boundary(boundary: dict[str, Any]) -> dict[str, Any]:
 
 
 def validate_threat_assessment(assessment: dict[str, Any], *, boundary: dict[str, Any] | None = None) -> dict[str, Any]:
-    before = canonical_json_bytes(copy.deepcopy(assessment))
     _preflight_content(assessment)
+    before = canonical_json_bytes(copy.deepcopy(assessment))
     record = _require_exact_fields(assessment, ASSESSMENT_FIELDS, "threat_assessment")
     if record["schema_version"] != SCHEMA_VERSION:
         _fail("UNSUPPORTED_SCHEMA", "unsupported threat-assessment schema version")
@@ -379,9 +416,25 @@ def validate_pair(boundary: dict[str, Any], assessment: dict[str, Any]) -> dict[
     return {"status": "PASS", "boundary": boundary_result, "threat_assessment": threat_result}
 
 
+def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    value: dict[str, Any] = {}
+    for key, child in pairs:
+        if key in value:
+            _fail("DUPLICATE_JSON_KEY", "JSON object contains duplicate keys")
+        value[key] = child
+    return value
+
+
 def _load_json(path: str) -> dict[str, Any]:
-    with Path(path).open("r", encoding="utf-8") as handle:
-        value = json.load(handle)
+    with Path(path).open("rb") as handle:
+        raw = handle.read(MAX_INPUT_BYTES + 1)
+    if len(raw) > MAX_INPUT_BYTES:
+        _fail("INPUT_SIZE", "JSON input exceeds the accepted size limit")
+    try:
+        text = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        _fail("INPUT_ENCODING", "JSON input must use UTF-8")
+    value = json.loads(text, object_pairs_hook=_reject_duplicate_keys)
     if not isinstance(value, dict):
         _fail("INVALID_TYPE", "fixture root must be an object")
     return value

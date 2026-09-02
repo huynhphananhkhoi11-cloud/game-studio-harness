@@ -53,3 +53,15 @@ canonical_task_contract: tasks/STUDIO-009A.md
   rationale: Later repository and AI-provider connections require a deterministic fail-closed boundary before any external authority is activated.
   resulting_state: HANDOFF with zero external runtime activity, zero spend, and writer transfer pending to the Studio Owner runner.
   correction_of: NONE
+
+- checkpoint_id: STUDIO-009A-CP-0005
+  timestamp: 2026-09-02T05:54:49Z
+  actor: Codex / QA-01
+  action: Independently reviewed and hardened the STUDIO-009A validator after implementation Pull Request #39 was opened.
+  scope_files: existing paths within the exact 23-path implementation boundary
+  command_or_check: GitHub PR metadata, changed paths, review state, and workflow run inspection; focused and full regression tests; JSON syntax; git diff --check
+  evidence_reference: implementation head 8c489c7147ace1457a41b1b44fc0f27c88b99cef; Pull Request #39; Rules CI run 175; 53 focused tests PASS; 450 total tests PASS
+  outcome: completed
+  rationale: Fail-closed boundary evidence must resist cross-platform path aliases, unsafe Git ref syntax, duplicate JSON keys, oversized or invalidly encoded input, and adversarial structure depth before later connectors are authorized.
+  resulting_state: HANDOFF with QA hardening worktree-only, zero external runtime activity, and transfer pending to the Studio Owner runner.
+  correction_of: NONE

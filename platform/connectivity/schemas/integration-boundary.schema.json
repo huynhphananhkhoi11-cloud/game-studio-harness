@@ -20,14 +20,14 @@
   },
   "$defs": {
     "reference": {"type": "string", "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"},
-    "pathList": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 240}},
+    "pathList": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 240, "pattern": "^[A-Za-z0-9._/-]+$"}},
     "repository": {
       "type": "object", "additionalProperties": false,
       "required": ["repository_id", "revision", "default_branch", "access_tier", "allowed_paths", "denied_paths", "auth_profile_ref"],
       "properties": {
         "repository_id": {"$ref": "#/$defs/reference"},
         "revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
-        "default_branch": {"type": "string", "pattern": "^[A-Za-z0-9._/-]{1,120}$"},
+        "default_branch": {"type": "string", "pattern": "^(?![/.])(?!.*//)(?!.*\\.\\.)(?!.*@\\{)(?!.*\\.lock$)[A-Za-z0-9._/-]{0,119}[A-Za-z0-9_-]$"},
         "access_tier": {"enum": ["READ_ONLY", "BRANCH_WRITE", "PR_WRITE"]},
         "allowed_paths": {"$ref": "#/$defs/pathList"},
         "denied_paths": {"$ref": "#/$defs/pathList"},
