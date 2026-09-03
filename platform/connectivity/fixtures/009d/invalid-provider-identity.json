@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "provider_profile_id": "provider-profile:synthetic-alpha",
+  "provider_identity_ref": "https://provider.invalid",
+  "transport_profile_ref": "transport-profile:synthetic-none",
+  "credential_profile_ref": "credential-profile:synthetic-provider",
+  "data_policy_ref": "data-policy:synthetic-internal",
+  "allowed_data_classifications": [
+    "INTERNAL",
+    "PUBLIC"
+  ],
+  "allowed_capabilities": [
+    "CODE_ANALYSIS",
+    "TEXT_GENERATION"
+  ],
+  "quota_policy_ref": "quota-policy:synthetic-zero",
+  "budget_policy_ref": "budget-policy:zero",
+  "money_ceiling": 0,
+  "kill_switch_ref": "kill-switch:synthetic-alpha",
+  "incident_response_ref": "incident:synthetic-alpha",
+  "rollback_ref": "rollback:manual-fake",
+  "owner_approval_ref": "owner-approval:studio-009d",
+  "status": "ELIGIBLE",
+  "not_before": "2026-09-03T00:00:00Z",
+  "expires_at": "2026-12-31T23:59:59Z",
+  "as_of": "2026-09-03T08:10:00Z",
+  "canonical_digest": "sha256:b17370a7a5232ad1671b2169569b699bc8f89bc5adb8539eba0d960db7650110"
+}

@@ -74,3 +74,56 @@ contract_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pul
 contract_first_commit: 50d38d1e69bdb0113e4ed203adb853cb69cac041
 contract_checkpoint_at: 2026-09-03T08:00:27Z
 next_action: Studio Owner reviews and merges this contract Pull Request; only then may STUDIO-009D implementation paths be created.
+
+<!-- STUDIO-009D-IMPLEMENTATION-CHECKPOINT-0001 -->
+# STUDIO-009D implementation checkpoint
+
+implementation_branch: agent/studio-009d-provider-onboarding
+implementation_base: 5da4b292a5fe8ef9dcb75c1446fd0dae8ea40dc0
+implementation_status: IMPLEMENTED - QA PENDING
+implementation_paths: 21
+memory_paths: 4
+focused_tests: 323 PASS
+total_tests: 720 PASS
+new_009d_tests: 60 PASS
+schemas: 5
+fixtures: 10
+provider_runtime_activity: NONE
+network_activity: NONE
+credential_runtime_activity: NONE
+secret_store_activity: NONE
+connector_runtime_activity: NONE
+routing_activity: NONE
+connected_execution_activity: NONE
+spend: ZERO
+checkpoint_at: 2026-09-03T08:41:46Z
+exact_next_action: Open the implementation Pull Request, preserve the immutable head, then perform independent QA-01.
+<!-- STUDIO-009D-IMPLEMENTATION-PR-CHECKPOINT-0002 -->
+# Implementation Pull Request checkpoint
+
+implementation_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/48
+implementation_first_commit: 34eaf9efad80992ef2e1718810386f00d3f65361
+pr_checkpoint_at: 2026-09-03T08:41:52Z
+disposition: OPEN - QA and Review pending; Studio Owner merge decision remains separate
+<!-- STUDIO-009D-QA-CHECKPOINT-0005 -->
+# QA handoff
+
+qa_reviewed_head: ac87487cc09bd8675907afe9c0facb7253d9aa1c
+qa_reviewed_at: 2026-09-03T08:55:42Z
+qa_01: PASS
+blocking_findings: 0
+validated_evidence: 323 focused tests PASS; 720 total tests PASS; Rules CI #233 SUCCESS; exact 25-path cumulative scope; provider/network/credential/store/routing activity NONE
+next_action: Run final Review & Integration against the QA checkpoint head.
+prohibited_next_action: Do not merge yet and do not approve/activate a real provider/model/endpoint, credential, network transport, routing, connected execution, or spend.
+
+<!-- STUDIO-009D-FINAL-REVIEW-CHECKPOINT-0007 -->
+# Final Review and Integration handoff
+
+reviewed_head: ee06f544cd7c4210cca2c2323eef0270fd0294fd
+reviewed_at: 2026-09-03T09:05:43Z
+qa_01: PASS
+review_and_integration: APPROVE
+blocking_findings: 0
+validated_evidence: 323 focused tests PASS; 720 total tests PASS; Rules CI #235 SUCCESS; exact 25-path cumulative scope; provider-neutral source boundary PASS; no live provider/network/credential activity
+next_action: Studio Owner may independently decide whether to merge the implementation Pull Request. If merged, create a separate STUDIO-009D closeout Pull Request.
+do_not: Do not approve or activate a real provider/model/endpoint, credential, network transport, routing, connected execution, or spend. STUDIO-009P* and STUDIO-009F remain separately gated.

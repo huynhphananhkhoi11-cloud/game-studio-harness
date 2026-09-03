@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "provider_model_profile_id": "provider-model:synthetic-alpha-v1",
+  "provider_profile_id": "provider-profile:synthetic-alpha",
+  "provider_profile_digest": "sha256:8fee3123fe96b192a035b878a64426a8ccbd281acec1ce8e35c07f493bf38367",
+  "child_contract_id": "STUDIO-009P-SYNTHETIC",
+  "child_contract_digest": "sha256:7f02fd8ca6cd8637231b0c30a0d614f5e4c20a0cc8ce48f5a995ff53fe0e828a",
+  "model_identity_ref": "model-id:synthetic-alpha-v1",
+  "model_version_policy_ref": "model-policy:synthetic-pinned",
+  "allowed_data_classifications": [
+    "INTERNAL",
+    "PUBLIC",
+    "RESTRICTED"
+  ],
+  "max_request_bytes": 262144,
+  "max_output_bytes": 262144,
+  "owner_approval_ref": "owner-approval:studio-009d",
+  "status": "ELIGIBLE",
+  "not_before": "2026-09-03T08:00:00Z",
+  "expires_at": "2026-12-31T23:59:59Z",
+  "as_of": "2026-09-03T08:10:00Z",
+  "canonical_digest": "sha256:2e7bb50d5b7f2ce1f998e45916a8ea48e6651c30ec7df56992a35c348428c8a6"
+}
