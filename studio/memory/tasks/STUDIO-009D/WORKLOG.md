@@ -6,81 +6,21 @@ task_id: STUDIO-009D
 package_path: studio/memory/tasks/STUDIO-009D
 canonical_task_contract: tasks/STUDIO-009D.md
 
-- checkpoint_id: STUDIO-009D-CP-0001
-  timestamp: 2026-09-03T07:49:07Z
-  actor: Studio Owner contract runner
-  action: Initialized the STUDIO-009D provider-onboarding contract and persistent memory package from the merged STUDIO-009C closeout baseline.
-  scope_files: tasks/STUDIO-009.md; tasks/STUDIO-009D.md; tasks/STUDIO-009D-IMPLEMENTATION.md; studio/memory/tasks/STUDIO-009D/*.md
-  command_or_check: Pull Request #46 merge verification; STUDIO-007F provider-adapter boundary read; STUDIO-009C credential boundary read; provider-onboarding contract design
-  evidence_reference: STUDIO-009C closeout merge bfc48f2080bd654666955ca1ec615ebc27ad83cc
+- checkpoint_id: STUDIO-009D-CP-0008
+  timestamp: 2026-09-03T09:17:17Z
+  actor: Studio Owner closeout runner
+  action: Revalidated the merged STUDIO-009D implementation and materialized a memory-only closeout checkpoint.
+  scope_files: exactly four STUDIO-009D memory records
+  command_or_check: implementation merge containment; final-review checkpoint; five schema parses; ten fixture parses; vertical-slice validation; 60 new tests; 323 focused tests; 720 full tests; exact closeout path boundary; git diff --check
+  evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/48; final implementation head 66d660e2bebbcae5db51054730ed6fd911522b9e; implementation merge 0fcc49e0162ff8bb2b3c9ad880c6fdc223a9bc24
   outcome: completed
-  rationale: A generic fail-closed provider admission framework must exist before any real provider-specific child contract can be evaluated.
-  resulting_state: HANDOFF with seven contract/memory paths planned and no provider, network, real credential, connector, routing, connected execution, or spend activity.
+  rationale: durable closeout must remain separate from implementation merge and must not approve or activate any real provider.
+  resulting_state: COMPLETE pending Studio Owner merge of the memory-only closeout Pull Request.
   correction_of: NONE
-- checkpoint_id: STUDIO-009D-CP-0002
-  timestamp: 2026-09-03T08:00:27Z
-  actor: Studio Owner contract runner
-  action: Opened the contract-only STUDIO-009D Pull Request and recorded its immutable first checkpoint.
-  scope_files: studio/memory/tasks/STUDIO-009D/STATE.md; studio/memory/tasks/STUDIO-009D/WORKLOG.md; studio/memory/tasks/STUDIO-009D/RESUME.md
-  command_or_check: gh pr create; exact contract path verification
-  evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/47 at 50d38d1e69bdb0113e4ed203adb853cb69cac041
-  outcome: completed
-  rationale: Contract evidence is durable before implementation and Owner merge remains separate.
-  resulting_state: HANDOFF; contract Pull Request open; implementation forbidden until merge.
-  correction_of: NONE
+<!-- STUDIO-009D-CLOSEOUT-PR-CHECKPOINT-0008 -->
+# Closeout Pull Request checkpoint
 
-<!-- STUDIO-009D-IMPLEMENTATION-CHECKPOINT-0001 -->
-# STUDIO-009D implementation checkpoint
-
-implementation_branch: agent/studio-009d-provider-onboarding
-implementation_base: 5da4b292a5fe8ef9dcb75c1446fd0dae8ea40dc0
-implementation_status: IMPLEMENTED - QA PENDING
-implementation_paths: 21
-memory_paths: 4
-focused_tests: 323 PASS
-total_tests: 720 PASS
-new_009d_tests: 60 PASS
-schemas: 5
-fixtures: 10
-provider_runtime_activity: NONE
-network_activity: NONE
-credential_runtime_activity: NONE
-secret_store_activity: NONE
-connector_runtime_activity: NONE
-routing_activity: NONE
-connected_execution_activity: NONE
-spend: ZERO
-checkpoint_at: 2026-09-03T08:41:46Z
-exact_next_action: Open the implementation Pull Request, preserve the immutable head, then perform independent QA-01.
-<!-- STUDIO-009D-IMPLEMENTATION-PR-CHECKPOINT-0002 -->
-# Implementation Pull Request checkpoint
-
-implementation_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/48
-implementation_first_commit: 34eaf9efad80992ef2e1718810386f00d3f65361
-pr_checkpoint_at: 2026-09-03T08:41:52Z
-disposition: OPEN - QA and Review pending; Studio Owner merge decision remains separate
-<!-- STUDIO-009D-QA-CHECKPOINT-0005 -->
-- checkpoint_id: STUDIO-009D-CP-0005
-  timestamp: 2026-09-03T08:55:42Z
-  actor: QA-01 / STUDIO-009D QA runner
-  action: Independently revalidated provider-profile identity, child-contract evidence, model/capability lineage, immutable eligibility planning, lifecycle restrictions, exact scope, safe errors, and source/runtime prohibitions.
-  scope_files: cumulative exact 25-path STUDIO-009D implementation contract; QA write limited to STATE.md, WORKLOG.md, and RESUME.md
-  command_or_check: five schema parses; ten fixture parses; vertical-slice validation; 323 focused tests; 720 full tests; exact path allowlist; source/runtime prohibitions; git diff --check; Rules CI #233
-  evidence_reference: Pull Request https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/48 reviewed head ac87487cc09bd8675907afe9c0facb7253d9aa1c
-  outcome: completed
-  rationale: QA must independently prove that generic eligibility remains metadata-only and cannot create live provider authority.
-  resulting_state: QA-01 PASS; blocking findings 0; implementation Pull Request remains unmerged.
-  correction_of: NONE
-
-<!-- STUDIO-009D-FINAL-REVIEW-CHECKPOINT-0007 -->
-- checkpoint_id: STUDIO-009D-CP-0006
-  timestamp: 2026-09-03T09:05:43Z
-  actor: QA-01 / Review and Integration
-  action: Independently revalidated the immutable STUDIO-009D QA head and approved the bounded generic provider-onboarding implementation for Studio Owner merge consideration.
-  scope_files: cumulative exact 25-path STUDIO-009D implementation contract; final-review write limited to STATE.md, WORKLOG.md, and RESUME.md
-  command_or_check: immutable lineage; exact scope; schema/fixture parses; vertical-slice validation; 323 focused tests; 720 full tests; source/runtime/provider-neutrality scan; git diff --check; Rules CI #235
-  evidence_reference: Pull Request https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/48 at reviewed head ee06f544cd7c4210cca2c2323eef0270fd0294fd
-  outcome: completed
-  rationale: QA and Review & Integration gates must prove that ELIGIBLE remains non-live metadata and every real provider remains child-contract gated.
-  resulting_state: QA-01 PASS; Review and Integration APPROVE; blocking findings 0; implementation Pull Request remains open and unmerged.
-  correction_of: NONE
+closeout_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/49
+closeout_first_commit: beb937e17446d16ce9097d9d7c9e381300fdf936
+closeout_checkpoint_at: 2026-09-03T09:17:23Z
+closeout_disposition: OPEN; Studio Owner review and merge pending
