@@ -64,9 +64,15 @@ A single-provider or read-only result may be accepted only with explicit limitat
 
 ## Current authorization boundary
 
-STUDIO-009A through STUDIO-009D are complete. Only the STUDIO-009P-01 Groq provider child CONTRACT is currently active. This authorizes provider-specific specification and memory records only: no Groq account discovery, API key enrollment or resolution, HTTP request, Groq SDK/API/CLI call, model call, built-in tool, remote MCP, routing, connected execution, nonzero spend, external write, deployment, or release is authorized.
+STUDIO-009A through STUDIO-009D are complete.
 
-STUDIO-009P-01 cannot activate Groq. Any later provider-specific implementation remains offline/synthetic until separately merged, STUDIO-009E remains the routing/failover phase, and STUDIO-009F remains the only connected activation gate.
+STUDIO-009P-01 Groq is COMPLETE through its merged implementation and closeout. Its real provider remains disabled for connected execution until STUDIO-009F.
+
+STUDIO-009P-02 Cloudflare Workers AI is CONTRACT ONLY. The selected exact model is `@cf/nvidia/nemotron-3-120b-a12b`. This contract authorizes provider-specific specification and memory records only. It does not authorize Cloudflare account discovery, raw Account ID capture, API-token creation/enrollment/resolution, HTTP requests, Workers AI/model/tool calls, AI Gateway, Unified Billing, prepaid credits, storage services, paid Workers activation, routing, connected execution, nonzero spend, external write, deployment, or release.
+
+The STUDIO-009P-02 contract record becomes durable only when the Pull Request containing it is merged. Any later provider-specific implementation remains offline/synthetic until separately reviewed and merged.
+
+STUDIO-009E remains the routing/failover phase. STUDIO-009F remains the only connected activation gate.
 
 ## Owner decisions deferred to later contracts
 
