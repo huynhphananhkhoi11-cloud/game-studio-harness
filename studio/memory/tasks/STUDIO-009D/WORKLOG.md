@@ -17,3 +17,10 @@ canonical_task_contract: tasks/STUDIO-009D.md
   rationale: durable closeout must remain separate from implementation merge and must not approve or activate any real provider.
   resulting_state: COMPLETE pending Studio Owner merge of the memory-only closeout Pull Request.
   correction_of: NONE
+<!-- STUDIO-009D-CLOSEOUT-PR-CHECKPOINT-0008 -->
+# Closeout Pull Request checkpoint
+
+closeout_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/49
+closeout_first_commit: beb937e17446d16ce9097d9d7c9e381300fdf936
+closeout_checkpoint_at: 2026-09-03T09:17:23Z
+closeout_disposition: OPEN; Studio Owner review and merge pending
