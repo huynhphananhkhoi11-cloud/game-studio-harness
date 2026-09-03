@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://game-studio.local/schemas/studio-009d-provider-profile.schema.json",
+  "title": "STUDIO-009D provider profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "provider_profile_id",
+    "provider_identity_ref",
+    "transport_profile_ref",
+    "credential_profile_ref",
+    "data_policy_ref",
+    "allowed_data_classifications",
+    "allowed_capabilities",
+    "quota_policy_ref",
+    "budget_policy_ref",
+    "money_ceiling",
+    "kill_switch_ref",
+    "incident_response_ref",
+    "rollback_ref",
+    "owner_approval_ref",
+    "status",
+    "not_before",
+    "expires_at",
+    "as_of",
+    "canonical_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "provider_profile_id": {
+      "type": "string",
+      "pattern": "^provider-profile:[a-z0-9][a-z0-9._-]{2,95}$"
+    },
+    "provider_identity_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"
+    },
+    "transport_profile_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"
+    },
+    "credential_profile_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"
+    },
+    "data_policy_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"
+    },
+    "allowed_data_classifications": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "PUBLIC",
+          "INTERNAL",
+          "RESTRICTED"
+        ]
+      }
+    },
+    "allowed_capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]{2,63}$"
+      }
+    },
+    "quota_policy_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"
+    },
+    "budget_policy_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"
+    },
+    "money_ceiling": {
+      "type": "integer",
+      "const": 0
+    },
+    "kill_switch_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"
+    },
+    "incident_response_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"
+    },
+    "rollback_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"
+    },
+    "owner_approval_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,31}:[A-Za-z0-9._/-]{1,160}$"
+    },
+    "status": {
+      "enum": [
+        "CANDIDATE",
+        "DISABLED",
+        "ELIGIBLE",
+        "PAUSED",
+        "REVOKED",
+        "EXPIRED"
+      ]
+    },
+    "not_before": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "expires_at": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "as_of": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "canonical_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

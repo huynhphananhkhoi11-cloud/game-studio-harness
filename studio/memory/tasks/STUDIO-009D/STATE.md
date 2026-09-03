@@ -58,3 +58,27 @@ contract_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pul
 contract_first_commit: 50d38d1e69bdb0113e4ed203adb853cb69cac041
 contract_checkpoint_at: 2026-09-03T08:00:27Z
 contract_disposition: OPEN; Studio Owner review and merge pending
+
+<!-- STUDIO-009D-IMPLEMENTATION-CHECKPOINT-0001 -->
+# STUDIO-009D implementation checkpoint
+
+implementation_branch: agent/studio-009d-provider-onboarding
+implementation_base: 5da4b292a5fe8ef9dcb75c1446fd0dae8ea40dc0
+implementation_status: IMPLEMENTED - QA PENDING
+implementation_paths: 21
+memory_paths: 4
+focused_tests: 323 PASS
+total_tests: 720 PASS
+new_009d_tests: 60 PASS
+schemas: 5
+fixtures: 10
+provider_runtime_activity: NONE
+network_activity: NONE
+credential_runtime_activity: NONE
+secret_store_activity: NONE
+connector_runtime_activity: NONE
+routing_activity: NONE
+connected_execution_activity: NONE
+spend: ZERO
+checkpoint_at: 2026-09-03T08:41:46Z
+exact_next_action: Open the implementation Pull Request, preserve the immutable head, then perform independent QA-01.
