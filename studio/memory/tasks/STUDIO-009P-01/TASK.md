@@ -11,7 +11,7 @@ provider: GroqCloud
 model_allowlist: openai/gpt-oss-120b
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
-state: QA_PASS
+state: REVIEW_APPROVE
 branch: agent/studio-009p-01-groq-implementation
 base_head: 2d2ec86ab5a6f66ffbb102154cff1a8f0d472929
 contract_merge: 2d2ec86ab5a6f66ffbb102154cff1a8f0d472929
@@ -36,3 +36,13 @@ qa_focused_tests: 362
 qa_total_tests: 759
 qa_independent_probes: 25
 qa_updated_at: 2026-09-03T11:39:25Z
+
+review_reviewed_head: 07732e53d5e06c1ff19a5a6668c5d7d013cefa75
+review_underlying_implementation_head: cfce688cb4751ddd863b93ae38cc4a794ea94bff
+review_result: APPROVE
+review_blockers: 0
+review_probes: 45
+review_new_tests: 39
+review_focused_tests: 362
+review_total_tests: 759
+review_updated_at: 2026-09-03T11:54:38Z
