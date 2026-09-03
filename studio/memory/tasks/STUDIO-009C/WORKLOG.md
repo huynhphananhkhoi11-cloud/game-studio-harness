@@ -17,3 +17,15 @@ canonical_task_contract: tasks/STUDIO-009C.md
   rationale: durable closeout must be separate from implementation merge and must not activate any credential or downstream phase.
   resulting_state: COMPLETE pending Studio Owner merge of the memory-only closeout Pull Request.
   correction_of: NONE
+<!-- STUDIO-009C-CLOSEOUT-PR-CHECKPOINT-0005 -->
+- checkpoint_id: STUDIO-009C-CP-0008
+  timestamp: 2026-09-03T07:32:43Z
+  actor: Studio Owner closeout runner
+  action: Opened and durably recorded the memory-only STUDIO-009C closeout Pull Request.
+  scope_files: exactly four STUDIO-009C memory records
+  command_or_check: closeout commit; push; Pull Request creation; exact path boundary
+  evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/46; closeout first commit 7d76ab94e3a8c61ae3bdc5b9bc63f671f60bef89
+  outcome: completed
+  rationale: Studio Owner merge remains separate from automation.
+  resulting_state: COMPLETE with closeout Pull Request open and unmerged.
+  correction_of: NONE
