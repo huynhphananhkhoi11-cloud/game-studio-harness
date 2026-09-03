@@ -64,7 +64,9 @@ A single-provider or read-only result may be accepted only with explicit limitat
 
 ## Current authorization boundary
 
-STUDIO-009A and STUDIO-009B are complete. Only STUDIO-009C contract work is currently active. This authorizes specification and memory records only: no credential value, secret-store access, GitHub App installation/token minting, PAT, OAuth flow, SSH key use, live repository transport, webhook, provider SDK/API/CLI, model call, routing, connected execution, network call, nonzero spend, external write, deployment, or release is authorized.
+STUDIO-009A, STUDIO-009B, and STUDIO-009C are complete. Only STUDIO-009D contract work is currently active. This authorizes generic provider-onboarding specification and memory records only: no real provider approval, provider/model/endpoint identity activation, credential enrollment or resolution, provider SDK/API/CLI, model call, live repository transport, webhook, routing, connected execution, network call, nonzero spend, external write, deployment, or release is authorized.
+
+STUDIO-009D cannot authorize a real provider by itself. Every real provider requires a separate accepted `STUDIO-009P*` child contract, STUDIO-009E remains the routing/failover phase, and STUDIO-009F remains the connected activation gate.
 
 ## Owner decisions deferred to later contracts
 
