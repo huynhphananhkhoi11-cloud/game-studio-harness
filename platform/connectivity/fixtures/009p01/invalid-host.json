@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "transport_profile_id": "transport-profile:groq-https-openai-v1",
+  "scheme": "https",
+  "host": "example.invalid",
+  "base_path": "/openai/v1",
+  "canonical_base_url": "https://example.invalid/openai/v1",
+  "allow_redirects": false,
+  "allowed_protocols": [
+    "HTTPS"
+  ],
+  "network_activation": "STUDIO-009F_ONLY"
+}

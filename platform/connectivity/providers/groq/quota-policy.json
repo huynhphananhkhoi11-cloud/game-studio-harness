@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "quota_policy_id": "quota-policy:groq-free-gpt-oss-120b",
+  "provider_snapshot": {
+    "rpm": 30,
+    "rpd": 1000,
+    "tpm": 8000,
+    "tpd": 200000
+  },
+  "game_limits": {
+    "max_concurrency": 1,
+    "max_retries": 0,
+    "timeout_seconds": 60,
+    "max_input_tokens": 32768,
+    "max_output_tokens": 8192
+  },
+  "on_429": "FAILOVER_OR_MANUAL_FAKE",
+  "paid_upgrade_allowed": false
+}

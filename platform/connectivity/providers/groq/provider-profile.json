@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "provider_profile_id": "provider-profile:groq-free-gpt-oss-120b",
+  "provider_identity_ref": "provider-id:groqcloud",
+  "transport_profile_ref": "transport-profile:groq-https-openai-v1",
+  "credential_profile_ref": "credential-profile:groq-api-key",
+  "data_policy_ref": "data-policy:groq-public-synthetic-zdr",
+  "allowed_data_classifications": [
+    "PUBLIC"
+  ],
+  "allowed_capabilities": [
+    "LOCAL_TOOL_REQUEST",
+    "REASONING",
+    "STRUCTURED_OUTPUT",
+    "TEXT_GENERATION"
+  ],
+  "quota_policy_ref": "quota-policy:groq-free-gpt-oss-120b",
+  "budget_policy_ref": "budget-policy:groq-zero",
+  "money_ceiling": 0,
+  "kill_switch_ref": "kill-switch:studio-owner-groq",
+  "incident_response_ref": "incident:groq-provider",
+  "rollback_ref": "rollback:manual-fake",
+  "owner_approval_ref": "owner-approval:studio-009p-01-contract",
+  "status": "DISABLED",
+  "not_before": "2026-09-03T10:22:15Z",
+  "expires_at": "2027-09-03T10:22:15Z",
+  "as_of": "2026-09-03T10:23:00Z",
+  "canonical_digest": "sha256:a2b53e4933d01da5ef3a1d58749975aec2e4efb0bc9839cd3d870a78a23f9d5b"
+}
