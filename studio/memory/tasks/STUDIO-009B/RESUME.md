@@ -69,3 +69,10 @@ updated_at: 2026-09-03T05:58:20Z
 
 verify_instructions: |
   - If branch, HEAD, scope, schema, merge containment, writer claim, or unrelated changes differ from this record, stop and reconcile under studio/MEMORY_PROTOCOL.md before writing.
+
+# Closeout Pull Request checkpoint
+
+closeout_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/43
+closeout_first_commit: 7cbdf4474408840aa4a8e68cc843887f75c2c953
+closeout_checkpoint_at: 2026-09-03T05:58:25Z
+next_action: Review and merge this memory-only closeout Pull Request, then begin STUDIO-009C contract work only.

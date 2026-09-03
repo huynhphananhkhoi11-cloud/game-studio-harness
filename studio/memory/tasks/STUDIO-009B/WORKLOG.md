@@ -92,3 +92,15 @@ canonical_task_contract: tasks/STUDIO-009B.md
   rationale: STUDIO-009B implementation and review evidence must be durably closed before STUDIO-009C contract work begins.
   resulting_state: COMPLETE with a memory-only closeout Pull Request to be opened; no live connector, credential, provider, routing, connected execution, or spend activity.
   correction_of: NONE
+
+- checkpoint_id: STUDIO-009B-CP-0008
+  timestamp: 2026-09-03T05:58:25Z
+  actor: Studio Owner closeout runner
+  action: Opened and durably recorded the memory-only STUDIO-009B closeout Pull Request.
+  scope_files: STATE.md; WORKLOG.md; RESUME.md within studio/memory/tasks/STUDIO-009B
+  command_or_check: validated merged baseline; reran retained tests; pushed first closeout commit; created Pull Request; recorded URL and checkpoint
+  evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/43; closeout first commit 7cbdf4474408840aa4a8e68cc843887f75c2c953
+  outcome: completed
+  rationale: The closeout Pull Request identity must be persisted before transfer to Studio Owner review.
+  resulting_state: COMPLETE with closeout Pull Request open and unmerged; STUDIO-009C contract work remains separately gated.
+  correction_of: NONE
