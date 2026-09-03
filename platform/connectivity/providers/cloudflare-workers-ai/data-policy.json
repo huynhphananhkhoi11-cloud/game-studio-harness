@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "data_policy_id": "data-policy:cloudflare-public-synthetic-no-storage",
+  "allowed_data_classifications": [
+    "PUBLIC"
+  ],
+  "denied_data_classifications": [
+    "INTERNAL",
+    "RESTRICTED"
+  ],
+  "synthetic_data_allowed": true,
+  "provider_training_without_explicit_consent_allowed": false,
+  "storage_services_allowed": false,
+  "ai_gateway_logging_allowed": false,
+  "connected_activation": "STUDIO-009F_ONLY"
+}

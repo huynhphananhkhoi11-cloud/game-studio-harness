@@ -11,10 +11,10 @@ provider: Cloudflare Workers AI
 model_allowlist: @cf/nvidia/nemotron-3-120b-a12b
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
-state: CONTRACT_ACCEPTED
-branch: agent/studio-009p-02-cloudflare-contract
-base_head: 1b75f250169ccdab3e2d67cbac4047253792c4a7
-contract_merge: NONE
+state: IMPLEMENTATION
+branch: agent/studio-009p-02-cloudflare-implementation
+base_head: a22f358b471a6f3af2ec19cae2af1da5e2aaacaa
+contract_merge: a22f358b471a6f3af2ec19cae2af1da5e2aaacaa
 provider_runtime_activity: NONE
 network_activity: NONE
 account_runtime_activity: NONE
@@ -40,3 +40,13 @@ daily_game_ceiling_neurons: 8000
 real_provider_approved_for_connection: false
 
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
+
+implementation_scope_paths: 20
+implementation_cumulative_pr_paths_max: 24
+implementation_expected_new_tests: 45
+implementation_expected_focused_tests: 407
+implementation_expected_total_tests: 804
+implementation_provider_state: DISABLED
+implementation_model_state: DECLARED
+implementation_runtime_activity: NONE
+implementation_spend: ZERO
