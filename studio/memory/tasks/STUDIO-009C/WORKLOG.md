@@ -53,3 +53,16 @@ canonical_task_contract: tasks/STUDIO-009C.md
   rationale: hand off one bounded implementation branch for independent QA and Review & Integration.
   resulting_state: HANDOFF with implementation Pull Request open and unmerged; live credential/store activity NONE.
   correction_of: NONE
+
+<!-- STUDIO-009C-QA-CHECKPOINT-0003 -->
+- checkpoint_id: STUDIO-009C-CP-0005
+  timestamp: 2026-09-03T07:29:07Z
+  actor: QA-01 / STUDIO-009C QA runner
+  action: Independently revalidated credential profile lineage, bounded lease planning, fake-store replay/lifecycle behavior, safe redaction, source prohibitions, exact scope, and retained regressions.
+  scope_files: cumulative exact 25-path STUDIO-009C implementation contract; QA write limited to STATE.md, WORKLOG.md, and RESUME.md
+  command_or_check: four schema parses; ten fixture parses; vertical-slice validation; 263 focused tests; 660 full tests; exact path allowlist; source/runtime prohibitions; git diff --check; Rules CI #214
+  evidence_reference: Pull Request https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/45 reviewed head e623e6ac0a917782276d79b811668bf492af9dba
+  outcome: completed
+  rationale: QA must independently prove fail-closed credential metadata behavior before Review & Integration.
+  resulting_state: QA-01 PASS; blocking findings 0; implementation Pull Request remains unmerged.
+  correction_of: NONE
