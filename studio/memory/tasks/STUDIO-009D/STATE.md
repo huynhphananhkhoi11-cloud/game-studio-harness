@@ -89,3 +89,31 @@ implementation_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harne
 implementation_first_commit: 34eaf9efad80992ef2e1718810386f00d3f65361
 pr_checkpoint_at: 2026-09-03T08:41:52Z
 disposition: OPEN - QA and Review pending; Studio Owner merge decision remains separate
+<!-- STUDIO-009D-QA-CHECKPOINT-0005 -->
+# QA checkpoint
+
+qa_reviewed_head: ac87487cc09bd8675907afe9c0facb7253d9aa1c
+qa_reviewed_at: 2026-09-03T08:55:42Z
+qa_scope: exact cumulative 25-path STUDIO-009D implementation contract
+schema_checks: 5 PASS
+fixture_checks: 10 PASS
+new_studio_009d_tests: 60 PASS
+focused_tests: 323 PASS
+full_regression_tests: 720 PASS
+rules_ci_on_reviewed_head: SUCCESS (run #233)
+qa_01_disposition: PASS
+blocking_findings: 0
+provider_profile_and_identity_controls: PASS
+child_contract_lineage: PASS
+model_and_capability_lineage: PASS
+zero_budget_and_safe_errors: PASS
+source_runtime_prohibitions: PASS
+provider_runtime_activity: NONE
+network_activity: NONE
+credential_runtime_activity: NONE
+secret_store_activity: NONE
+connector_runtime_activity: NONE
+routing_activity: NONE
+connected_execution_activity: NONE
+spend: ZERO
+real_provider_approved: false

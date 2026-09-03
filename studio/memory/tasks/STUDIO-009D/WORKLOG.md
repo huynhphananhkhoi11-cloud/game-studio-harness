@@ -59,3 +59,15 @@ implementation_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harne
 implementation_first_commit: 34eaf9efad80992ef2e1718810386f00d3f65361
 pr_checkpoint_at: 2026-09-03T08:41:52Z
 disposition: OPEN - QA and Review pending; Studio Owner merge decision remains separate
+<!-- STUDIO-009D-QA-CHECKPOINT-0005 -->
+- checkpoint_id: STUDIO-009D-CP-0005
+  timestamp: 2026-09-03T08:55:42Z
+  actor: QA-01 / STUDIO-009D QA runner
+  action: Independently revalidated provider-profile identity, child-contract evidence, model/capability lineage, immutable eligibility planning, lifecycle restrictions, exact scope, safe errors, and source/runtime prohibitions.
+  scope_files: cumulative exact 25-path STUDIO-009D implementation contract; QA write limited to STATE.md, WORKLOG.md, and RESUME.md
+  command_or_check: five schema parses; ten fixture parses; vertical-slice validation; 323 focused tests; 720 full tests; exact path allowlist; source/runtime prohibitions; git diff --check; Rules CI #233
+  evidence_reference: Pull Request https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/48 reviewed head ac87487cc09bd8675907afe9c0facb7253d9aa1c
+  outcome: completed
+  rationale: QA must independently prove that generic eligibility remains metadata-only and cannot create live provider authority.
+  resulting_state: QA-01 PASS; blocking findings 0; implementation Pull Request remains unmerged.
+  correction_of: NONE
