@@ -51,3 +51,10 @@ active_writer_claim:
 
 updated_at: 2026-09-03T07:49:07Z
 updater: Studio Owner contract runner
+<!-- STUDIO-009D-CONTRACT-PR-CHECKPOINT-0002 -->
+# Contract Pull Request checkpoint
+
+contract_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/47
+contract_first_commit: 50d38d1e69bdb0113e4ed203adb853cb69cac041
+contract_checkpoint_at: 2026-09-03T08:00:27Z
+contract_disposition: OPEN; Studio Owner review and merge pending

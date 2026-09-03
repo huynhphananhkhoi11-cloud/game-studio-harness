@@ -69,3 +69,8 @@ updated_at: 2026-09-03T07:49:07Z
 
 verify_instructions: |
   - If branch, HEAD, scope, dependency merge, writer claim, or unrelated changes differ, stop and reconcile under studio/MEMORY_PROTOCOL.md before writing.
+<!-- STUDIO-009D-CONTRACT-PR-CHECKPOINT-0002 -->
+contract_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/47
+contract_first_commit: 50d38d1e69bdb0113e4ed203adb853cb69cac041
+contract_checkpoint_at: 2026-09-03T08:00:27Z
+next_action: Studio Owner reviews and merges this contract Pull Request; only then may STUDIO-009D implementation paths be created.
