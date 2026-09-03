@@ -3,12 +3,12 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009P-01
-state: REVIEW_APPROVE
+state: COMPLETE
 logical_role: Platform Studio / Provider Integration Cell
 repository_context: game-studio-harness
-branch: agent/studio-009p-01-groq-implementation
-last_observed_HEAD: 07732e53d5e06c1ff19a5a6668c5d7d013cefa75
-durability_state: PR_PENDING
+branch: agent/studio-009p-01-groq-closeout
+last_observed_HEAD: 0c54767b28852f6d180ef211979fa027f497f511
+durability_state: IMPLEMENTATION_MERGED
 provider: GroqCloud
 provider_profile_id: provider-profile:groq-free-gpt-oss-120b
 model_allowlist: openai/gpt-oss-120b
@@ -29,11 +29,11 @@ completed: |
   - Provider profile remains DISABLED and model profile remains DECLARED.
   - No real credential is enrolled or resolved.
 remaining: |
-  - Validate implementation tests and Rules CI.
-  - Independent QA and Review & Integration remain required before Owner merge.
+  - No STUDIO-009P-01 implementation work remains.
+  - This closeout record becomes durable when its PR is merged; GitHub merge state is authoritative.
 blockers: |
   - NONE
-exact_next_action: Studio Owner may review and merge PR #51; do not activate Groq or connected execution.
+exact_next_action: Once this closeout record is merged, select the next accepted contract track. Groq connected activation remains prohibited until STUDIO-009F.
 
 updated_at: 2026-09-03T11:08:50Z
 updater: Studio Owner implementation runner
@@ -65,3 +65,27 @@ review_routing_activity: NONE
 review_connected_execution_activity: NONE
 review_spend: ZERO
 <!-- STUDIO-009P-01-FINAL-REVIEW-CHECKPOINT-0004 -->
+
+implementation_pr: 51
+implementation_merge: 0c54767b28852f6d180ef211979fa027f497f511
+final_review_head: 0f92a44a27e75fb5c98cd2cb39a53269d97c6397
+completion_result: COMPLETE
+completion_new_tests: 39
+completion_focused_tests: 362
+completion_total_tests: 759
+completion_provider_profile_state: DISABLED
+completion_model_profile_state: DECLARED
+completion_child_evidence_class: SYNTHETIC
+completion_provider_runtime_activity: NONE
+completion_network_activity: NONE
+completion_credential_runtime_activity: NONE
+completion_secret_store_activity: NONE
+completion_tool_execution_activity: NONE
+completion_remote_mcp_activity: NONE
+completion_routing_activity: NONE
+completion_connected_execution_activity: NONE
+completion_spend: ZERO
+completion_real_provider_approved_for_connection: false
+closeout_record_semantics: EFFECTIVE_WHEN_MERGED
+next_phase: OWNER_DECISION_POST_CLOSEOUT
+<!-- STUDIO-009P-01-CLOSEOUT-CHECKPOINT-0005 -->
