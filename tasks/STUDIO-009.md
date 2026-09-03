@@ -64,9 +64,9 @@ A single-provider or read-only result may be accepted only with explicit limitat
 
 ## Current authorization boundary
 
-STUDIO-009A, STUDIO-009B, and STUDIO-009C are complete. Only STUDIO-009D contract work is currently active. This authorizes generic provider-onboarding specification and memory records only: no real provider approval, provider/model/endpoint identity activation, credential enrollment or resolution, provider SDK/API/CLI, model call, live repository transport, webhook, routing, connected execution, network call, nonzero spend, external write, deployment, or release is authorized.
+STUDIO-009A through STUDIO-009D are complete. Only the STUDIO-009P-01 Groq provider child CONTRACT is currently active. This authorizes provider-specific specification and memory records only: no Groq account discovery, API key enrollment or resolution, HTTP request, Groq SDK/API/CLI call, model call, built-in tool, remote MCP, routing, connected execution, nonzero spend, external write, deployment, or release is authorized.
 
-STUDIO-009D cannot authorize a real provider by itself. Every real provider requires a separate accepted `STUDIO-009P*` child contract, STUDIO-009E remains the routing/failover phase, and STUDIO-009F remains the connected activation gate.
+STUDIO-009P-01 cannot activate Groq. Any later provider-specific implementation remains offline/synthetic until separately merged, STUDIO-009E remains the routing/failover phase, and STUDIO-009F remains the only connected activation gate.
 
 ## Owner decisions deferred to later contracts
 
