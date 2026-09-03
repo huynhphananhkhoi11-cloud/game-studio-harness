@@ -73,3 +73,12 @@ contract_checkpoint_at: 2026-09-03T06:20:26Z
 validated_evidence: 154 focused tests PASS; 551 total tests PASS; exact seven-path contract boundary
 next_action: Review and merge this contract-only Pull Request; do not create STUDIO-009C implementation paths before merge.
 prohibited_next_action: Do not create/read/enroll a real credential, connect a secret store, activate GitHub authentication, providers, routing, connected execution, network transport, or spend.
+<!-- STUDIO-009C-IMPLEMENTATION-CHECKPOINT-0001 -->
+# Implementation checkpoint
+
+implementation_branch: agent/studio-009c-credential-broker
+implementation_base: 2a013ef922033b8f0a337027df268ddcbc2184f0
+implementation_checkpoint_at: 2026-09-03T07:22:33Z
+validated_evidence: 263 focused tests PASS; 660 total tests PASS; exact 25-path maximum boundary
+next_action: Complete commit/push/Pull Request creation, then run independent QA and Review & Integration before any Owner merge decision.
+prohibited_next_action: Do not activate real credentials, secret stores, GitHub authentication, providers, routing, connected execution, or spend.

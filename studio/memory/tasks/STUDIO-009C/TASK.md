@@ -56,3 +56,19 @@ contract_first_commit: 2ca4c0fa609d17aa1666f0c6429a29cc7dbce40c
 contract_checkpoint_at: 2026-09-03T06:20:26Z
 contract_disposition: OPEN; Studio Owner review and merge pending
 implementation_gate: No STUDIO-009C implementation path may be created before this contract Pull Request merges.
+<!-- STUDIO-009C-IMPLEMENTATION-CHECKPOINT-0001 -->
+## Implementation execution checkpoint
+
+implementation_branch: agent/studio-009c-credential-broker
+implementation_base: 2a013ef922033b8f0a337027df268ddcbc2184f0
+implementation_at: 2026-09-03T07:22:33Z
+implementation_scope: 21 approved implementation paths plus 4 approved memory records
+implementation_evidence: 263 focused tests PASS; 660 total tests PASS; 4 schema parses PASS; 10 fixture parses PASS; vertical-slice validation PASS
+credential_runtime_activity: NONE
+secret_store_activity: NONE
+connector_runtime_activity: NONE
+provider_activity: NONE
+routing_activity: NONE
+connected_execution_activity: NONE
+spend: ZERO
+owner_merge_required: true

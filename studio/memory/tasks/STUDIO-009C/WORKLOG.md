@@ -28,3 +28,15 @@ canonical_task_contract: tasks/STUDIO-009C.md
   rationale: STUDIO-009C implementation remains gated until this contract receives Studio Owner merge disposition.
   resulting_state: HANDOFF with contract Pull Request open and unmerged; live credential/store/connector/provider/network/routing/connected-execution/spend activity NONE.
   correction_of: NONE
+<!-- STUDIO-009C-IMPLEMENTATION-CHECKPOINT-0001 -->
+- checkpoint_id: STUDIO-009C-CP-0003
+  timestamp: 2026-09-03T07:22:33Z
+  actor: Studio Owner implementation runner
+  action: Materialized and validated the deterministic credential broker, metadata-only lifecycle, redaction boundary, and injected fake secret store.
+  scope_files: 21 approved implementation paths plus 4 approved memory records
+  command_or_check: four schema parses; ten fixture parses; vertical-slice validation; 263 focused tests; 660 full tests; exact path allowlist; git diff --check
+  evidence_reference: implementation branch agent/studio-009c-credential-broker at base 2a013ef922033b8f0a337027df268ddcbc2184f0
+  outcome: completed
+  rationale: implement STUDIO-009C without activating a live credential, secret store, repository transport, provider, routing, connected execution, or spend.
+  resulting_state: implementation validated; Pull Request creation pending in this runner.
+  correction_of: NONE

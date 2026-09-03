@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "credential_profile_id": "credential-profile:repo-game-studio",
+  "auth_profile_ref": "auth-profile:none",
+  "subject_type": "REPOSITORY",
+  "subject_ref": "repository:game-studio-harness",
+  "credential_class": "REPOSITORY_AUTH",
+  "auth_scheme_ref": "auth-scheme:github-future",
+  "secret_store_ref": "secret-store:fake-memory",
+  "secret_locator_ref": "secret-locator:fixture-001",
+  "allowed_capabilities": [
+    "GITHUB_READ_BLOB",
+    "GITHUB_READ_METADATA",
+    "GITHUB_READ_TREE"
+  ],
+  "allowed_purposes": [
+    "REPOSITORY_METADATA",
+    "REPOSITORY_READ"
+  ],
+  "repository_record_digest": "sha256:0fc4c5aa3ef31ea04278a23f258f8479314a471494df1e8bb021c38d4e8d7e95",
+  "owner_approval_ref": "owner-approval:studio-009c",
+  "boundary_digest": "sha256:ce6d5a8a0986e5fb1680e13dea47a726dcd0cd33b163dfd76df96571fcf792d0",
+  "gate_ref": "gate:studio-009a",
+  "trace_ref": "trace:studio-009a",
+  "kill_switch_ref": "kill-switch:studio-009c",
+  "lifecycle_ref": "lifecycle:studio-009c-v1",
+  "status": "REVOKED",
+  "not_before": "2026-09-03T00:00:00Z",
+  "expires_at": "2026-12-31T23:59:59Z",
+  "rotation_deadline": "2026-12-01T00:00:00Z",
+  "max_lease_seconds": 900,
+  "as_of": "2026-09-03T06:30:00Z",
+  "canonical_digest": "sha256:7b9c9e96c3494db413c15299f880fd743aff25af5dc5014127f7867e30770be4"
+}
