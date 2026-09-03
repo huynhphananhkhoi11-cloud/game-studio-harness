@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "budget_policy_id": "budget-policy:groq-zero",
+  "currency": "USD",
+  "money_ceiling": 1,
+  "paid_plan_allowed": false,
+  "auto_recharge_allowed": false,
+  "payg_fallback_allowed": false,
+  "promotional_credit_broadens_authority": false
+}
