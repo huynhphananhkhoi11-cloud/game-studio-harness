@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "quota_policy_id": "quota-policy:cloudflare-workers-free-nemotron-3-super",
+  "provider_snapshot": {
+    "free_neurons_per_day": 10000,
+    "reset": "00:00 UTC",
+    "input_neurons_per_million_tokens": 45455,
+    "output_neurons_per_million_tokens": 136364
+  },
+  "game_limits": {
+    "max_daily_neurons": 8000,
+    "max_concurrency": 1,
+    "max_retries": 0,
+    "timeout_seconds": 60,
+    "max_input_tokens": 16384,
+    "max_output_tokens": 4096
+  },
+  "error_normalization": {
+    "3036": "FREE_QUOTA_EXHAUSTED",
+    "3040": "CAPACITY_UNAVAILABLE",
+    "5035": "PAID_PLAN_REQUIRED"
+  },
+  "paid_upgrade_allowed": false,
+  "automatic_quota_increase_allowed": false,
+  "on_ineligible": "FAILOVER_OR_MANUAL_FAKE"
+}

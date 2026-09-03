@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "transport_profile_id": "transport-profile:cloudflare-workers-ai-https-openai-v1",
+  "scheme": "https",
+  "host": "api.cloudflare.com",
+  "base_path_template": "/client/v4/accounts/{ACCEPTED_ACCOUNT_ID}/ai/v1",
+  "canonical_base_url_template": "https://api.cloudflare.com/client/v4/accounts/{ACCEPTED_ACCOUNT_ID}/ai/v1",
+  "chat_completions_path": "/chat/completions",
+  "accepted_account_ref": "account-ref:cloudflare-workers-ai-owner-account",
+  "allow_redirects": false,
+  "allowed_protocols": [
+    "HTTPS"
+  ],
+  "ai_gateway_allowed": false,
+  "network_activation": "STUDIO-009F_ONLY"
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "provider_model_profile_id": "provider-model:cloudflare-nemotron-3-super",
+  "provider_profile_id": "provider-profile:cloudflare-workers-ai-free-nemotron-3-super",
+  "provider_profile_digest": "sha256:c861aae85aed5600bdc7e33acb11c29958667a32dab487a4c095670a438cabf2",
+  "child_contract_id": "STUDIO-009P-02",
+  "child_contract_digest": "sha256:fcf2a068922d857a323ddcbaf849a89ccb58255b28777100fda2a0c5fee74b3f",
+  "model_identity_ref": "model-id:cf/meta/unapproved-model",
+  "model_version_policy_ref": "model-policy:exact-cf-nvidia-nemotron-3-120b-a12b",
+  "allowed_data_classifications": [
+    "PUBLIC"
+  ],
+  "max_request_bytes": 65536,
+  "max_output_bytes": 32768,
+  "owner_approval_ref": "owner-approval:studio-009p-02-contract",
+  "status": "DECLARED",
+  "not_before": "2026-09-03T16:51:18Z",
+  "expires_at": "2027-09-03T16:51:18Z",
+  "as_of": "2026-09-03T16:52:00Z",
+  "canonical_digest": "sha256:245f1da8d0b1e813c4e359eeab4a23997e2afd469e4547a2af995b033133e906"
+}

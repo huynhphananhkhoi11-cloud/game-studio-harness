@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "budget_policy_id": "budget-policy:cloudflare-zero",
+  "currency": "USD",
+  "money_ceiling": 0,
+  "workers_free_required": true,
+  "paid_plan_allowed": false,
+  "auto_recharge_allowed": false,
+  "unified_billing_allowed": false,
+  "prepaid_credits_allowed": false,
+  "chargeable_fallback_allowed": false,
+  "promotional_credit_broadens_authority": false
+}
