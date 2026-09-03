@@ -64,7 +64,7 @@ A single-provider or read-only result may be accepted only with explicit limitat
 
 ## Current authorization boundary
 
-STUDIO-009A is complete. Only STUDIO-009B contract work is currently active. This authorizes specification and memory records only: no repository connector runtime, GitHub App installation, PAT, webhook, credential, provider SDK/API/CLI, model call, network call, nonzero spend, external write, deployment, or release is authorized.
+STUDIO-009A and STUDIO-009B are complete. Only STUDIO-009C contract work is currently active. This authorizes specification and memory records only: no credential value, secret-store access, GitHub App installation/token minting, PAT, OAuth flow, SSH key use, live repository transport, webhook, provider SDK/API/CLI, model call, routing, connected execution, network call, nonzero spend, external write, deployment, or release is authorized.
 
 ## Owner decisions deferred to later contracts
 
