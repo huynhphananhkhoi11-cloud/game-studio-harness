@@ -11,7 +11,7 @@ provider: Cloudflare Workers AI
 model_allowlist: @cf/nvidia/nemotron-3-120b-a12b
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
-state: IMPLEMENTATION
+state: QA_PASS
 branch: agent/studio-009p-02-cloudflare-implementation
 base_head: a22f358b471a6f3af2ec19cae2af1da5e2aaacaa
 contract_merge: a22f358b471a6f3af2ec19cae2af1da5e2aaacaa
@@ -50,3 +50,21 @@ implementation_provider_state: DISABLED
 implementation_model_state: DECLARED
 implementation_runtime_activity: NONE
 implementation_spend: ZERO
+
+qa_result: PASS
+qa_reviewed_head: 18b79dd67af466ffd74ccd34828a292e35342741
+qa_blockers: 0
+qa_provider_runtime_activity: NONE
+qa_network_activity: NONE
+qa_account_runtime_activity: NONE
+qa_credential_runtime_activity: NONE
+qa_secret_store_activity: NONE
+qa_ai_gateway_activity: NONE
+qa_unified_billing_activity: NONE
+qa_prepaid_credit_activity: NONE
+qa_tool_execution_activity: NONE
+qa_remote_mcp_activity: NONE
+qa_routing_activity: NONE
+qa_connected_execution_activity: NONE
+qa_spend: ZERO
+<!-- STUDIO-009P-02-QA-CHECKPOINT-0003 -->

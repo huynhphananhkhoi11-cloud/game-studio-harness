@@ -33,3 +33,17 @@ task_id: STUDIO-009P-02
 - No network/provider/model/tool/AI-Gateway/billing/routing/connected execution occurred.
 - Money ceiling remains zero and Workers Free remains required.
 - Next checkpoint is independent QA; implementation PR must not be merged yet.
+
+
+## 2026-09-04 -- independent QA recovery
+
+- Reviewed immutable implementation head `18b79dd67af466ffd74ccd34828a292e35342741`.
+- Immediately preceding detached shadow QA PASS: 45 new / 407 focused / 804 total / 40 probes.
+- The first QA apply attempt rolled back before commit because its git-status path parser truncated the first character of RESUME.md.
+- Recovery uses git diff --name-only plus git ls-files --others; no porcelain-prefix slicing.
+- Exact 24-path implementation PR scope retained.
+- Provider DISABLED; model DECLARED; child evidence SYNTHETIC.
+- No Cloudflare account/token/network/provider/model/tool/gateway/billing/routing/connected activity.
+- Money ceiling and spend remain ZERO. QA blockers: 0.
+- Next: independent Review & Integration; PR remains unmerged.
+<!-- STUDIO-009P-02-QA-CHECKPOINT-0003 -->
