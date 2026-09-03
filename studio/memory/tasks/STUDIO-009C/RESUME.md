@@ -65,3 +65,11 @@ updated_at: 2026-09-03T06:19:53Z
 
 verify_instructions: |
   - If branch, HEAD, scope, dependency merge, writer claim, or unrelated changes differ, stop and reconcile under studio/MEMORY_PROTOCOL.md before writing.
+# Contract Pull Request checkpoint
+
+contract_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/44
+contract_first_commit: 2ca4c0fa609d17aa1666f0c6429a29cc7dbce40c
+contract_checkpoint_at: 2026-09-03T06:20:26Z
+validated_evidence: 154 focused tests PASS; 551 total tests PASS; exact seven-path contract boundary
+next_action: Review and merge this contract-only Pull Request; do not create STUDIO-009C implementation paths before merge.
+prohibited_next_action: Do not create/read/enroll a real credential, connect a secret store, activate GitHub authentication, providers, routing, connected execution, network transport, or spend.

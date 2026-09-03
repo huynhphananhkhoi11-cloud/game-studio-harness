@@ -49,3 +49,10 @@ authorized_amendments: |
 # Notes
 
 This memory package records operational evidence only. It cannot grant credential, secret-store, repository, provider, network, budget, gate, merge, deployment, publication, or release authority.
+# Contract Pull Request checkpoint
+
+contract_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/44
+contract_first_commit: 2ca4c0fa609d17aa1666f0c6429a29cc7dbce40c
+contract_checkpoint_at: 2026-09-03T06:20:26Z
+contract_disposition: OPEN; Studio Owner review and merge pending
+implementation_gate: No STUDIO-009C implementation path may be created before this contract Pull Request merges.
