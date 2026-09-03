@@ -80,3 +80,27 @@ canonical_task_contract: tasks/STUDIO-009B.md
   rationale: QA and Review & Integration gates must pass on one immutable head before Studio Owner makes a separate merge decision.
   resulting_state: QA-01 PASS; Review and Integration APPROVE; blocking findings 0; implementation Pull Request remains open and unmerged.
   correction_of: NONE
+
+- checkpoint_id: STUDIO-009B-CP-0007
+  timestamp: 2026-09-03T05:58:20Z
+  actor: Studio Owner closeout runner
+  action: Closed STUDIO-009B implementation evidence after Pull Request #42 merged and prepared the memory-only closeout checkpoint.
+  scope_files: TASK.md; STATE.md; WORKLOG.md; RESUME.md within studio/memory/tasks/STUDIO-009B
+  command_or_check: Pull Request #42 merge verification; final-head containment; implementation-branch deletion; vertical-slice validation; 154 focused tests; 551 full tests; exact four-path closeout boundary; git diff --check
+  evidence_reference: implementation final head c1ae07d2614c260b5c1bb23bc19a1739203106d6; merge dbbae7260517b83a1a436f3fbda91c81071ef91b; Rules CI #198 SUCCESS
+  outcome: completed
+  rationale: STUDIO-009B implementation and review evidence must be durably closed before STUDIO-009C contract work begins.
+  resulting_state: COMPLETE with a memory-only closeout Pull Request to be opened; no live connector, credential, provider, routing, connected execution, or spend activity.
+  correction_of: NONE
+
+- checkpoint_id: STUDIO-009B-CP-0008
+  timestamp: 2026-09-03T05:58:25Z
+  actor: Studio Owner closeout runner
+  action: Opened and durably recorded the memory-only STUDIO-009B closeout Pull Request.
+  scope_files: STATE.md; WORKLOG.md; RESUME.md within studio/memory/tasks/STUDIO-009B
+  command_or_check: validated merged baseline; reran retained tests; pushed first closeout commit; created Pull Request; recorded URL and checkpoint
+  evidence_reference: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/43; closeout first commit 7cbdf4474408840aa4a8e68cc843887f75c2c953
+  outcome: completed
+  rationale: The closeout Pull Request identity must be persisted before transfer to Studio Owner review.
+  resulting_state: COMPLETE with closeout Pull Request open and unmerged; STUDIO-009C contract work remains separately gated.
+  correction_of: NONE
