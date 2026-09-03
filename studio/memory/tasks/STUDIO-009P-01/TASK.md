@@ -11,7 +11,7 @@ provider: GroqCloud
 model_allowlist: openai/gpt-oss-120b
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
-state: IMPLEMENTATION
+state: QA_PASS
 branch: agent/studio-009p-01-groq-implementation
 base_head: 2d2ec86ab5a6f66ffbb102154cff1a8f0d472929
 contract_merge: 2d2ec86ab5a6f66ffbb102154cff1a8f0d472929
@@ -28,3 +28,11 @@ completion_boundary: Implementation PR only; STUDIO-009F still gates real creden
 
 updated_at: 2026-09-03T11:08:50Z
 updater: Studio Owner implementation runner
+
+qa_reviewed_head: cfce688cb4751ddd863b93ae38cc4a794ea94bff
+qa_result: PASS
+qa_new_tests: 39
+qa_focused_tests: 362
+qa_total_tests: 759
+qa_independent_probes: 25
+qa_updated_at: 2026-09-03T11:39:25Z
