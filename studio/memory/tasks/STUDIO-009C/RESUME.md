@@ -73,3 +73,44 @@ contract_checkpoint_at: 2026-09-03T06:20:26Z
 validated_evidence: 154 focused tests PASS; 551 total tests PASS; exact seven-path contract boundary
 next_action: Review and merge this contract-only Pull Request; do not create STUDIO-009C implementation paths before merge.
 prohibited_next_action: Do not create/read/enroll a real credential, connect a secret store, activate GitHub authentication, providers, routing, connected execution, network transport, or spend.
+<!-- STUDIO-009C-IMPLEMENTATION-CHECKPOINT-0001 -->
+# Implementation checkpoint
+
+implementation_branch: agent/studio-009c-credential-broker
+implementation_base: 2a013ef922033b8f0a337027df268ddcbc2184f0
+implementation_checkpoint_at: 2026-09-03T07:22:33Z
+validated_evidence: 263 focused tests PASS; 660 total tests PASS; exact 25-path maximum boundary
+next_action: Complete commit/push/Pull Request creation, then run independent QA and Review & Integration before any Owner merge decision.
+prohibited_next_action: Do not activate real credentials, secret stores, GitHub authentication, providers, routing, connected execution, or spend.
+
+<!-- STUDIO-009C-IMPLEMENTATION-PR-CHECKPOINT-0002 -->
+# Implementation Pull Request checkpoint
+
+implementation_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/45
+implementation_first_commit: c231679e14ea215992260a815dfba14c85ebe158
+implementation_pr_checkpoint_at: 2026-09-03T07:22:40Z
+next_action: Run independent STUDIO-009C QA and Review & Integration against the implementation branch head; Studio Owner decides merge separately.
+do_not: Do not merge from automation and do not activate real credentials, secret stores, GitHub authentication, providers, routing, connected execution, or spend.
+
+<!-- STUDIO-009C-QA-CHECKPOINT-0003 -->
+# QA handoff
+
+qa_reviewed_head: e623e6ac0a917782276d79b811668bf492af9dba
+qa_reviewed_at: 2026-09-03T07:29:07Z
+qa_01: PASS
+blocking_findings: 0
+validated_evidence: 263 focused tests PASS; 660 total tests PASS; Rules CI #214 SUCCESS; exact 25-path cumulative scope; no live credential/store activity
+next_action: Run final Review & Integration against the QA checkpoint head.
+prohibited_next_action: Do not merge yet and do not activate credentials, secret stores, GitHub authentication, providers, routing, connected execution, or spend.
+
+<!-- STUDIO-009C-FINAL-REVIEW-CHECKPOINT-0004 -->
+# Final Review and Integration handoff
+
+reviewed_head: cbe64fb46ec69bf7bd910627e7990b08d11fc78c
+reviewed_at: 2026-09-03T07:30:39Z
+qa_01: PASS
+review_and_integration: APPROVE
+blocking_findings: 0
+validated_evidence: 263 focused tests PASS; 660 total tests PASS; Rules CI #216 SUCCESS; exact 25-path cumulative scope; source boundary PASS; no live credential/store activity
+next_action: Studio Owner may independently decide whether to merge the implementation Pull Request. If merged, create a separate STUDIO-009C closeout Pull Request.
+do_not: Do not activate credentials, real secret stores, GitHub authentication, providers, routing, connected execution, or spend.

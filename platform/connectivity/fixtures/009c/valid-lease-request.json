@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "request_id": "credential-request:read-metadata-001",
+  "credential_profile_id": "credential-profile:repo-game-studio",
+  "profile_digest": "sha256:304b809bc36e880a8385adb9929f2a94767fe70363d666b74c4ccbcf76fe92d3",
+  "task_ref": "task:STUDIO-009C",
+  "attempt_ref": "attempt:009c-credential",
+  "queue_ref": "queue:studio-009a",
+  "dispatch_ref": "dispatch:studio-009a",
+  "writer_claim_ref": null,
+  "worktree_ref": null,
+  "gate_ref": "gate:studio-009a",
+  "trace_ref": "trace:studio-009a",
+  "quota_budget_ref": "quota-budget:studio-009a",
+  "owner_approval_ref": "owner-approval:studio-009c",
+  "subject_ref": "repository:game-studio-harness",
+  "capability": "GITHUB_READ_METADATA",
+  "purpose": "REPOSITORY_METADATA",
+  "repository_record_digest": "sha256:0fc4c5aa3ef31ea04278a23f258f8479314a471494df1e8bb021c38d4e8d7e95",
+  "operation_digest": "sha256:ca42464f4ce901bd3c53a7bf1945b7583c9b8506e16d26484d80a2df7ca48197",
+  "requested_lease_seconds": 300,
+  "money_ceiling": 0,
+  "replay": {
+    "idempotency_key": "009c-read-001",
+    "issued_at": "2026-09-03T06:29:00Z",
+    "expires_at": "2026-09-03T07:00:00Z"
+  },
+  "as_of": "2026-09-03T06:30:00Z",
+  "canonical_digest": "sha256:c4114197714163f06a0b0674753f634ed438f0bac41e904c07a0ad3862a03dd3"
+}

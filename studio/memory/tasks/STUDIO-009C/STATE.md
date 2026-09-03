@@ -58,3 +58,83 @@ contract_first_commit: 2ca4c0fa609d17aa1666f0c6429a29cc7dbce40c
 contract_checkpoint_at: 2026-09-03T06:20:26Z
 contract_disposition: OPEN; Studio Owner review and merge pending
 validated_evidence: 154 focused tests PASS; 551 total tests PASS; exactly seven contract paths; credential/store/connector/provider/network/routing/connected-execution/spend activity NONE
+<!-- STUDIO-009C-IMPLEMENTATION-CHECKPOINT-0001 -->
+# Implementation checkpoint
+
+implementation_branch: agent/studio-009c-credential-broker
+implementation_base: 2a013ef922033b8f0a337027df268ddcbc2184f0
+implementation_checkpoint_at: 2026-09-03T07:22:33Z
+implementation_status: VALIDATED LOCALLY; commit, push, and Pull Request creation pending in this runner
+implementation_paths: 21
+memory_paths: 4
+focused_tests: 263 PASS
+total_tests: 660 PASS
+credential_runtime_activity: NONE
+secret_store_activity: NONE
+connector_runtime_activity: NONE
+provider_activity: NONE
+routing_activity: NONE
+connected_execution_activity: NONE
+spend: ZERO
+
+<!-- STUDIO-009C-IMPLEMENTATION-PR-CHECKPOINT-0002 -->
+# Implementation Pull Request checkpoint
+
+implementation_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/45
+implementation_first_commit: c231679e14ea215992260a815dfba14c85ebe158
+implementation_pr_checkpoint_at: 2026-09-03T07:22:40Z
+implementation_disposition: OPEN; independent QA, Review & Integration, and Studio Owner merge decision pending
+validated_evidence: 263 focused tests PASS; 660 total tests PASS; exactly 25 unique PR paths; live credential/store/connector/provider activity NONE
+
+<!-- STUDIO-009C-QA-CHECKPOINT-0003 -->
+# QA checkpoint
+
+qa_reviewed_head: e623e6ac0a917782276d79b811668bf492af9dba
+qa_reviewed_at: 2026-09-03T07:29:07Z
+qa_scope: exact cumulative 25-path STUDIO-009C implementation contract
+schema_checks: 4 PASS
+fixture_checks: 10 PASS
+focused_tests: 263 PASS
+full_regression_tests: 660 PASS
+rules_ci_on_reviewed_head: SUCCESS (run #214)
+qa_01_disposition: PASS
+blocking_findings: 0
+repository_lineage_binding: PASS
+redaction_and_safe_errors: PASS
+fake_store_only_boundary: PASS
+credential_runtime_activity: NONE
+secret_store_activity: NONE
+connector_runtime_activity: NONE
+provider_activity: NONE
+routing_activity: NONE
+connected_execution_activity: NONE
+spend: ZERO
+
+<!-- STUDIO-009C-FINAL-REVIEW-CHECKPOINT-0004 -->
+# Final Review and Integration checkpoint
+
+reviewed_head: cbe64fb46ec69bf7bd910627e7990b08d11fc78c
+reviewed_at: 2026-09-03T07:30:39Z
+review_scope: exact cumulative 25-path STUDIO-009C implementation contract
+focused_tests: 263 PASS
+full_regression_tests: 660 PASS
+schema_checks: 4 PASS
+fixture_checks: 10 PASS
+source_boundary_scan: PASS
+rules_ci_on_reviewed_head: SUCCESS (run #216)
+qa_01_disposition: PASS
+review_and_integration_disposition: APPROVE
+blocking_findings: 0
+repository_lineage_binding: PASS
+lease_and_replay_semantics: PASS
+revocation_rotation_kill_switch_semantics: PASS
+safe_error_redaction: PASS
+credential_runtime_activity: NONE
+secret_store_activity: NONE
+connector_runtime_activity: NONE
+provider_activity: NONE
+routing_activity: NONE
+connected_execution_activity: NONE
+spend: ZERO
+owner_merge_decision: PENDING
+final_review_boundary: No merge, credential enrollment, live secret-store transport, GitHub authentication, provider, routing, connected execution, or spend authority was activated.
