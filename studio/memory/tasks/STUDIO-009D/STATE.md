@@ -5,149 +5,66 @@ memory_schema_version: 1
 task_id: STUDIO-009D
 package_path: studio/memory/tasks/STUDIO-009D
 canonical_task_contract: tasks/STUDIO-009D.md
-state: HANDOFF
-logical_role: Platform Studio / Provider Integration Cell
+state: COMPLETE
+logical_role: Platform Studio / Provider Onboarding Cell
 repository_context: game-studio-harness
-worktree_context: STUDIO-009D contract worktree
-branch: agent/studio-009d-contract
-last_observed_HEAD: bfc48f2080bd654666955ca1ec615ebc27ad83cc
-durability_state: WORKTREE_ONLY
-last_verified_persisted_ref: bfc48f2080bd654666955ca1ec615ebc27ad83cc; Pull Request #46 merged
+worktree_context: STUDIO-009D closeout worktree
+branch: agent/studio-009d-closeout
+last_observed_HEAD: 0fcc49e0162ff8bb2b3c9ad880c6fdc223a9bc24
+durability_state: MERGED
+last_verified_persisted_ref: 0fcc49e0162ff8bb2b3c9ad880c6fdc223a9bc24; Pull Request #48 merged
+
+provider_runtime_activity: NONE
+network_activity: NONE
+credential_runtime_activity: NONE
+secret_store_activity: NONE
+connector_runtime_activity: NONE
+routing_activity: NONE
+connected_execution_activity: NONE
+spend: ZERO
+real_provider_approved: NONE
+next_phase: STUDIO-009P-01_CONTRACT_ONLY
 
 worktree_status_summary: |
-  - changed_files_attributed_to_task: exactly seven STUDIO-009D contract and memory paths
+  - changed_files_attributed_to_task: exactly four STUDIO-009D memory records
   - pre_existing_or_unrelated_changed_files: NONE
 
 completed: |
-  - Verified STUDIO-009C closeout Pull Request #46 merged at bfc48f2080bd654666955ca1ec615ebc27ad83cc.
-  - Defined generic provider profile, child-contract evidence, model/capability bindings, eligibility lifecycle, zero-budget boundary, exact future implementation scope, tests, and review gates.
-  - Preserved no-live-provider, no-network, no-real-credential, no-routing, no-connected-execution, and zero-spend boundaries.
+  - STUDIO-009D contract merged before implementation.
+  - Deterministic provider-profile, child-contract evidence, model/capability lineage, eligibility planning, lifecycle normalization, schemas, fixtures, documentation, and provider-child template were implemented within the exact authorized 25-path scope.
+  - Final implementation head 66d660e2bebbcae5db51054730ed6fd911522b9e merged through Pull Request #48 at 0fcc49e0162ff8bb2b3c9ad880c6fdc223a9bc24.
+  - Final evidence: 60 new tests PASS; 323 focused tests PASS; 720 total tests PASS.
+  - QA-01 PASS; Review and Integration APPROVE; blocking findings 0.
+  - No real provider, real model, endpoint, credential, network transport, connector execution, routing, connected execution, external mutation, or spend was activated.
 remaining: |
-  - Commit, push, and open the contract-only STUDIO-009D Pull Request.
-  - Await Studio Owner merge disposition before creating any STUDIO-009D implementation path.
+  - Review and merge the memory-only STUDIO-009D closeout Pull Request.
+  - After closeout merge, create one separately accepted provider child contract, beginning with generic identifier STUDIO-009P-01.
 blockers: |
   - NONE
 assumptions: |
-  - Real provider identity, model identity, endpoint/transport, auth mechanism, data-export policy, quota, and any nonzero budget remain provider-child Owner decisions.
+  - The identity of the first real provider remains an explicit Studio Owner decision.
 unresolved_items: |
-  - First real provider child selection, exact provider/model/endpoint, real credential enrollment, runner/sandbox, STUDIO-009E routing, and STUDIO-009F connected activation remain deferred.
+  - Real provider identity/model/endpoint/auth mechanism/data policy/quota/budget and connected activation remain deferred to STUDIO-009P* and STUDIO-009F.
 
 latest_checks: |
-  - STUDIO-009C closeout merge containment: PASS
-  - exact seven-path contract boundary: PENDING runner validation
-  - retained focused STUDIO-009A/009B/009C suite: PENDING runner validation
-  - full retained suite: PENDING runner validation
-  - git diff --check: PENDING runner validation
+  - final implementation head containment in merge commit: PASS
+  - five provider-onboarding schemas and ten fixtures: PASS
+  - vertical-slice data validation: PASS
+  - new STUDIO-009D suite: 60 PASS
+  - focused STUDIO-009A/009B/009C/009D suite: 323 PASS
+  - full regression suite: 720 PASS
+  - closeout changed-path boundary: PASS, exactly four memory paths
+  - git diff --check: PASS
   - provider/network/credential/store/connector/routing/connected-execution/spend activity: NONE
 
-last_safe_checkpoint_id: STUDIO-009D-CP-0001
-exact_next_action: Materialize and validate the seven-path STUDIO-009D contract checkpoint, then open a Pull Request and stop before merge.
+last_safe_checkpoint_id: STUDIO-009D-CP-0008
+exact_next_action: Review and merge the memory-only STUDIO-009D closeout Pull Request; then separately authorize STUDIO-009P-01 contract work only.
 
 active_writer_claim:
   status: TRANSFER_PENDING
-  writer: Studio Owner contract runner
-  claim_timestamp: 2026-09-03T07:49:07Z
-  transfer_intent: Studio Owner runner materializes the contract checkpoint and returns the Pull Request for Owner review.
+  writer: Studio Owner closeout runner
+  claim_timestamp: 2026-09-03T09:17:17Z
+  transfer_intent: Studio Owner reviews and merges the closeout, then separately authorizes one provider child contract.
 
-updated_at: 2026-09-03T07:49:07Z
-updater: Studio Owner contract runner
-<!-- STUDIO-009D-CONTRACT-PR-CHECKPOINT-0002 -->
-# Contract Pull Request checkpoint
-
-contract_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/47
-contract_first_commit: 50d38d1e69bdb0113e4ed203adb853cb69cac041
-contract_checkpoint_at: 2026-09-03T08:00:27Z
-contract_disposition: OPEN; Studio Owner review and merge pending
-
-<!-- STUDIO-009D-IMPLEMENTATION-CHECKPOINT-0001 -->
-# STUDIO-009D implementation checkpoint
-
-implementation_branch: agent/studio-009d-provider-onboarding
-implementation_base: 5da4b292a5fe8ef9dcb75c1446fd0dae8ea40dc0
-implementation_status: IMPLEMENTED - QA PENDING
-implementation_paths: 21
-memory_paths: 4
-focused_tests: 323 PASS
-total_tests: 720 PASS
-new_009d_tests: 60 PASS
-schemas: 5
-fixtures: 10
-provider_runtime_activity: NONE
-network_activity: NONE
-credential_runtime_activity: NONE
-secret_store_activity: NONE
-connector_runtime_activity: NONE
-routing_activity: NONE
-connected_execution_activity: NONE
-spend: ZERO
-checkpoint_at: 2026-09-03T08:41:46Z
-exact_next_action: Open the implementation Pull Request, preserve the immutable head, then perform independent QA-01.
-<!-- STUDIO-009D-IMPLEMENTATION-PR-CHECKPOINT-0002 -->
-# Implementation Pull Request checkpoint
-
-implementation_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/48
-implementation_first_commit: 34eaf9efad80992ef2e1718810386f00d3f65361
-pr_checkpoint_at: 2026-09-03T08:41:52Z
-disposition: OPEN - QA and Review pending; Studio Owner merge decision remains separate
-<!-- STUDIO-009D-QA-CHECKPOINT-0005 -->
-# QA checkpoint
-
-qa_reviewed_head: ac87487cc09bd8675907afe9c0facb7253d9aa1c
-qa_reviewed_at: 2026-09-03T08:55:42Z
-qa_scope: exact cumulative 25-path STUDIO-009D implementation contract
-schema_checks: 5 PASS
-fixture_checks: 10 PASS
-new_studio_009d_tests: 60 PASS
-focused_tests: 323 PASS
-full_regression_tests: 720 PASS
-rules_ci_on_reviewed_head: SUCCESS (run #233)
-qa_01_disposition: PASS
-blocking_findings: 0
-provider_profile_and_identity_controls: PASS
-child_contract_lineage: PASS
-model_and_capability_lineage: PASS
-zero_budget_and_safe_errors: PASS
-source_runtime_prohibitions: PASS
-provider_runtime_activity: NONE
-network_activity: NONE
-credential_runtime_activity: NONE
-secret_store_activity: NONE
-connector_runtime_activity: NONE
-routing_activity: NONE
-connected_execution_activity: NONE
-spend: ZERO
-real_provider_approved: false
-
-<!-- STUDIO-009D-FINAL-REVIEW-CHECKPOINT-0007 -->
-# Final Review and Integration checkpoint
-
-reviewed_head: ee06f544cd7c4210cca2c2323eef0270fd0294fd
-reviewed_at: 2026-09-03T09:05:43Z
-review_scope: exact cumulative 25-path STUDIO-009D implementation contract
-focused_tests: 323 PASS
-full_regression_tests: 720 PASS
-new_studio_009d_tests: 60 PASS
-schema_checks: 5 PASS
-fixture_checks: 10 PASS
-source_runtime_provider_neutrality_scan: PASS
-rules_ci_on_reviewed_head: SUCCESS (run #235)
-qa_01_disposition: PASS
-review_and_integration_disposition: APPROVE
-blocking_findings: 0
-provider_profile_identity_controls: PASS
-child_contract_evidence_controls: PASS
-model_capability_lineage: PASS
-eligibility_is_metadata_only: PASS
-no_active_state: PASS
-zero_budget_enforcement: PASS
-provider_runtime_activity: NONE
-network_activity: NONE
-credential_runtime_activity: NONE
-secret_store_activity: NONE
-connector_runtime_activity: NONE
-routing_activity: NONE
-connected_execution_activity: NONE
-spend: ZERO
-real_provider_approved: false
-owner_merge_decision: PENDING
-final_review_boundary: No merge, provider activation, model call, endpoint transport, credential enrollment, routing, connected execution, or spend authority was activated.
+updated_at: 2026-09-03T09:17:17Z
+updater: Studio Owner closeout runner

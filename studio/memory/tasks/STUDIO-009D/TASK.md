@@ -4,56 +4,28 @@ memory_schema_version: 1
 
 task_id: STUDIO-009D
 task_title: Provider onboarding framework
-task_type: architectural provider-onboarding contract and later implementation
+task_type: provider-neutral connectivity framework
 canonical_task_contract: tasks/STUDIO-009D.md
 memory_root: studio/memory/tasks
 package_path: studio/memory/tasks/STUDIO-009D
 project_studio: NONE
 
 goal: |
-  - Define and later implement a deterministic provider-neutral onboarding framework that every real `STUDIO-009P*` child must satisfy before connected activation.
+  - Define and implement deterministic provider-neutral onboarding validation and eligibility planning.
 allowed_scope: |
-  - Contract checkpoint: tasks/STUDIO-009.md, tasks/STUDIO-009D.md, tasks/STUDIO-009D-IMPLEMENTATION.md, and this four-record package.
-  - Future implementation: only the exact 25-path maximum boundary in tasks/STUDIO-009D-IMPLEMENTATION.md after this contract merges.
+  - Accepted contract and exact implementation boundary in tasks/STUDIO-009D.md and tasks/STUDIO-009D-IMPLEMENTATION.md.
+  - Final implementation cumulative scope was exactly 25 authorized paths.
 non_goals: |
-  - No real provider approval, model call, endpoint probe, SDK/API/CLI, account discovery, credential resolution, live routing, connected execution, nonzero spend, external write, deployment, publication, or release.
+  - No real provider approval, model activation, endpoint connection, credential resolution, network transport, routing, connected execution, or spend.
 
-responsible_role: Platform Studio / Provider Integration Cell
+responsible_role: Platform Studio / Provider Onboarding Cell
 review_target: QA-01 and REVIEW-INTEGRATION-01, then Studio Owner
 
-acceptance_criteria: tasks/STUDIO-009D.md and tasks/STUDIO-009D-IMPLEMENTATION.md
-accepted_constraints: |
-  - AGENTS.md
-  - docs/DECISIONS.md
-  - studio/MEMORY_PROTOCOL.md
-  - tasks/STUDIO-009.md
-  - tasks/STUDIO-007F.md
-  - tasks/STUDIO-009A.md
-  - tasks/STUDIO-009B.md
-  - tasks/STUDIO-009C.md
-  - platform/orchestration/PROVIDER_ADAPTER.md
-  - platform/connectivity/CREDENTIAL_BROKER.md
-  - platform/connectivity/SECRET_LIFECYCLE.md
-
-created_at: 2026-09-03T07:49:07Z
-authorized_amendments: |
-  - 2026-09-03: Studio Owner completed STUDIO-009C closeout and directed continuation to STUDIO-009D contract work.
-
-notes: |
-  - This package grants no provider, credential, network, routing, budget, gate, merge, deployment, publication, or release authority.
-<!-- STUDIO-009D-IMPLEMENTATION-CHECKPOINT-0001 -->
-# STUDIO-009D implementation checkpoint
-
-implementation_branch: agent/studio-009d-provider-onboarding
-implementation_base: 5da4b292a5fe8ef9dcb75c1446fd0dae8ea40dc0
-implementation_status: IMPLEMENTED - QA PENDING
-implementation_paths: 21
-memory_paths: 4
-focused_tests: 323 PASS
-total_tests: 720 PASS
-new_009d_tests: 60 PASS
-schemas: 5
-fixtures: 10
+task_status: COMPLETE
+implementation_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/48
+final_implementation_head: 66d660e2bebbcae5db51054730ed6fd911522b9e
+implementation_merge: 0fcc49e0162ff8bb2b3c9ad880c6fdc223a9bc24
+completion_evidence: 60 new STUDIO-009D tests PASS; 323 focused tests PASS; 720 total tests PASS; QA-01 PASS; Review and Integration APPROVE; blocking findings 0
 provider_runtime_activity: NONE
 network_activity: NONE
 credential_runtime_activity: NONE
@@ -62,12 +34,8 @@ connector_runtime_activity: NONE
 routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
-checkpoint_at: 2026-09-03T08:41:46Z
-exact_next_action: Open the implementation Pull Request, preserve the immutable head, then perform independent QA-01.
-<!-- STUDIO-009D-IMPLEMENTATION-PR-CHECKPOINT-0002 -->
-# Implementation Pull Request checkpoint
+real_provider_approved: NONE
+next_phase: STUDIO-009P-01_CONTRACT_ONLY
+completion_boundary: STUDIO-009D only; each real provider remains separately gated by STUDIO-009P* and STUDIO-009F.
 
-implementation_pr: https://github.com/huynhphananhkhoi11-cloud/game-studio-harness/pull/48
-implementation_first_commit: 34eaf9efad80992ef2e1718810386f00d3f65361
-pr_checkpoint_at: 2026-09-03T08:41:52Z
-disposition: OPEN - QA and Review pending; Studio Owner merge decision remains separate
+updated_at: 2026-09-03T09:17:17Z
