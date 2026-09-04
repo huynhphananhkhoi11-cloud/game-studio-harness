@@ -20,11 +20,13 @@ STUDIO-009 is an activation program, not one all-powerful connector. Repository 
 2. `STUDIO-009B` - repository registry and GitHub connector.
 3. `STUDIO-009C` - credential broker and secret lifecycle.
 4. `STUDIO-009D` - provider onboarding framework.
-5. `STUDIO-009P*` - one child contract per real provider.
-6. `STUDIO-009E` - policy routing and live failover.
-7. `STUDIO-009F` - connected pilot, acceptance, and closeout.
+5. `STUDIO-009P*` - one child contract per real provider, with offline/synthetic implementation first.
+6. `STUDIO-009R-01` - one-time progressive live-activation governance amendment.
+7. `STUDIO-009V*` - one separately accepted provider-specific connected-validation track after the corresponding P child is durably complete offline.
+8. `STUDIO-009E` - automatic policy routing and failover across separately validated, routing-eligible providers.
+9. `STUDIO-009F` - full connected multi-provider/multi-repository studio acceptance and closeout.
 
-Each phase requires its contract to merge before its implementation paths are created. Provider-specific work cannot be authorized by the generic STUDIO-009D framework alone.
+Each contract must merge before the implementation or connected authority it governs is created. Provider-specific work cannot be authorized by the generic STUDIO-009D framework alone. A merged P child never implies connected authority; a separately merged V-track contract is required before real provider authentication/network/model activity.
 
 ## Inherited capabilities
 
@@ -66,13 +68,15 @@ A single-provider or read-only result may be accepted only with explicit limitat
 
 STUDIO-009A through STUDIO-009D are complete.
 
-STUDIO-009P-01 Groq is COMPLETE through its merged implementation and closeout. Its real provider remains disabled for connected execution until STUDIO-009F.
+STUDIO-009P-01 Groq is COMPLETE through merged offline implementation and closeout. Its real provider remains DISABLED for connected execution until a separately accepted provider-specific V-track authorizes bounded connected validation.
 
-STUDIO-009P-02 Cloudflare Workers AI is CONTRACT ONLY. The selected exact model is `@cf/nvidia/nemotron-3-120b-a12b`. This contract authorizes provider-specific specification and memory records only. It does not authorize Cloudflare account discovery, raw Account ID capture, API-token creation/enrollment/resolution, HTTP requests, Workers AI/model/tool calls, AI Gateway, Unified Billing, prepaid credits, storage services, paid Workers activation, routing, connected execution, nonzero spend, external write, deployment, or release.
+STUDIO-009P-02 Cloudflare Workers AI is COMPLETE through merged offline/synthetic implementation and closeout. Its exact offline model allowlist remains `@cf/nvidia/nemotron-3-120b-a12b`. Its real provider remains DISABLED for connected execution until a separately accepted provider-specific V-track authorizes bounded connected validation.
 
-The STUDIO-009P-02 contract record becomes durable only when the Pull Request containing it is merged. Any later provider-specific implementation remains offline/synthetic until separately reviewed and merged.
+STUDIO-009R-01 is the governance amendment that separates provider-specific connected validation from final integrated acceptance. The amendment itself grants no provider/network/credential/model-call authority and keeps monetary ceiling at zero.
 
-STUDIO-009E remains the routing/failover phase. STUDIO-009F remains the only connected activation gate.
+After STUDIO-009R-01 is durably merged and its generic offline live-validation framework is separately implemented, QA-reviewed, merged, and closed out, provider-specific `STUDIO-009V-*` contracts may authorize bounded PUBLIC/SYNTHETIC connected validation for already-complete P children. Automatic provider selection remains prohibited until STUDIO-009E.
+
+STUDIO-009E remains the automatic routing/failover phase over separately validated and routing-eligible providers. STUDIO-009F remains the full connected studio acceptance gate, not the first provider-call gate.
 
 ## Owner decisions deferred to later contracts
 

@@ -68,6 +68,14 @@ Require provider-specific focused tests plus the complete retained regression su
 
 Require independent QA PASS, Review and Integration APPROVE, zero blocking findings, and a separate Studio Owner merge decision.
 
-## 15. Connected activation dependency
+## 15. Progressive connected-validation dependency
 
-Merging a `STUDIO-009P-*` child contract or its implementation DOES NOT activate a provider. Live authentication, network transport, model calls, connected execution, and nonzero spend remain separately gated by STUDIO-009F. STUDIO-009E governs routing/failover policy where applicable.
+Merging a `STUDIO-009P-*` child contract, offline implementation, QA record, Review record, or closeout DOES NOT activate a provider.
+
+After STUDIO-009R-01 is durably accepted, a provider that has completed its P-child offline lifecycle may receive a separately reviewed and merged `STUDIO-009V-*` / provider-specific live-extension contract. Only that V-track may authorize the bounded credential/network/model activity needed for provider-specific connected validation.
+
+Initial connected validation must remain PUBLIC/SYNTHETIC, zero-cost, exact-provider/model/host bounded, concurrency 1, automatic retry 0, and tool/browser/remote-MCP/code-execution/search/storage disabled unless the V contract explicitly and separately narrows those controls.
+
+A successful V-track does not authorize automatic routing. STUDIO-009E governs automatic routing/failover and may select only separately validated providers that are explicitly routing-eligible. STUDIO-009F remains the full integrated connected-studio acceptance gate.
+
+No P child, V child, router, adapter, reviewer, evaluator, AI, or provider can self-authorize merge, deployment, publication, data-policy broadening, or nonzero spend.
