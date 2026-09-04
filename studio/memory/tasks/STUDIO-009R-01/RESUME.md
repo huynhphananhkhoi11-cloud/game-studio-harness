@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009R-01
 package_path: studio/memory/tasks/STUDIO-009R-01
 canonical_task_contract: tasks/STUDIO-009R-01.md
-current_state: REVIEW_CORRECTION_READY_FOR_REQA
+current_state: REQA_PASS_READY_FOR_FINAL_REVIEW
 resume_from: c3f13b7dc892bc8a9de29c15a42af8bd4e7cd606
 branch: agent/studio-009r-01-implementation
 
 safe_checkpoint: STUDIO-009R-01 contract PR #56 merged at 6902b2a656b24a37b5a573867cab57d75a13feb9; generic live-validation implementation is offline only and contains no real provider authority.
 
-next_action: Re-run independent QA on the corrected immutable head. Do not merge PR #57 or connect any provider yet.
+next_action: Run independent Final Review & Integration on the immutable re-QA checkpoint. Do not merge PR #57 or connect any provider yet.
 
 prohibited_next_actions: real credential enrollment/resolution; provider/network/model call; routing; automatic failover; private/unreleased data export; paid fallback; credit purchase; provider tool/browser/MCP/code execution; repository direct-main write; merge by AI; Unity/game production work under this task.
 
@@ -46,3 +46,14 @@ review_correction_next_gate: INDEPENDENT_REQA
 review_correction_provider_activity: NONE
 review_correction_spend: ZERO
 <!-- STUDIO-009R-01-REVIEW-CORRECTION-RESUME-0004A -->
+
+reqa_checkpoint: STUDIO-009R-01-REQA-CHECKPOINT-0004B
+reqa_reviewed_head: 9ab137b6c0b60333a9160b1b31ccd25f7e1fc49d
+reqa_result: PASS
+reqa_blockers: 0
+reqa_tests: 70 live / 477 focused / 874 total
+reqa_independent_probes: 80
+reqa_connected_activity: NONE
+reqa_unity_activity: NONE
+reqa_spend: ZERO
+<!-- STUDIO-009R-01-REQA-RESUME-0004B -->

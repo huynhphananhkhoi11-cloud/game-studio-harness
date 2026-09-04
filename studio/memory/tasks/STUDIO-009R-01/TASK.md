@@ -26,7 +26,7 @@ non_goals: |
 responsible_role: Platform Studio / Connected Validation Governance Cell
 review_target: Rules CI and Studio Owner contract merge; later independent QA and Review apply to implementation.
 
-task_status: REVIEW_CORRECTION_READY_FOR_REQA
+task_status: REQA_PASS_READY_FOR_FINAL_REVIEW
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 money_ceiling: 0
 provider_runtime_activity: NONE
@@ -77,3 +77,11 @@ review_correction_expected_focused_tests: 477
 review_correction_expected_total_tests: 874
 review_correction_next_phase: INDEPENDENT_REQA
 <!-- STUDIO-009R-01-REVIEW-CORRECTION-TASK-0004A -->
+
+reqa_result: PASS
+reqa_reviewed_head: 9ab137b6c0b60333a9160b1b31ccd25f7e1fc49d
+reqa_blockers: 0
+reqa_tests: 70 live / 477 focused / 874 total
+reqa_independent_probes: 80
+reqa_next_phase: FINAL_REVIEW_AND_INTEGRATION
+<!-- STUDIO-009R-01-REQA-TASK-0004B -->

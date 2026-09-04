@@ -52,3 +52,15 @@ canonical_task_contract: tasks/STUDIO-009R-01.md
 - Independent re-QA is mandatory before Final Review can resume.
 - No provider/network/account/credential/tool/routing/Unity activity or spend is authorized or performed.
 <!-- STUDIO-009R-01-REVIEW-CORRECTION-WORKLOG-0004A -->
+
+## 2026-09-04T10:57:36Z — Independent re-QA after Final Review correction
+
+- Re-QA reviewed immutable correction head `9ab137b6c0b60333a9160b1b31ccd25f7e1fc49d`.
+- Correction delta from QA head remains exactly 11 authorized paths; cumulative PR scope remains 21 paths.
+- Rules CI on correction head was already successful before re-QA.
+- Detached shadow worktree passed 70 live tests, 477 focused tests, and 874 retained tests.
+- Independent re-QA added 80 hostile/lineage probes covering exact provider/P-child/model/transport/credential/V-contract/capability/ceiling/time binding and worker transition lineage.
+- Re-QA result: PASS; blockers: 0.
+- No provider/network/account/credential/store/tool/routing/connected/Unity activity or spend occurred.
+- Next checkpoint: independent Final Review & Integration. PR #57 remains unmerged.
+<!-- STUDIO-009R-01-REQA-WORKLOG-0004B -->

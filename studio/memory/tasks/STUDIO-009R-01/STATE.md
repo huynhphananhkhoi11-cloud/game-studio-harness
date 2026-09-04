@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009R-01
-state: REVIEW_CORRECTION_READY_FOR_REQA
+state: REQA_PASS_READY_FOR_FINAL_REVIEW
 logical_role: Platform Studio / Connected Validation Governance Cell
 repository_context: game-studio-harness
 branch: agent/studio-009r-01-implementation
@@ -33,9 +33,9 @@ remaining: |
 blockers: |
   - NONE
 
-exact_next_action: Re-run independent QA on the corrected lineage-binding implementation head; do not merge or connect any provider yet.
+exact_next_action: Run independent Final Review & Integration on the immutable re-QA checkpoint; do not merge or connect any provider yet.
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
-next_phase: STUDIO-009R-01_CORRECTION_REQA
+next_phase: STUDIO-009R-01_FINAL_REVIEW_AFTER_CORRECTION
 <!-- STUDIO-009R-01-CONTRACT-CHECKPOINT-0001 -->
 
 implementation_contract_pr: 56
@@ -95,3 +95,23 @@ correction_spend: ZERO
 qa_checkpoint_f372_status: SUPERSEDED_FOR_MERGE_BY_REVIEW_CORRECTION
 next_required_gate: INDEPENDENT_REQA
 <!-- STUDIO-009R-01-REVIEW-CORRECTION-0004A -->
+
+reqa_result: PASS
+reqa_reviewed_head: 9ab137b6c0b60333a9160b1b31ccd25f7e1fc49d
+reqa_blockers: 0
+reqa_live_tests: 70
+reqa_focused_tests: 477
+reqa_total_tests: 874
+reqa_independent_probes: 80
+reqa_provider_runtime_activity: NONE
+reqa_network_activity: NONE
+reqa_account_runtime_activity: NONE
+reqa_credential_runtime_activity: NONE
+reqa_secret_store_activity: NONE
+reqa_tool_execution_activity: NONE
+reqa_remote_mcp_activity: NONE
+reqa_routing_activity: NONE
+reqa_connected_execution_activity: NONE
+reqa_unity_activity: NONE
+reqa_spend: ZERO
+<!-- STUDIO-009R-01-REQA-CHECKPOINT-0004B -->
