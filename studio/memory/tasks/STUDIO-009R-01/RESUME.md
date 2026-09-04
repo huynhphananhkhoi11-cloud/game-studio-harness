@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009R-01
 package_path: studio/memory/tasks/STUDIO-009R-01
 canonical_task_contract: tasks/STUDIO-009R-01.md
-current_state: REQA_PASS_READY_FOR_FINAL_REVIEW
+current_state: FINAL_REVIEW_APPROVED_READY_FOR_OWNER_MERGE
 resume_from: c3f13b7dc892bc8a9de29c15a42af8bd4e7cd606
 branch: agent/studio-009r-01-implementation
 
 safe_checkpoint: STUDIO-009R-01 contract PR #56 merged at 6902b2a656b24a37b5a573867cab57d75a13feb9; generic live-validation implementation is offline only and contains no real provider authority.
 
-next_action: Run independent Final Review & Integration on the immutable re-QA checkpoint. Do not merge PR #57 or connect any provider yet.
+next_action: Studio Owner may merge PR #57 after reviewing the final APPROVE checkpoint. Do not connect any provider; perform closeout after merge.
 
 prohibited_next_actions: real credential enrollment/resolution; provider/network/model call; routing; automatic failover; private/unreleased data export; paid fallback; credit purchase; provider tool/browser/MCP/code execution; repository direct-main write; merge by AI; Unity/game production work under this task.
 
@@ -57,3 +57,15 @@ reqa_connected_activity: NONE
 reqa_unity_activity: NONE
 reqa_spend: ZERO
 <!-- STUDIO-009R-01-REQA-RESUME-0004B -->
+
+final_review_checkpoint: STUDIO-009R-01-FINAL-REVIEW-CHECKPOINT-0004C
+final_review_reviewed_head: 972dd497ac6739af6fe6e05a2da831590b727155
+final_review_result: APPROVE
+final_review_blockers: 0
+final_review_tests: 70 live / 477 focused / 874 total
+final_review_independent_probes: 117
+final_review_connected_activity: NONE
+final_review_unity_activity: NONE
+final_review_spend: ZERO
+final_review_next_gate: OWNER_MERGE
+<!-- STUDIO-009R-01-FINAL-REVIEW-RESUME-0004C -->

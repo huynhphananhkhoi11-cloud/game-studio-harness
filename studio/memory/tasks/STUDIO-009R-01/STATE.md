@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009R-01
-state: REQA_PASS_READY_FOR_FINAL_REVIEW
+state: FINAL_REVIEW_APPROVED_READY_FOR_OWNER_MERGE
 logical_role: Platform Studio / Connected Validation Governance Cell
 repository_context: game-studio-harness
 branch: agent/studio-009r-01-implementation
@@ -33,9 +33,9 @@ remaining: |
 blockers: |
   - NONE
 
-exact_next_action: Run independent Final Review & Integration on the immutable re-QA checkpoint; do not merge or connect any provider yet.
+exact_next_action: Studio Owner may review and merge PR #57. Do not connect any provider; closeout remains required after merge.
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
-next_phase: STUDIO-009R-01_FINAL_REVIEW_AFTER_CORRECTION
+next_phase: STUDIO-009R-01_OWNER_MERGE
 <!-- STUDIO-009R-01-CONTRACT-CHECKPOINT-0001 -->
 
 implementation_contract_pr: 56
@@ -115,3 +115,24 @@ reqa_connected_execution_activity: NONE
 reqa_unity_activity: NONE
 reqa_spend: ZERO
 <!-- STUDIO-009R-01-REQA-CHECKPOINT-0004B -->
+
+final_review_result: APPROVE
+final_review_reviewed_head: 972dd497ac6739af6fe6e05a2da831590b727155
+final_review_blockers: 0
+final_review_live_tests: 70
+final_review_focused_tests: 477
+final_review_total_tests: 874
+final_review_independent_probes: 117
+final_review_provider_runtime_activity: NONE
+final_review_network_activity: NONE
+final_review_account_runtime_activity: NONE
+final_review_credential_runtime_activity: NONE
+final_review_secret_store_activity: NONE
+final_review_tool_execution_activity: NONE
+final_review_remote_mcp_activity: NONE
+final_review_routing_activity: NONE
+final_review_connected_execution_activity: NONE
+final_review_unity_activity: NONE
+final_review_spend: ZERO
+next_required_gate_after_review: OWNER_MERGE
+<!-- STUDIO-009R-01-FINAL-REVIEW-CHECKPOINT-0004C -->
