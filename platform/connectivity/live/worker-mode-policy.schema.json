@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "game://platform/connectivity/live/worker-mode-policy.schema.json",
+  "title": "GAME Live Worker Mode Policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "worker_policy_id",
+    "provider_profile_id",
+    "provider_child_id",
+    "mode",
+    "work_order_ref",
+    "writer_claim_ref",
+    "worktree_ref",
+    "allowed_paths",
+    "repository_write_allowed",
+    "direct_main_write_allowed",
+    "merge_allowed",
+    "deploy_allowed",
+    "publish_allowed",
+    "secret_access_allowed",
+    "arbitrary_tools_allowed",
+    "local_mediation_required",
+    "money_ceiling",
+    "as_of",
+    "canonical_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "worker_policy_id": {
+      "type": "string",
+      "pattern": "^worker-policy:[a-z0-9][a-z0-9._-]{2,95}$"
+    },
+    "provider_profile_id": {
+      "type": "string",
+      "pattern": "^provider-profile:[a-z0-9][a-z0-9._-]{2,95}$"
+    },
+    "provider_child_id": {
+      "type": "string",
+      "pattern": "^STUDIO-009P-[A-Z0-9][A-Z0-9-]{0,31}$"
+    },
+    "mode": {
+      "enum": [
+        "LIVE_SHADOW_WORKER",
+        "LIVE_BOUNDED_WORKER"
+      ]
+    },
+    "work_order_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "writer_claim_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "worktree_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "allowed_paths": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "repository_write_allowed": {
+      "type": "boolean"
+    },
+    "direct_main_write_allowed": {
+      "const": false
+    },
+    "merge_allowed": {
+      "const": false
+    },
+    "deploy_allowed": {
+      "const": false
+    },
+    "publish_allowed": {
+      "const": false
+    },
+    "secret_access_allowed": {
+      "const": false
+    },
+    "arbitrary_tools_allowed": {
+      "const": false
+    },
+    "local_mediation_required": {
+      "const": true
+    },
+    "money_ceiling": {
+      "const": 0
+    },
+    "as_of": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "canonical_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

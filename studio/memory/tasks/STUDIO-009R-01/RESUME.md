@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009R-01
 package_path: studio/memory/tasks/STUDIO-009R-01
 canonical_task_contract: tasks/STUDIO-009R-01.md
-current_state: CONTRACT_READY
-resume_from: 3cf7165c3263f8595b66a0d029b96022840adef3
-branch: agent/studio-009r-01-contract
+current_state: FINAL_REVIEW_APPROVED_READY_FOR_OWNER_MERGE
+resume_from: c3f13b7dc892bc8a9de29c15a42af8bd4e7cd606
+branch: agent/studio-009r-01-implementation
 
-safe_checkpoint: P-01 Groq and P-02 Cloudflare offline closeouts are durably merged; both remain DISABLED for connected execution. STUDIO-009R-01 contract is prepared to amend the late-connect governance rule without activating any provider.
+safe_checkpoint: STUDIO-009R-01 contract PR #56 merged at 6902b2a656b24a37b5a573867cab57d75a13feb9; generic live-validation implementation is offline only and contains no real provider authority.
 
-next_action: Verify the contract PR immutable head, exact nine-path scope, and Rules CI. Studio Owner may merge if satisfied. After merge, begin the separately bounded offline STUDIO-009R-01 implementation; do not run any real provider call yet.
+next_action: Studio Owner may merge PR #57 after reviewing the final APPROVE checkpoint. Do not connect any provider; perform closeout after merge.
 
 prohibited_next_actions: real credential enrollment/resolution; provider/network/model call; routing; automatic failover; private/unreleased data export; paid fallback; credit purchase; provider tool/browser/MCP/code execution; repository direct-main write; merge by AI; Unity/game production work under this task.
 
@@ -23,3 +23,49 @@ provider_runtime_activity: NONE
 network_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
+
+implementation_checkpoint: STUDIO-009R-01-IMPLEMENTATION-CHECKPOINT-0002
+implementation_expected_tests: 50 new / 457 focused / 854 total
+implementation_provider_activity: NONE
+implementation_spend: ZERO
+
+qa_checkpoint: STUDIO-009R-01-QA-CHECKPOINT-0003
+qa_reviewed_head: c3f13b7dc892bc8a9de29c15a42af8bd4e7cd606
+qa_result: PASS
+qa_blockers: 0
+qa_tests: 50 new / 457 focused / 854 total
+qa_independent_probes: 60
+qa_connected_activity: NONE
+qa_unity_activity: NONE
+qa_spend: ZERO
+
+review_correction_source_qa_head: f3723fd3aa8607ee0c541ba9d5b204a7fbc396ee
+review_correction_findings: 2
+review_correction_expected_tests: 70 live / 477 focused / 874 total
+review_correction_next_gate: INDEPENDENT_REQA
+review_correction_provider_activity: NONE
+review_correction_spend: ZERO
+<!-- STUDIO-009R-01-REVIEW-CORRECTION-RESUME-0004A -->
+
+reqa_checkpoint: STUDIO-009R-01-REQA-CHECKPOINT-0004B
+reqa_reviewed_head: 9ab137b6c0b60333a9160b1b31ccd25f7e1fc49d
+reqa_result: PASS
+reqa_blockers: 0
+reqa_tests: 70 live / 477 focused / 874 total
+reqa_independent_probes: 80
+reqa_connected_activity: NONE
+reqa_unity_activity: NONE
+reqa_spend: ZERO
+<!-- STUDIO-009R-01-REQA-RESUME-0004B -->
+
+final_review_checkpoint: STUDIO-009R-01-FINAL-REVIEW-CHECKPOINT-0004C
+final_review_reviewed_head: 972dd497ac6739af6fe6e05a2da831590b727155
+final_review_result: APPROVE
+final_review_blockers: 0
+final_review_tests: 70 live / 477 focused / 874 total
+final_review_independent_probes: 117
+final_review_connected_activity: NONE
+final_review_unity_activity: NONE
+final_review_spend: ZERO
+final_review_next_gate: OWNER_MERGE
+<!-- STUDIO-009R-01-FINAL-REVIEW-RESUME-0004C -->

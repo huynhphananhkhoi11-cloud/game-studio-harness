@@ -26,7 +26,7 @@ non_goals: |
 responsible_role: Platform Studio / Connected Validation Governance Cell
 review_target: Rules CI and Studio Owner contract merge; later independent QA and Review apply to implementation.
 
-task_status: CONTRACT_READY_FOR_OWNER_MERGE
+task_status: FINAL_REVIEW_APPROVED_READY_FOR_OWNER_MERGE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 money_ceiling: 0
 provider_runtime_activity: NONE
@@ -35,4 +35,70 @@ credential_runtime_activity: NONE
 routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
-next_phase_after_contract_merge: STUDIO-009R-01_IMPLEMENTATION_OFFLINE
+next_phase_after_contract_merge: STUDIO-009R-01_FINAL_REVIEW
+
+implementation_contract_pr: 56
+implementation_contract_head: b163e0ddc4007f12c749f4f3db438287a666782b
+implementation_contract_merge: 6902b2a656b24a37b5a573867cab57d75a13feb9
+implementation_branch: agent/studio-009r-01-implementation
+implementation_scope_paths: 17
+implementation_cumulative_pr_paths: 21
+implementation_new_tests: 50
+implementation_expected_focused_tests: 457
+implementation_expected_total_tests: 854
+implementation_runtime_activity: NONE
+implementation_spend: ZERO
+<!-- STUDIO-009R-01-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+qa_result: PASS
+qa_reviewed_head: c3f13b7dc892bc8a9de29c15a42af8bd4e7cd606
+qa_blockers: 0
+qa_new_tests: 50
+qa_focused_tests: 457
+qa_total_tests: 854
+qa_independent_probes: 60
+qa_provider_runtime_activity: NONE
+qa_network_activity: NONE
+qa_account_runtime_activity: NONE
+qa_credential_runtime_activity: NONE
+qa_secret_store_activity: NONE
+qa_tool_execution_activity: NONE
+qa_remote_mcp_activity: NONE
+qa_routing_activity: NONE
+qa_connected_execution_activity: NONE
+qa_unity_activity: NONE
+qa_spend: ZERO
+<!-- STUDIO-009R-01-QA-CHECKPOINT-0003 -->
+
+review_correction_reason: exact lineage/capability/ceiling/time binding required before live promotion.
+review_correction_required_before_merge: true
+review_correction_expected_live_tests: 70
+review_correction_expected_focused_tests: 477
+review_correction_expected_total_tests: 874
+review_correction_next_phase: INDEPENDENT_REQA
+<!-- STUDIO-009R-01-REVIEW-CORRECTION-TASK-0004A -->
+
+reqa_result: PASS
+reqa_reviewed_head: 9ab137b6c0b60333a9160b1b31ccd25f7e1fc49d
+reqa_blockers: 0
+reqa_tests: 70 live / 477 focused / 874 total
+reqa_independent_probes: 80
+reqa_next_phase: FINAL_REVIEW_AND_INTEGRATION
+<!-- STUDIO-009R-01-REQA-TASK-0004B -->
+
+final_review_result: APPROVE
+final_review_reviewed_head: 972dd497ac6739af6fe6e05a2da831590b727155
+final_review_blockers: 0
+final_review_live_tests: 70
+final_review_focused_tests: 477
+final_review_total_tests: 874
+final_review_independent_probes: 117
+final_review_provider_runtime_activity: NONE
+final_review_network_activity: NONE
+final_review_credential_runtime_activity: NONE
+final_review_routing_activity: NONE
+final_review_connected_execution_activity: NONE
+final_review_unity_activity: NONE
+final_review_spend: ZERO
+final_review_next_phase: OWNER_MERGE
+<!-- STUDIO-009R-01-FINAL-REVIEW-CHECKPOINT-0004C -->

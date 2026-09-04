@@ -16,3 +16,64 @@ canonical_task_contract: tasks/STUDIO-009R-01.md
 - Amendment contract introduces separate provider-specific V-track authority and preserves 009E for automatic routing plus 009F for full integrated acceptance.
 - Contract itself performs zero provider/network/account/credential/tool/routing/connected activity and zero spend.
 - Future P-03+ provider identities are intentionally not selected by this amendment.
+
+## 2026-09-04T10:11:41Z — Offline progressive-live validation implementation
+
+- Contract PR #56 merged at `6902b2a656b24a37b5a573867cab57d75a13feb9`.
+- Created exactly 17 implementation paths and updated four existing memory paths.
+- Added deterministic live-state, connected-evidence, and worker-mode validation only.
+- Added 50 tests; expected focused/full totals are 457/854.
+- No provider/network/account/credential/store/tool/routing/connected/Unity activity occurred.
+- MONEY_CEILING remains 0; spend remains ZERO.
+- Next checkpoint is independent QA; implementation PR must not be merged yet.
+
+
+## 2026-09-04T10:20:39Z — Independent QA
+
+- Reviewed immutable implementation head `c3f13b7dc892bc8a9de29c15a42af8bd4e7cd606`.
+- Detached shadow worktree QA PASS before any memory mutation.
+- 60 independent live-state/evidence/worker-boundary probes PASS.
+- 50 new tests PASS; 457 focused tests PASS; 854 total tests PASS.
+- Exact 21-path implementation PR scope retained; QA delta is exactly four memory paths.
+- Generic framework remains OFFLINE only; P-01 Groq and P-02 Cloudflare remain connected DISABLED.
+- Provider/network/account/credential/store/tool/MCP/routing/connected/Unity activity remains NONE.
+- MONEY_CEILING remains 0; spend remains ZERO.
+- QA blockers: 0.
+- Next action: independent Final Review & Integration; implementation PR remains unmerged.
+<!-- STUDIO-009R-01-QA-CHECKPOINT-0003 -->
+
+## 2026-09-04 — Final Review correction before approval
+- Independent Final Review did not approve QA head `f3723fd3aa8607ee0c541ba9d5b204a7fbc396ee`.
+- Finding 1: connected-validation metadata could be shape-valid without exact accepted lineage/capability/ceiling/time binding.
+- Finding 2: `plan_transition` checked evidence presence / worker mode but did not fail closed on cross-provider or cross-child lineage.
+- Correction adds accepted-constraint binding, stable mismatch/broadening refusal codes, target-state evidence, cross-lineage transition checks, stricter worker schema patterns, and 20 additional hostile tests.
+- Corrected live test count is 70; expected focused/full totals are 477/874.
+- Previous QA PASS remains historical evidence for the pre-correction head but is superseded for merge disposition.
+- Independent re-QA is mandatory before Final Review can resume.
+- No provider/network/account/credential/tool/routing/Unity activity or spend is authorized or performed.
+<!-- STUDIO-009R-01-REVIEW-CORRECTION-WORKLOG-0004A -->
+
+## 2026-09-04T10:57:36Z — Independent re-QA after Final Review correction
+
+- Re-QA reviewed immutable correction head `9ab137b6c0b60333a9160b1b31ccd25f7e1fc49d`.
+- Correction delta from QA head remains exactly 11 authorized paths; cumulative PR scope remains 21 paths.
+- Rules CI on correction head was already successful before re-QA.
+- Detached shadow worktree passed 70 live tests, 477 focused tests, and 874 retained tests.
+- Independent re-QA added 80 hostile/lineage probes covering exact provider/P-child/model/transport/credential/V-contract/capability/ceiling/time binding and worker transition lineage.
+- Re-QA result: PASS; blockers: 0.
+- No provider/network/account/credential/store/tool/routing/connected/Unity activity or spend occurred.
+- Next checkpoint: independent Final Review & Integration. PR #57 remains unmerged.
+<!-- STUDIO-009R-01-REQA-WORKLOG-0004B -->
+
+## 2026-09-04 — Final Review & Integration after correction re-QA
+
+- Reviewed immutable re-QA checkpoint `972dd497ac6739af6fe6e05a2da831590b727155` for PR #57.
+- Prior Final Review findings were corrected at `9ab137b6c0b60333a9160b1b31ccd25f7e1fc49d` and independently re-QA'd with 80 probes.
+- Re-ran 70 live-validation tests, 477 focused tests, and 874 total tests.
+- Ran 117 independent Final Review & Integration probes covering contract scope, exact lineage binding, worker-mode authority, schemas, source/runtime prohibitions, and re-QA evidence.
+- Final Review result: APPROVE; blockers: 0.
+- No provider/network/account/credential/store/tool/routing/connected/Unity activity occurred.
+- MONEY_CEILING remains 0; spend remains ZERO.
+- PR #57 remains unmerged pending separate Studio Owner decision.
+- After Owner merge, a separate closeout checkpoint is still required before any provider-specific V-track proceeds.
+<!-- STUDIO-009R-01-FINAL-REVIEW-WORKLOG-0004C -->
