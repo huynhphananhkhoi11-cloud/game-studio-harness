@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "game://platform/connectivity/live/connected-validation.schema.json",
+  "title": "GAME Connected Validation Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "connected_validation_id",
+    "provider_profile_id",
+    "provider_child_id",
+    "provider_model_ref",
+    "transport_ref",
+    "credential_profile_ref",
+    "v_contract_ref",
+    "data_classification",
+    "max_request_bytes",
+    "max_output_bytes",
+    "request_count",
+    "concurrency",
+    "retry_count",
+    "model_identity_verified",
+    "transport_identity_verified",
+    "quota_evidence_ref",
+    "spend_amount",
+    "currency",
+    "paid_fallback_allowed",
+    "kill_switch_evidence_ref",
+    "revocation_evidence_ref",
+    "connected_qa_ref",
+    "connected_review_ref",
+    "owner_disposition_ref",
+    "validated_at",
+    "as_of",
+    "canonical_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "connected_validation_id": {
+      "type": "string",
+      "pattern": "^connected-validation:[a-z0-9][a-z0-9._-]{2,95}$"
+    },
+    "provider_profile_id": {
+      "type": "string",
+      "pattern": "^provider-profile:[a-z0-9][a-z0-9._-]{2,95}$"
+    },
+    "provider_child_id": {
+      "type": "string",
+      "pattern": "^STUDIO-009P-[A-Z0-9][A-Z0-9-]{0,31}$"
+    },
+    "provider_model_ref": {
+      "type": "string"
+    },
+    "transport_ref": {
+      "type": "string"
+    },
+    "credential_profile_ref": {
+      "type": "string"
+    },
+    "v_contract_ref": {
+      "type": "string"
+    },
+    "data_classification": {
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "RESTRICTED"
+      ]
+    },
+    "max_request_bytes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_output_bytes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "request_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3
+    },
+    "concurrency": {
+      "const": 1
+    },
+    "retry_count": {
+      "const": 0
+    },
+    "model_identity_verified": {
+      "const": true
+    },
+    "transport_identity_verified": {
+      "const": true
+    },
+    "quota_evidence_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "spend_amount": {
+      "const": 0
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "paid_fallback_allowed": {
+      "const": false
+    },
+    "kill_switch_evidence_ref": {
+      "type": "string"
+    },
+    "revocation_evidence_ref": {
+      "type": "string"
+    },
+    "connected_qa_ref": {
+      "type": "string"
+    },
+    "connected_review_ref": {
+      "type": "string"
+    },
+    "owner_disposition_ref": {
+      "type": "string"
+    },
+    "validated_at": {
+      "type": "string"
+    },
+    "as_of": {
+      "type": "string"
+    },
+    "canonical_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "live_state_id": "provider-live-state:synthetic-alpha",
+  "provider_profile_id": "provider-profile:synthetic-alpha",
+  "provider_child_id": "STUDIO-009P-99",
+  "offline_merge_ref": "merge:offline-synthetic",
+  "offline_qa_ref": "qa:offline-synthetic",
+  "offline_review_ref": "review:offline-synthetic",
+  "offline_owner_merge_ref": "owner-merge:offline-synthetic",
+  "v_contract_ref": "v-contract:synthetic-v99",
+  "connected_validation_ref": "connected-validation:synthetic-alpha",
+  "routing_authority_ref": null,
+  "state": "LIVE_VALIDATED",
+  "allowed_data_classifications": [
+    "PUBLIC"
+  ],
+  "money_ceiling": 0,
+  "paused_at": null,
+  "revoked_at": null,
+  "as_of": "2026-09-04T10:00:00Z",
+  "canonical_digest": "sha256:90fd17ace3477f4a71cf0394f2d23aca82d9c3d79c03683b94f8009a54fcea96"
+}

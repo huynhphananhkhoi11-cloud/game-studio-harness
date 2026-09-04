@@ -26,7 +26,7 @@ non_goals: |
 responsible_role: Platform Studio / Connected Validation Governance Cell
 review_target: Rules CI and Studio Owner contract merge; later independent QA and Review apply to implementation.
 
-task_status: CONTRACT_READY_FOR_OWNER_MERGE
+task_status: IMPLEMENTATION_READY_FOR_QA
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 money_ceiling: 0
 provider_runtime_activity: NONE
@@ -35,4 +35,17 @@ credential_runtime_activity: NONE
 routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
-next_phase_after_contract_merge: STUDIO-009R-01_IMPLEMENTATION_OFFLINE
+next_phase_after_contract_merge: STUDIO-009R-01_IMPLEMENTATION_QA
+
+implementation_contract_pr: 56
+implementation_contract_head: b163e0ddc4007f12c749f4f3db438287a666782b
+implementation_contract_merge: 6902b2a656b24a37b5a573867cab57d75a13feb9
+implementation_branch: agent/studio-009r-01-implementation
+implementation_scope_paths: 17
+implementation_cumulative_pr_paths: 21
+implementation_new_tests: 50
+implementation_expected_focused_tests: 457
+implementation_expected_total_tests: 854
+implementation_runtime_activity: NONE
+implementation_spend: ZERO
+<!-- STUDIO-009R-01-IMPLEMENTATION-CHECKPOINT-0002 -->
