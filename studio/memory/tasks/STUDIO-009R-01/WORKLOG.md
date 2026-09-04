@@ -41,3 +41,14 @@ canonical_task_contract: tasks/STUDIO-009R-01.md
 - QA blockers: 0.
 - Next action: independent Final Review & Integration; implementation PR remains unmerged.
 <!-- STUDIO-009R-01-QA-CHECKPOINT-0003 -->
+
+## 2026-09-04 — Final Review correction before approval
+- Independent Final Review did not approve QA head `f3723fd3aa8607ee0c541ba9d5b204a7fbc396ee`.
+- Finding 1: connected-validation metadata could be shape-valid without exact accepted lineage/capability/ceiling/time binding.
+- Finding 2: `plan_transition` checked evidence presence / worker mode but did not fail closed on cross-provider or cross-child lineage.
+- Correction adds accepted-constraint binding, stable mismatch/broadening refusal codes, target-state evidence, cross-lineage transition checks, stricter worker schema patterns, and 20 additional hostile tests.
+- Corrected live test count is 70; expected focused/full totals are 477/874.
+- Previous QA PASS remains historical evidence for the pre-correction head but is superseded for merge disposition.
+- Independent re-QA is mandatory before Final Review can resume.
+- No provider/network/account/credential/tool/routing/Unity activity or spend is authorized or performed.
+<!-- STUDIO-009R-01-REVIEW-CORRECTION-WORKLOG-0004A -->

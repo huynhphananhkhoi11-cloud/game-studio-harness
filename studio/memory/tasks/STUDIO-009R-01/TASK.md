@@ -26,7 +26,7 @@ non_goals: |
 responsible_role: Platform Studio / Connected Validation Governance Cell
 review_target: Rules CI and Studio Owner contract merge; later independent QA and Review apply to implementation.
 
-task_status: QA_PASS_READY_FOR_FINAL_REVIEW
+task_status: REVIEW_CORRECTION_READY_FOR_REQA
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 money_ceiling: 0
 provider_runtime_activity: NONE
@@ -69,3 +69,11 @@ qa_connected_execution_activity: NONE
 qa_unity_activity: NONE
 qa_spend: ZERO
 <!-- STUDIO-009R-01-QA-CHECKPOINT-0003 -->
+
+review_correction_reason: exact lineage/capability/ceiling/time binding required before live promotion.
+review_correction_required_before_merge: true
+review_correction_expected_live_tests: 70
+review_correction_expected_focused_tests: 477
+review_correction_expected_total_tests: 874
+review_correction_next_phase: INDEPENDENT_REQA
+<!-- STUDIO-009R-01-REVIEW-CORRECTION-TASK-0004A -->

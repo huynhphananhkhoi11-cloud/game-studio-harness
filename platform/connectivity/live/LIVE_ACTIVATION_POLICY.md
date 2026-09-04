@@ -43,3 +43,10 @@ API success is not a worker-quality pass. Promotion requires provider-specific e
 ## Runtime prohibition
 
 The generic STUDIO-009R implementation makes zero provider/network/account/credential/tool/routing/Unity calls and spends zero money. It only validates deterministic metadata for later V-track execution.
+
+## Exact lineage binding
+Connected-validation metadata is not authoritative merely because its shape is valid. Before promotion to `LIVE_VALIDATED`, it must be bound against accepted constraints for the exact provider profile, P-child, model, transport/host profile, credential profile, V-contract, capability, request/output ceilings, smoke quota, and accepted chronology.
+
+Worker-mode transitions must preserve the same provider profile and P-child lineage. A worker policy from another provider or child cannot satisfy promotion even when its mode and repository controls are otherwise valid.
+
+Final Review identified and corrected this fail-closed requirement before merge. The correction remains offline and requires independent re-QA.
