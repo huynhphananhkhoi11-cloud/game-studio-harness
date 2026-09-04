@@ -9,9 +9,11 @@ This framework does not approve or activate a real provider, model, endpoint, ac
 Every real provider still requires:
 
 1. a separately merged `STUDIO-009P*` child contract;
-2. provider-specific implementation and evidence;
-3. STUDIO-009E policy routing where applicable; and
-4. explicit STUDIO-009F connected-pilot activation.
+2. provider-specific offline/synthetic implementation, evidence, QA, Review, and Studio Owner merge;
+3. after accepted STUDIO-009R-01 governance, a separately merged `STUDIO-009V*` / provider-specific live-extension contract before any real credential/network/model validation;
+4. connected-validation evidence and Owner closeout before any explicit live worker mode;
+5. STUDIO-009E policy routing for automatic provider selection; and
+6. STUDIO-009F for full integrated connected-studio acceptance.
 
 The Studio Owner remains the final authority.
 
@@ -22,6 +24,8 @@ The Studio Owner remains the final authority.
 A provider profile binds opaque references for provider identity, transport, credential lineage, data policy, quota policy, zero-budget policy, kill switch, incident response, rollback, Owner approval, allowed data classifications, and allowed capabilities.
 
 Allowed lifecycle states are `CANDIDATE`, `DISABLED`, `ELIGIBLE`, `PAUSED`, `REVOKED`, and `EXPIRED`. `ACTIVE` is forbidden in STUDIO-009D.
+
+STUDIO-009D lifecycle state remains **offline onboarding metadata only**. Later STUDIO-009R live states (`LIVE_VALIDATION_READY`, `LIVE_VALIDATED`, worker modes, and later `ROUTING_ELIGIBLE`) must live in the separately accepted live-validation layer and cannot be synthesized by STUDIO-009D `ELIGIBLE`.
 
 ### Child-contract evidence
 
