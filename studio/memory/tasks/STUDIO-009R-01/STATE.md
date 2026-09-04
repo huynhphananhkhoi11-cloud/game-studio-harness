@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009R-01
-state: IMPLEMENTATION_READY_FOR_QA
+state: QA_PASS_READY_FOR_FINAL_REVIEW
 logical_role: Platform Studio / Connected Validation Governance Cell
 repository_context: game-studio-harness
 branch: agent/studio-009r-01-implementation
@@ -27,16 +27,15 @@ completed: |
   - Reconciled P-01 Groq and P-02 Cloudflare as offline COMPLETE but still DISABLED for connected execution.
 
 remaining: |
-  - Contract Pull Request must pass Rules CI and be independently merged by Studio Owner.
-  - Only after merge may STUDIO-009R-01 offline implementation begin.
-  - No V-track or real provider call is authorized yet.
-
+  - Run independent Final Review & Integration on the immutable QA checkpoint.
+  - Implementation Pull Request remains unmerged until Review APPROVE and separate Studio Owner decision.
+  - No STUDIO-009V provider call, automatic routing, or Unity/game activity is authorized yet.
 blockers: |
   - NONE
 
-exact_next_action: Independent QA of the immutable 21-path offline implementation head. Do not merge or connect any provider yet.
+exact_next_action: Run independent Final Review & Integration on the QA checkpoint; do not merge or connect any provider yet.
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
-next_phase: STUDIO-009R-01_IMPLEMENTATION_QA
+next_phase: STUDIO-009R-01_FINAL_REVIEW
 <!-- STUDIO-009R-01-CONTRACT-CHECKPOINT-0001 -->
 
 implementation_contract_pr: 56
@@ -58,3 +57,23 @@ implementation_routing_activity: NONE
 implementation_connected_execution_activity: NONE
 implementation_spend: ZERO
 <!-- STUDIO-009R-01-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+qa_result: PASS
+qa_reviewed_head: c3f13b7dc892bc8a9de29c15a42af8bd4e7cd606
+qa_blockers: 0
+qa_new_tests: 50
+qa_focused_tests: 457
+qa_total_tests: 854
+qa_independent_probes: 60
+qa_provider_runtime_activity: NONE
+qa_network_activity: NONE
+qa_account_runtime_activity: NONE
+qa_credential_runtime_activity: NONE
+qa_secret_store_activity: NONE
+qa_tool_execution_activity: NONE
+qa_remote_mcp_activity: NONE
+qa_routing_activity: NONE
+qa_connected_execution_activity: NONE
+qa_unity_activity: NONE
+qa_spend: ZERO
+<!-- STUDIO-009R-01-QA-CHECKPOINT-0003 -->
