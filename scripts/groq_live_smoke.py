@@ -32,7 +32,7 @@ MONEY_CEILING = 0
 PREFLIGHT_FIELDS = {
     "v_contract_merge", "p01_closeout_merge", "r01_closeout_merge",
     "provider_profile_id", "provider_child_id", "model", "host",
-    "free_tier_confirmed", "zdr_confirmed", "money_ceiling",
+    "free_tier_confirmed", "zdr_confirmed", "model_permission_confirmed", "money_ceiling",
     "max_requests", "concurrency", "retry_count", "kill_switch_armed", "as_of",
 }
 
@@ -40,24 +40,21 @@ PROBES = (
     {
         "id": "STRUCTURED_OUTPUT",
         "messages": [
-            {"role": "system", "content": "This is a synthetic validation. Return JSON only."},
-            {"role": "user", "content": 'Return exactly this JSON object: {"status":"ok","value":7}'},
+            {"role": "user", "content": 'This is a synthetic validation. Return JSON only. Return exactly this JSON object: {"status":"ok","value":7}'},
         ],
         "expected": {"status": "ok", "value": 7},
     },
     {
         "id": "INSTRUCTION_DISCIPLINE",
         "messages": [
-            {"role": "system", "content": "This is a synthetic validation. Return JSON only."},
-            {"role": "user", "content": 'Return exactly this JSON object: {"decision":"ALLOW","reasons":["synthetic"]}'},
+            {"role": "user", "content": 'This is a synthetic validation. Return JSON only. Return exactly this JSON object: {"decision":"ALLOW","reasons":["synthetic"]}'},
         ],
         "expected": {"decision": "ALLOW", "reasons": ["synthetic"]},
     },
     {
         "id": "SYNTHETIC_TRANSFORM",
         "messages": [
-            {"role": "system", "content": "This is a synthetic validation. Return JSON only."},
-            {"role": "user", "content": 'For synthetic items ["beta","alpha","beta"], return exactly {"unique_sorted":["alpha","beta"],"count":2}'},
+            {"role": "user", "content": 'This is a synthetic validation. Return JSON only. For synthetic items ["beta","alpha","beta"], return exactly {"unique_sorted":["alpha","beta"],"count":2}'},
         ],
         "expected": {"unique_sorted": ["alpha", "beta"], "count": 2},
     },
@@ -67,6 +64,8 @@ SAFE_MESSAGES = {
     "INVALID_PREFLIGHT": "Groq V-01 preflight metadata is invalid",
     "TIER_NOT_CONFIRMED": "Groq Free tier must be confirmed before connected validation",
     "ZDR_NOT_CONFIRMED": "Groq ZDR must be confirmed before connected validation",
+    "MODEL_PERMISSION_NOT_CONFIRMED": "Groq GPT-OSS 120B model permission must be confirmed before connected validation",
+    "REQUEST_RESERVATION": "Groq V-01 durable request reservation is required before every network call",
     "NONZERO_BUDGET": "Groq V-01 requires zero monetary ceiling",
     "LINEAGE_MISMATCH": "Groq V-01 lineage does not match accepted contract",
     "KILL_SWITCH": "Groq V-01 kill switch blocks additional calls",
@@ -109,6 +108,8 @@ def validate_preflight(value: dict[str, Any]) -> dict[str, Any]:
         _fail("TIER_NOT_CONFIRMED")
     if value["zdr_confirmed"] is not True:
         _fail("ZDR_NOT_CONFIRMED")
+    if value["model_permission_confirmed"] is not True:
+        _fail("MODEL_PERMISSION_NOT_CONFIRMED")
     if isinstance(value["money_ceiling"], bool) or value["money_ceiling"] != 0:
         _fail("NONZERO_BUDGET")
     if value["max_requests"] != 3 or isinstance(value["max_requests"], bool):
@@ -156,6 +157,7 @@ def execute_smoke(
     lease: dict[str, Any],
     *,
     supplier: Callable[[], str],
+    request_reserver: Callable[[str, int], int] | None = None,
     transport_fn: Callable[[str, dict[str, Any]], dict[str, Any]] = transport.perform_request,
     kill_switch: KillSwitch | None = None,
 ) -> dict[str, Any]:
@@ -178,7 +180,13 @@ def execute_smoke(
                 max_completion_tokens=256,
                 response_format={"type": "json_object"},
             )
-            request_count += 1
+            if request_reserver is None:
+                _fail("REQUEST_RESERVATION")
+            expected_number = request_count + 1
+            reserved_number = request_reserver(probe["id"], expected_number)
+            if isinstance(reserved_number, bool) or reserved_number != expected_number:
+                _fail("REQUEST_RESERVATION")
+            request_count = reserved_number
             result = transport_fn(secret, body)
             records.append(_evaluate(probe, result))
         return {
@@ -191,7 +199,8 @@ def execute_smoke(
             "concurrency": 1,
             "retry_count": 0,
             "money_ceiling": 0,
-            "observed_spend": 0,
+            "observed_spend": None,
+            "post_smoke_spend_confirmation_required": True,
             "quality_pass": True,
             "human_correction_count": 0,
             "records": records,

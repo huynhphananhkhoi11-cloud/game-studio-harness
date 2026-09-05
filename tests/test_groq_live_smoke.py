@@ -27,6 +27,7 @@ def preflight():
         "host": smoke.HOST,
         "free_tier_confirmed": True,
         "zdr_confirmed": True,
+        "model_permission_confirmed": True,
         "money_ceiling": 0,
         "max_requests": 3,
         "concurrency": 1,
@@ -75,6 +76,16 @@ def success_transport():
             "retry_count": 0,
         }
     return fn, calls
+
+def memory_reserver():
+    state = {"count": 0, "probes": []}
+    def reserve(probe_id, expected_number):
+        if expected_number != state["count"] + 1:
+            return -1
+        state["count"] = expected_number
+        state["probes"].append(probe_id)
+        return expected_number
+    return reserve, state
 
 class GroqLiveSmokeTests(unittest.TestCase):
     def assertSmokeCode(self, code, fn):
@@ -127,11 +138,15 @@ class GroqLiveSmokeTests(unittest.TestCase):
 
     def test_10_successful_smoke_is_three_sequential_requests(self):
         fn, calls = success_transport()
+        reserve, ledger = memory_reserver()
         result = smoke.execute_smoke(
-            preflight(), lease(), supplier=lambda: SECRET, transport_fn=fn
+            preflight(), lease(), supplier=lambda: SECRET, request_reserver=reserve, transport_fn=fn
         )
         self.assertEqual(result["request_count"], 3)
         self.assertTrue(result["quality_pass"])
+        self.assertIsNone(result["observed_spend"])
+        self.assertTrue(result["post_smoke_spend_confirmation_required"])
+        self.assertEqual(ledger["count"], 3)
         self.assertEqual(len(calls), 3)
         self.assertTrue(all(call["tool_choice"] == "none" for call in calls))
 
@@ -147,7 +162,10 @@ class GroqLiveSmokeTests(unittest.TestCase):
             }
         self.assertSmokeCode(
             "QUALITY_FAILED",
-            lambda: smoke.execute_smoke(preflight(), lease(), supplier=lambda: SECRET, transport_fn=bad),
+            lambda: smoke.execute_smoke(
+                preflight(), lease(), supplier=lambda: SECRET,
+                request_reserver=memory_reserver()[0], transport_fn=bad
+            ),
         )
         self.assertEqual(len(calls), 1)
 
@@ -168,7 +186,8 @@ class GroqLiveSmokeTests(unittest.TestCase):
         self.assertSmokeCode(
             "KILL_SWITCH",
             lambda: smoke.execute_smoke(
-                preflight(), lease(), supplier=lambda: SECRET, transport_fn=fn, kill_switch=switch
+                preflight(), lease(), supplier=lambda: SECRET,
+                request_reserver=memory_reserver()[0], transport_fn=fn, kill_switch=switch
             ),
         )
         self.assertEqual(len(calls), 1)
@@ -179,24 +198,48 @@ class GroqLiveSmokeTests(unittest.TestCase):
             calls.append(1)
             raise transport.GroqTransportError("QUOTA")
         with self.assertRaises(transport.GroqTransportError):
-            smoke.execute_smoke(preflight(), lease(), supplier=lambda: SECRET, transport_fn=fn)
+            smoke.execute_smoke(
+                preflight(), lease(), supplier=lambda: SECRET,
+                request_reserver=memory_reserver()[0], transport_fn=fn
+            )
         self.assertEqual(len(calls), 1)
 
     def test_14_result_contains_digest_not_raw_output(self):
         fn, _ = success_transport()
-        result = smoke.execute_smoke(preflight(), lease(), supplier=lambda: SECRET, transport_fn=fn)
+        result = smoke.execute_smoke(
+            preflight(), lease(), supplier=lambda: SECRET,
+            request_reserver=memory_reserver()[0], transport_fn=fn
+        )
         serialized = json.dumps(result)
         self.assertNotIn('{"status":"ok","value":7}', serialized)
         self.assertIn("content_sha256", serialized)
 
-    def test_15_ready_evidence_validates_generic_live_gate(self):
+    def test_15_model_permission_confirmation_required(self):
+        value = preflight()
+        value["model_permission_confirmed"] = False
+        self.assertSmokeCode(
+            "MODEL_PERMISSION_NOT_CONFIRMED",
+            lambda: smoke.validate_preflight(value),
+        )
+
+    def test_16_request_reservation_is_mandatory(self):
+        fn, calls = success_transport()
+        self.assertSmokeCode(
+            "REQUEST_RESERVATION",
+            lambda: smoke.execute_smoke(
+                preflight(), lease(), supplier=lambda: SECRET, transport_fn=fn
+            ),
+        )
+        self.assertEqual(calls, [])
+
+    def test_17_ready_evidence_validates_generic_live_gate(self):
         value = json.loads((EVIDENCE / "provider-live-state.json").read_text(encoding="utf-8"))
         normalized = provider_live_gate.validate_live_state(
             value, parent_allowed_data_classifications=["PUBLIC"]
         )
         self.assertEqual(normalized["state"], "LIVE_VALIDATION_READY")
 
-    def test_16_pending_connected_evidence_is_not_accepted_as_live_validated(self):
+    def test_18_pending_connected_evidence_is_not_accepted_as_live_validated(self):
         value = json.loads((EVIDENCE / "connected-validation.json").read_text(encoding="utf-8"))
         with self.assertRaises(provider_live_evidence.ConnectedEvidenceError):
             provider_live_evidence.validate_connected_validation(value)

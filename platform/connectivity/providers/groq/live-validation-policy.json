@@ -26,5 +26,9 @@
   "money_ceiling": 0,
   "promotion_ceiling": "LIVE_VALIDATED",
   "worker_authority": false,
-  "routing_authority": false
+  "routing_authority": false,
+  "include_reasoning": false,
+  "model_permission_confirmation_required": true,
+  "durable_request_reservation_required": true,
+  "post_smoke_spend_confirmation_required": true
 }

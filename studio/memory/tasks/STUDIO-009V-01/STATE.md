@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-01
-state: OFFLINE_IMPLEMENTATION_READY_FOR_CONNECTED_PREFLIGHT
+state: OFFLINE_IMPLEMENTATION_HARDENED_READY_FOR_OWNER_PREFLIGHT
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
 branch: agent/studio-009v-01-groq-live-validation
@@ -27,9 +27,10 @@ completed: |
   - Defined bounded V-01 contract and implementation scope.
 
 remaining: |
-  - Studio Owner reviews and may merge the contract Pull Request.
-  - No real credential or Groq request before contract merge.
-  - After durable contract merge, implement offline transport/tests first, then run at most three bounded PUBLIC/SYNTHETIC requests.
+  - Studio Owner must confirm the active Groq organization is Free tier, ZDR is enabled, and openai/gpt-oss-120b is permitted.
+  - The first connected smoke must use a durable local request ledger that reserves each request before network I/O.
+  - After the smoke, observed spend must be confirmed separately; code may not pre-claim observed spend zero.
+  - Connected QA, Review and Owner disposition remain required before implementation merge.
 
 blockers: |
   - NONE
@@ -44,7 +45,7 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Review the offline V-01 implementation Pull Request, then perform the separate Owner Free-tier/ZDR connected preflight. Do not merge the implementation PR or enter a Groq API key yet.
+exact_next_action: Studio Owner confirms Free tier, ZDR, and GPT-OSS 120B model permission in Groq Console. Then run the separately bounded connected-smoke runner; do not merge PR #60 yet.
 next_phase: STUDIO-009V-01_OWNER_CONNECTED_PREFLIGHT
 
 contract_merge: 2b811d7ac64e88c396f691cec940ec68784b1457
@@ -67,3 +68,20 @@ implementation_connected_execution_activity: NONE
 implementation_spend: ZERO
 implementation_next_gate: OWNER_CONNECTED_PREFLIGHT
 <!-- STUDIO-009V-01-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+preflight_hardening_result: PASS
+model_permission_confirmation_required: true
+durable_request_reservation_required: true
+post_smoke_spend_confirmation_required: true
+observed_spend_claim_before_owner_confirmation: FORBIDDEN
+hardened_new_tests: 50
+hardened_live_tests: 70
+hardened_focused_tests: 527
+hardened_total_tests: 924
+real_request_count: 0
+provider_live_state: LIVE_VALIDATION_READY
+network_activity: NONE
+credential_runtime_activity: NONE
+connected_execution_activity: NONE
+spend: ZERO
+<!-- STUDIO-009V-01-PREFLIGHT-HARDENING-0002A -->

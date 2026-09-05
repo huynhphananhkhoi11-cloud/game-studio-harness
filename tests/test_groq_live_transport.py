@@ -93,6 +93,7 @@ class GroqLiveTransportTests(unittest.TestCase):
         self.assertEqual(body["tool_choice"], "none")
         self.assertFalse(body["parallel_tool_calls"])
         self.assertEqual(body["citation_options"], "disabled")
+        self.assertFalse(body["include_reasoning"])
         self.assertEqual(body["service_tier"], "on_demand")
         self.assertNotIn("tools", body)
 

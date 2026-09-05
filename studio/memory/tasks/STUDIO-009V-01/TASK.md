@@ -19,7 +19,7 @@ credential_profile_ref: credential-profile:groq-api-key
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: OFFLINE_IMPLEMENTATION_READY_FOR_CONNECTED_PREFLIGHT
+task_status: OFFLINE_IMPLEMENTATION_HARDENED_READY_FOR_OWNER_PREFLIGHT
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 2b811d7ac64e88c396f691cec940ec68784b1457
 planned_contract_branch: agent/studio-009v-01-groq-contract
@@ -69,3 +69,18 @@ implementation_connected_execution_activity: NONE
 implementation_spend: ZERO
 implementation_next_gate: OWNER_CONNECTED_PREFLIGHT
 <!-- STUDIO-009V-01-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+preflight_hardening_result: PASS
+model_permission_confirmation_required: true
+durable_request_reservation_required: true
+post_smoke_spend_confirmation_required: true
+observed_spend_claim_before_owner_confirmation: FORBIDDEN
+hardened_new_tests: 50
+hardened_focused_tests: 527
+hardened_total_tests: 924
+real_request_count: 0
+provider_runtime_activity: NONE
+network_activity: NONE
+credential_runtime_activity: NONE
+spend: ZERO
+<!-- STUDIO-009V-01-PREFLIGHT-HARDENING-0002A -->

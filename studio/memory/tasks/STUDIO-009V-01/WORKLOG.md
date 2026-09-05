@@ -28,3 +28,15 @@ canonical_task_contract: tasks/STUDIO-009V-01.md
 - MONEY_CEILING=0; provider/network/credential/routing/connected activity NONE; spend ZERO.
 - Next gate is a separate Studio Owner Free-tier/ZDR connected preflight. The implementation Pull Request must remain unmerged until connected smoke, QA, Review, and Owner disposition complete.
 <!-- STUDIO-009V-01-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+## 2026-09-05 — Connected-preflight hardening before first real request
+
+- Independent review of PR #60 kept it unmerged.
+- Hardened the smoke so every network request requires a caller-supplied durable reservation before I/O; a failed/crashed run therefore cannot safely reset the three-request campaign.
+- Removed the premature `observed_spend=0` claim. Observed spend remains unknown until the Studio Owner checks Groq account evidence after the smoke.
+- Added required Owner confirmation that `openai/gpt-oss-120b` is permitted for the active organization.
+- Explicitly disables returned reasoning content with `include_reasoning=false`; no reasoning format is sent for GPT-OSS.
+- Fixed stale STATE remaining-actions text from the already-merged contract stage.
+- No real API key was requested; no Groq call occurred; live state remains `LIVE_VALIDATION_READY`.
+- New tests now total 50 over pre-V-01 baseline; focused 527; total 924.
+<!-- STUDIO-009V-01-PREFLIGHT-HARDENING-0002A -->

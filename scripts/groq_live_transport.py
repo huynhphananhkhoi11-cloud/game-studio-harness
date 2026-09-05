@@ -22,6 +22,7 @@ MODEL_ID = "openai/gpt-oss-120b"
 SERVICE_TIER = "on_demand"
 TOOL_CHOICE = "none"
 CITATION_OPTIONS = "disabled"
+INCLUDE_REASONING = False
 
 MAX_REQUEST_BYTES = 8192
 MAX_RESPONSE_BYTES = 65536
@@ -127,6 +128,7 @@ def build_request(
         "tool_choice": TOOL_CHOICE,
         "parallel_tool_calls": False,
         "citation_options": CITATION_OPTIONS,
+        "include_reasoning": INCLUDE_REASONING,
         "service_tier": SERVICE_TIER,
         "reasoning_effort": "low",
         "temperature": 0,
@@ -145,7 +147,7 @@ def build_request(
 def _validate_body(body: dict[str, Any]) -> None:
     expected = {
         "model", "messages", "max_completion_tokens", "tool_choice",
-        "parallel_tool_calls", "citation_options", "service_tier",
+        "parallel_tool_calls", "citation_options", "include_reasoning", "service_tier",
         "reasoning_effort", "temperature", "stream", "n",
     }
     keys = set(body)
@@ -158,6 +160,8 @@ def _validate_body(body: dict[str, Any]) -> None:
     if body["tool_choice"] != "none" or body["parallel_tool_calls"] is not False:
         _fail("INVALID_REQUEST")
     if body["citation_options"] != "disabled":
+        _fail("INVALID_REQUEST")
+    if body["include_reasoning"] is not False:
         _fail("INVALID_REQUEST")
     if body["service_tier"] != "on_demand":
         _fail("INVALID_REQUEST")
