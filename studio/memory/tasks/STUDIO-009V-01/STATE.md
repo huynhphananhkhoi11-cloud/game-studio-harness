@@ -3,11 +3,11 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-01
-state: OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_OWNER_MERGE
+state: COMPLETE
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
-branch: agent/studio-009v-01-groq-live-validation
-base_head: 2b811d7ac64e88c396f691cec940ec68784b1457
+branch: agent/studio-009v-01-closeout
+base_head: c1d640663d63c854fc6e2356837e7ad03ad83723
 durability_state: PR_PENDING
 
 provider: GroqCloud
@@ -45,8 +45,8 @@ routing_activity: NONE
 connected_execution_activity: RETRY1_BOUNDED_VALIDATION_PASS_AFTER_AUTH_FAILURE
 spend: ZERO
 
-exact_next_action: After Rules CI succeeds on the exact final disposition head, Studio Owner manually merges PR #60. Do not make another Groq request and do not grant worker or routing authority.
-next_phase: STUDIO-009V-01_OWNER_MERGE
+exact_next_action: Studio Owner reviews and may merge the STUDIO-009V-01 closeout Pull Request. After durable closeout, start STUDIO-009V-02 Cloudflare contract research. Groq remains LIVE_VALIDATED without worker or routing authority.
+next_phase: STUDIO-009V-02_CLOUDFLARE_CONNECTED_VALIDATION_CONTRACT_AFTER_DURABLE_V01_CLOSEOUT
 
 contract_merge: 2b811d7ac64e88c396f691cec940ec68784b1457
 implementation_result: OFFLINE_READY
@@ -193,3 +193,25 @@ final_spend: ZERO
 implementation_pr_merge_allowed_now: true
 next_phase: STUDIO-009V-01_OWNER_MERGE
 <!-- STUDIO-009V-01-OWNER-DISPOSITION-CHECKPOINT-0003F -->
+
+implementation_pr: 60
+implementation_head: bcab0d23ce6eed40dcbf2edd2c619d30e066506b
+implementation_merge: c1d640663d63c854fc6e2356837e7ad03ad83723
+closeout_result: COMPLETE
+closeout_provider_live_state: LIVE_VALIDATED
+closeout_live_tests: 70
+closeout_focused_tests: 527
+closeout_total_tests: 924
+closeout_qa_result: PASS
+closeout_review_result: APPROVE
+closeout_owner_disposition: ACCEPT_LIVE_VALIDATED
+closeout_retry1_key_revoked: true
+closeout_worker_authority: NONE
+closeout_routing_authority: NONE
+closeout_additional_real_request_authorized: false
+closeout_provider_calls: 0
+closeout_groq_network_activity: NONE
+closeout_api_key_input_activity: NONE
+closeout_billable_spend_usd: 0
+closeout_record_semantics: EFFECTIVE_WHEN_MERGED
+<!-- STUDIO-009V-01-CLOSEOUT-CHECKPOINT-0004 -->

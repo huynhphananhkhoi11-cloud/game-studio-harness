@@ -123,3 +123,17 @@ canonical_task_contract: tasks/STUDIO-009V-01.md
 - No additional Groq/provider/model request, API-key input, routing, MCP, tool execution, deployment, publication, or nonzero billable spend occurred.
 - Final tests: `70` live / `527` focused / `924` total.
 <!-- STUDIO-009V-01-OWNER-DISPOSITION-CHECKPOINT-0003F -->
+
+## 2026-09-05 — Merged V-01 implementation closeout
+
+- Implementation PR #60 merged at `c1d640663d63c854fc6e2356837e7ad03ad83723` from final disposition head `bcab0d23ce6eed40dcbf2edd2c619d30e066506b`.
+- Groq V-01 connected-validation result is `LIVE_VALIDATED`.
+- Connected QA remained `PASS`; Connected Review remained `APPROVE`; Owner disposition remained `ACCEPT_LIVE_VALIDATED`.
+- RETRY1 temporary API key was revoked before final disposition and no persistent Groq key is created by this closeout.
+- Historical V-01 connected activity remains four total real attempts: one terminal `AUTH_FAILED` request in the failed campaign plus three successful RETRY1 smoke requests.
+- Final validation evidence: 70 live tests / 527 focused / 924 total.
+- Closeout itself performs zero provider calls, zero Groq network activity, zero API-key input, and zero additional billable spend.
+- Groq keeps `LIVE_VALIDATED` only; worker authority `NONE`; routing authority `NONE`; no additional real request is authorized.
+- Closeout becomes durable only after separate Studio Owner merge.
+- Next after durable closeout: STUDIO-009V-02 Cloudflare connected-validation contract research.
+<!-- STUDIO-009V-01-CLOSEOUT-CHECKPOINT-0004 -->
