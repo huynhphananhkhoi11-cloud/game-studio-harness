@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009V-02
 package_path: studio/memory/tasks/STUDIO-009V-02
 canonical_task_contract: tasks/STUDIO-009V-02.md
-current_state: CONTRACT_MERGED_CREDENTIAL_BRIDGE_CORRECTION_READY_FOR_OWNER_MERGE
-resume_from: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
-branch: agent/studio-009v-02-credential-bridge-correction
+current_state: OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_SMOKE
+resume_from: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
+branch: agent/studio-009v-02-cloudflare-live-validation
 
 safe_checkpoint: Groq V-01 is durably COMPLETE; Cloudflare P-02 is offline COMPLETE; R-01 permits a separate bounded V-02 connected-validation contract.
 
-next_action: Studio Owner reviews and may merge the V-02 credential-bridge correction PR. After durable merge, prepare the offline implementation with a dedicated Cloudflare session bridge; do not modify the Groq bridge.
+next_action: Obtain separate Studio Owner authorization for the bounded V-02 smoke. The later smoke runner will request Account ID and API token through hidden session-only prompts; do not paste either into chat or persist them.
 
 prohibited_next_actions: real Cloudflare Account ID input; API token input; Cloudflare/network/model call; AI Gateway; storage; tool execution; automatic retry; routing; worker promotion; paid plan; prepaid credits; Unified Billing; nonzero spend; Unity/game work.
 
@@ -25,7 +25,7 @@ credential_runtime_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: OWNER_MERGE_V02_CREDENTIAL_BRIDGE_CORRECTION
+next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -39,3 +39,23 @@ account_runtime_activity: NONE
 credential_runtime_activity: NONE
 spend: ZERO
 <!-- STUDIO-009V-02-CREDENTIAL-BRIDGE-CORRECTION-0001A -->
+
+implementation_checkpoint: STUDIO-009V-02-IMPLEMENTATION-CHECKPOINT-0002
+implementation_base: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
+provider_live_state: LIVE_VALIDATION_READY
+implementation_tests: 65 new / 70 live / 592 focused / 989 total
+real_account_id_input: NONE
+real_api_token_input: NONE
+provider_runtime_activity: NONE
+network_activity: NONE
+spend: ZERO
+<!-- STUDIO-009V-02-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+owner_connected_preflight: PASS
+neuron_usage_observability: UNAVAILABLE_BEFORE_FIRST_INFERENCE
+free_allocation_fail_closed_confirmed: true
+real_request_authorized_by_this_checkpoint: false
+provider_runtime_activity: NONE
+network_activity: NONE
+spend: ZERO
+<!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->

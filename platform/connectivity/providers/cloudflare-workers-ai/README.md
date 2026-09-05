@@ -1,16 +1,18 @@
-# Cloudflare Workers AI provider child - STUDIO-009P-02
+# Cloudflare Workers AI provider child — STUDIO-009P-02 / STUDIO-009V-02
 
-This directory is an offline/synthetic implementation of the merged STUDIO-009P-02 contract.
+The STUDIO-009P-02 offline/synthetic child remains complete and its provider profile remains `DISABLED`.
+STUDIO-009V-02 adds a separately governed bounded connected-validation path for exact model `@cf/nvidia/nemotron-3-120b-a12b` through direct host `api.cloudflare.com` and `/client/v4/accounts/{ACCEPTED_ACCOUNT_ID}/ai/v1/chat/completions`.
 
-Provider: Cloudflare Workers AI
-Exact model: `@cf/nvidia/nemotron-3-120b-a12b`
-Provider profile state: `DISABLED`
-Model state: `DECLARED`
-Money ceiling: `0`
-Connected authority: `NONE`
+Current V-02 envelope: PUBLIC/SYNTHETIC only; max 3 requests; concurrency 1; retry 0; 2,000-Neuron campaign ceiling; money ceiling 0; maximum promotion `LIVE_VALIDATED`.
 
-The implementation validates deterministic provider/model/account-reference/transport/data/quota/budget metadata and normalizes synthetic requests, responses, errors, quota evidence, and local tool requests.
+A dedicated Cloudflare session bridge handles Owner-interactive Account ID/API-token input only after a later Owner connected preflight. The Groq V-01 bridge is not modified.
 
-It does not discover a Cloudflare account, resolve an Account ID, create or resolve an API token, construct live HTTP transport, call Workers AI, enable AI Gateway or billing, use storage services, execute tools, route work, or spend money.
+At this implementation checkpoint the sidecar live state is only `LIVE_VALIDATION_READY`. No real Account ID or API token has been entered and no Cloudflare/model network call has occurred.
 
-Real connected activation remains gated by STUDIO-009F. Future routing/failover remains governed by STUDIO-009E.
+AI Gateway, Workers Paid, Unified Billing, prepaid credits, storage, tools, routing/failover, worker authority, deployment and publication remain forbidden.
+
+## V-02 Owner connected preflight
+The validation token `GAME-STUDIO-009V-02` exists with Workers AI Read + Workers AI Edit scoped to the selected account. Raw Account ID and API token remain local and have not been entered into GAME runtime.
+Usage observability is `UNAVAILABLE_BEFORE_FIRST_INFERENCE`; no positive headroom claim is recorded. Cloudflare internal code 3036 remains a fail-closed free-allocation stop.
+No real request is authorized by this checkpoint.
+<!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->
