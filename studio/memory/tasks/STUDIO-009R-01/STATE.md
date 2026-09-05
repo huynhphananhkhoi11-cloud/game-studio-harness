@@ -3,11 +3,11 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009R-01
-state: FINAL_REVIEW_APPROVED_READY_FOR_OWNER_MERGE
+state: COMPLETE
 logical_role: Platform Studio / Connected Validation Governance Cell
 repository_context: game-studio-harness
-branch: agent/studio-009r-01-implementation
-base_head: 6902b2a656b24a37b5a573867cab57d75a13feb9
+branch: agent/studio-009r-01-closeout
+base_head: 29c7bed7d1a58318372f5f42985c8509657c2c26
 durability_state: PR_PENDING
 money_ceiling: 0
 provider_runtime_activity: NONE
@@ -33,9 +33,9 @@ remaining: |
 blockers: |
   - NONE
 
-exact_next_action: Studio Owner may review and merge PR #57. Do not connect any provider; closeout remains required after merge.
+exact_next_action: Studio Owner reviews and may merge the STUDIO-009R-01 closeout Pull Request. After durable closeout, begin STUDIO-009V-01 and STUDIO-009V-02 contracts; do not call any provider yet.
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
-next_phase: STUDIO-009R-01_OWNER_MERGE
+next_phase: STUDIO-009V-01_AND_STUDIO-009V-02_CONTRACTS_AFTER_DURABLE_CLOSEOUT
 <!-- STUDIO-009R-01-CONTRACT-CHECKPOINT-0001 -->
 
 implementation_contract_pr: 56
@@ -136,3 +136,24 @@ final_review_unity_activity: NONE
 final_review_spend: ZERO
 next_required_gate_after_review: OWNER_MERGE
 <!-- STUDIO-009R-01-FINAL-REVIEW-CHECKPOINT-0004C -->
+
+implementation_pr: 57
+implementation_merge: 29c7bed7d1a58318372f5f42985c8509657c2c26
+closeout_result: COMPLETE
+closeout_live_tests: 70
+closeout_focused_tests: 477
+closeout_total_tests: 874
+closeout_reqa_probes: 80
+closeout_final_review_probes: 117
+closeout_p01_groq_connected_state: DISABLED
+closeout_p02_cloudflare_connected_state: DISABLED
+closeout_provider_runtime_activity: NONE
+closeout_network_activity: NONE
+closeout_credential_runtime_activity: NONE
+closeout_routing_activity: NONE
+closeout_connected_execution_activity: NONE
+closeout_unity_activity: NONE
+closeout_spend: ZERO
+closeout_real_provider_call_authorized: false
+closeout_record_semantics: EFFECTIVE_WHEN_MERGED
+<!-- STUDIO-009R-01-CLOSEOUT-CHECKPOINT-0005 -->

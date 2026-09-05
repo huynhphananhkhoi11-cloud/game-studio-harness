@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009R-01
 package_path: studio/memory/tasks/STUDIO-009R-01
 canonical_task_contract: tasks/STUDIO-009R-01.md
-current_state: FINAL_REVIEW_APPROVED_READY_FOR_OWNER_MERGE
-resume_from: c3f13b7dc892bc8a9de29c15a42af8bd4e7cd606
-branch: agent/studio-009r-01-implementation
+current_state: COMPLETE
+resume_from: 29c7bed7d1a58318372f5f42985c8509657c2c26
+branch: agent/studio-009r-01-closeout
 
 safe_checkpoint: STUDIO-009R-01 contract PR #56 merged at 6902b2a656b24a37b5a573867cab57d75a13feb9; generic live-validation implementation is offline only and contains no real provider authority.
 
-next_action: Studio Owner may merge PR #57 after reviewing the final APPROVE checkpoint. Do not connect any provider; perform closeout after merge.
+next_action: Studio Owner reviews and may merge the STUDIO-009R-01 closeout Pull Request. After durable closeout, author STUDIO-009V-01/STUDIO-009V-02 contracts; do not resolve credentials or call any provider yet.
 
 prohibited_next_actions: real credential enrollment/resolution; provider/network/model call; routing; automatic failover; private/unreleased data export; paid fallback; credit purchase; provider tool/browser/MCP/code execution; repository direct-main write; merge by AI; Unity/game production work under this task.
 
@@ -69,3 +69,21 @@ final_review_unity_activity: NONE
 final_review_spend: ZERO
 final_review_next_gate: OWNER_MERGE
 <!-- STUDIO-009R-01-FINAL-REVIEW-RESUME-0004C -->
+
+closeout_checkpoint: STUDIO-009R-01-CLOSEOUT-CHECKPOINT-0005
+implementation_pr: 57
+implementation_merge: 29c7bed7d1a58318372f5f42985c8509657c2c26
+final_review_head: f371b84043c5145ca76a79cd72412615f41140ca
+closeout_result: COMPLETE
+closeout_tests: 70 live / 477 focused / 874 total
+closeout_reqa_probes: 80
+closeout_final_review_probes: 117
+closeout_p01_groq_connected_state: DISABLED
+closeout_p02_cloudflare_connected_state: DISABLED
+closeout_connected_activity: NONE
+closeout_unity_activity: NONE
+closeout_spend: ZERO
+closeout_real_provider_call_authorized: false
+closeout_record_semantics: EFFECTIVE_WHEN_MERGED
+next_phase: STUDIO-009V-01_AND_STUDIO-009V-02_CONTRACTS
+<!-- STUDIO-009R-01-CLOSEOUT-CHECKPOINT-0005 -->
