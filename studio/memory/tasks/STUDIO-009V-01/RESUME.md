@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009V-01
 package_path: studio/memory/tasks/STUDIO-009V-01
 canonical_task_contract: tasks/STUDIO-009V-01.md
-current_state: OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_OWNER_MERGE
-resume_from: 2b811d7ac64e88c396f691cec940ec68784b1457
-branch: agent/studio-009v-01-groq-live-validation
+current_state: COMPLETE
+resume_from: c1d640663d63c854fc6e2356837e7ad03ad83723
+branch: agent/studio-009v-01-closeout
 
-safe_checkpoint: STUDIO-009R-01 is durably closed; Groq P-01 is offline COMPLETE and remains connected DISABLED.
+safe_checkpoint: STUDIO-009V-01 Groq connected validation is durably merged through PR #60 at c1d640663d63c854fc6e2356837e7ad03ad83723; provider state is LIVE_VALIDATED; RETRY1 key is revoked; worker and routing authority remain NONE.
 
-next_action: After Rules CI succeeds on the exact final disposition head, Studio Owner manually merges PR #60. Do not make another Groq request, enter an API key, or grant worker/routing authority.
+next_action: Studio Owner reviews and may merge the STUDIO-009V-01 closeout Pull Request. After durable closeout, begin STUDIO-009V-02 Cloudflare connected-validation contract research. Do not create a persistent Groq key or grant Groq worker/routing authority under V-01.
 
 prohibited_next_actions: additional Groq API key entry; additional Groq/model call; tools/browser/code execution/MCP/search/storage; automatic retry; routing; worker promotion; repository write authority beyond the existing PR scope; nonzero spend; implementation PR merge before QA/Review/Owner disposition; Unity/game work.
 
@@ -24,7 +24,7 @@ credential_runtime_activity: OWNER_INTERACTIVE_SESSION_ONLY
 connected_execution_activity: RETRY1_BOUNDED_VALIDATION_PASS_AFTER_AUTH_FAILURE
 spend: ZERO
 
-next_gate: OWNER_MERGE_PR_60
+next_gate: OWNER_MERGE_V01_CLOSEOUT
 
 contract_merge: 2b811d7ac64e88c396f691cec940ec68784b1457
 implementation_checkpoint: STUDIO-009V-01-IMPLEMENTATION-CHECKPOINT-0002
@@ -160,3 +160,27 @@ final_spend: ZERO
 implementation_pr_merge_allowed_now: true
 next_phase: STUDIO-009V-01_OWNER_MERGE
 <!-- STUDIO-009V-01-OWNER-DISPOSITION-CHECKPOINT-0003F -->
+
+closeout_checkpoint: STUDIO-009V-01-CLOSEOUT-CHECKPOINT-0004
+implementation_pr: 60
+implementation_head: bcab0d23ce6eed40dcbf2edd2c619d30e066506b
+implementation_merge: c1d640663d63c854fc6e2356837e7ad03ad83723
+closeout_result: COMPLETE
+closeout_provider_live_state: LIVE_VALIDATED
+closeout_live_tests: 70
+closeout_focused_tests: 527
+closeout_total_tests: 924
+closeout_qa_result: PASS
+closeout_review_result: APPROVE
+closeout_owner_disposition: ACCEPT_LIVE_VALIDATED
+closeout_retry1_key_revoked: true
+closeout_worker_authority: NONE
+closeout_routing_authority: NONE
+closeout_additional_real_request_authorized: false
+closeout_provider_calls: 0
+closeout_groq_network_activity: NONE
+closeout_api_key_input_activity: NONE
+closeout_billable_spend_usd: 0
+closeout_record_semantics: EFFECTIVE_WHEN_MERGED
+next_phase: STUDIO-009V-02_CLOUDFLARE_CONNECTED_VALIDATION_CONTRACT
+<!-- STUDIO-009V-01-CLOSEOUT-CHECKPOINT-0004 -->
