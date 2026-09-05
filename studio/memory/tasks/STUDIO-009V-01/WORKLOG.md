@@ -93,3 +93,18 @@ canonical_task_contract: tasks/STUDIO-009V-01.md
 - Provider live state remains `LIVE_VALIDATION_READY`.
 - Next gate: independent Connected Review.
 <!-- STUDIO-009V-01-CONNECTED-QA-CHECKPOINT-0003D -->
+
+## 2026-09-05 — Independent Connected Review and Integration
+
+- Immutable Connected-QA head reviewed: `1f31119f7f5d00db781f5fc60653312dfa25c7d3`.
+- Review result: `APPROVE`; blockers: `0`.
+- Independent review/integration probes: `80`.
+- Tests: `70` live / `527` focused / `924` total.
+- Confirmed the exact 20-path implementation scope and all live lineage/ceiling/budget/security constraints remain intact.
+- Confirmed Connected QA reference `qa:connected-groq-v01-2b803e9e6ad3` is bound to immutable spend-confirmed head `2b803e9e6ad3e1e75432f61aefa161a1a9e64595` with 60 probes PASS.
+- Confirmed RETRY1 used three successful requests after one separately authorized failed authentication campaign; cumulative V-01 history remains four real attempts without automatic retry.
+- Confirmed account tier `FREE`, literal usage cost `<0.01 USD`, and observed billable charge `0 USD`.
+- No Groq/provider/model request, API-key input, routing, external tool, MCP, deployment, publication, or nonzero billable spend occurred during Review.
+- Provider remains `LIVE_VALIDATION_READY`.
+- Next gate: Owner revocation of the temporary RETRY1 key plus final Owner disposition and LIVE_VALIDATED materialization.
+<!-- STUDIO-009V-01-CONNECTED-REVIEW-CHECKPOINT-0003E -->

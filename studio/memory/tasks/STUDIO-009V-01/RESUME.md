@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009V-01
 package_path: studio/memory/tasks/STUDIO-009V-01
 canonical_task_contract: tasks/STUDIO-009V-01.md
-current_state: CONNECTED_QA_PASS_PENDING_REVIEW
+current_state: CONNECTED_REVIEW_APPROVE_PENDING_OWNER_DISPOSITION
 resume_from: 2b811d7ac64e88c396f691cec940ec68784b1457
 branch: agent/studio-009v-01-groq-live-validation
 
 safe_checkpoint: STUDIO-009R-01 is durably closed; Groq P-01 is offline COMPLETE and remains connected DISABLED.
 
-next_action: Run independent Connected Review against the immutable Connected-QA head. Do not make another Groq request, enter an API key, or merge PR #60.
+next_action: Studio Owner revokes the temporary RETRY1 Groq API key and records final V-01 disposition. Do not make another Groq request, enter an API key, or merge PR #60 yet.
 
 prohibited_next_actions: additional Groq API key entry; additional Groq/model call; tools/browser/code execution/MCP/search/storage; automatic retry; routing; worker promotion; repository write authority beyond the existing PR scope; nonzero spend; implementation PR merge before QA/Review/Owner disposition; Unity/game work.
 
@@ -24,7 +24,7 @@ credential_runtime_activity: OWNER_INTERACTIVE_SESSION_ONLY
 connected_execution_activity: RETRY1_BOUNDED_VALIDATION_PASS_AFTER_AUTH_FAILURE
 spend: ZERO
 
-next_gate: CONNECTED_REVIEW
+next_gate: OWNER_DISPOSITION_AND_RETRY1_KEY_REVOCATION
 
 contract_merge: 2b811d7ac64e88c396f691cec940ec68784b1457
 implementation_checkpoint: STUDIO-009V-01-IMPLEMENTATION-CHECKPOINT-0002
@@ -118,3 +118,22 @@ provider_live_state: LIVE_VALIDATION_READY
 implementation_pr_merge_allowed_now: false
 next_phase: STUDIO-009V-01_CONNECTED_REVIEW
 <!-- STUDIO-009V-01-CONNECTED-QA-CHECKPOINT-0003D -->
+
+connected_review_ref: review:connected-groq-v01-1f31119f7f5d
+review_reviewed_head: 1f31119f7f5d00db781f5fc60653312dfa25c7d3
+review_result: APPROVE
+review_blockers: 0
+review_independent_probes: 80
+review_live_tests: 70
+review_focused_tests: 527
+review_total_tests: 924
+review_provider_calls: 0
+review_groq_network_activity: NONE
+review_api_key_input_activity: NONE
+review_spend: ZERO
+provider_live_state: LIVE_VALIDATION_READY
+retry1_key_revocation_confirmation: PENDING
+owner_disposition_ref: PENDING
+implementation_pr_merge_allowed_now: false
+next_phase: STUDIO-009V-01_OWNER_DISPOSITION
+<!-- STUDIO-009V-01-CONNECTED-REVIEW-CHECKPOINT-0003E -->

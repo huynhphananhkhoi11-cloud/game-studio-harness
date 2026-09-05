@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "CONNECTED_QA_PASS_PENDING_REVIEW",
+  "status": "CONNECTED_REVIEW_APPROVE_PENDING_OWNER_DISPOSITION",
   "connected_validation_id": "connected-validation:groq-v01",
   "campaign_id": "groq-v01-retry1-ac2943edca636f95",
   "retry_attempt": "RETRY1",
@@ -34,7 +34,7 @@
   "currency": "USD",
   "post_smoke_spend_confirmation_required": false,
   "connected_qa_ref": "qa:connected-groq-v01-2b803e9e6ad3",
-  "connected_review_ref": null,
+  "connected_review_ref": "review:connected-groq-v01-1f31119f7f5d",
   "owner_disposition_ref": null,
   "raw_provider_output_persisted": false,
   "secret_persisted": false,
@@ -122,7 +122,7 @@
       "quality": "PASS"
     }
   ],
-  "canonical_digest": "sha256:e2d01d2063ca8d70a56cd00c78e414c074ef5675519b5f3700d9b8bf5a1ea7b3",
+  "canonical_digest": "sha256:9cf4d9988b9bbedca9bb0e6dbf3e8b055566e82cf19c43e3905bfcf697e8587c",
   "account_tier_observed": "FREE",
   "usage_cost_display": "<0.01 USD",
   "usage_cost_display_is_not_zero": true,
@@ -139,5 +139,16 @@
   "qa_total_tests": 924,
   "qa_provider_calls": 0,
   "qa_groq_network_activity": "NONE",
-  "qa_completed_at": "2026-09-05T04:32:22Z"
+  "qa_completed_at": "2026-09-05T04:32:22Z",
+  "review_reviewed_head": "1f31119f7f5d00db781f5fc60653312dfa25c7d3",
+  "review_result": "APPROVE",
+  "review_blockers": 0,
+  "review_independent_probes": 80,
+  "review_live_tests": 70,
+  "review_focused_tests": 527,
+  "review_total_tests": 924,
+  "review_provider_calls": 0,
+  "review_groq_network_activity": "NONE",
+  "review_api_key_input_activity": "NONE",
+  "review_completed_at": "2026-09-05T04:40:04Z"
 }

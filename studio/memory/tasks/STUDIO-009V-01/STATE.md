@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-01
-state: CONNECTED_QA_PASS_PENDING_REVIEW
+state: CONNECTED_REVIEW_APPROVE_PENDING_OWNER_DISPOSITION
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
 branch: agent/studio-009v-01-groq-live-validation
@@ -45,8 +45,8 @@ routing_activity: NONE
 connected_execution_activity: RETRY1_BOUNDED_VALIDATION_PASS_AFTER_AUTH_FAILURE
 spend: ZERO
 
-exact_next_action: Run independent Connected Review against the immutable Connected-QA head. Do not make another Groq request and do not merge PR #60.
-next_phase: STUDIO-009V-01_CONNECTED_REVIEW
+exact_next_action: Studio Owner revokes the temporary RETRY1 Groq API key, records final V-01 disposition, and only then materializes LIVE_VALIDATED evidence. Do not make another Groq request and do not merge PR #60 yet.
+next_phase: STUDIO-009V-01_OWNER_DISPOSITION
 
 contract_merge: 2b811d7ac64e88c396f691cec940ec68784b1457
 implementation_result: OFFLINE_READY
@@ -151,3 +151,22 @@ provider_live_state: LIVE_VALIDATION_READY
 implementation_pr_merge_allowed_now: false
 next_phase: STUDIO-009V-01_CONNECTED_REVIEW
 <!-- STUDIO-009V-01-CONNECTED-QA-CHECKPOINT-0003D -->
+
+connected_review_ref: review:connected-groq-v01-1f31119f7f5d
+review_reviewed_head: 1f31119f7f5d00db781f5fc60653312dfa25c7d3
+review_result: APPROVE
+review_blockers: 0
+review_independent_probes: 80
+review_live_tests: 70
+review_focused_tests: 527
+review_total_tests: 924
+review_provider_calls: 0
+review_groq_network_activity: NONE
+review_api_key_input_activity: NONE
+review_spend: ZERO
+provider_live_state: LIVE_VALIDATION_READY
+retry1_key_revocation_confirmation: PENDING
+owner_disposition_ref: PENDING
+implementation_pr_merge_allowed_now: false
+next_phase: STUDIO-009V-01_OWNER_DISPOSITION
+<!-- STUDIO-009V-01-CONNECTED-REVIEW-CHECKPOINT-0003E -->

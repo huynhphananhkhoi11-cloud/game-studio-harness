@@ -83,3 +83,20 @@ A later bounded smoke may update these files only after the Studio Owner confirm
 - Provider live state remains `LIVE_VALIDATION_READY`.
 - Connected Review and Owner disposition remain required before PR #60 may merge.
 <!-- STUDIO-009V-01-CONNECTED-QA-CHECKPOINT-0003D -->
+
+## Independent Connected Review and Integration
+
+- Immutable Connected-QA head reviewed: `1f31119f7f5d00db781f5fc60653312dfa25c7d3`
+- Underlying spend-confirmed head: `2b803e9e6ad3e1e75432f61aefa161a1a9e64595`
+- Review result: `APPROVE`
+- Review blockers: `0`
+- Review reference: `review:connected-groq-v01-1f31119f7f5d`
+- Independent integration/review probes: `80`
+- Tests: `70` live / `527` focused / `924` total
+- Verified exact 20-path PR scope, Groq/model/transport/credential lineage, bounded RETRY1 request envelope, prior failed-campaign lineage, sanitized evidence, QA durability, Free-tier zero billable charge, and the `LIVE_VALIDATED` promotion ceiling.
+- Literal provider usage-cost metric remains `<0.01 USD`; observed billable charge remains `0 USD`.
+- No Groq/provider/model request, API-key input, routing, tool execution, MCP, deployment, or publication occurred during Review.
+- Provider state remains `LIVE_VALIDATION_READY`.
+- Final Studio Owner disposition remains required. The temporary RETRY1 API key should be revoked before final `LIVE_VALIDATED` materialization so revocation evidence is durable.
+- PR #60 must not merge before the Owner-disposition checkpoint is committed and Rules CI passes.
+<!-- STUDIO-009V-01-CONNECTED-REVIEW-CHECKPOINT-0003E -->

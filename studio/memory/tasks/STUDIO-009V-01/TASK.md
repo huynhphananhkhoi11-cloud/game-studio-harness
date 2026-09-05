@@ -19,7 +19,7 @@ credential_profile_ref: credential-profile:groq-api-key
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: CONNECTED_QA_PASS_PENDING_REVIEW
+task_status: CONNECTED_REVIEW_APPROVE_PENDING_OWNER_DISPOSITION
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 2b811d7ac64e88c396f691cec940ec68784b1457
 planned_contract_branch: agent/studio-009v-01-groq-contract
@@ -48,7 +48,7 @@ routing_activity: NONE
 connected_execution_activity: RETRY1_BOUNDED_VALIDATION_PASS_AFTER_AUTH_FAILURE
 spend: ZERO
 
-next_gate: CONNECTED_REVIEW
+next_gate: OWNER_DISPOSITION_AND_RETRY1_KEY_REVOCATION
 
 contract_pr: 59
 contract_head: 297d93a3b8dba6a1dd33eb87237dc12df47cba03
@@ -157,3 +157,21 @@ connected_review_ref: PENDING
 owner_disposition_ref: PENDING
 implementation_pr_merge_allowed_now: false
 <!-- STUDIO-009V-01-CONNECTED-QA-CHECKPOINT-0003D -->
+
+connected_review_ref: review:connected-groq-v01-1f31119f7f5d
+review_reviewed_head: 1f31119f7f5d00db781f5fc60653312dfa25c7d3
+review_result: APPROVE
+review_blockers: 0
+review_independent_probes: 80
+review_live_tests: 70
+review_focused_tests: 527
+review_total_tests: 924
+review_provider_calls: 0
+review_groq_network_activity: NONE
+review_api_key_input_activity: NONE
+review_spend: ZERO
+provider_live_state: LIVE_VALIDATION_READY
+retry1_key_revocation_confirmation: PENDING
+owner_disposition_ref: PENDING
+implementation_pr_merge_allowed_now: false
+<!-- STUDIO-009V-01-CONNECTED-REVIEW-CHECKPOINT-0003E -->
