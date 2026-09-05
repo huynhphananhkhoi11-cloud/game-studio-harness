@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "status": "PENDING_OWNER_CONNECTED_PREFLIGHT",
+  "v_contract_ref": "v-contract:STUDIO-009V-02",
+  "provider_profile_id": "provider-profile:cloudflare-workers-ai-free-nemotron-3-super",
+  "provider_child_id": "STUDIO-009P-02",
+  "model_id": "@cf/nvidia/nemotron-3-120b-a12b",
+  "account_ref": "account-ref:cloudflare-workers-ai-owner-account",
+  "request_count": 0,
+  "request_ceiling": 3,
+  "reserved_neurons": 0,
+  "campaign_neuron_ceiling": 2000,
+  "concurrency": 1,
+  "retry_count": 0,
+  "money_ceiling": 0,
+  "raw_account_id_persisted": false,
+  "api_token_persisted": false,
+  "raw_provider_output_persisted": false
+}

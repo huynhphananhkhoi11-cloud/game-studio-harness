@@ -28,3 +28,15 @@ canonical_task_contract: tasks/STUDIO-009V-02.md
 - Corrected cumulative implementation scope becomes 22 paths.
 - This correction performs zero Cloudflare provider calls, zero Account ID input, zero API-token input, zero network activity and zero spend.
 <!-- STUDIO-009V-02-CREDENTIAL-BRIDGE-CORRECTION-0001A -->
+
+## 2026-09-05 — Initial V-02 connected-validation implementation recovery
+
+- Recovered only the exact 16-path partial materialization left by the failed initial runner.
+- Root cause was test-local: three V-02 adapter tests referenced `chain()` from another test module without importing/defining it.
+- Added a local `_v02_chain()` helper inside `tests/test_cloudflare_provider_adapter.py`; production runtime behavior was not broadened.
+- Re-ran the targeted V-02 adapter tests plus 70 live / 592 focused / 989 total tests successfully.
+- Shared Groq V-01 bridge remains untouched.
+- Generic Cloudflare live state remains `LIVE_VALIDATION_READY`; connected evidence remains pending Owner preflight.
+- Zero real Account ID input, zero API-token input, zero Cloudflare/provider/model calls and zero spend occurred.
+- Next gate is separate Studio Owner connected preflight. Do not merge the implementation PR at this checkpoint.
+<!-- STUDIO-009V-02-IMPLEMENTATION-CHECKPOINT-0002 -->

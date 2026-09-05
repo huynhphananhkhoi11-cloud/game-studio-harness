@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "status": "PENDING_REAL_SMOKE",
+  "probe_count": 3,
+  "quality_pass": null,
+  "human_correction_count": null,
+  "raw_outputs_persisted": false,
+  "promotion_ceiling": "LIVE_VALIDATED"
+}

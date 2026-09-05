@@ -3,12 +3,12 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-02
-state: CONTRACT_MERGED_CREDENTIAL_BRIDGE_CORRECTION_READY_FOR_OWNER_MERGE
+state: IMPLEMENTATION_READY_PENDING_OWNER_CONNECTED_PREFLIGHT
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
-branch: agent/studio-009v-02-credential-bridge-correction
-base_head: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
-durability_state: PR_PENDING
+branch: agent/studio-009v-02-cloudflare-live-validation
+base_head: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
+durability_state: IMPLEMENTATION_PR_PENDING
 
 provider: Cloudflare Workers AI
 provider_profile_id: provider-profile:cloudflare-workers-ai-free-nemotron-3-super
@@ -52,8 +52,8 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Studio Owner reviews and may merge the V-02 credential-bridge correction PR. Do not enter a Cloudflare Account ID or API token and do not call Cloudflare before the corrected implementation scope is durable.
-next_phase: STUDIO-009V-02_OWNER_MERGE_CREDENTIAL_BRIDGE_CORRECTION
+exact_next_action: After this implementation checkpoint is pushed and exact-head Rules CI succeeds, Studio Owner performs the separate Cloudflare connected preflight. Do not enter a real Account ID/API token or call Cloudflare before that gate.
+next_phase: STUDIO-009V-02_OWNER_CONNECTED_PREFLIGHT
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -67,3 +67,24 @@ account_runtime_activity: NONE
 credential_runtime_activity: NONE
 spend: ZERO
 <!-- STUDIO-009V-02-CREDENTIAL-BRIDGE-CORRECTION-0001A -->
+
+implementation_base: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
+implementation_paths: 20
+implementation_authorized_paths_max: 22
+implementation_new_tests: 65
+implementation_live_tests: 70
+implementation_focused_tests: 592
+implementation_total_tests: 989
+provider_live_state: LIVE_VALIDATION_READY
+generic_ready_transition: ALLOWED
+connected_validation_status: PENDING_OWNER_CONNECTED_PREFLIGHT
+credential_bridge: DEDICATED_CLOUDFLARE_SESSION_ONLY
+shared_groq_bridge_modification: NONE
+real_account_id_input: NONE
+real_api_token_input: NONE
+provider_runtime_activity: NONE
+network_activity: NONE
+routing_authority: NONE
+worker_authority: NONE
+spend: ZERO
+<!-- STUDIO-009V-02-IMPLEMENTATION-CHECKPOINT-0002 -->

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "live_state_id": "provider-live-state:cloudflare-v02",
+  "provider_profile_id": "provider-profile:cloudflare-workers-ai-free-nemotron-3-super",
+  "provider_child_id": "STUDIO-009P-02",
+  "offline_merge_ref": "git-merge:3cf7165c3263f8595b66a0d029b96022840adef3",
+  "offline_qa_ref": "qa:3076383d226a93016f086b0feb23d3c04f69f918",
+  "offline_review_ref": "review:8173cd76488b2a402b76d33f7e7f2a03bcc38f13",
+  "offline_owner_merge_ref": "owner-merge:5e6950d0b17a173a70fcf325061dd7147696c05e",
+  "v_contract_ref": "v-contract:STUDIO-009V-02",
+  "connected_validation_ref": null,
+  "routing_authority_ref": null,
+  "state": "LIVE_VALIDATION_READY",
+  "allowed_data_classifications": [
+    "PUBLIC"
+  ],
+  "money_ceiling": 0,
+  "paused_at": null,
+  "revoked_at": null,
+  "as_of": "2026-09-05T07:40:39Z",
+  "canonical_digest": "sha256:428b0d5a6e96fe69f4c6df77ff81eb91a3afab8161a27dfc0d3996641c09d2ee"
+}
