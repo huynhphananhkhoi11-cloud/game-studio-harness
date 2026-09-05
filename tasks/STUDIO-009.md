@@ -72,9 +72,9 @@ STUDIO-009P-01 Groq is COMPLETE through merged offline implementation and closeo
 
 STUDIO-009P-02 Cloudflare Workers AI is COMPLETE through merged offline/synthetic implementation and closeout. Its exact offline model allowlist remains `@cf/nvidia/nemotron-3-120b-a12b`. Its real provider remains DISABLED for connected execution until a separately accepted provider-specific V-track authorizes bounded connected validation.
 
-STUDIO-009R-01 is the governance amendment that separates provider-specific connected validation from final integrated acceptance. The amendment itself grants no provider/network/credential/model-call authority and keeps monetary ceiling at zero.
+STUDIO-009R-01 is COMPLETE through merged closeout PR #58 at `11c2c2d4a35f37c5712376a3e7b16ca22d848bc7`. Its generic progressive-live framework is durable and grants no provider authority by itself.
 
-After STUDIO-009R-01 is durably merged and its generic offline live-validation framework is separately implemented, QA-reviewed, merged, and closed out, provider-specific `STUDIO-009V-*` contracts may authorize bounded PUBLIC/SYNTHETIC connected validation for already-complete P children. Automatic provider selection remains prohibited until STUDIO-009E.
+STUDIO-009V-01 is the next provider-specific track for Groq. Its contract may authorize a later bounded PUBLIC/SYNTHETIC connected smoke only after the V-01 contract itself is durably merged. Until then Groq remains connected `DISABLED`. STUDIO-009V-02 Cloudflare remains a later separate track. Automatic provider selection remains prohibited until STUDIO-009E.
 
 STUDIO-009E remains the automatic routing/failover phase over separately validated and routing-eligible providers. STUDIO-009F remains the full connected studio acceptance gate, not the first provider-call gate.
 
