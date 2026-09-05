@@ -94,3 +94,16 @@ STUDIO-009E remains the automatic routing/failover phase over separately validat
 Any phase that expands scope without accepted authority, leaks a secret, permits direct-main or unauthorized writes, creates duplicate work, bypasses a gate, fabricates provider identity, exceeds a ceiling, or loses immutable lineage fails closed.
 
 Rollback is phase-local where possible and always preserves accepted contracts and evidence. The minimum safe fallback is repository write disabled, real providers paused/revoked, money ceiling zero, and Manual/Fake-only operation.
+
+## STUDIO-009V-02 Cloudflare connected-validation contract checkpoint
+
+STUDIO-009V-01 Groq is COMPLETE through durable closeout merge `6bdb1daa9b2dee65a3262da8caf8c3ce42a4ac46` and remains `LIVE_VALIDATED` with worker/routing authority `NONE`.
+
+STUDIO-009V-02 is now the provider-specific connected-validation contract track for the already-complete Cloudflare Workers AI P-02 child.
+
+The V-02 contract reconciles the post-STUDIO-009R architecture without rewriting historical P-02 evidence: the later implementation may authorize bounded Cloudflare connected validation only through `STUDIO-009V-02_ONLY`, with promotion ceiling `LIVE_VALIDATED`. Automatic routing/failover remains STUDIO-009E authority and full connected studio acceptance remains STUDIO-009F.
+
+The contract PR itself authorizes no Account ID/API-token input, no Cloudflare/model/network call, no AI Gateway, no tool/storage activity and no spend.
+
+Next gate: separate Studio Owner merge of the V-02 contract PR.
+<!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
