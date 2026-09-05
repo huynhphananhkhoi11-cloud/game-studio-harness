@@ -19,7 +19,7 @@ credential_profile_ref: credential-profile:groq-api-key
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: CONNECTED_SMOKE_SPEND_CONFIRMED_PENDING_CONNECTED_QA
+task_status: CONNECTED_QA_PASS_PENDING_REVIEW
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 2b811d7ac64e88c396f691cec940ec68784b1457
 planned_contract_branch: agent/studio-009v-01-groq-contract
@@ -48,7 +48,7 @@ routing_activity: NONE
 connected_execution_activity: RETRY1_BOUNDED_VALIDATION_PASS_AFTER_AUTH_FAILURE
 spend: ZERO
 
-next_gate: CONNECTED_QA
+next_gate: CONNECTED_REVIEW
 
 contract_pr: 59
 contract_head: 297d93a3b8dba6a1dd33eb87237dc12df47cba03
@@ -137,3 +137,23 @@ connected_review_ref: PENDING
 owner_disposition_ref: PENDING
 implementation_pr_merge_allowed_now: false
 <!-- STUDIO-009V-01-OWNER-SPEND-CONFIRMATION-0003C -->
+
+connected_qa_ref: qa:connected-groq-v01-2b803e9e6ad3
+qa_reviewed_head: 2b803e9e6ad3e1e75432f61aefa161a1a9e64595
+qa_result: PASS
+qa_blockers: 0
+qa_independent_probes: 60
+qa_live_tests: 70
+qa_focused_tests: 527
+qa_total_tests: 924
+qa_provider_calls: 0
+qa_groq_network_activity: NONE
+qa_credential_input_activity: NONE
+qa_tool_execution_activity: NONE
+qa_routing_activity: NONE
+qa_spend: ZERO
+provider_live_state: LIVE_VALIDATION_READY
+connected_review_ref: PENDING
+owner_disposition_ref: PENDING
+implementation_pr_merge_allowed_now: false
+<!-- STUDIO-009V-01-CONNECTED-QA-CHECKPOINT-0003D -->

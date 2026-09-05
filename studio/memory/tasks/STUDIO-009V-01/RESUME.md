@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009V-01
 package_path: studio/memory/tasks/STUDIO-009V-01
 canonical_task_contract: tasks/STUDIO-009V-01.md
-current_state: CONNECTED_SMOKE_SPEND_CONFIRMED_PENDING_CONNECTED_QA
+current_state: CONNECTED_QA_PASS_PENDING_REVIEW
 resume_from: 2b811d7ac64e88c396f691cec940ec68784b1457
 branch: agent/studio-009v-01-groq-live-validation
 
 safe_checkpoint: STUDIO-009R-01 is durably closed; Groq P-01 is offline COMPLETE and remains connected DISABLED.
 
-next_action: Run independent Connected QA against the immutable spend-confirmed head. Do not make another Groq request, enter an API key again, or merge PR #60.
+next_action: Run independent Connected Review against the immutable Connected-QA head. Do not make another Groq request, enter an API key, or merge PR #60.
 
 prohibited_next_actions: additional Groq API key entry; additional Groq/model call; tools/browser/code execution/MCP/search/storage; automatic retry; routing; worker promotion; repository write authority beyond the existing PR scope; nonzero spend; implementation PR merge before QA/Review/Owner disposition; Unity/game work.
 
@@ -24,7 +24,7 @@ credential_runtime_activity: OWNER_INTERACTIVE_SESSION_ONLY
 connected_execution_activity: RETRY1_BOUNDED_VALIDATION_PASS_AFTER_AUTH_FAILURE
 spend: ZERO
 
-next_gate: CONNECTED_QA
+next_gate: CONNECTED_REVIEW
 
 contract_merge: 2b811d7ac64e88c396f691cec940ec68784b1457
 implementation_checkpoint: STUDIO-009V-01-IMPLEMENTATION-CHECKPOINT-0002
@@ -101,3 +101,20 @@ additional_real_request_authorized: false
 implementation_pr_merge_allowed_now: false
 next_phase: STUDIO-009V-01_CONNECTED_QA
 <!-- STUDIO-009V-01-OWNER-SPEND-CONFIRMATION-0003C -->
+
+connected_qa_ref: qa:connected-groq-v01-2b803e9e6ad3
+qa_reviewed_head: 2b803e9e6ad3e1e75432f61aefa161a1a9e64595
+qa_result: PASS
+qa_blockers: 0
+qa_independent_probes: 60
+qa_live_tests: 70
+qa_focused_tests: 527
+qa_total_tests: 924
+qa_provider_calls: 0
+qa_groq_network_activity: NONE
+qa_credential_input_activity: NONE
+qa_spend: ZERO
+provider_live_state: LIVE_VALIDATION_READY
+implementation_pr_merge_allowed_now: false
+next_phase: STUDIO-009V-01_CONNECTED_REVIEW
+<!-- STUDIO-009V-01-CONNECTED-QA-CHECKPOINT-0003D -->

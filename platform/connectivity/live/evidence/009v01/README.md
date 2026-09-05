@@ -65,3 +65,21 @@ A later bounded smoke may update these files only after the Studio Owner confirm
 - Provider live state remains `LIVE_VALIDATION_READY`.
 - Next gate: independent Connected QA.
 <!-- STUDIO-009V-01-OWNER-SPEND-CONFIRMATION-0003C -->
+
+## Independent Connected QA
+
+- Immutable spend-confirmed head reviewed: `2b803e9e6ad3e1e75432f61aefa161a1a9e64595`
+- QA result: `PASS`
+- QA blockers: `0`
+- QA reference: `qa:connected-groq-v01-2b803e9e6ad3`
+- Independent probes: `60`
+- Tests: `70` live / `527` focused / `924` total
+- RETRY1 requests reviewed: `3`
+- Prior failed authentication request preserved: `1`
+- Cumulative V-01 real request history: `4`
+- Free-tier billable charge observed: `0 USD`
+- Literal Groq Usage cost display remains `<0.01 USD` and is not rewritten as zero.
+- No provider/Groq/model request and no API-key input occurred during Connected QA.
+- Provider live state remains `LIVE_VALIDATION_READY`.
+- Connected Review and Owner disposition remain required before PR #60 may merge.
+<!-- STUDIO-009V-01-CONNECTED-QA-CHECKPOINT-0003D -->

@@ -80,3 +80,16 @@ canonical_task_contract: tasks/STUDIO-009V-01.md
 - Provider live state remains `LIVE_VALIDATION_READY`; no routing or worker authority is granted.
 - Next gate is independent Connected QA against the immutable spend-confirmed head.
 <!-- STUDIO-009V-01-OWNER-SPEND-CONFIRMATION-0003C -->
+
+## 2026-09-05 — Independent Connected QA
+
+- Immutable spend-confirmed head reviewed: `2b803e9e6ad3e1e75432f61aefa161a1a9e64595`.
+- QA result: `PASS`; blockers: `0`.
+- Independent probes: `60`.
+- Tests: `70` live / `527` focused / `924` total.
+- Verified exact Groq/model/transport lineage, three-request RETRY1 envelope, cumulative four-request V-01 history, model/transport identity, PUBLIC-only classification, no paid fallback, secret/raw-output hygiene, zero automatic retry, and zero billable charge on Free tier.
+- Preserved the literal `<0.01 USD` provider usage-cost metric as nonzero usage accounting while keeping observed billable spend at `0 USD`.
+- No provider/Groq/model request, API-key input, routing, tool execution, MCP, or external capability occurred during QA.
+- Provider live state remains `LIVE_VALIDATION_READY`.
+- Next gate: independent Connected Review.
+<!-- STUDIO-009V-01-CONNECTED-QA-CHECKPOINT-0003D -->

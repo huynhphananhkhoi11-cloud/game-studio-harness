@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "SMOKE_PASS_SPEND_CONFIRMED_PENDING_CONNECTED_QA",
+  "status": "CONNECTED_QA_PASS_PENDING_REVIEW",
   "connected_validation_id": "connected-validation:groq-v01",
   "campaign_id": "groq-v01-retry1-ac2943edca636f95",
   "retry_attempt": "RETRY1",
@@ -33,7 +33,7 @@
   "observed_spend": 0,
   "currency": "USD",
   "post_smoke_spend_confirmation_required": false,
-  "connected_qa_ref": null,
+  "connected_qa_ref": "qa:connected-groq-v01-2b803e9e6ad3",
   "connected_review_ref": null,
   "owner_disposition_ref": null,
   "raw_provider_output_persisted": false,
@@ -122,12 +122,22 @@
       "quality": "PASS"
     }
   ],
-  "canonical_digest": "sha256:12b33eb4b81b5a2fddafd2ce38a181d24e39d8abdfd9e43593c71d71b655b906",
+  "canonical_digest": "sha256:e2d01d2063ca8d70a56cd00c78e414c074ef5675519b5f3700d9b8bf5a1ea7b3",
   "account_tier_observed": "FREE",
   "usage_cost_display": "<0.01 USD",
   "usage_cost_display_is_not_zero": true,
   "billable_charge_observed": 0,
   "observed_spend_basis": "OWNER_OBSERVED_BILLABLE_CHARGE_ON_FREE_TIER",
   "owner_spend_confirmation": true,
-  "spend_confirmed_at": "2026-09-05T03:25:03Z"
+  "spend_confirmed_at": "2026-09-05T03:25:03Z",
+  "qa_reviewed_head": "2b803e9e6ad3e1e75432f61aefa161a1a9e64595",
+  "qa_result": "PASS",
+  "qa_blockers": 0,
+  "qa_independent_probes": 60,
+  "qa_live_tests": 70,
+  "qa_focused_tests": 527,
+  "qa_total_tests": 924,
+  "qa_provider_calls": 0,
+  "qa_groq_network_activity": "NONE",
+  "qa_completed_at": "2026-09-05T04:32:22Z"
 }
