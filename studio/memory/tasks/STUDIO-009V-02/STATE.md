@@ -3,11 +3,11 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-02
-state: CONTRACT_READY_FOR_OWNER_MERGE
+state: CONTRACT_MERGED_CREDENTIAL_BRIDGE_CORRECTION_READY_FOR_OWNER_MERGE
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
-branch: agent/studio-009v-02-cloudflare-contract
-base_head: 6bdb1daa9b2dee65a3262da8caf8c3ce42a4ac46
+branch: agent/studio-009v-02-credential-bridge-correction
+base_head: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
 durability_state: PR_PENDING
 
 provider: Cloudflare Workers AI
@@ -52,6 +52,18 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Studio Owner reviews and may merge the STUDIO-009V-02 contract Pull Request. Do not enter a Cloudflare Account ID or API token and do not call Cloudflare before the contract is durable.
-next_phase: STUDIO-009V-02_OWNER_MERGE_CONTRACT
+exact_next_action: Studio Owner reviews and may merge the V-02 credential-bridge correction PR. Do not enter a Cloudflare Account ID or API token and do not call Cloudflare before the corrected implementation scope is durable.
+next_phase: STUDIO-009V-02_OWNER_MERGE_CREDENTIAL_BRIDGE_CORRECTION
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
+
+contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
+credential_bridge_correction: REQUIRED
+credential_bridge_correction_result: DEDICATED_CLOUDFLARE_SESSION_BRIDGE_AUTHORIZED_PENDING_OWNER_MERGE
+corrected_implementation_cumulative_paths_max: 22
+shared_groq_bridge_modification_authority: NONE
+provider_runtime_activity: NONE
+network_activity: NONE
+account_runtime_activity: NONE
+credential_runtime_activity: NONE
+spend: ZERO
+<!-- STUDIO-009V-02-CREDENTIAL-BRIDGE-CORRECTION-0001A -->

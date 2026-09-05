@@ -21,9 +21,9 @@ account_ref: account-ref:cloudflare-workers-ai-owner-account
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: CONTRACT_READY_FOR_OWNER_MERGE
+task_status: CONTRACT_MERGED_CREDENTIAL_BRIDGE_CORRECTION_READY_FOR_OWNER_MERGE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
-base_head: 6bdb1daa9b2dee65a3262da8caf8c3ce42a4ac46
+base_head: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
 planned_contract_branch: agent/studio-009v-02-cloudflare-contract
 planned_implementation_branch: agent/studio-009v-02-cloudflare-live-validation
 
@@ -63,5 +63,20 @@ v02_connected_validation_authority: STUDIO-009V-02_ONLY
 full_studio_acceptance_authority: STUDIO-009F
 automatic_routing_authority: STUDIO-009E
 
-next_gate: OWNER_MERGE_V02_CONTRACT
+next_gate: OWNER_MERGE_V02_CREDENTIAL_BRIDGE_CORRECTION
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
+
+contract_pr: 62
+contract_head: 756f54aa2c86eefc102b28ed1a31cd3e1cebf584
+contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
+credential_bridge_correction_reason: EXISTING_SESSION_CREDENTIAL_BRIDGE_IS_GROQ_V01_SPECIFIC
+credential_bridge_correction_strategy: DEDICATED_CLOUDFLARE_SESSION_BRIDGE
+corrected_implementation_cumulative_paths_max: 22
+shared_groq_bridge_modification_authority: NONE
+provider_runtime_activity: NONE
+account_runtime_activity: NONE
+credential_runtime_activity: NONE
+network_activity: NONE
+spend: ZERO
+next_gate: OWNER_MERGE_V02_CREDENTIAL_BRIDGE_CORRECTION
+<!-- STUDIO-009V-02-CREDENTIAL-BRIDGE-CORRECTION-0001A -->

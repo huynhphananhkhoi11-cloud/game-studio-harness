@@ -36,6 +36,8 @@ Only these provider/live/code/test paths may be materially modified or created b
 14. `tests/test_cloudflare_provider_adapter.py`
 15. `tests/test_cloudflare_live_transport.py`
 16. `tests/test_cloudflare_live_smoke.py`
+17. `scripts/cloudflare_session_credential_bridge.py`
+18. `tests/test_cloudflare_session_credential_bridge.py`
 
 Only these four task-memory files may additionally update:
 
@@ -44,7 +46,7 @@ Only these four task-memory files may additionally update:
 - `studio/memory/tasks/STUDIO-009V-02/WORKLOG.md`
 - `studio/memory/tasks/STUDIO-009V-02/RESUME.md`
 
-Maximum cumulative implementation PR scope: 20 unique paths.
+Maximum cumulative implementation PR scope: 22 unique paths.
 
 No generic router, AI Gateway configuration, GitHub connector, Unity/game code, dependency file, workflow or unrelated provider is authorized.
 
@@ -84,7 +86,9 @@ Requirements:
 
 ## 4. Session account/token handoff
 
-Reuse the accepted provider-neutral session credential bridge for the API token without ambient secret lookup.
+Use a dedicated `scripts/cloudflare_session_credential_bridge.py` for the Cloudflare API token. Do not modify or repurpose the Groq V-01-specific `scripts/session_credential_bridge.py`.
+
+The dedicated Cloudflare bridge must validate Cloudflare-specific lease lineage and use hidden Owner-interactive, session-only, in-memory secret handoff with no ambient secret lookup and no secret escape.
 
 The Cloudflare-specific smoke may collect the Account ID through an Owner-interactive local input only after preflight, but it must not persist or print the raw Account ID.
 
@@ -170,3 +174,9 @@ The implementation must preserve the current baseline and add provider-specific 
 No real provider request occurs merely to make tests pass.
 
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
+
+## 10. Credential bridge correction checkpoint
+
+The implementation scope is corrected to 22 cumulative paths by adding a dedicated Cloudflare session credential bridge and its dedicated tests. The existing Groq V-01 session bridge remains untouched.
+
+<!-- STUDIO-009V-02-CREDENTIAL-BRIDGE-CORRECTION-0001A -->

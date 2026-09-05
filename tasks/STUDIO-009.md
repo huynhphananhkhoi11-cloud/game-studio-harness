@@ -107,3 +107,13 @@ The contract PR itself authorizes no Account ID/API-token input, no Cloudflare/m
 
 Next gate: separate Studio Owner merge of the V-02 contract PR.
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
+
+## STUDIO-009V-02 credential bridge scope correction
+
+After V-02 contract merge, implementation preflight established that the existing `scripts/session_credential_bridge.py` is Groq V-01-specific rather than provider-neutral.
+
+V-02 therefore authorizes a dedicated Cloudflare session credential bridge and dedicated tests instead of mutating or misusing the accepted Groq bridge. This is a scope correction only; Cloudflare connected authority, money ceiling, live-state ceiling, worker/routing authority and AI Gateway prohibition are unchanged.
+
+No Cloudflare/account/token/network/model activity is authorized by this correction.
+
+<!-- STUDIO-009V-02-CREDENTIAL-BRIDGE-CORRECTION-0001A -->
