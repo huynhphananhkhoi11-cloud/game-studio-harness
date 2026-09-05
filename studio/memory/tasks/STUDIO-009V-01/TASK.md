@@ -19,9 +19,9 @@ credential_profile_ref: credential-profile:groq-api-key
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: CONTRACT_READY_FOR_OWNER_MERGE
+task_status: OFFLINE_IMPLEMENTATION_READY_FOR_CONNECTED_PREFLIGHT
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
-base_head: 11c2c2d4a35f37c5712376a3e7b16ca22d848bc7
+base_head: 2b811d7ac64e88c396f691cec940ec68784b1457
 planned_contract_branch: agent/studio-009v-01-groq-contract
 planned_implementation_branch: agent/studio-009v-01-groq-live-validation
 
@@ -48,4 +48,24 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: OWNER_MERGE_CONTRACT
+next_gate: OWNER_CONNECTED_PREFLIGHT
+
+contract_pr: 59
+contract_head: 297d93a3b8dba6a1dd33eb87237dc12df47cba03
+contract_merge: 2b811d7ac64e88c396f691cec940ec68784b1457
+implementation_status: OFFLINE_IMPLEMENTATION_READY_FOR_CONNECTED_PREFLIGHT
+implementation_scope_paths: 16
+implementation_cumulative_paths: 20
+implementation_new_tests: 48
+implementation_live_tests: 70
+implementation_focused_tests: 525
+implementation_total_tests: 922
+implementation_provider_live_state: LIVE_VALIDATION_READY
+implementation_real_request_count: 0
+implementation_provider_runtime_activity: NONE
+implementation_network_activity: NONE
+implementation_credential_runtime_activity: NONE
+implementation_connected_execution_activity: NONE
+implementation_spend: ZERO
+implementation_next_gate: OWNER_CONNECTED_PREFLIGHT
+<!-- STUDIO-009V-01-IMPLEMENTATION-CHECKPOINT-0002 -->

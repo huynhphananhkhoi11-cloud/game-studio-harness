@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "live_state_id": "provider-live-state:groq-v01",
+  "provider_profile_id": "provider-profile:groq-free-gpt-oss-120b",
+  "provider_child_id": "STUDIO-009P-01",
+  "offline_merge_ref": "git-merge:1b75f250169ccdab3e2d67cbac4047253792c4a7",
+  "offline_qa_ref": "qa:cfce688cb4751ddd863b93ae38cc4a794ea94bff",
+  "offline_review_ref": "review:0f92a44a27e75fb5c98cd2cb39a53269d97c6397",
+  "offline_owner_merge_ref": "owner-merge:0c54767b28852f6d180ef211979fa027f497f511",
+  "v_contract_ref": "v-contract:STUDIO-009V-01",
+  "connected_validation_ref": null,
+  "routing_authority_ref": null,
+  "state": "LIVE_VALIDATION_READY",
+  "allowed_data_classifications": [
+    "PUBLIC"
+  ],
+  "money_ceiling": 0,
+  "paused_at": null,
+  "revoked_at": null,
+  "as_of": "2026-09-05T00:44:54Z",
+  "canonical_digest": "sha256:61d3f11c11b0f7a2f07ad5292d5b106e9f1cdd9ed0faebe358fc03967d41fa35"
+}

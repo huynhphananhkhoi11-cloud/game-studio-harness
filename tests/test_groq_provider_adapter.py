@@ -209,3 +209,19 @@ class GroqProviderAdapterTests(unittest.TestCase):
         self.assertEqual(plan["tool_execution"], "DISABLED")
         self.assertEqual(plan["routing"], "DISABLED")
         self.assertEqual(plan["money_ceiling"], 0)
+    def test_26_v01_connected_validation_authority_constant(self):
+        self.assertEqual(ga.CONNECTED_VALIDATION_AUTHORITY, "STUDIO-009V-01_ONLY")
+
+    def test_27_historical_f_only_transport_policy_is_rejected_after_v01(self):
+        value = {
+            "schema_version": "1.0",
+            "transport_profile_id": ga.TRANSPORT_PROFILE_REF,
+            "scheme": "https",
+            "host": ga.HOST,
+            "base_path": "/openai/v1",
+            "canonical_base_url": ga.BASE_URL,
+            "allow_redirects": False,
+            "allowed_protocols": ["HTTPS"],
+            "network_activation": "STUDIO-009F_ONLY",
+        }
+        self.assertCode("POLICY_MISMATCH", lambda: ga._validate_transport_policy(value))

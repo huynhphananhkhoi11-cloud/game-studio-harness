@@ -3,11 +3,11 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-01
-state: CONTRACT_READY_FOR_OWNER_MERGE
+state: OFFLINE_IMPLEMENTATION_READY_FOR_CONNECTED_PREFLIGHT
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
-branch: agent/studio-009v-01-groq-contract
-base_head: 11c2c2d4a35f37c5712376a3e7b16ca22d848bc7
+branch: agent/studio-009v-01-groq-live-validation
+base_head: 2b811d7ac64e88c396f691cec940ec68784b1457
 durability_state: PR_PENDING
 
 provider: GroqCloud
@@ -44,5 +44,26 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Studio Owner reviews and may merge the STUDIO-009V-01 contract Pull Request. Do not enter a Groq API key or call Groq before the contract is durable.
-next_phase: STUDIO-009V-01_OWNER_MERGE_CONTRACT
+exact_next_action: Review the offline V-01 implementation Pull Request, then perform the separate Owner Free-tier/ZDR connected preflight. Do not merge the implementation PR or enter a Groq API key yet.
+next_phase: STUDIO-009V-01_OWNER_CONNECTED_PREFLIGHT
+
+contract_merge: 2b811d7ac64e88c396f691cec940ec68784b1457
+implementation_result: OFFLINE_READY
+implementation_provider_live_state: LIVE_VALIDATION_READY
+implementation_new_tests: 48
+implementation_live_tests: 70
+implementation_focused_tests: 525
+implementation_total_tests: 922
+implementation_real_request_count: 0
+implementation_retry_count: 0
+implementation_concurrency: 1
+implementation_money_ceiling: 0
+implementation_provider_runtime_activity: NONE
+implementation_network_activity: NONE
+implementation_credential_runtime_activity: NONE
+implementation_tool_execution_activity: NONE
+implementation_routing_activity: NONE
+implementation_connected_execution_activity: NONE
+implementation_spend: ZERO
+implementation_next_gate: OWNER_CONNECTED_PREFLIGHT
+<!-- STUDIO-009V-01-IMPLEMENTATION-CHECKPOINT-0002 -->

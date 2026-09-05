@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "v_contract_id": "STUDIO-009V-01",
+  "v_contract_merge": "2b811d7ac64e88c396f691cec940ec68784b1457",
+  "provider_profile_id": "provider-profile:groq-free-gpt-oss-120b",
+  "provider_child_id": "STUDIO-009P-01",
+  "model_id": "openai/gpt-oss-120b",
+  "transport_ref": "transport-profile:groq-https-openai-v1",
+  "credential_profile_ref": "credential-profile:groq-api-key",
+  "allowed_data_classifications": [
+    "PUBLIC"
+  ],
+  "max_requests": 3,
+  "max_concurrency": 1,
+  "max_retries": 0,
+  "timeout_seconds": 30,
+  "max_request_bytes": 8192,
+  "max_response_bytes": 65536,
+  "max_completion_tokens": 256,
+  "service_tier": "on_demand",
+  "tool_choice": "none",
+  "citation_options": "disabled",
+  "free_tier_confirmation_required": true,
+  "zdr_confirmation_required": true,
+  "paid_fallback_allowed": false,
+  "money_ceiling": 0,
+  "promotion_ceiling": "LIVE_VALIDATED",
+  "worker_authority": false,
+  "routing_authority": false
+}

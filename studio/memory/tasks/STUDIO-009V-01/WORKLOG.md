@@ -15,3 +15,16 @@ canonical_task_contract: tasks/STUDIO-009V-01.md
 - First smoke is bounded to max 3 requests, concurrency 1, retry 0, PUBLIC/SYNTHETIC only, no tools/browser/code/MCP/search/storage/external write.
 - V-01 promotion ceiling is `LIVE_VALIDATED`; no worker or routing authority is granted.
 - Contract preparation performs no Groq/provider/model/credential runtime activity and no spend.
+
+## 2026-09-05 — Offline V-01 implementation checkpoint
+
+- Contract PR #59 merged at `2b811d7ac64e88c396f691cec940ec68784b1457`.
+- Reconciled Groq provider-specific activation policy from historical STUDIO-009F-only wording to the merged V-01 bounded-validation gate while preserving P-01 historical provenance.
+- Added standard-library HTTPS transport, session-only hidden credential bridge, bounded smoke orchestrator, pending sanitized evidence staging, and deterministic hostile tests.
+- No real API key was requested or resolved.
+- No Groq/provider/model network request was executed.
+- Provider live state is only `LIVE_VALIDATION_READY`.
+- New tests: 48; retained live framework: 70; focused: 525; total: 922.
+- MONEY_CEILING=0; provider/network/credential/routing/connected activity NONE; spend ZERO.
+- Next gate is a separate Studio Owner Free-tier/ZDR connected preflight. The implementation Pull Request must remain unmerged until connected smoke, QA, Review, and Owner disposition complete.
+<!-- STUDIO-009V-01-IMPLEMENTATION-CHECKPOINT-0002 -->

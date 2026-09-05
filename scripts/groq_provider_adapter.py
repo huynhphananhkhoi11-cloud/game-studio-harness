@@ -28,6 +28,7 @@ CREDENTIAL_PROFILE_REF = "credential-profile:groq-api-key"
 DATA_POLICY_REF = "data-policy:groq-public-synthetic-zdr"
 QUOTA_POLICY_REF = "quota-policy:groq-free-gpt-oss-120b"
 BUDGET_POLICY_REF = "budget-policy:groq-zero"
+CONNECTED_VALIDATION_AUTHORITY = "STUDIO-009V-01_ONLY"
 
 MAX_INPUT_TOKENS = 32768
 MAX_OUTPUT_TOKENS = 8192
@@ -240,7 +241,7 @@ def _validate_transport_policy(value: dict[str, Any]) -> None:
         or v["canonical_base_url"] != BASE_URL
         or v["allow_redirects"] is not False
         or v["allowed_protocols"] != ["HTTPS"]
-        or v["network_activation"] != "STUDIO-009F_ONLY"
+        or v["network_activation"] != CONNECTED_VALIDATION_AUTHORITY
     ):
         _fail("POLICY_MISMATCH")
 
@@ -259,7 +260,7 @@ def _validate_data_policy(value: dict[str, Any]) -> None:
         or v["denied_data_classifications"] != ["INTERNAL", "RESTRICTED"]
         or v["synthetic_data_allowed"] is not True
         or v["zero_data_retention_required"] is not True
-        or v["connected_activation"] != "STUDIO-009F_ONLY"
+        or v["connected_activation"] != CONNECTED_VALIDATION_AUTHORITY
     ):
         _fail("DATA_NOT_ALLOWED")
 
