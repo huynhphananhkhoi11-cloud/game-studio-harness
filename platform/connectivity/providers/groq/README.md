@@ -31,4 +31,9 @@ Authoritative source URLs remain pinned in `tasks/STUDIO-009P-01.md`.
 
 ## Safety boundary
 
-The adapter imports no provider SDK and no network client. It never reads environment variables, `.env`, keyrings, browser stores, command lines, or credential values. STUDIO-009F remains the only connected activation gate.
+The adapter imports no provider SDK and no network client. It never reads environment variables, `.env`, keyrings, browser stores, command lines, or credential values. Historical P-01 statement retained for provenance: "STUDIO-009F remains the only connected activation gate." That statement governed the original offline child. Merged STUDIO-009R-01 plus STUDIO-009V-01 now supersede it only for bounded provider-specific connected validation; STUDIO-009F remains the later full integrated acceptance gate.
+
+
+## STUDIO-009V-01 bounded connected validation
+
+The merged V-01 contract permits preparation of a direct standard-library HTTPS transport and a session-only Owner-interactive credential bridge. This implementation checkpoint performs no Groq call. The provider remains DISABLED for ordinary connected work; only a later explicit bounded smoke may move it to LIVE_VALIDATED, and routing/worker authority remains unavailable.
