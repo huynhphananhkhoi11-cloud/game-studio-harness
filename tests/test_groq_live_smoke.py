@@ -232,14 +232,66 @@ class GroqLiveSmokeTests(unittest.TestCase):
         )
         self.assertEqual(calls, [])
 
-    def test_17_ready_evidence_validates_generic_live_gate(self):
+    def test_17_final_live_state_validates_generic_live_gate(self):
         value = json.loads((EVIDENCE / "provider-live-state.json").read_text(encoding="utf-8"))
         normalized = provider_live_gate.validate_live_state(
             value, parent_allowed_data_classifications=["PUBLIC"]
         )
-        self.assertEqual(normalized["state"], "LIVE_VALIDATION_READY")
+        self.assertEqual(normalized["state"], "LIVE_VALIDATED")
+        self.assertEqual(
+            normalized["connected_validation_ref"], "connected-validation:groq-v01"
+        )
 
-    def test_18_pending_connected_evidence_is_not_accepted_as_live_validated(self):
+    def test_18_final_connected_evidence_binds_live_validated_transition(self):
         value = json.loads((EVIDENCE / "connected-validation.json").read_text(encoding="utf-8"))
-        with self.assertRaises(provider_live_evidence.ConnectedEvidenceError):
-            provider_live_evidence.validate_connected_validation(value)
+        from datetime import datetime, timedelta
+
+        expires_at = (
+            datetime.strptime(value["as_of"], "%Y-%m-%dT%H:%M:%SZ")
+            + timedelta(seconds=1)
+        ).strftime("%Y-%m-%dT%H:%M:%SZ")
+        constraints = {
+            "provider_profile_id": "provider-profile:groq-free-gpt-oss-120b",
+            "provider_child_id": "STUDIO-009P-01",
+            "provider_model_ref": "model-id:openai/gpt-oss-120b",
+            "transport_ref": "transport-profile:groq-https-openai-v1",
+            "credential_profile_ref": "credential-profile:groq-api-key",
+            "v_contract_ref": "v-contract:STUDIO-009V-01",
+            "allowed_capabilities": ["TEXT_GENERATION"],
+            "max_request_bytes": 8192,
+            "max_output_bytes": 65536,
+            "max_request_count": 3,
+            "max_concurrency": 1,
+            "max_retry_count": 0,
+            "not_before": value["validated_at"],
+            "expires_at": expires_at,
+        }
+        bound = provider_live_evidence.validate_connected_validation(
+            value, accepted_constraints=constraints
+        )
+        self.assertEqual(bound["decision"], "BOUND_ACCEPTED")
+
+        target_record = json.loads(
+            (EVIDENCE / "provider-live-state.json").read_text(encoding="utf-8")
+        )
+        target = provider_live_gate.validate_live_state(
+            target_record, parent_allowed_data_classifications=["PUBLIC"]
+        )
+
+        current_record = copy.deepcopy(target_record)
+        current_record["state"] = "LIVE_VALIDATION_READY"
+        current_record["connected_validation_ref"] = None
+        current_record["as_of"] = value["validated_at"]
+        current_record["canonical_digest"] = provider_live_gate.canonical_digest(
+            current_record
+        )
+        current = provider_live_gate.validate_live_state(
+            current_record, parent_allowed_data_classifications=["PUBLIC"]
+        )
+        transition = provider_live_gate.plan_transition(
+            current,
+            "LIVE_VALIDATED",
+            target_state=target,
+            connected_evidence=bound,
+        )
+        self.assertEqual(transition["decision"], "ALLOWED")

@@ -100,3 +100,26 @@ A later bounded smoke may update these files only after the Studio Owner confirm
 - Final Studio Owner disposition remains required. The temporary RETRY1 API key should be revoked before final `LIVE_VALIDATED` materialization so revocation evidence is durable.
 - PR #60 must not merge before the Owner-disposition checkpoint is committed and Rules CI passes.
 <!-- STUDIO-009V-01-CONNECTED-REVIEW-CHECKPOINT-0003E -->
+
+## Studio Owner final V-01 disposition
+
+- Immutable Connected-Review head accepted: `bfc08b636c79f6346cc2f63fc689f4551ed89799`
+- Connected QA: `PASS` (`qa:connected-groq-v01-2b803e9e6ad3`)
+- Connected Review and Integration: `APPROVE` (`review:connected-groq-v01-1f31119f7f5d`)
+- Studio Owner disposition: `ACCEPT_LIVE_VALIDATED`
+- Owner disposition ref: `owner-disposition:groq-v01-bfc08b636c79`
+- Temporary RETRY1 API key revocation: `CONFIRMED`
+- Revocation ref: `revocation:groq-v01-retry1-key-owner-confirmed`
+- Local no-further-call / kill evidence ref: `kill-switch:groq-v01-local-bounded-smoke`
+- `connected-validation.json` is finalized into the exact generic STUDIO-009R connected-evidence schema and binds the `LIVE_VALIDATED` transition.
+- Rich RETRY1/QA/Review staging history remains durable in prior commits plus this README, quality evidence, and task memory.
+- Final provider state in this implementation PR: `LIVE_VALIDATED`
+- Worker authority: `false`
+- Routing authority: `false`
+- Account tier observed: `FREE`
+- Literal Usage cost display remains `<0.01 USD`; observed billable charge remains `0 USD`.
+- Cumulative V-01 real request history remains `4` total attempts: one terminal `AUTH_FAILED` campaign request plus three successful RETRY1 smoke requests.
+- No provider/Groq/model request and no API-key input occurred during final disposition.
+- Tests: `70` live / `527` focused / `924` total.
+- This state becomes durable only after Studio Owner manually merges PR #60.
+<!-- STUDIO-009V-01-OWNER-DISPOSITION-CHECKPOINT-0003F -->

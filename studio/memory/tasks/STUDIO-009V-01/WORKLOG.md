@@ -108,3 +108,18 @@ canonical_task_contract: tasks/STUDIO-009V-01.md
 - Provider remains `LIVE_VALIDATION_READY`.
 - Next gate: Owner revocation of the temporary RETRY1 key plus final Owner disposition and LIVE_VALIDATED materialization.
 <!-- STUDIO-009V-01-CONNECTED-REVIEW-CHECKPOINT-0003E -->
+
+## 2026-09-05 — Studio Owner final V-01 disposition
+
+- Immutable Connected-Review head accepted: `bfc08b636c79f6346cc2f63fc689f4551ed89799`.
+- Studio Owner confirmed the temporary RETRY1 Groq API key was deleted/revoked from `Default Project`.
+- Studio Owner final disposition: `ACCEPT_LIVE_VALIDATED`.
+- Owner disposition ref: `owner-disposition:groq-v01-bfc08b636c79`.
+- Revocation evidence ref: `revocation:groq-v01-retry1-key-owner-confirmed`.
+- QA remained `PASS`; Review remained `APPROVE`; blockers remained `0`.
+- Final `connected-validation.json` is an exact generic STUDIO-009R bound-evidence record; the prior rich staging record remains recoverable in immutable Git history.
+- Provider state is materialized as `LIVE_VALIDATED` in PR #60 only; durability still requires manual Owner merge.
+- Worker and routing authority remain `NONE`; STUDIO-009E/STUDIO-009F authority is not granted.
+- No additional Groq/provider/model request, API-key input, routing, MCP, tool execution, deployment, publication, or nonzero billable spend occurred.
+- Final tests: `70` live / `527` focused / `924` total.
+<!-- STUDIO-009V-01-OWNER-DISPOSITION-CHECKPOINT-0003F -->

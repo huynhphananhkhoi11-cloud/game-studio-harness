@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009V-01
 package_path: studio/memory/tasks/STUDIO-009V-01
 canonical_task_contract: tasks/STUDIO-009V-01.md
-current_state: CONNECTED_REVIEW_APPROVE_PENDING_OWNER_DISPOSITION
+current_state: OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_OWNER_MERGE
 resume_from: 2b811d7ac64e88c396f691cec940ec68784b1457
 branch: agent/studio-009v-01-groq-live-validation
 
 safe_checkpoint: STUDIO-009R-01 is durably closed; Groq P-01 is offline COMPLETE and remains connected DISABLED.
 
-next_action: Studio Owner revokes the temporary RETRY1 Groq API key and records final V-01 disposition. Do not make another Groq request, enter an API key, or merge PR #60 yet.
+next_action: After Rules CI succeeds on the exact final disposition head, Studio Owner manually merges PR #60. Do not make another Groq request, enter an API key, or grant worker/routing authority.
 
 prohibited_next_actions: additional Groq API key entry; additional Groq/model call; tools/browser/code execution/MCP/search/storage; automatic retry; routing; worker promotion; repository write authority beyond the existing PR scope; nonzero spend; implementation PR merge before QA/Review/Owner disposition; Unity/game work.
 
@@ -24,7 +24,7 @@ credential_runtime_activity: OWNER_INTERACTIVE_SESSION_ONLY
 connected_execution_activity: RETRY1_BOUNDED_VALIDATION_PASS_AFTER_AUTH_FAILURE
 spend: ZERO
 
-next_gate: OWNER_DISPOSITION_AND_RETRY1_KEY_REVOCATION
+next_gate: OWNER_MERGE_PR_60
 
 contract_merge: 2b811d7ac64e88c396f691cec940ec68784b1457
 implementation_checkpoint: STUDIO-009V-01-IMPLEMENTATION-CHECKPOINT-0002
@@ -137,3 +137,26 @@ owner_disposition_ref: PENDING
 implementation_pr_merge_allowed_now: false
 next_phase: STUDIO-009V-01_OWNER_DISPOSITION
 <!-- STUDIO-009V-01-CONNECTED-REVIEW-CHECKPOINT-0003E -->
+
+owner_disposition_ref: owner-disposition:groq-v01-bfc08b636c79
+owner_disposition: ACCEPT_LIVE_VALIDATED
+owner_disposition_reviewed_head: bfc08b636c79f6346cc2f63fc689f4551ed89799
+retry1_key_revocation_confirmation: PASS
+retry1_key_revocation_ref: revocation:groq-v01-retry1-key-owner-confirmed
+kill_switch_evidence_ref: kill-switch:groq-v01-local-bounded-smoke
+final_connected_validation_ref: connected-validation:groq-v01
+final_connected_validation_schema: GENERIC_STUDIO_009R_BOUND_EVIDENCE
+provider_live_state: LIVE_VALIDATED
+worker_authority: NONE
+routing_authority: NONE
+additional_real_request_authorized: false
+final_live_tests: 70
+final_focused_tests: 527
+final_total_tests: 924
+final_provider_calls: 0
+final_groq_network_activity: NONE
+final_api_key_input_activity: NONE
+final_spend: ZERO
+implementation_pr_merge_allowed_now: true
+next_phase: STUDIO-009V-01_OWNER_MERGE
+<!-- STUDIO-009V-01-OWNER-DISPOSITION-CHECKPOINT-0003F -->

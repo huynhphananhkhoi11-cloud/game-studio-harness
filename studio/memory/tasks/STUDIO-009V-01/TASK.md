@@ -19,7 +19,7 @@ credential_profile_ref: credential-profile:groq-api-key
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: CONNECTED_REVIEW_APPROVE_PENDING_OWNER_DISPOSITION
+task_status: OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_OWNER_MERGE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 2b811d7ac64e88c396f691cec940ec68784b1457
 planned_contract_branch: agent/studio-009v-01-groq-contract
@@ -48,7 +48,7 @@ routing_activity: NONE
 connected_execution_activity: RETRY1_BOUNDED_VALIDATION_PASS_AFTER_AUTH_FAILURE
 spend: ZERO
 
-next_gate: OWNER_DISPOSITION_AND_RETRY1_KEY_REVOCATION
+next_gate: OWNER_MERGE_PR_60
 
 contract_pr: 59
 contract_head: 297d93a3b8dba6a1dd33eb87237dc12df47cba03
@@ -175,3 +175,26 @@ retry1_key_revocation_confirmation: PENDING
 owner_disposition_ref: PENDING
 implementation_pr_merge_allowed_now: false
 <!-- STUDIO-009V-01-CONNECTED-REVIEW-CHECKPOINT-0003E -->
+
+owner_disposition_ref: owner-disposition:groq-v01-bfc08b636c79
+owner_disposition: ACCEPT_LIVE_VALIDATED
+owner_disposition_reviewed_head: bfc08b636c79f6346cc2f63fc689f4551ed89799
+retry1_key_revocation_confirmation: PASS
+retry1_key_revocation_ref: revocation:groq-v01-retry1-key-owner-confirmed
+kill_switch_evidence_ref: kill-switch:groq-v01-local-bounded-smoke
+final_connected_validation_ref: connected-validation:groq-v01
+final_connected_validation_schema: GENERIC_STUDIO_009R_BOUND_EVIDENCE
+final_provider_live_state: LIVE_VALIDATED
+final_worker_authority: NONE
+final_routing_authority: NONE
+final_additional_real_request_authorized: false
+final_live_tests: 70
+final_focused_tests: 527
+final_total_tests: 924
+final_provider_calls: 0
+final_groq_network_activity: NONE
+final_api_key_input_activity: NONE
+final_spend: ZERO
+implementation_pr_merge_allowed_now: true
+next_gate: OWNER_MERGE_PR_60
+<!-- STUDIO-009V-01-OWNER-DISPOSITION-CHECKPOINT-0003F -->
