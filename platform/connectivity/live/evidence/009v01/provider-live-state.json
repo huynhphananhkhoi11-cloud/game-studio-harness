@@ -17,6 +17,6 @@
   "money_ceiling": 0,
   "paused_at": null,
   "revoked_at": null,
-  "as_of": "2026-09-05T00:44:54Z",
-  "canonical_digest": "sha256:61d3f11c11b0f7a2f07ad5292d5b106e9f1cdd9ed0faebe358fc03967d41fa35"
+  "as_of": "2026-09-05T03:06:30Z",
+  "canonical_digest": "sha256:c9c1e99eb1e751ac83fd2756a139a9924afd2c430ee00c1e6df1a4b706ffb825"
 }

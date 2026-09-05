@@ -1,16 +1,33 @@
 {
   "schema_version": "1.0",
-  "status": "NOT_EVALUATED_AUTH_FAILED",
-  "failed_campaign_id": "groq-v01-782697ab855de1bd",
-  "probe_count_attempted": 1,
-  "probe_count_completed": 0,
-  "quality_pass": null,
-  "human_correction_count": null,
-  "failure_before_model_output": true,
+  "status": "SMOKE_PASS_PENDING_OWNER_SPEND_CONFIRMATION",
+  "campaign_id": "groq-v01-retry1-ac2943edca636f95",
+  "retry_attempt": "RETRY1",
+  "retry_authorization_head": "68d9a89becb13b441c2e5744cd3b134a76d03bd3",
+  "retry_of_failed_campaign_id": "groq-v01-782697ab855de1bd",
+  "prior_failed_campaign_request_count": 1,
+  "cumulative_v01_real_request_count": 4,
+  "probe_count": 3,
+  "quality_pass": true,
+  "human_correction_count": 0,
   "raw_outputs_persisted": false,
+  "content_digests": [
+    {
+      "probe_id": "STRUCTURED_OUTPUT",
+      "content_sha256": "sha256:79560680b8a2be382aefa4bf5a2bb98dbe99ee2f966fdd2c66fc5dd2f0daa4b2"
+    },
+    {
+      "probe_id": "INSTRUCTION_DISCIPLINE",
+      "content_sha256": "sha256:5aad4402dcc88d466fc76053c71aacda9d2ba93863122b6dfb1d65852a712d34"
+    },
+    {
+      "probe_id": "SYNTHETIC_TRANSFORM",
+      "content_sha256": "sha256:d3198044544fde4eb357039e74160214907ff6f6730f8dcadeb64ab6daa749ec"
+    }
+  ],
   "observed_spend": null,
-  "retry_campaign_authorized_by_owner": true,
+  "post_smoke_spend_confirmation_required": true,
   "promotion_ceiling": "LIVE_VALIDATED",
-  "recorded_at": "2026-09-05T02:54:42Z",
-  "canonical_digest": "sha256:bc1f6a381abfecca9828853aa12717e768faf36744adab17835c86917cfcad71"
+  "validated_at": "2026-09-05T03:06:30Z",
+  "canonical_digest": "sha256:5d774f6541a477772e18deea49dca973a1021cdd170ca2796faec5059f2cf51d"
 }

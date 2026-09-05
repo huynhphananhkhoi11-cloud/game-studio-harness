@@ -55,3 +55,17 @@ canonical_task_contract: tasks/STUDIO-009V-01.md
 - Observed spend remains `UNCONFIRMED`.
 - No Groq/provider/model request occurred during this authorization checkpoint.
 <!-- STUDIO-009V-01-RETRY1-AUTHORIZATION-0003A -->
+
+## 2026-09-05 — RETRY1 bounded Groq connected smoke
+
+- RETRY1 used the fresh Owner authorization checkpoint after the prior one-request `AUTH_FAILED` campaign; the old key was revoked and a new key was created in `Default Project`.
+- Campaign `groq-v01-retry1-ac2943edca636f95` reserved every request durably before network I/O.
+- Exactly 3 real PUBLIC/SYNTHETIC requests were issued sequentially.
+- Concurrency was 1; automatic retry was 0.
+- Exact model and transport identity gates passed.
+- Fixed smoke quality probes passed with zero human correction.
+- No raw model output or API key value was persisted to repository evidence.
+- Provider live state remains `LIVE_VALIDATION_READY`.
+- Observed spend is deliberately `UNCONFIRMED` until Studio Owner checks Groq Usage/Billing.
+- No additional request is authorized. PR #60 remains unmerged.
+<!-- STUDIO-009V-01-RETRY1-SMOKE-CHECKPOINT-0003B -->

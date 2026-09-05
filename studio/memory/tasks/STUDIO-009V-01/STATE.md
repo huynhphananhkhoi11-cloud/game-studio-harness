@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-01
-state: FAILED_CAMPAIGN_ACKNOWLEDGED_RETRY1_AUTHORIZED
+state: CONNECTED_SMOKE_PASS_PENDING_OWNER_SPEND_CONFIRMATION
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
 branch: agent/studio-009v-01-groq-live-validation
@@ -35,18 +35,18 @@ remaining: |
 blockers: |
   - NONE
 
-provider_runtime_activity: GROQ_V01_FAILED_AUTH_CAMPAIGN_1_REQUEST
-network_activity: GROQ_HTTPS_1_AUTH_FAILED_REQUEST
+provider_runtime_activity: GROQ_V01_TOTAL_4_REQUESTS_RETRY1_PASS
+network_activity: GROQ_HTTPS_TOTAL_4_REQUESTS_1_AUTH_FAILED_3_RETRY1_PASS
 credential_runtime_activity: OWNER_INTERACTIVE_SESSION_ONLY
 secret_store_activity: NONE
 tool_execution_activity: NONE
 remote_mcp_activity: NONE
 routing_activity: NONE
-connected_execution_activity: FAILED_AUTH_VALIDATION_ATTEMPT
+connected_execution_activity: RETRY1_BOUNDED_VALIDATION_PASS_AFTER_AUTH_FAILURE
 spend: UNCONFIRMED
 
-exact_next_action: Run the separately generated RETRY1 bounded connected-smoke runner using the newly created Default Project key. Do not reuse the old key, do not continue the failed campaign, and do not merge PR #60.
-next_phase: STUDIO-009V-01_RETRY1_BOUNDED_CONNECTED_SMOKE
+exact_next_action: Studio Owner checks Groq Usage/Billing and confirms observed spend remains zero. Do not make another Groq request and do not merge PR #60.
+next_phase: STUDIO-009V-01_OWNER_SPEND_CONFIRMATION
 
 contract_merge: 2b811d7ac64e88c396f691cec940ec68784b1457
 implementation_result: OFFLINE_READY
@@ -102,3 +102,22 @@ provider_live_state: LIVE_VALIDATION_READY
 observed_spend: UNCONFIRMED
 implementation_pr_merge_allowed_now: false
 <!-- STUDIO-009V-01-RETRY1-AUTHORIZATION-0003A -->
+
+real_smoke_campaign: groq-v01-retry1-ac2943edca636f95
+retry_attempt: RETRY1
+retry_authorization_head: 68d9a89becb13b441c2e5744cd3b134a76d03bd3
+retry_of_failed_campaign_id: groq-v01-782697ab855de1bd
+prior_failed_campaign_request_count: 1
+cumulative_v01_real_request_count: 4
+real_request_count: 3
+real_request_ceiling: 3
+real_concurrency: 1
+real_retry_count: 0
+real_quality_result: PASS
+real_human_correction_count: 0
+provider_live_state: LIVE_VALIDATION_READY
+observed_spend: UNCONFIRMED
+post_smoke_spend_confirmation_required: true
+additional_real_request_authorized: false
+implementation_pr_merge_allowed_now: false
+<!-- STUDIO-009V-01-RETRY1-SMOKE-CHECKPOINT-0003B -->

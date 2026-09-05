@@ -29,3 +29,25 @@ A later bounded smoke may update these files only after the Studio Owner confirm
 - Studio Owner authorized one fresh retry campaign under the same 3-request / concurrency-1 / retry-0 / zero-money envelope.
 - Provider live state remains `LIVE_VALIDATION_READY`.
 <!-- STUDIO-009V-01-RETRY1-AUTHORIZATION-0003A -->
+
+## RETRY1 bounded connected smoke checkpoint
+
+- Campaign: `groq-v01-retry1-ac2943edca636f95`
+- Completed: `2026-09-05T03:06:30Z`
+- RETRY1 real requests: `3`
+- Prior failed campaign real requests: `1`
+- Cumulative V-01 real requests across authorized campaigns: `4`
+- RETRY1 authorization head: `68d9a89becb13b441c2e5744cd3b134a76d03bd3`
+- Prior failed campaign: `groq-v01-782697ab855de1bd`
+- Concurrency: `1`
+- Automatic retry: `0`
+- Data: PUBLIC/SYNTHETIC fixed probes only
+- Exact model: `openai/gpt-oss-120b`
+- Exact transport: `https://api.groq.com/openai/v1/chat/completions`
+- Raw provider output persisted: `false`
+- Credential persisted: `false`
+- Fixed quality probes: `PASS`
+- Human correction count: `0`
+- Observed spend: `UNCONFIRMED`
+- Provider live state remains `LIVE_VALIDATION_READY`; QA, Review, Owner spend confirmation and Owner disposition are still required before `LIVE_VALIDATED`.
+<!-- STUDIO-009V-01-RETRY1-SMOKE-CHECKPOINT-0003B -->
