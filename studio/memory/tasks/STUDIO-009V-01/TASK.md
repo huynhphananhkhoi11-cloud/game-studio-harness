@@ -19,7 +19,7 @@ credential_profile_ref: credential-profile:groq-api-key
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: CONNECTED_SMOKE_PASS_PENDING_OWNER_SPEND_CONFIRMATION
+task_status: CONNECTED_SMOKE_SPEND_CONFIRMED_PENDING_CONNECTED_QA
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 2b811d7ac64e88c396f691cec940ec68784b1457
 planned_contract_branch: agent/studio-009v-01-groq-contract
@@ -46,9 +46,9 @@ tool_execution_activity: NONE
 remote_mcp_activity: NONE
 routing_activity: NONE
 connected_execution_activity: RETRY1_BOUNDED_VALIDATION_PASS_AFTER_AUTH_FAILURE
-spend: UNCONFIRMED
+spend: ZERO
 
-next_gate: OWNER_SPEND_CONFIRMATION
+next_gate: CONNECTED_QA
 
 contract_pr: 59
 contract_head: 297d93a3b8dba6a1dd33eb87237dc12df47cba03
@@ -122,3 +122,18 @@ connected_review_ref: PENDING
 owner_disposition_ref: PENDING
 implementation_pr_merge_allowed_now: false
 <!-- STUDIO-009V-01-RETRY1-SMOKE-CHECKPOINT-0003B -->
+
+owner_spend_confirmation: PASS
+account_tier_observed: FREE
+usage_cost_display: <0.01 USD
+usage_cost_display_is_not_zero: true
+billable_charge_observed_usd: 0
+observed_spend_usd: 0
+observed_spend_basis: OWNER_OBSERVED_BILLABLE_CHARGE_ON_FREE_TIER
+provider_live_state: LIVE_VALIDATION_READY
+additional_real_request_authorized: false
+connected_qa_ref: PENDING
+connected_review_ref: PENDING
+owner_disposition_ref: PENDING
+implementation_pr_merge_allowed_now: false
+<!-- STUDIO-009V-01-OWNER-SPEND-CONFIRMATION-0003C -->

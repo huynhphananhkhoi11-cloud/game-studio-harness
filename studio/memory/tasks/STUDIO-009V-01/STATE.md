@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-01
-state: CONNECTED_SMOKE_PASS_PENDING_OWNER_SPEND_CONFIRMATION
+state: CONNECTED_SMOKE_SPEND_CONFIRMED_PENDING_CONNECTED_QA
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
 branch: agent/studio-009v-01-groq-live-validation
@@ -43,10 +43,10 @@ tool_execution_activity: NONE
 remote_mcp_activity: NONE
 routing_activity: NONE
 connected_execution_activity: RETRY1_BOUNDED_VALIDATION_PASS_AFTER_AUTH_FAILURE
-spend: UNCONFIRMED
+spend: ZERO
 
-exact_next_action: Studio Owner checks Groq Usage/Billing and confirms observed spend remains zero. Do not make another Groq request and do not merge PR #60.
-next_phase: STUDIO-009V-01_OWNER_SPEND_CONFIRMATION
+exact_next_action: Run independent Connected QA against the immutable spend-confirmed head. Do not make another Groq request and do not merge PR #60.
+next_phase: STUDIO-009V-01_CONNECTED_QA
 
 contract_merge: 2b811d7ac64e88c396f691cec940ec68784b1457
 implementation_result: OFFLINE_READY
@@ -121,3 +121,16 @@ post_smoke_spend_confirmation_required: true
 additional_real_request_authorized: false
 implementation_pr_merge_allowed_now: false
 <!-- STUDIO-009V-01-RETRY1-SMOKE-CHECKPOINT-0003B -->
+
+owner_spend_confirmation: PASS
+account_tier_observed: FREE
+usage_cost_display: <0.01 USD
+usage_cost_display_is_not_zero: true
+billable_charge_observed_usd: 0
+observed_spend_usd: 0
+observed_spend_basis: OWNER_OBSERVED_BILLABLE_CHARGE_ON_FREE_TIER
+provider_live_state: LIVE_VALIDATION_READY
+additional_real_request_authorized: false
+implementation_pr_merge_allowed_now: false
+next_phase: STUDIO-009V-01_CONNECTED_QA
+<!-- STUDIO-009V-01-OWNER-SPEND-CONFIRMATION-0003C -->

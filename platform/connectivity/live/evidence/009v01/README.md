@@ -51,3 +51,17 @@ A later bounded smoke may update these files only after the Studio Owner confirm
 - Observed spend: `UNCONFIRMED`
 - Provider live state remains `LIVE_VALIDATION_READY`; QA, Review, Owner spend confirmation and Owner disposition are still required before `LIVE_VALIDATED`.
 <!-- STUDIO-009V-01-RETRY1-SMOKE-CHECKPOINT-0003B -->
+
+## Owner spend confirmation after RETRY1 smoke
+
+- RETRY1 campaign: `groq-v01-retry1-ac2943edca636f95`
+- Smoke evidence head: `efb14fea3963310f4a99336270e978d51dd1f1a1`
+- Owner observed account tier: `FREE`
+- Groq Usage cost display for `openai/gpt-oss-120b - on_demand`: `<0.01 USD`
+- The `<0.01 USD` usage-cost display is recorded literally and is NOT represented as zero.
+- Owner observed billable charge / amount due: `0 USD`
+- `observed_spend=0` is therefore scoped to actual billable charge observed by the Owner, not the provider's sub-cent usage-cost metric.
+- No additional Groq request was made for spend confirmation.
+- Provider live state remains `LIVE_VALIDATION_READY`.
+- Next gate: independent Connected QA.
+<!-- STUDIO-009V-01-OWNER-SPEND-CONFIRMATION-0003C -->

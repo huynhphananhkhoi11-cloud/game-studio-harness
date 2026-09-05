@@ -69,3 +69,14 @@ canonical_task_contract: tasks/STUDIO-009V-01.md
 - Observed spend is deliberately `UNCONFIRMED` until Studio Owner checks Groq Usage/Billing.
 - No additional request is authorized. PR #60 remains unmerged.
 <!-- STUDIO-009V-01-RETRY1-SMOKE-CHECKPOINT-0003B -->
+
+## 2026-09-05 — Owner spend confirmation
+
+- RETRY1 smoke had already completed with 3/3 quality-pass requests; no additional Groq request was made in this checkpoint.
+- Studio Owner re-confirmed the active Groq account remains on the `FREE` tier.
+- Groq Usage displayed `<0.01 USD` for `openai/gpt-oss-120b - on_demand`; this literal sub-cent usage-cost metric is preserved and is not rewritten as zero.
+- Studio Owner confirmed no billable charge / amount due / paid-tier charge was observed.
+- `observed_spend=0` is scoped to billable charge observed by the Owner.
+- Provider live state remains `LIVE_VALIDATION_READY`; no routing or worker authority is granted.
+- Next gate is independent Connected QA against the immutable spend-confirmed head.
+<!-- STUDIO-009V-01-OWNER-SPEND-CONFIRMATION-0003C -->

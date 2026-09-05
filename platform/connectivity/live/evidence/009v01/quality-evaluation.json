@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "SMOKE_PASS_PENDING_OWNER_SPEND_CONFIRMATION",
+  "status": "SMOKE_PASS_SPEND_CONFIRMED_PENDING_CONNECTED_QA",
   "campaign_id": "groq-v01-retry1-ac2943edca636f95",
   "retry_attempt": "RETRY1",
   "retry_authorization_head": "68d9a89becb13b441c2e5744cd3b134a76d03bd3",
@@ -25,9 +25,15 @@
       "content_sha256": "sha256:d3198044544fde4eb357039e74160214907ff6f6730f8dcadeb64ab6daa749ec"
     }
   ],
-  "observed_spend": null,
-  "post_smoke_spend_confirmation_required": true,
+  "observed_spend": 0,
+  "post_smoke_spend_confirmation_required": false,
   "promotion_ceiling": "LIVE_VALIDATED",
   "validated_at": "2026-09-05T03:06:30Z",
-  "canonical_digest": "sha256:5d774f6541a477772e18deea49dca973a1021cdd170ca2796faec5059f2cf51d"
+  "canonical_digest": "sha256:cf812a82edc849e34509d1c4028c482d81624b4ec45b99d07fbaf27379e19ba9",
+  "account_tier_observed": "FREE",
+  "usage_cost_display": "<0.01 USD",
+  "billable_charge_observed": 0,
+  "observed_spend_basis": "OWNER_OBSERVED_BILLABLE_CHARGE_ON_FREE_TIER",
+  "owner_spend_confirmation": true,
+  "spend_confirmed_at": "2026-09-05T03:25:03Z"
 }
