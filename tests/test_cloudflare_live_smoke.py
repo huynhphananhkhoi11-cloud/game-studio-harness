@@ -13,7 +13,8 @@ def preflight():
             "provider_profile_id":s.PROVIDER_PROFILE_ID,"provider_child_id":s.PROVIDER_CHILD_ID,
             "model":s.MODEL_ID,"host":s.HOST,"account_ref":s.ACCOUNT_REF,
             "workers_free_confirmed":True,"model_free_eligible_confirmed":True,
-            "neuron_headroom_confirmed":True,"token_permissions_confirmed":True,
+            "neuron_usage_observability":"UNAVAILABLE_BEFORE_FIRST_INFERENCE",
+            "free_allocation_fail_closed_confirmed":True,"token_permissions_confirmed":True,
             "no_paid_path_confirmed":True,"money_ceiling":0,"max_requests":3,"concurrency":1,
             "retry_count":0,"campaign_neuron_ceiling":2000,"kill_switch_armed":True,"as_of":AS_OF}
 
@@ -52,8 +53,9 @@ class CloudflareLiveSmokeTests(unittest.TestCase):
         x=preflight(); x["workers_free_confirmed"]=False; self.assert_code("FREE_TIER_NOT_CONFIRMED",lambda:s.validate_preflight(x))
     def test_04_model_free_false(self):
         x=preflight(); x["model_free_eligible_confirmed"]=False; self.assert_code("MODEL_FREE_NOT_CONFIRMED",lambda:s.validate_preflight(x))
-    def test_05_headroom_false(self):
-        x=preflight(); x["neuron_headroom_confirmed"]=False; self.assert_code("NEURON_HEADROOM_NOT_CONFIRMED",lambda:s.validate_preflight(x))
+    def test_05_usage_observability_and_fail_closed_required(self):
+        x=preflight(); x["neuron_usage_observability"]="UNVERIFIED"; self.assert_code("NEURON_USAGE_OBSERVABILITY",lambda:s.validate_preflight(x))
+        x=preflight(); x["free_allocation_fail_closed_confirmed"]=False; self.assert_code("FREE_ALLOCATION_FAIL_CLOSED",lambda:s.validate_preflight(x))
     def test_06_permissions_false(self):
         x=preflight(); x["token_permissions_confirmed"]=False; self.assert_code("TOKEN_PERMISSIONS_NOT_CONFIRMED",lambda:s.validate_preflight(x))
     def test_07_paid_path_not_denied(self):
@@ -89,3 +91,5 @@ class CloudflareLiveSmokeTests(unittest.TestCase):
         self.assertNotIn(ACCOUNT,repr(out)); self.assertNotIn(SECRET,repr(out))
     def test_20_preflight_immutable(self):
         x=preflight(); before=dict(x); s.validate_preflight(x); self.assertEqual(x,before)
+
+# <!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->

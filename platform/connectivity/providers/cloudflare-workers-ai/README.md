@@ -10,3 +10,9 @@ A dedicated Cloudflare session bridge handles Owner-interactive Account ID/API-t
 At this implementation checkpoint the sidecar live state is only `LIVE_VALIDATION_READY`. No real Account ID or API token has been entered and no Cloudflare/model network call has occurred.
 
 AI Gateway, Workers Paid, Unified Billing, prepaid credits, storage, tools, routing/failover, worker authority, deployment and publication remain forbidden.
+
+## V-02 Owner connected preflight
+The validation token `GAME-STUDIO-009V-02` exists with Workers AI Read + Workers AI Edit scoped to the selected account. Raw Account ID and API token remain local and have not been entered into GAME runtime.
+Usage observability is `UNAVAILABLE_BEFORE_FIRST_INFERENCE`; no positive headroom claim is recorded. Cloudflare internal code 3036 remains a fail-closed free-allocation stop.
+No real request is authorized by this checkpoint.
+<!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->

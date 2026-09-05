@@ -458,7 +458,7 @@ def validate_live_validation_policy(value):
         "provider_free_snapshot_neurons_per_day", "reserved_neurons_per_request",
         "ai_gateway_allowed", "tools_allowed", "storage_allowed",
         "workers_free_confirmation_required", "model_free_eligibility_confirmation_required",
-        "neuron_headroom_confirmation_required", "token_permissions_confirmation_required",
+        "neuron_usage_observability_required", "free_allocation_fail_closed_required", "token_permissions_confirmation_required",
         "paid_fallback_allowed", "money_ceiling", "promotion_ceiling", "worker_authority",
         "routing_authority", "durable_request_reservation_required",
         "post_smoke_neuron_confirmation_required", "post_smoke_spend_confirmation_required",
@@ -495,7 +495,8 @@ def validate_live_validation_policy(value):
         or v["storage_allowed"] is not False
         or v["workers_free_confirmation_required"] is not True
         or v["model_free_eligibility_confirmation_required"] is not True
-        or v["neuron_headroom_confirmation_required"] is not True
+        or v["neuron_usage_observability_required"] != "UNAVAILABLE_BEFORE_FIRST_INFERENCE"
+        or v["free_allocation_fail_closed_required"] is not True
         or v["token_permissions_confirmation_required"] is not True
         or v["paid_fallback_allowed"] is not False
         or v["money_ceiling"] != 0
@@ -520,3 +521,6 @@ def validate_live_validation_policy(value):
         "worker_authority": False,
         "routing_authority": False,
     }
+
+# Owner-preflight observability reconciliation; no provider call occurs here.
+# <!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->

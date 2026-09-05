@@ -40,3 +40,13 @@ canonical_task_contract: tasks/STUDIO-009V-02.md
 - Zero real Account ID input, zero API-token input, zero Cloudflare/provider/model calls and zero spend occurred.
 - Next gate is separate Studio Owner connected preflight. Do not merge the implementation PR at this checkpoint.
 <!-- STUDIO-009V-02-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+## 2026-09-05 — Owner connected preflight accepted
+- Token `GAME-STUDIO-009V-02` created with Workers AI Read + Workers AI Edit scoped to the selected account.
+- Raw Account ID/API token remain local and are not persisted.
+- Workers AI usage was not observable before first inference; no headroom is invented.
+- Free allocation exhaustion remains fail-closed on normalized code 3036.
+- Workers Paid, AI Gateway, Unified Billing, prepaid credits and paid fallback remain unused/forbidden.
+- Zero provider calls occur in this checkpoint; it authorizes zero real requests.
+- Next gate: separate Owner authorization for bounded smoke. PR #64 remains open.
+<!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->

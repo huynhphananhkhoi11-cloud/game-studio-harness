@@ -37,8 +37,8 @@ RESERVED_NEURONS_PER_REQUEST = 512
 PREFLIGHT_FIELDS = {
     "v_contract_merge", "v_scope_correction_merge", "p02_closeout_merge", "r01_closeout_merge",
     "provider_profile_id", "provider_child_id", "model", "host", "account_ref",
-    "workers_free_confirmed", "model_free_eligible_confirmed", "neuron_headroom_confirmed",
-    "token_permissions_confirmed", "no_paid_path_confirmed", "money_ceiling",
+    "workers_free_confirmed", "model_free_eligible_confirmed", "neuron_usage_observability",
+    "free_allocation_fail_closed_confirmed", "token_permissions_confirmed", "no_paid_path_confirmed", "money_ceiling",
     "max_requests", "concurrency", "retry_count", "campaign_neuron_ceiling",
     "kill_switch_armed", "as_of",
 }
@@ -66,7 +66,8 @@ SAFE_MESSAGES = {
     "LINEAGE_MISMATCH": "Cloudflare V-02 lineage does not match accepted contract",
     "FREE_TIER_NOT_CONFIRMED": "Cloudflare Workers Free eligibility must be confirmed",
     "MODEL_FREE_NOT_CONFIRMED": "Cloudflare model free eligibility must be confirmed",
-    "NEURON_HEADROOM_NOT_CONFIRMED": "Cloudflare free-neuron headroom must be confirmed",
+    "NEURON_USAGE_OBSERVABILITY": "Cloudflare V-02 neuron usage observability mode is not accepted",
+    "FREE_ALLOCATION_FAIL_CLOSED": "Cloudflare V-02 free-allocation exhaustion must fail closed",
     "TOKEN_PERMISSIONS_NOT_CONFIRMED": "Cloudflare API token permissions must be confirmed",
     "PAID_PATH_NOT_DENIED": "Cloudflare paid paths must be explicitly denied",
     "NONZERO_BUDGET": "Cloudflare V-02 requires zero monetary ceiling",
@@ -114,8 +115,10 @@ def validate_preflight(value):
         _fail("FREE_TIER_NOT_CONFIRMED")
     if value["model_free_eligible_confirmed"] is not True:
         _fail("MODEL_FREE_NOT_CONFIRMED")
-    if value["neuron_headroom_confirmed"] is not True:
-        _fail("NEURON_HEADROOM_NOT_CONFIRMED")
+    if value["neuron_usage_observability"] != "UNAVAILABLE_BEFORE_FIRST_INFERENCE":
+        _fail("NEURON_USAGE_OBSERVABILITY")
+    if value["free_allocation_fail_closed_confirmed"] is not True:
+        _fail("FREE_ALLOCATION_FAIL_CLOSED")
     if value["token_permissions_confirmed"] is not True:
         _fail("TOKEN_PERMISSIONS_NOT_CONFIRMED")
     if value["no_paid_path_confirmed"] is not True:
@@ -250,6 +253,8 @@ def execute_smoke(
             "concurrency": CONCURRENCY,
             "retry_count": RETRY_COUNT,
             "money_ceiling": MONEY_CEILING,
+            "neuron_usage_observability": accepted["neuron_usage_observability"],
+            "free_allocation_fail_closed_confirmed": accepted["free_allocation_fail_closed_confirmed"],
             "observed_neurons": None,
             "observed_spend": None,
             "post_smoke_neuron_confirmation_required": True,
@@ -263,3 +268,8 @@ def execute_smoke(
         lease, consume, as_of=accepted["as_of"],
         account_supplier=account_supplier, secret_supplier=secret_supplier,
     )
+
+# Owner preflight usage-observability reconciliation.
+# No positive neuron-headroom claim is fabricated when usage is unavailable.
+# Free-allocation exhaustion remains fail-closed on Cloudflare internal code 3036.
+# <!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->

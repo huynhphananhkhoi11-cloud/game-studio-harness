@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-02
-state: IMPLEMENTATION_READY_PENDING_OWNER_CONNECTED_PREFLIGHT
+state: OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_SMOKE
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
 branch: agent/studio-009v-02-cloudflare-live-validation
@@ -52,8 +52,8 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: After this implementation checkpoint is pushed and exact-head Rules CI succeeds, Studio Owner performs the separate Cloudflare connected preflight. Do not enter a real Account ID/API token or call Cloudflare before that gate.
-next_phase: STUDIO-009V-02_OWNER_CONNECTED_PREFLIGHT
+exact_next_action: Studio Owner separately authorizes the bounded Cloudflare smoke. Only the subsequent smoke runner may request hidden local Account ID/API-token input and issue at most 3 sequential requests. Do not merge PR #64 yet.
+next_phase: STUDIO-009V-02_OWNER_AUTHORIZE_BOUNDED_SMOKE
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -88,3 +88,14 @@ routing_authority: NONE
 worker_authority: NONE
 spend: ZERO
 <!-- STUDIO-009V-02-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+owner_connected_preflight: PASS
+neuron_usage_observability: UNAVAILABLE_BEFORE_FIRST_INFERENCE
+free_allocation_fail_closed_code: 3036
+provider_live_state: LIVE_VALIDATION_READY
+connected_validation_status: OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_SMOKE
+real_request_authorized_by_this_checkpoint: false
+provider_runtime_activity: NONE
+network_activity: NONE
+spend: ZERO
+<!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->

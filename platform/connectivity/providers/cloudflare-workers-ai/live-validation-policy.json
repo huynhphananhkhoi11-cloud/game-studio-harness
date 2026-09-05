@@ -29,7 +29,6 @@
   "storage_allowed": false,
   "workers_free_confirmation_required": true,
   "model_free_eligibility_confirmation_required": true,
-  "neuron_headroom_confirmation_required": true,
   "token_permissions_confirmation_required": true,
   "paid_fallback_allowed": false,
   "money_ceiling": 0,
@@ -38,5 +37,7 @@
   "routing_authority": false,
   "durable_request_reservation_required": true,
   "post_smoke_neuron_confirmation_required": true,
-  "post_smoke_spend_confirmation_required": true
+  "post_smoke_spend_confirmation_required": true,
+  "neuron_usage_observability_required": "UNAVAILABLE_BEFORE_FIRST_INFERENCE",
+  "free_allocation_fail_closed_required": true
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "PENDING_OWNER_CONNECTED_PREFLIGHT",
+  "status": "OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_SMOKE",
   "v_contract_ref": "v-contract:STUDIO-009V-02",
   "provider_profile_id": "provider-profile:cloudflare-workers-ai-free-nemotron-3-super",
   "provider_child_id": "STUDIO-009P-02",
@@ -15,5 +15,27 @@
   "money_ceiling": 0,
   "raw_account_id_persisted": false,
   "api_token_persisted": false,
-  "raw_provider_output_persisted": false
+  "raw_provider_output_persisted": false,
+  "workers_plan_observed": "FREE",
+  "model_free_eligible_confirmed": true,
+  "token_created": true,
+  "token_name": "GAME-STUDIO-009V-02",
+  "token_permissions": [
+    "WORKERS_AI_READ",
+    "WORKERS_AI_EDIT"
+  ],
+  "token_scope": "THIS_ACCOUNT_ONLY",
+  "account_id_ready_locally": true,
+  "api_token_ready_locally": true,
+  "neuron_usage_observability": "UNAVAILABLE_BEFORE_FIRST_INFERENCE",
+  "headroom_preconfirmation": "UNAVAILABLE",
+  "provider_free_allocation_neurons_per_day_snapshot": 10000,
+  "free_allocation_fail_closed_internal_code": 3036,
+  "free_allocation_fail_closed_confirmed": true,
+  "workers_paid_used": false,
+  "ai_gateway_used": false,
+  "unified_billing_used": false,
+  "prepaid_ai_gateway_credits_used": false,
+  "paid_fallback": false,
+  "real_request_authorized_by_this_checkpoint": false
 }

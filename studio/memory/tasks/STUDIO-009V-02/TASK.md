@@ -21,7 +21,7 @@ account_ref: account-ref:cloudflare-workers-ai-owner-account
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: IMPLEMENTATION_READY_PENDING_OWNER_CONNECTED_PREFLIGHT
+task_status: OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_SMOKE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
 planned_contract_branch: agent/studio-009v-02-cloudflare-contract
@@ -63,7 +63,7 @@ v02_connected_validation_authority: STUDIO-009V-02_ONLY
 full_studio_acceptance_authority: STUDIO-009F
 automatic_routing_authority: STUDIO-009E
 
-next_gate: OWNER_CONNECTED_PREFLIGHT
+next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_pr: 62
@@ -100,3 +100,21 @@ network_activity: NONE
 spend: ZERO
 next_gate: OWNER_CONNECTED_PREFLIGHT
 <!-- STUDIO-009V-02-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+owner_connected_preflight: PASS
+workers_plan_observed: FREE
+token_name: GAME-STUDIO-009V-02
+token_permissions: WORKERS_AI_READ+WORKERS_AI_EDIT
+token_scope: THIS_ACCOUNT_ONLY
+account_id_ready_locally: true
+api_token_ready_locally: true
+raw_account_id_persisted: false
+api_token_persisted: false
+neuron_usage_observability: UNAVAILABLE_BEFORE_FIRST_INFERENCE
+headroom_preconfirmation: UNAVAILABLE
+free_allocation_fail_closed_code: 3036
+real_request_authorized_by_this_checkpoint: false
+provider_runtime_activity: NONE
+network_activity: NONE
+spend: ZERO
+<!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->
