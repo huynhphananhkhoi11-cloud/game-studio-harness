@@ -1,9 +1,16 @@
 {
   "schema_version": "1.0",
-  "status": "PENDING_REAL_SMOKE",
-  "probe_count": 3,
+  "status": "NOT_EVALUATED_AUTH_FAILED",
+  "failed_campaign_id": "groq-v01-782697ab855de1bd",
+  "probe_count_attempted": 1,
+  "probe_count_completed": 0,
   "quality_pass": null,
   "human_correction_count": null,
+  "failure_before_model_output": true,
   "raw_outputs_persisted": false,
-  "promotion_ceiling": "LIVE_VALIDATED"
+  "observed_spend": null,
+  "retry_campaign_authorized_by_owner": true,
+  "promotion_ceiling": "LIVE_VALIDATED",
+  "recorded_at": "2026-09-05T02:54:42Z",
+  "canonical_digest": "sha256:bc1f6a381abfecca9828853aa12717e768faf36744adab17835c86917cfcad71"
 }

@@ -40,3 +40,18 @@ canonical_task_contract: tasks/STUDIO-009V-01.md
 - No real API key was requested; no Groq call occurred; live state remains `LIVE_VALIDATION_READY`.
 - New tests now total 50 over pre-V-01 baseline; focused 527; total 924.
 <!-- STUDIO-009V-01-PREFLIGHT-HARDENING-0002A -->
+
+## 2026-09-05 — Failed auth campaign reviewed; RETRY1 authorized
+
+- Durable local ledger `groq-v01-782697ab855de1bd` was reviewed.
+- Exactly one request slot was reserved and attempted.
+- Slot 1 (`STRUCTURED_OUTPUT`) failed with safe code `AUTH_FAILED`.
+- Concurrency remained 1 and automatic retry remained 0.
+- No API key value or raw provider output was persisted.
+- The failed campaign is terminal; its remaining two slots are not authorized for use.
+- Studio Owner acknowledged the failure, revoked the failed key, created a new key in `Default Project`, and authorized one fresh retry campaign.
+- RETRY1 preserves max 3 requests, concurrency 1, retry 0, PUBLIC/SYNTHETIC only, `MONEY_CEILING=0`.
+- Provider live state remains `LIVE_VALIDATION_READY`.
+- Observed spend remains `UNCONFIRMED`.
+- No Groq/provider/model request occurred during this authorization checkpoint.
+<!-- STUDIO-009V-01-RETRY1-AUTHORIZATION-0003A -->
