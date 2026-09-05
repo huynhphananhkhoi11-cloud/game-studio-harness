@@ -18,3 +18,13 @@ canonical_task_contract: tasks/STUDIO-009V-02.md
 - V-02 future live validation is bounded to at most 3 requests, concurrency 1, retry 0, campaign ceiling 2,000 Neurons, PUBLIC/SYNTHETIC only, no AI Gateway, no tools/storage and money ceiling 0.
 - Contract preparation performs no Cloudflare/account/token/model/provider runtime activity.
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
+
+## 2026-09-05 — Credential bridge scope correction
+
+- V-02 contract PR #62 merged at `2f9eeaf6b2bb56546155e3d962082bc20525a8cb`.
+- Post-merge implementation preflight found that `scripts/session_credential_bridge.py` is Groq V-01-specific, not provider-neutral.
+- Reusing it for Cloudflare would either fail lineage validation or require an unauthorized shared-module broadening.
+- Correction strategy: leave the accepted Groq bridge untouched and authorize a dedicated `scripts/cloudflare_session_credential_bridge.py` plus dedicated tests.
+- Corrected cumulative implementation scope becomes 22 paths.
+- This correction performs zero Cloudflare provider calls, zero Account ID input, zero API-token input, zero network activity and zero spend.
+<!-- STUDIO-009V-02-CREDENTIAL-BRIDGE-CORRECTION-0001A -->

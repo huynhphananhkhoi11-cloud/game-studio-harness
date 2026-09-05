@@ -304,3 +304,25 @@ Requires:
 Only after durable contract merge may the bounded offline implementation track begin.
 
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
+
+## 17. Credential-bridge scope correction
+
+Post-merge implementation preflight found that the existing `scripts/session_credential_bridge.py` is not provider-neutral: it is intentionally bound to Groq V-01 (`credential-profile:groq-api-key`, `provider:groqcloud`, `GROQ_V01_CONNECTED_VALIDATION`).
+
+STUDIO-009V-02 must therefore not reuse that module as if it were Cloudflare-neutral and must not broaden the already-validated Groq bridge under this provider track.
+
+The corrected V-02 implementation is authorized to add a dedicated:
+
+- `scripts/cloudflare_session_credential_bridge.py`
+- `tests/test_cloudflare_session_credential_bridge.py`
+
+The Cloudflare bridge must preserve the same session-only, hidden Owner-interactive, no-ambient-secret and no-secret-escape guarantees while binding exactly:
+
+- credential profile: `credential-profile:cloudflare-workers-ai-api-token`
+- subject: Cloudflare Workers AI
+- purpose: STUDIO-009V-02 connected validation
+- no persistent Account ID or API token
+
+This correction changes implementation scope only. It authorizes zero Cloudflare/account/token/network/model activity and does not broaden the `LIVE_VALIDATED`, money, routing, worker, AI Gateway or data ceilings.
+
+<!-- STUDIO-009V-02-CREDENTIAL-BRIDGE-CORRECTION-0001A -->
