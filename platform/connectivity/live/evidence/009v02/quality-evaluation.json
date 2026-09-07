@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "SMOKE_PASS_SPEND_CONFIRMED_PENDING_CONNECTED_QA",
+  "status": "CONNECTED_QA_PASS_PENDING_CONNECTED_REVIEW",
   "probe_count": 3,
   "quality_pass": true,
   "human_correction_count": 0,
@@ -67,5 +67,15 @@
   "invoice_display": "NONE",
   "billable_charge_observed_usd": 0,
   "observed_spend_usd": 0,
-  "observed_spend_basis": "OWNER_OBSERVED_NO_BILLABLE_USAGE_NO_INVOICE_FREE_PLAN_NO_PAYMENT_METHOD"
+  "observed_spend_basis": "OWNER_OBSERVED_NO_BILLABLE_USAGE_NO_INVOICE_FREE_PLAN_NO_PAYMENT_METHOD",
+  "connected_qa_ref": "qa:connected-cloudflare-v02-a7d8933418d6",
+  "qa_reviewed_head": "a7d8933418d6dbb2102a85b984ecec77f0c0b3a4",
+  "qa_result": "PASS",
+  "qa_blockers": 0,
+  "qa_independent_probes": 60,
+  "qa_smoke_tests": 20,
+  "qa_live_tests": 70,
+  "qa_focused_tests": 592,
+  "qa_total_tests": 989,
+  "qa_completed_at": "2026-09-07T12:07:10Z"
 }

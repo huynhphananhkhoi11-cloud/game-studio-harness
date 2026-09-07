@@ -53,3 +53,23 @@ Owner-observed provider evidence after the bounded smoke:
 `35.18` is the provider-observed Neuron value. `37` remains only the GAME estimate from returned token usage. No additional request is authorized.
 
 <!-- STUDIO-009V-02-OWNER-NEURON-SPEND-CONFIRMATION-0005C -->
+
+## Connected QA PASS
+
+Independent Connected QA reviewed immutable head `a7d8933418d6dbb2102a85b984ecec77f0c0b3a4`.
+
+- QA ref: `qa:connected-cloudflare-v02-a7d8933418d6`;
+- result: `PASS`;
+- blockers: `0`;
+- independent semantic probes: `60`;
+- retained tests: `20` smoke / `70` live / `592` focused / `989` total;
+- Cloudflare provider calls during QA: `0`;
+- Cloudflare network activity during QA: `NONE`;
+- Account ID input during QA: `NONE`;
+- API-token input during QA: `NONE`;
+- provider state remains `LIVE_VALIDATION_READY`;
+- no additional real request is authorized.
+
+Connected QA does not promote the provider. The next independent gate is Connected Review & Integration.
+
+<!-- STUDIO-009V-02-CONNECTED-QA-CHECKPOINT-0005D -->

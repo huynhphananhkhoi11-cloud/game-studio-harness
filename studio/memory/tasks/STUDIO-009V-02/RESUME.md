@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009V-02
 package_path: studio/memory/tasks/STUDIO-009V-02
 canonical_task_contract: tasks/STUDIO-009V-02.md
-current_state: SMOKE_PASS_SPEND_CONFIRMED_PENDING_CONNECTED_QA
+current_state: CONNECTED_QA_PASS_PENDING_CONNECTED_REVIEW
 resume_from: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
 branch: agent/studio-009v-02-cloudflare-live-validation
 
 safe_checkpoint: Groq V-01 is durably COMPLETE; Cloudflare P-02 is offline COMPLETE; R-01 permits a separate bounded V-02 connected-validation contract.
 
-next_action: Run independent Connected QA on the immutable post-smoke evidence head. No provider request or credential input is authorized.
+next_action: Run independent Connected Review & Integration on the immutable Connected-QA checkpoint. No provider request or credential input is authorized.
 
 prohibited_next_actions: real Cloudflare Account ID input; API token input; Cloudflare/network/model call; AI Gateway; storage; tool execution; automatic retry; routing; worker promotion; paid plan; prepaid credits; Unified Billing; nonzero spend; Unity/game work.
 
@@ -25,7 +25,7 @@ credential_runtime_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: CONNECTED_QA
+next_gate: CONNECTED_REVIEW
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -94,3 +94,15 @@ observed_spend_usd: 0
 smoke_token_revocation_confirmed: true
 additional_real_request_authorized: false
 <!-- STUDIO-009V-02-OWNER-NEURON-SPEND-CONFIRMATION-0005C -->
+
+connected_qa_ref: qa:connected-cloudflare-v02-a7d8933418d6
+qa_result: PASS
+qa_blockers: 0
+qa_independent_probes: 60
+qa_smoke_tests: 20
+qa_live_tests: 70
+qa_focused_tests: 592
+qa_total_tests: 989
+provider_calls_during_qa: 0
+additional_real_request_authorized: false
+<!-- STUDIO-009V-02-CONNECTED-QA-CHECKPOINT-0005D -->

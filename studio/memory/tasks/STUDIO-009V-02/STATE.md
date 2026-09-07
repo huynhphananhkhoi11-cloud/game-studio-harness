@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-02
-state: SMOKE_PASS_SPEND_CONFIRMED_PENDING_CONNECTED_QA
+state: CONNECTED_QA_PASS_PENDING_CONNECTED_REVIEW
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
 branch: agent/studio-009v-02-cloudflare-live-validation
@@ -52,8 +52,8 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Run independent Connected QA against the immutable post-smoke evidence head. No Cloudflare request, Account ID input, API-token input, token recreation, routing, or worker promotion is authorized.
-next_phase: STUDIO-009V-02_CONNECTED_QA
+exact_next_action: Run independent Connected Review & Integration against the immutable Connected-QA head. No Cloudflare request, credential input, token recreation, routing, worker promotion, or merge is authorized.
+next_phase: STUDIO-009V-02_CONNECTED_REVIEW
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -148,3 +148,19 @@ additional_real_request_authorized: false
 provider_live_state: LIVE_VALIDATION_READY
 connected_validation_status: SMOKE_PASS_SPEND_CONFIRMED_PENDING_CONNECTED_QA
 <!-- STUDIO-009V-02-OWNER-NEURON-SPEND-CONFIRMATION-0005C -->
+
+connected_qa_ref: qa:connected-cloudflare-v02-a7d8933418d6
+qa_reviewed_head: a7d8933418d6dbb2102a85b984ecec77f0c0b3a4
+qa_result: PASS
+qa_blockers: 0
+qa_independent_probes: 60
+qa_smoke_tests: 20
+qa_live_tests: 70
+qa_focused_tests: 592
+qa_total_tests: 989
+provider_calls_during_qa: 0
+cloudflare_network_activity_during_qa: NONE
+additional_real_request_authorized: false
+provider_live_state: LIVE_VALIDATION_READY
+connected_validation_status: CONNECTED_QA_PASS_PENDING_CONNECTED_REVIEW
+<!-- STUDIO-009V-02-CONNECTED-QA-CHECKPOINT-0005D -->

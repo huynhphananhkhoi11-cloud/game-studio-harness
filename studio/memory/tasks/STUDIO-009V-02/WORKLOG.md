@@ -83,3 +83,16 @@ canonical_task_contract: tasks/STUDIO-009V-02.md
 - No additional provider request is authorized.
 - Next gate is independent Connected QA. PR #64 remains open.
 <!-- STUDIO-009V-02-OWNER-NEURON-SPEND-CONFIRMATION-0005C -->
+
+## 2026-09-07 — Connected QA PASS
+
+- Reviewed immutable post-smoke/spend head `a7d8933418d6dbb2102a85b984ecec77f0c0b3a4`.
+- QA ref `qa:connected-cloudflare-v02-a7d8933418d6`.
+- Result `PASS`; blockers `0`; independent semantic probes `60`.
+- Retained tests `20` smoke / `70` live / `592` focused / `989` total.
+- Verified provider/model/transport/data-policy lineage, request/retry/money boundaries, sanitized evidence, token revocation, provider-observed `35.18` Neurons versus GAME estimate `37`, zero observed billable charge/spend basis, and no worker/routing authority.
+- Cloudflare provider calls/network activity/Account ID input/API-token input during QA: `0/NONE/NONE/NONE`.
+- Provider remains `LIVE_VALIDATION_READY`.
+- No additional real request is authorized; PR #64 remains open.
+- Next gate: independent Connected Review & Integration.
+<!-- STUDIO-009V-02-CONNECTED-QA-CHECKPOINT-0005D -->

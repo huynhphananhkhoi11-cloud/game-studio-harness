@@ -21,7 +21,7 @@ account_ref: account-ref:cloudflare-workers-ai-owner-account
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: SMOKE_PASS_SPEND_CONFIRMED_PENDING_CONNECTED_QA
+task_status: CONNECTED_QA_PASS_PENDING_CONNECTED_REVIEW
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
 planned_contract_branch: agent/studio-009v-02-cloudflare-contract
@@ -63,7 +63,7 @@ v02_connected_validation_authority: STUDIO-009V-02_ONLY
 full_studio_acceptance_authority: STUDIO-009F
 automatic_routing_authority: STUDIO-009E
 
-next_gate: CONNECTED_QA
+next_gate: CONNECTED_REVIEW
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_pr: 62
@@ -175,3 +175,21 @@ additional_real_request_authorized: false
 provider_live_state: LIVE_VALIDATION_READY
 next_gate: CONNECTED_QA
 <!-- STUDIO-009V-02-OWNER-NEURON-SPEND-CONFIRMATION-0005C -->
+
+connected_qa_ref: qa:connected-cloudflare-v02-a7d8933418d6
+qa_reviewed_head: a7d8933418d6dbb2102a85b984ecec77f0c0b3a4
+qa_result: PASS
+qa_blockers: 0
+qa_independent_probes: 60
+qa_smoke_tests: 20
+qa_live_tests: 70
+qa_focused_tests: 592
+qa_total_tests: 989
+qa_provider_calls: 0
+qa_cloudflare_network_activity: NONE
+qa_account_id_input_activity: NONE
+qa_api_token_input_activity: NONE
+additional_real_request_authorized: false
+provider_live_state: LIVE_VALIDATION_READY
+next_gate: CONNECTED_REVIEW
+<!-- STUDIO-009V-02-CONNECTED-QA-CHECKPOINT-0005D -->
