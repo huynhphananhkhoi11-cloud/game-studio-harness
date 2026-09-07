@@ -133,3 +133,40 @@ class CloudflareProviderAdapterTests(unittest.TestCase):
     def test_25_reject_unapproved_tool_request(self):
         x = response(); x["stop_reason"] = "tool_request"; x["tool_requests"] = [{"id": "call_1", "name": "danger", "arguments": {}}]
         self.assert_code("LOCAL_TOOL_NOT_ALLOWED", cf.plan_local_tool_requests, x, ["lookup_fixture"])
+
+# STUDIO-009V-02 live-policy additions.
+import json as _v02_json
+from pathlib import Path as _V02Path
+_V02_ROOT = _V02Path(__file__).resolve().parents[1]
+_V02_PROVIDER = _V02_ROOT / "platform/connectivity/providers/cloudflare-workers-ai"
+
+
+def _v02_chain():
+    return [
+        _v02_json.loads((_V02_PROVIDER / "provider-profile.json").read_text(encoding="utf-8")),
+        _v02_json.loads((_V02_PROVIDER / "child-contract-evidence.json").read_text(encoding="utf-8")),
+        _v02_json.loads((_V02_PROVIDER / "model-profile-nemotron-3-super.json").read_text(encoding="utf-8")),
+        _v02_json.loads((_V02_PROVIDER / "transport-policy.json").read_text(encoding="utf-8")),
+        _v02_json.loads((_V02_PROVIDER / "data-policy.json").read_text(encoding="utf-8")),
+        _v02_json.loads((_V02_PROVIDER / "quota-policy.json").read_text(encoding="utf-8")),
+        _v02_json.loads((_V02_PROVIDER / "budget-policy.json").read_text(encoding="utf-8")),
+    ]
+
+class CloudflareV02AdapterTests(unittest.TestCase):
+    def _load(self,name): return _v02_json.loads((_V02_PROVIDER/name).read_text(encoding="utf-8"))
+    def test_26_v02_live_policy_valid(self):
+        out=cf.validate_live_validation_policy(self._load("live-validation-policy.json"))
+        self.assertEqual(out["connected_validation_authority"],"STUDIO-009V-02_ONLY")
+    def test_27_static_chain_accepts_v02_transport_data(self):
+        self.assertEqual(cf.validate_static_chain(*_v02_chain())["provider_state"],"DISABLED")
+    def test_28_old_transport_activation_rejected(self):
+        args=_v02_chain(); args[3]["network_activation"]="STUDIO-009F_ONLY"
+        with self.assertRaises(cf.CloudflareAdapterError) as cm: cf.validate_static_chain(*args)
+        self.assertEqual(cm.exception.code,"POLICY_MISMATCH")
+    def test_29_old_data_activation_rejected(self):
+        args=_v02_chain(); args[4]["connected_activation"]="STUDIO-009F_ONLY"
+        with self.assertRaises(cf.CloudflareAdapterError) as cm: cf.validate_static_chain(*args)
+        self.assertEqual(cm.exception.code,"DATA_NOT_ALLOWED")
+    def test_30_live_policy_paid_broadening_rejected(self):
+        value=self._load("live-validation-policy.json"); value["paid_fallback_allowed"]=True
+        with self.assertRaises(cf.CloudflareAdapterError): cf.validate_live_validation_policy(value)

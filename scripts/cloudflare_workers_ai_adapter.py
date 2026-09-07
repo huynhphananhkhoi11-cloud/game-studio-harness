@@ -238,7 +238,7 @@ def _validate_transport_policy(value):
         or v["allow_redirects"] is not False
         or v["allowed_protocols"] != ["HTTPS"]
         or v["ai_gateway_allowed"] is not False
-        or v["network_activation"] != "STUDIO-009F_ONLY"
+        or v["network_activation"] != V02_CONNECTED_AUTHORITY
     ):
         _fail("POLICY_MISMATCH")
 
@@ -255,7 +255,7 @@ def _validate_data_policy(value):
         or v["provider_training_without_explicit_consent_allowed"] is not False
         or v["storage_services_allowed"] is not False
         or v["ai_gateway_logging_allowed"] is not False
-        or v["connected_activation"] != "STUDIO-009F_ONLY"
+        or v["connected_activation"] != V02_CONNECTED_AUTHORITY
     ):
         _fail("DATA_NOT_ALLOWED")
 
@@ -439,3 +439,88 @@ def plan_local_tool_requests(response, allowed_tool_names):
         planned.append({"id": request["id"], "name": request["name"], "arguments": copy.deepcopy(request["arguments"]), "execution": "NOT_EXECUTED"})
     cr.assert_public_safe(planned)
     return planned
+
+# STUDIO-009V-02 bounded connected-validation policy.
+V02_CONNECTED_AUTHORITY = "STUDIO-009V-02_ONLY"
+V02_V_CONTRACT_ID = "STUDIO-009V-02"
+V02_V_CONTRACT_MERGE = "2f9eeaf6b2bb56546155e3d962082bc20525a8cb"
+V02_SCOPE_CORRECTION_MERGE = "2dc93b84951999cce22c5c5a6c9e956e722f3c18"
+V02_MODEL_REF = "model-id:cf/nvidia/nemotron-3-120b-a12b"
+
+def validate_live_validation_policy(value):
+    expected = {
+        "schema_version", "v_contract_id", "v_contract_merge", "v_scope_correction_merge",
+        "provider_profile_id", "provider_child_id", "model_id", "provider_model_ref",
+        "transport_ref", "credential_profile_ref", "account_ref",
+        "allowed_data_classifications", "max_requests", "max_concurrency", "max_retries",
+        "timeout_seconds", "max_request_bytes", "max_response_bytes", "max_completion_tokens",
+        "campaign_neuron_ceiling", "game_daily_neuron_ceiling",
+        "provider_free_snapshot_neurons_per_day", "reserved_neurons_per_request",
+        "ai_gateway_allowed", "tools_allowed", "storage_allowed",
+        "workers_free_confirmation_required", "model_free_eligibility_confirmation_required",
+        "neuron_usage_observability_required", "free_allocation_fail_closed_required", "token_permissions_confirmation_required",
+        "paid_fallback_allowed", "money_ceiling", "promotion_ceiling", "worker_authority",
+        "routing_authority", "durable_request_reservation_required",
+        "post_smoke_neuron_confirmation_required", "post_smoke_spend_confirmation_required",
+    }
+    before = copy.deepcopy(value)
+    _public_preflight(value)
+    v = _exact_fields(value, expected)
+    if (
+        v["schema_version"] != "1.0"
+        or v["v_contract_id"] != V02_V_CONTRACT_ID
+        or v["v_contract_merge"] != V02_V_CONTRACT_MERGE
+        or v["v_scope_correction_merge"] != V02_SCOPE_CORRECTION_MERGE
+        or v["provider_profile_id"] != PROVIDER_PROFILE_ID
+        or v["provider_child_id"] != CHILD_CONTRACT_ID
+        or v["model_id"] != MODEL_ID
+        or v["provider_model_ref"] != V02_MODEL_REF
+        or v["transport_ref"] != TRANSPORT_PROFILE_REF
+        or v["credential_profile_ref"] != CREDENTIAL_PROFILE_REF
+        or v["account_ref"] != ACCOUNT_REF
+        or v["allowed_data_classifications"] != ["PUBLIC"]
+        or v["max_requests"] != 3
+        or v["max_concurrency"] != 1
+        or v["max_retries"] != 0
+        or v["timeout_seconds"] != 30
+        or v["max_request_bytes"] != 8192
+        or v["max_response_bytes"] != 65536
+        or v["max_completion_tokens"] != 256
+        or v["campaign_neuron_ceiling"] != 2000
+        or v["game_daily_neuron_ceiling"] != 8000
+        or v["provider_free_snapshot_neurons_per_day"] != 10000
+        or v["reserved_neurons_per_request"] != 512
+        or v["ai_gateway_allowed"] is not False
+        or v["tools_allowed"] is not False
+        or v["storage_allowed"] is not False
+        or v["workers_free_confirmation_required"] is not True
+        or v["model_free_eligibility_confirmation_required"] is not True
+        or v["neuron_usage_observability_required"] != "UNAVAILABLE_BEFORE_FIRST_INFERENCE"
+        or v["free_allocation_fail_closed_required"] is not True
+        or v["token_permissions_confirmation_required"] is not True
+        or v["paid_fallback_allowed"] is not False
+        or v["money_ceiling"] != 0
+        or v["promotion_ceiling"] != "LIVE_VALIDATED"
+        or v["worker_authority"] is not False
+        or v["routing_authority"] is not False
+        or v["durable_request_reservation_required"] is not True
+        or v["post_smoke_neuron_confirmation_required"] is not True
+        or v["post_smoke_spend_confirmation_required"] is not True
+    ):
+        _fail("POLICY_MISMATCH")
+    if value != before:
+        _fail("POLICY_MISMATCH")
+    return {
+        "v_contract_id": V02_V_CONTRACT_ID,
+        "provider_profile_id": PROVIDER_PROFILE_ID,
+        "provider_child_id": CHILD_CONTRACT_ID,
+        "model_id": MODEL_ID,
+        "connected_validation_authority": V02_CONNECTED_AUTHORITY,
+        "promotion_ceiling": "LIVE_VALIDATED",
+        "money_ceiling": 0,
+        "worker_authority": False,
+        "routing_authority": False,
+    }
+
+# Owner-preflight observability reconciliation; no provider call occurs here.
+# <!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->

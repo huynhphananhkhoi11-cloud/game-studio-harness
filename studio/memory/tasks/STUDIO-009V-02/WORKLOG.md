@@ -28,3 +28,97 @@ canonical_task_contract: tasks/STUDIO-009V-02.md
 - Corrected cumulative implementation scope becomes 22 paths.
 - This correction performs zero Cloudflare provider calls, zero Account ID input, zero API-token input, zero network activity and zero spend.
 <!-- STUDIO-009V-02-CREDENTIAL-BRIDGE-CORRECTION-0001A -->
+
+## 2026-09-05 — Initial V-02 connected-validation implementation recovery
+
+- Recovered only the exact 16-path partial materialization left by the failed initial runner.
+- Root cause was test-local: three V-02 adapter tests referenced `chain()` from another test module without importing/defining it.
+- Added a local `_v02_chain()` helper inside `tests/test_cloudflare_provider_adapter.py`; production runtime behavior was not broadened.
+- Re-ran the targeted V-02 adapter tests plus 70 live / 592 focused / 989 total tests successfully.
+- Shared Groq V-01 bridge remains untouched.
+- Generic Cloudflare live state remains `LIVE_VALIDATION_READY`; connected evidence remains pending Owner preflight.
+- Zero real Account ID input, zero API-token input, zero Cloudflare/provider/model calls and zero spend occurred.
+- Next gate is separate Studio Owner connected preflight. Do not merge the implementation PR at this checkpoint.
+<!-- STUDIO-009V-02-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+## 2026-09-05 — Owner connected preflight accepted
+- Token `GAME-STUDIO-009V-02` created with Workers AI Read + Workers AI Edit scoped to the selected account.
+- Raw Account ID/API token remain local and are not persisted.
+- Workers AI usage was not observable before first inference; no headroom is invented.
+- Free allocation exhaustion remains fail-closed on normalized code 3036.
+- Workers Paid, AI Gateway, Unified Billing, prepaid credits and paid fallback remain unused/forbidden.
+- Zero provider calls occur in this checkpoint; it authorizes zero real requests.
+- Next gate: separate Owner authorization for bounded smoke. PR #64 remains open.
+<!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->
+
+## 2026-09-05 — Owner bounded-smoke authorization
+
+- Owner authorized the exact Cloudflare V-02 bounded-smoke envelope: max 3 real requests, concurrency 1, retry 0, campaign ceiling 2,000 Neurons, `MONEY_CEILING_USD=0`.
+- Authorization ref: `owner-authorization:cloudflare-v02-6a38a1fb1c03`.
+- Provider remains `LIVE_VALIDATION_READY`; worker/routing/AI Gateway authority remain `NONE`.
+- This authorization checkpoint performs zero Cloudflare calls and zero Account ID/API-token input.
+- The token `GAME-STUDIO-009V-02` remains local and must not be pasted into chat/repo/logs.
+- The next runner must bind to the immutable authorization head and pass exact-head Rules CI before any hidden credential input or network activity.
+- PR #64 remains open and must not be merged.
+<!-- STUDIO-009V-02-OWNER-BOUNDED-SMOKE-AUTHORIZATION-0004 -->
+
+## 2026-09-07 — Corrected Cloudflare smoke evidence
+- Campaign `cloudflare-v02-405f777851bb5ca0` completed exactly 3 real requests / 3 network successes.
+- Actual smoke token label: `GAME-STUDIO-009V-02-RETRY`; preflight had recorded `GAME-STUDIO-009V-02`.
+- Token-lineage correction is metadata-only and does not alter request/model/quality evidence.
+- The actual smoke token secret appeared in a chat image; Owner revoked that token after smoke before this checkpoint.
+- 1,536 Neurons reserved; 37 estimated from returned token usage; quality PASS; zero human correction.
+- No raw output, Account ID, or token secret is persisted. No additional request is authorized. PR #64 remains open.
+<!-- STUDIO-009V-02-SMOKE-EVIDENCE-CORRECTED-0005B -->
+
+## 2026-09-07 — Owner post-smoke Neuron / spend confirmation
+
+- Cloudflare Workers AI dashboard showed `35.18` Neurons for `@cf/nvidia/nemotron-3-120b-a12b`.
+- GAME retains `37` separately as an estimate from token-usage metadata; it is not rewritten as provider-observed usage.
+- Billing shows Workers Free active, Workers Paid not active, and no payment method on file.
+- Billable usage displayed `NO_DATA`; invoices displayed `NONE`.
+- No billable charge was observed; V-02 records observed spend `0 USD` with basis `OWNER_OBSERVED_NO_BILLABLE_USAGE_NO_INVOICE_FREE_PLAN_NO_PAYMENT_METHOD`.
+- Cost-metric display remains `UNCONFIRMED`; no unsupported cost value is invented.
+- Exposed smoke token remains revoked; no new token is created.
+- No additional provider request is authorized.
+- Next gate is independent Connected QA. PR #64 remains open.
+<!-- STUDIO-009V-02-OWNER-NEURON-SPEND-CONFIRMATION-0005C -->
+
+## 2026-09-07 — Connected QA PASS
+
+- Reviewed immutable post-smoke/spend head `a7d8933418d6dbb2102a85b984ecec77f0c0b3a4`.
+- QA ref `qa:connected-cloudflare-v02-a7d8933418d6`.
+- Result `PASS`; blockers `0`; independent semantic probes `60`.
+- Retained tests `20` smoke / `70` live / `592` focused / `989` total.
+- Verified provider/model/transport/data-policy lineage, request/retry/money boundaries, sanitized evidence, token revocation, provider-observed `35.18` Neurons versus GAME estimate `37`, zero observed billable charge/spend basis, and no worker/routing authority.
+- Cloudflare provider calls/network activity/Account ID input/API-token input during QA: `0/NONE/NONE/NONE`.
+- Provider remains `LIVE_VALIDATION_READY`.
+- No additional real request is authorized; PR #64 remains open.
+- Next gate: independent Connected Review & Integration.
+<!-- STUDIO-009V-02-CONNECTED-QA-CHECKPOINT-0005D -->
+
+## 2026-09-07 — Connected Review & Integration APPROVE
+
+- Reviewed immutable Connected-QA head `1564c628a8c8312bb028de6c2e329c2674becb51`.
+- Review ref `review:connected-cloudflare-v02-1564c628a8c8`.
+- Result `APPROVE`; blockers `0`; independent semantic/integration probes `81`.
+- Retained tests `20` smoke / `70` live / `592` focused / `989` total.
+- Re-validated QA lineage, provider/model/transport/data-policy boundaries, 3-request smoke envelope, Neuron/spend evidence, exposed-token revocation, no raw secret persistence, and no worker/routing authority.
+- Cloudflare provider calls/network activity/Account ID input/API-token input during Review: `0/NONE/NONE/NONE`.
+- Provider remains `LIVE_VALIDATION_READY`; no connected-validation ref is bound yet.
+- No additional real request is authorized.
+- Review approval is not merge authority. Next gate: explicit Studio Owner final disposition.
+<!-- STUDIO-009V-02-CONNECTED-REVIEW-CHECKPOINT-0005E -->
+
+## 2026-09-07 — Owner final disposition ACCEPT_LIVE_VALIDATED
+
+- Owner explicitly accepted Cloudflare V-02 after Connected QA PASS and Connected Review APPROVE.
+- Owner disposition ref `owner-disposition:cloudflare-v02-98699b6d605e` reviewed immutable Review head `98699b6d605e6b13277b85278a243f6916b988bf`.
+- Generic connected-validation `connected-validation:cloudflare-v02` validated as `BOUND_ACCEPTED`.
+- Generic live-state transition `LIVE_VALIDATION_READY -> LIVE_VALIDATED` validated as `ALLOWED`.
+- Final `connected-validation.json` uses exact generic STUDIO-009R schema.
+- Provider is `LIVE_VALIDATED` on the PR branch until Owner merges PR #64.
+- Worker/routing/AI-Gateway authority remain `NONE`; additional request authority `NONE`; money ceiling `0 USD`.
+- Finalization provider calls/network/Account-ID/API-token activity: `0/NONE/NONE/NONE`.
+- Next gate: Owner manual merge of PR #64 after exact-head Rules CI SUCCESS.
+<!-- STUDIO-009V-02-OWNER-FINAL-DISPOSITION-0005F -->

@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009V-02
 package_path: studio/memory/tasks/STUDIO-009V-02
 canonical_task_contract: tasks/STUDIO-009V-02.md
-current_state: CONTRACT_MERGED_CREDENTIAL_BRIDGE_CORRECTION_READY_FOR_OWNER_MERGE
-resume_from: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
-branch: agent/studio-009v-02-credential-bridge-correction
+current_state: OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_MERGE
+resume_from: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
+branch: agent/studio-009v-02-cloudflare-live-validation
 
 safe_checkpoint: Groq V-01 is durably COMPLETE; Cloudflare P-02 is offline COMPLETE; R-01 permits a separate bounded V-02 connected-validation contract.
 
-next_action: Studio Owner reviews and may merge the V-02 credential-bridge correction PR. After durable merge, prepare the offline implementation with a dedicated Cloudflare session bridge; do not modify the Groq bridge.
+next_action: Owner manually merges PR #64 after exact-head Rules CI SUCCESS. Do not grant worker/routing/AI-Gateway authority and do not make additional Cloudflare calls.
 
 prohibited_next_actions: real Cloudflare Account ID input; API token input; Cloudflare/network/model call; AI Gateway; storage; tool execution; automatic retry; routing; worker promotion; paid plan; prepaid credits; Unified Billing; nonzero spend; Unity/game work.
 
@@ -25,7 +25,7 @@ credential_runtime_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: OWNER_MERGE_V02_CREDENTIAL_BRIDGE_CORRECTION
+next_gate: OWNER_MERGE_PR64
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -39,3 +39,92 @@ account_runtime_activity: NONE
 credential_runtime_activity: NONE
 spend: ZERO
 <!-- STUDIO-009V-02-CREDENTIAL-BRIDGE-CORRECTION-0001A -->
+
+implementation_checkpoint: STUDIO-009V-02-IMPLEMENTATION-CHECKPOINT-0002
+implementation_base: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
+provider_live_state: LIVE_VALIDATION_READY
+implementation_tests: 65 new / 70 live / 592 focused / 989 total
+real_account_id_input: NONE
+real_api_token_input: NONE
+provider_runtime_activity: NONE
+network_activity: NONE
+spend: ZERO
+<!-- STUDIO-009V-02-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+owner_connected_preflight: PASS
+neuron_usage_observability: UNAVAILABLE_BEFORE_FIRST_INFERENCE
+free_allocation_fail_closed_confirmed: true
+real_request_authorized_by_this_checkpoint: false
+provider_runtime_activity: NONE
+network_activity: NONE
+spend: ZERO
+<!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->
+
+owner_bounded_smoke_authorization: PASS
+owner_smoke_authorization_ref: owner-authorization:cloudflare-v02-6a38a1fb1c03
+authorized_real_requests: 3
+authorized_concurrency: 1
+authorized_retry: 0
+authorized_campaign_neuron_ceiling: 2000
+authorized_money_ceiling_usd: 0
+real_request_count: 0
+provider_runtime_activity: NONE
+network_activity: NONE
+spend: ZERO
+<!-- STUDIO-009V-02-OWNER-BOUNDED-SMOKE-AUTHORIZATION-0004 -->
+
+smoke_campaign_id: cloudflare-v02-405f777851bb5ca0
+actual_smoke_token_name: GAME-STUDIO-009V-02-RETRY
+smoke_token_revocation_confirmed: true
+real_request_count: 3
+network_attempt_count: 3
+quality_pass: true
+observed_neurons: UNCONFIRMED
+observed_spend: UNCONFIRMED
+additional_real_request_authorized: false
+<!-- STUDIO-009V-02-SMOKE-EVIDENCE-CORRECTED-0005B -->
+
+owner_post_smoke_confirmation: PASS
+provider_observed_neurons: 35.18
+estimated_neurons_from_token_usage: 37
+billable_usage_display: NO_DATA
+invoice_display: NONE
+billable_charge_observed_usd: 0
+observed_spend_usd: 0
+smoke_token_revocation_confirmed: true
+additional_real_request_authorized: false
+<!-- STUDIO-009V-02-OWNER-NEURON-SPEND-CONFIRMATION-0005C -->
+
+connected_qa_ref: qa:connected-cloudflare-v02-a7d8933418d6
+qa_result: PASS
+qa_blockers: 0
+qa_independent_probes: 60
+qa_smoke_tests: 20
+qa_live_tests: 70
+qa_focused_tests: 592
+qa_total_tests: 989
+provider_calls_during_qa: 0
+additional_real_request_authorized: false
+<!-- STUDIO-009V-02-CONNECTED-QA-CHECKPOINT-0005D -->
+
+connected_review_ref: review:connected-cloudflare-v02-1564c628a8c8
+review_result: APPROVE
+review_blockers: 0
+review_independent_probes: 81
+review_smoke_tests: 20
+review_live_tests: 70
+review_focused_tests: 592
+review_total_tests: 989
+provider_calls_during_review: 0
+additional_real_request_authorized: false
+<!-- STUDIO-009V-02-CONNECTED-REVIEW-CHECKPOINT-0005E -->
+
+owner_disposition_ref: owner-disposition:cloudflare-v02-98699b6d605e
+owner_disposition: ACCEPT_LIVE_VALIDATED
+final_connected_validation_ref: connected-validation:cloudflare-v02
+final_provider_live_state: LIVE_VALIDATED
+worker_authority: NONE
+routing_authority: NONE
+additional_real_request_authorized: false
+next_gate: OWNER_MERGE_PR64
+<!-- STUDIO-009V-02-OWNER-FINAL-DISPOSITION-0005F -->
