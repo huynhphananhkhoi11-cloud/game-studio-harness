@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009V-02
 package_path: studio/memory/tasks/STUDIO-009V-02
 canonical_task_contract: tasks/STUDIO-009V-02.md
-current_state: OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_MERGE
+current_state: POST_MERGE_CREDENTIAL_CLEANUP_COMPLETE_PENDING_CORRECTION_MERGE
 resume_from: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
 branch: agent/studio-009v-02-cloudflare-live-validation
 
 safe_checkpoint: Groq V-01 is durably COMPLETE; Cloudflare P-02 is offline COMPLETE; R-01 permits a separate bounded V-02 connected-validation contract.
 
-next_action: Owner manually merges PR #64 after exact-head Rules CI SUCCESS. Do not grant worker/routing/AI-Gateway authority and do not make additional Cloudflare calls.
+next_action: Owner manually merges the V-02 credential-cleanup corrective PR after exact-head Rules CI SUCCESS. No new provider credential or provider call is authorized.
 
 prohibited_next_actions: real Cloudflare Account ID input; API token input; Cloudflare/network/model call; AI Gateway; storage; tool execution; automatic retry; routing; worker promotion; paid plan; prepaid credits; Unified Billing; nonzero spend; Unity/game work.
 
@@ -25,7 +25,7 @@ credential_runtime_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: OWNER_MERGE_PR64
+next_gate: OWNER_MERGE_V02_CREDENTIAL_CLEANUP_PR
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -128,3 +128,13 @@ routing_authority: NONE
 additional_real_request_authorized: false
 next_gate: OWNER_MERGE_PR64
 <!-- STUDIO-009V-02-OWNER-FINAL-DISPOSITION-0005F -->
+
+credential_cleanup_ref: owner-confirmation:cloudflare-v02-no-active-validation-token
+initial_validation_token_status: DELETED
+smoke_validation_token_status: DELETED
+no_active_v02_user_api_tokens_observed: true
+all_v02_validation_credentials_inactive: true
+revocation_evidence_ref: revocation:cloudflare-v02-all-validation-tokens-owner-confirmed
+final_provider_live_state: LIVE_VALIDATED
+additional_real_request_authorized: false
+<!-- STUDIO-009V-02-POST-MERGE-CREDENTIAL-CLEANUP-0006B -->

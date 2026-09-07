@@ -21,7 +21,7 @@ account_ref: account-ref:cloudflare-workers-ai-owner-account
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_MERGE
+task_status: POST_MERGE_CREDENTIAL_CLEANUP_COMPLETE_PENDING_CORRECTION_MERGE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
 planned_contract_branch: agent/studio-009v-02-cloudflare-contract
@@ -63,7 +63,7 @@ v02_connected_validation_authority: STUDIO-009V-02_ONLY
 full_studio_acceptance_authority: STUDIO-009F
 automatic_routing_authority: STUDIO-009E
 
-next_gate: OWNER_MERGE_PR64
+next_gate: OWNER_MERGE_V02_CREDENTIAL_CLEANUP_PR
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_pr: 62
@@ -229,3 +229,20 @@ money_ceiling_usd: 0
 finalization_provider_calls: 0
 next_gate: OWNER_MERGE_PR64
 <!-- STUDIO-009V-02-OWNER-FINAL-DISPOSITION-0005F -->
+
+credential_cleanup_ref: owner-confirmation:cloudflare-v02-no-active-validation-token
+initial_validation_token_status: DELETED
+smoke_validation_token_status: DELETED
+no_active_v02_user_api_tokens_observed: true
+all_v02_validation_credentials_inactive: true
+revocation_evidence_ref: revocation:cloudflare-v02-all-validation-tokens-owner-confirmed
+global_api_key_used_by_v02: false
+global_api_key_modified_by_v02_cleanup: false
+final_provider_live_state: LIVE_VALIDATED
+worker_authority: NONE
+routing_authority: NONE
+ai_gateway_authority: NONE
+additional_real_request_authorized: false
+money_ceiling_usd: 0
+next_gate: OWNER_MERGE_V02_CREDENTIAL_CLEANUP_PR
+<!-- STUDIO-009V-02-POST-MERGE-CREDENTIAL-CLEANUP-0006B -->

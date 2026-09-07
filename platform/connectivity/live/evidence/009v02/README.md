@@ -116,3 +116,23 @@ The final `connected-validation.json` uses the exact generic STUDIO-009R schema.
 This checkpoint does not merge PR #64. Owner merge is the next gate.
 
 <!-- STUDIO-009V-02-OWNER-FINAL-DISPOSITION-0005F -->
+
+## Post-merge credential cleanup correction
+
+After PR #64 was merged, Studio Owner reviewed Cloudflare **My Profile → API Tokens** and confirmed the page showed **No API tokens**.
+
+- `GAME-STUDIO-009V-02`: `DELETED`;
+- `GAME-STUDIO-009V-02-RETRY`: `DELETED`;
+- active V-02 User API validation tokens observed: `NONE`;
+- all V-02 validation credentials: `INACTIVE`;
+- corrected revocation evidence ref: `revocation:cloudflare-v02-all-validation-tokens-owner-confirmed`;
+- final provider state remains `LIVE_VALIDATED`;
+- worker/routing/AI Gateway authority remain `NONE`;
+- additional real-request authority remains `NONE`;
+- money ceiling remains `0 USD`.
+
+The Cloudflare **Global API Key** visible on the page is outside V-02 credential lineage. V-02 did not use, reveal, rotate, or delete that key, and this correction grants it no authority.
+
+This correction changes credential-cleanup evidence only. It does not rerun smoke, call Cloudflare, create a token, broaden provider authority, or alter the validated model/transport/data envelope.
+
+<!-- STUDIO-009V-02-POST-MERGE-CREDENTIAL-CLEANUP-0006B -->

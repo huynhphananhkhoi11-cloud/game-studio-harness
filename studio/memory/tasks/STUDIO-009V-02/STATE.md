@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-02
-state: OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_MERGE
+state: POST_MERGE_CREDENTIAL_CLEANUP_COMPLETE_PENDING_CORRECTION_MERGE
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
 branch: agent/studio-009v-02-cloudflare-live-validation
@@ -52,8 +52,8 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Studio Owner opens PR #64 and manually merges it only after exact-head Rules CI SUCCESS. Do not grant worker, routing, AI-Gateway, deploy, publish, or additional provider-call authority.
-next_phase: STUDIO-009V-02_OWNER_MERGE_PR64
+exact_next_action: Studio Owner manually merges the V-02 credential-cleanup corrective PR after exact-head Rules CI SUCCESS. Do not create a new V-02 token, rerun smoke, or grant worker/routing/AI-Gateway authority.
+next_phase: STUDIO-009V-02_POST_MERGE_CREDENTIAL_CLEANUP
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -192,3 +192,16 @@ additional_real_request_authorized: false
 money_ceiling_usd: 0
 connected_validation_status: OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_MERGE
 <!-- STUDIO-009V-02-OWNER-FINAL-DISPOSITION-0005F -->
+
+credential_cleanup_ref: owner-confirmation:cloudflare-v02-no-active-validation-token
+initial_validation_token_status: DELETED
+smoke_validation_token_status: DELETED
+no_active_v02_user_api_tokens_observed: true
+all_v02_validation_credentials_inactive: true
+revocation_evidence_ref: revocation:cloudflare-v02-all-validation-tokens-owner-confirmed
+global_api_key_used_by_v02: false
+final_provider_live_state: LIVE_VALIDATED
+worker_authority: NONE
+routing_authority: NONE
+additional_real_request_authorized: false
+<!-- STUDIO-009V-02-POST-MERGE-CREDENTIAL-CLEANUP-0006B -->
