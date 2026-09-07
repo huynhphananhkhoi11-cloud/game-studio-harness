@@ -122,3 +122,17 @@ canonical_task_contract: tasks/STUDIO-009V-02.md
 - Finalization provider calls/network/Account-ID/API-token activity: `0/NONE/NONE/NONE`.
 - Next gate: Owner manual merge of PR #64 after exact-head Rules CI SUCCESS.
 <!-- STUDIO-009V-02-OWNER-FINAL-DISPOSITION-0005F -->
+
+## 2026-09-07 — Post-merge credential cleanup correction
+
+- PR #64 had already merged before the initial-token cleanup gap was noticed.
+- Studio Owner then deleted V-02 validation tokens and observed Cloudflare My Profile → API Tokens showing `No API tokens`.
+- `GAME-STUDIO-009V-02`: `DELETED`.
+- `GAME-STUDIO-009V-02-RETRY`: `DELETED`.
+- No active V-02 User API validation token remains observed.
+- Corrected revocation ref: `revocation:cloudflare-v02-all-validation-tokens-owner-confirmed`.
+- Global API Key is outside V-02 lineage and was not used or modified by this cleanup.
+- Provider remains `LIVE_VALIDATED`; worker/routing/AI-Gateway authority remain `NONE`; money ceiling remains `0 USD`.
+- No Cloudflare request, Account ID input, API-token input, or token recreation occurs in this correction.
+- Next gate: corrective PR + exact-head Rules CI + Owner manual merge.
+<!-- STUDIO-009V-02-POST-MERGE-CREDENTIAL-CLEANUP-0006B -->

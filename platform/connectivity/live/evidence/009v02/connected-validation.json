@@ -21,11 +21,11 @@
   "currency": "USD",
   "paid_fallback_allowed": false,
   "kill_switch_evidence_ref": "kill-switch:cloudflare-v02-bounded-smoke",
-  "revocation_evidence_ref": "revocation:cloudflare-v02-smoke-token-owner-confirmed",
+  "revocation_evidence_ref": "revocation:cloudflare-v02-all-validation-tokens-owner-confirmed",
   "connected_qa_ref": "qa:connected-cloudflare-v02-a7d8933418d6",
   "connected_review_ref": "review:connected-cloudflare-v02-1564c628a8c8",
   "owner_disposition_ref": "owner-disposition:cloudflare-v02-98699b6d605e",
   "validated_at": "2026-09-07T13:54:52Z",
   "as_of": "2026-09-07T13:54:52Z",
-  "canonical_digest": "sha256:807971a3a0f4c1cd094a5b15b0aef96d4193344da08e0298be60d7d994154e59"
+  "canonical_digest": "sha256:9a99f1c5a8d9da75255bce5f5b349be1e809984ab74380484d4f009268eb6ffe"
 }
