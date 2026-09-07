@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_SMOKE",
+  "status": "OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION",
   "v_contract_ref": "v-contract:STUDIO-009V-02",
   "provider_profile_id": "provider-profile:cloudflare-workers-ai-free-nemotron-3-super",
   "provider_child_id": "STUDIO-009P-02",
@@ -37,5 +37,14 @@
   "unified_billing_used": false,
   "prepaid_ai_gateway_credits_used": false,
   "paid_fallback": false,
-  "real_request_authorized_by_this_checkpoint": false
+  "real_request_authorized_by_this_checkpoint": true,
+  "owner_smoke_authorization": "PASS",
+  "owner_smoke_authorization_ref": "owner-authorization:cloudflare-v02-6a38a1fb1c03",
+  "authorized_real_request_ceiling": 3,
+  "authorized_concurrency": 1,
+  "authorized_retry_count": 0,
+  "authorized_campaign_neuron_ceiling": 2000,
+  "authorized_money_ceiling_usd": 0,
+  "authorization_consumed": false,
+  "real_request_count_after_authorization": 0
 }

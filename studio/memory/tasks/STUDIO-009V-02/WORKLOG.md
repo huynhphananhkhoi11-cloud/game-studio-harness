@@ -50,3 +50,14 @@ canonical_task_contract: tasks/STUDIO-009V-02.md
 - Zero provider calls occur in this checkpoint; it authorizes zero real requests.
 - Next gate: separate Owner authorization for bounded smoke. PR #64 remains open.
 <!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->
+
+## 2026-09-05 — Owner bounded-smoke authorization
+
+- Owner authorized the exact Cloudflare V-02 bounded-smoke envelope: max 3 real requests, concurrency 1, retry 0, campaign ceiling 2,000 Neurons, `MONEY_CEILING_USD=0`.
+- Authorization ref: `owner-authorization:cloudflare-v02-6a38a1fb1c03`.
+- Provider remains `LIVE_VALIDATION_READY`; worker/routing/AI Gateway authority remain `NONE`.
+- This authorization checkpoint performs zero Cloudflare calls and zero Account ID/API-token input.
+- The token `GAME-STUDIO-009V-02` remains local and must not be pasted into chat/repo/logs.
+- The next runner must bind to the immutable authorization head and pass exact-head Rules CI before any hidden credential input or network activity.
+- PR #64 remains open and must not be merged.
+<!-- STUDIO-009V-02-OWNER-BOUNDED-SMOKE-AUTHORIZATION-0004 -->

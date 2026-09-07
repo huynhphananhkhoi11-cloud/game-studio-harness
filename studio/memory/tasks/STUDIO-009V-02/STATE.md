@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-02
-state: OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_SMOKE
+state: OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
 branch: agent/studio-009v-02-cloudflare-live-validation
@@ -52,8 +52,8 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Studio Owner separately authorizes the bounded Cloudflare smoke. Only the subsequent smoke runner may request hidden local Account ID/API-token input and issue at most 3 sequential requests. Do not merge PR #64 yet.
-next_phase: STUDIO-009V-02_OWNER_AUTHORIZE_BOUNDED_SMOKE
+exact_next_action: Run the separately generated bounded-smoke runner bound to this authorization checkpoint. That runner may request hidden local Account ID/API-token input and issue at most 3 sequential Cloudflare requests. Do not run curl manually and do not merge PR #64.
+next_phase: STUDIO-009V-02_EXECUTE_BOUNDED_SMOKE
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -99,3 +99,19 @@ provider_runtime_activity: NONE
 network_activity: NONE
 spend: ZERO
 <!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->
+
+owner_bounded_smoke_authorization: PASS
+owner_smoke_authorization_ref: owner-authorization:cloudflare-v02-6a38a1fb1c03
+authorized_real_requests: 3
+authorized_concurrency: 1
+authorized_retry: 0
+authorized_campaign_neuron_ceiling: 2000
+authorized_money_ceiling_usd: 0
+authorization_consumed: false
+provider_live_state: LIVE_VALIDATION_READY
+connected_validation_status: OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION
+real_request_count: 0
+provider_runtime_activity: NONE
+network_activity: NONE
+spend: ZERO
+<!-- STUDIO-009V-02-OWNER-BOUNDED-SMOKE-AUTHORIZATION-0004 -->

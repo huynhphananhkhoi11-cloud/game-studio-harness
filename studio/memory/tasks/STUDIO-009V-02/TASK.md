@@ -21,7 +21,7 @@ account_ref: account-ref:cloudflare-workers-ai-owner-account
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_SMOKE
+task_status: OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
 planned_contract_branch: agent/studio-009v-02-cloudflare-contract
@@ -63,7 +63,7 @@ v02_connected_validation_authority: STUDIO-009V-02_ONLY
 full_studio_acceptance_authority: STUDIO-009F
 automatic_routing_authority: STUDIO-009E
 
-next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
+next_gate: EXECUTE_BOUNDED_SMOKE
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_pr: 62
@@ -118,3 +118,21 @@ provider_runtime_activity: NONE
 network_activity: NONE
 spend: ZERO
 <!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->
+
+owner_bounded_smoke_authorization: PASS
+owner_smoke_authorization_ref: owner-authorization:cloudflare-v02-6a38a1fb1c03
+authorized_real_requests: 3
+authorized_concurrency: 1
+authorized_retry: 0
+authorized_campaign_neuron_ceiling: 2000
+authorized_money_ceiling_usd: 0
+authorization_consumed: false
+real_request_count: 0
+provider_live_state: LIVE_VALIDATION_READY
+provider_runtime_activity: NONE
+network_activity: NONE
+account_id_input_activity: NONE
+api_token_input_activity: NONE
+spend: ZERO
+next_gate: EXECUTE_BOUNDED_SMOKE
+<!-- STUDIO-009V-02-OWNER-BOUNDED-SMOKE-AUTHORIZATION-0004 -->

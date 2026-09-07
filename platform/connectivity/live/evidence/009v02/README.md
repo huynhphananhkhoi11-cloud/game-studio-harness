@@ -9,3 +9,20 @@ Token `GAME-STUDIO-009V-02` was created with Workers AI Read + Workers AI Edit s
 Workers AI usage was not observable before first inference, so no headroom value is invented. Workers Free, MONEY_CEILING=0, and fail-closed handling of internal code 3036 remain binding.
 This checkpoint authorizes zero real requests.
 <!-- STUDIO-009V-02-OWNER-CONNECTED-PREFLIGHT-0003 -->
+
+## Owner bounded-smoke authorization
+
+Studio Owner explicitly authorized the exact V-02 real-smoke envelope:
+
+- maximum real requests: 3;
+- concurrency: 1;
+- automatic retry: 0;
+- campaign neuron ceiling: 2,000;
+- money ceiling: 0 USD;
+- provider/model/host/data/tool/storage/routing boundaries remain unchanged.
+
+Authorization ref: `owner-authorization:cloudflare-v02-6a38a1fb1c03`.
+
+This checkpoint records authority only. It performs zero Cloudflare calls and does not request or persist the Account ID/API token. The subsequent smoke runner must bind to the immutable authorization head and exact-head Rules CI before hidden credential input.
+
+<!-- STUDIO-009V-02-OWNER-BOUNDED-SMOKE-AUTHORIZATION-0004 -->

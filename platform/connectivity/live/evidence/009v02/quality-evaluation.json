@@ -1,9 +1,11 @@
 {
   "schema_version": "1.0",
-  "status": "PENDING_REAL_SMOKE",
+  "status": "OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION",
   "probe_count": 3,
   "quality_pass": null,
   "human_correction_count": null,
   "raw_outputs_persisted": false,
-  "promotion_ceiling": "LIVE_VALIDATED"
+  "promotion_ceiling": "LIVE_VALIDATED",
+  "owner_smoke_authorization_ref": "owner-authorization:cloudflare-v02-6a38a1fb1c03",
+  "authorized_probe_count": 3
 }
