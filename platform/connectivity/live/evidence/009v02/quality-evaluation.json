@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "SMOKE_PASS_PENDING_OWNER_NEURON_SPEND_CONFIRMATION",
+  "status": "SMOKE_PASS_SPEND_CONFIRMED_PENDING_CONNECTED_QA",
   "probe_count": 3,
   "quality_pass": true,
   "human_correction_count": 0,
@@ -60,5 +60,12 @@
   ],
   "additional_real_request_authorized": false,
   "actual_smoke_token_name": "GAME-STUDIO-009V-02-RETRY",
-  "smoke_token_revocation_confirmed": true
+  "smoke_token_revocation_confirmed": true,
+  "provider_observed_neurons": 35.18,
+  "estimated_neurons_from_token_usage": 37,
+  "billable_usage_display": "NO_DATA",
+  "invoice_display": "NONE",
+  "billable_charge_observed_usd": 0,
+  "observed_spend_usd": 0,
+  "observed_spend_basis": "OWNER_OBSERVED_NO_BILLABLE_USAGE_NO_INVOICE_FREE_PLAN_NO_PAYMENT_METHOD"
 }

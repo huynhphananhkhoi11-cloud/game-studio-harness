@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009V-02
 package_path: studio/memory/tasks/STUDIO-009V-02
 canonical_task_contract: tasks/STUDIO-009V-02.md
-current_state: SMOKE_PASS_TOKEN_REVOKED_PENDING_OWNER_NEURON_SPEND_CONFIRMATION
+current_state: SMOKE_PASS_SPEND_CONFIRMED_PENDING_CONNECTED_QA
 resume_from: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
 branch: agent/studio-009v-02-cloudflare-live-validation
 
 safe_checkpoint: Groq V-01 is durably COMPLETE; Cloudflare P-02 is offline COMPLETE; R-01 permits a separate bounded V-02 connected-validation contract.
 
-next_action: Check Cloudflare post-smoke Workers AI usage and billing/cost observations. Do not rerun the smoke; the exposed smoke token has been revoked.
+next_action: Run independent Connected QA on the immutable post-smoke evidence head. No provider request or credential input is authorized.
 
 prohibited_next_actions: real Cloudflare Account ID input; API token input; Cloudflare/network/model call; AI Gateway; storage; tool execution; automatic retry; routing; worker promotion; paid plan; prepaid credits; Unified Billing; nonzero spend; Unity/game work.
 
@@ -25,7 +25,7 @@ credential_runtime_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: OWNER_POST_SMOKE_NEURON_SPEND_CONFIRMATION
+next_gate: CONNECTED_QA
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -83,3 +83,14 @@ observed_neurons: UNCONFIRMED
 observed_spend: UNCONFIRMED
 additional_real_request_authorized: false
 <!-- STUDIO-009V-02-SMOKE-EVIDENCE-CORRECTED-0005B -->
+
+owner_post_smoke_confirmation: PASS
+provider_observed_neurons: 35.18
+estimated_neurons_from_token_usage: 37
+billable_usage_display: NO_DATA
+invoice_display: NONE
+billable_charge_observed_usd: 0
+observed_spend_usd: 0
+smoke_token_revocation_confirmed: true
+additional_real_request_authorized: false
+<!-- STUDIO-009V-02-OWNER-NEURON-SPEND-CONFIRMATION-0005C -->

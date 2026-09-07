@@ -70,3 +70,16 @@ canonical_task_contract: tasks/STUDIO-009V-02.md
 - 1,536 Neurons reserved; 37 estimated from returned token usage; quality PASS; zero human correction.
 - No raw output, Account ID, or token secret is persisted. No additional request is authorized. PR #64 remains open.
 <!-- STUDIO-009V-02-SMOKE-EVIDENCE-CORRECTED-0005B -->
+
+## 2026-09-07 — Owner post-smoke Neuron / spend confirmation
+
+- Cloudflare Workers AI dashboard showed `35.18` Neurons for `@cf/nvidia/nemotron-3-120b-a12b`.
+- GAME retains `37` separately as an estimate from token-usage metadata; it is not rewritten as provider-observed usage.
+- Billing shows Workers Free active, Workers Paid not active, and no payment method on file.
+- Billable usage displayed `NO_DATA`; invoices displayed `NONE`.
+- No billable charge was observed; V-02 records observed spend `0 USD` with basis `OWNER_OBSERVED_NO_BILLABLE_USAGE_NO_INVOICE_FREE_PLAN_NO_PAYMENT_METHOD`.
+- Cost-metric display remains `UNCONFIRMED`; no unsupported cost value is invented.
+- Exposed smoke token remains revoked; no new token is created.
+- No additional provider request is authorized.
+- Next gate is independent Connected QA. PR #64 remains open.
+<!-- STUDIO-009V-02-OWNER-NEURON-SPEND-CONFIRMATION-0005C -->

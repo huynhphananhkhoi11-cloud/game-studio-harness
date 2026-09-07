@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "SMOKE_PASS_PENDING_OWNER_NEURON_SPEND_CONFIRMATION",
+  "status": "SMOKE_PASS_SPEND_CONFIRMED_PENDING_CONNECTED_QA",
   "v_contract_ref": "v-contract:STUDIO-009V-02",
   "provider_profile_id": "provider-profile:cloudflare-workers-ai-free-nemotron-3-super",
   "provider_child_id": "STUDIO-009P-02",
@@ -51,10 +51,10 @@
   "network_attempt_count": 3,
   "network_success_count": 3,
   "estimated_neurons_from_token_usage": 37,
-  "observed_neurons": null,
-  "observed_spend": null,
-  "post_smoke_neuron_confirmation_required": true,
-  "post_smoke_spend_confirmation_required": true,
+  "observed_neurons": 35.18,
+  "observed_spend": 0,
+  "post_smoke_neuron_confirmation_required": false,
+  "post_smoke_spend_confirmation_required": false,
   "quality_pass": true,
   "human_correction_count": 0,
   "safe_probe_records": [
@@ -114,5 +114,13 @@
   "smoke_token_exposure_status": "EXPOSED_IN_CHAT_IMAGE",
   "smoke_token_revocation_confirmed": true,
   "smoke_token_revocation_basis": "OWNER_LOCAL_CONFIRMATION_AFTER_SMOKE",
-  "smoke_token_secret_persisted": false
+  "smoke_token_secret_persisted": false,
+  "observed_neurons_basis": "OWNER_OBSERVED_WORKERS_AI_DASHBOARD",
+  "billable_usage_display": "NO_DATA",
+  "invoice_display": "NONE",
+  "payment_method_on_file": false,
+  "billable_charge_observed_usd": 0,
+  "observed_spend_currency": "USD",
+  "observed_spend_basis": "OWNER_OBSERVED_NO_BILLABLE_USAGE_NO_INVOICE_FREE_PLAN_NO_PAYMENT_METHOD",
+  "cost_metric_observation": "UNCONFIRMED"
 }

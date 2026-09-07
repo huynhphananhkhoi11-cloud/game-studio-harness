@@ -33,3 +33,23 @@ The preflight evidence had recorded `GAME-STUDIO-009V-02`; Owner later clarified
 Because the `GAME-STUDIO-009V-02-RETRY` secret appeared in a chat image, Owner revoked it after the smoke before this evidence checkpoint. No token secret, raw Account ID, or raw provider output is persisted.
 Reserved Neurons: 1,536; estimated Neurons from returned token usage: 37; quality PASS; human correction 0. Provider-observed Neurons and spend remain UNCONFIRMED. No additional real request is authorized.
 <!-- STUDIO-009V-02-SMOKE-EVIDENCE-CORRECTED-0005B -->
+
+## Owner post-smoke Neuron / spend confirmation
+
+Owner-observed provider evidence after the bounded smoke:
+
+- Workers AI provider-observed Neurons today: `35.18`;
+- GAME token-usage estimate retained separately: `37`;
+- Workers plan: `FREE`;
+- Workers Paid: `false`;
+- payment method on file: `false`;
+- Billable usage page: `NO_DATA`;
+- Invoices: `NONE`;
+- billable charge observed: `0 USD`;
+- observed spend for the V-02 money-ceiling gate: `0 USD`;
+- spend basis: `OWNER_OBSERVED_NO_BILLABLE_USAGE_NO_INVOICE_FREE_PLAN_NO_PAYMENT_METHOD`;
+- cost-metric display is not reinterpreted or invented: `UNCONFIRMED`.
+
+`35.18` is the provider-observed Neuron value. `37` remains only the GAME estimate from returned token usage. No additional request is authorized.
+
+<!-- STUDIO-009V-02-OWNER-NEURON-SPEND-CONFIRMATION-0005C -->
