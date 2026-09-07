@@ -21,7 +21,7 @@ account_ref: account-ref:cloudflare-workers-ai-owner-account
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: POST_MERGE_CREDENTIAL_CLEANUP_COMPLETE_PENDING_CORRECTION_MERGE
+task_status: COMPLETE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
 planned_contract_branch: agent/studio-009v-02-cloudflare-contract
@@ -63,7 +63,7 @@ v02_connected_validation_authority: STUDIO-009V-02_ONLY
 full_studio_acceptance_authority: STUDIO-009F
 automatic_routing_authority: STUDIO-009E
 
-next_gate: OWNER_MERGE_V02_CREDENTIAL_CLEANUP_PR
+next_gate: OWNER_MERGE_V02_CLOSEOUT
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_pr: 62
@@ -246,3 +246,34 @@ additional_real_request_authorized: false
 money_ceiling_usd: 0
 next_gate: OWNER_MERGE_V02_CREDENTIAL_CLEANUP_PR
 <!-- STUDIO-009V-02-POST-MERGE-CREDENTIAL-CLEANUP-0006B -->
+
+closeout_checkpoint: STUDIO-009V-02-CLOSEOUT-CHECKPOINT-0007
+implementation_pr: 64
+implementation_merge: 3665dcc702e82859c78311e7bde68cb01c5ec6b1
+credential_cleanup_pr: 65
+credential_cleanup_merge: 1ad620ab0cdb8fa662a0733fadbddde655c5ca31
+closeout_result: COMPLETE
+closeout_provider_live_state: LIVE_VALIDATED
+closeout_smoke_tests: 20
+closeout_live_tests: 70
+closeout_focused_tests: 592
+closeout_total_tests: 989
+closeout_qa_result: PASS
+closeout_review_result: APPROVE
+closeout_owner_disposition: ACCEPT_LIVE_VALIDATED
+closeout_initial_validation_token_deleted: true
+closeout_smoke_validation_token_deleted: true
+closeout_no_active_v02_validation_token: true
+closeout_revocation_evidence_ref: revocation:cloudflare-v02-all-validation-tokens-owner-confirmed
+closeout_worker_authority: NONE
+closeout_routing_authority: NONE
+closeout_ai_gateway_authority: NONE
+closeout_additional_real_request_authorized: false
+closeout_provider_calls: 0
+closeout_cloudflare_network_activity: NONE
+closeout_account_id_input_activity: NONE
+closeout_api_token_input_activity: NONE
+closeout_billable_spend_usd: 0
+closeout_record_semantics: EFFECTIVE_WHEN_MERGED
+next_phase: STUDIO-009P-03_PROVIDER_ONBOARDING_PLANNING_AFTER_DURABLE_V02_CLOSEOUT
+<!-- STUDIO-009V-02-CLOSEOUT-CHECKPOINT-0007 -->

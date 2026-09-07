@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009V-02
 package_path: studio/memory/tasks/STUDIO-009V-02
 canonical_task_contract: tasks/STUDIO-009V-02.md
-current_state: POST_MERGE_CREDENTIAL_CLEANUP_COMPLETE_PENDING_CORRECTION_MERGE
-resume_from: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
-branch: agent/studio-009v-02-cloudflare-live-validation
+current_state: COMPLETE
+resume_from: 1ad620ab0cdb8fa662a0733fadbddde655c5ca31
+branch: agent/studio-009v-02-closeout
 
-safe_checkpoint: Groq V-01 is durably COMPLETE; Cloudflare P-02 is offline COMPLETE; R-01 permits a separate bounded V-02 connected-validation contract.
+safe_checkpoint: STUDIO-009V-02 Cloudflare connected validation is durably merged through PR #64 and credential-cleanup PR #65; provider state is LIVE_VALIDATED; both V-02 validation-token lineages are deleted/inactive; worker, routing and AI-Gateway authority remain NONE.
 
-next_action: Owner manually merges the V-02 credential-cleanup corrective PR after exact-head Rules CI SUCCESS. No new provider credential or provider call is authorized.
+next_action: Studio Owner reviews and may merge the STUDIO-009V-02 closeout Pull Request. After durable closeout, continue with STUDIO-009P-03 provider-onboarding planning. Do not create a persistent Cloudflare runtime credential under V-02.
 
 prohibited_next_actions: real Cloudflare Account ID input; API token input; Cloudflare/network/model call; AI Gateway; storage; tool execution; automatic retry; routing; worker promotion; paid plan; prepaid credits; Unified Billing; nonzero spend; Unity/game work.
 
@@ -25,7 +25,7 @@ credential_runtime_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: OWNER_MERGE_V02_CREDENTIAL_CLEANUP_PR
+next_gate: OWNER_MERGE_V02_CLOSEOUT
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -138,3 +138,30 @@ revocation_evidence_ref: revocation:cloudflare-v02-all-validation-tokens-owner-c
 final_provider_live_state: LIVE_VALIDATED
 additional_real_request_authorized: false
 <!-- STUDIO-009V-02-POST-MERGE-CREDENTIAL-CLEANUP-0006B -->
+
+closeout_checkpoint: STUDIO-009V-02-CLOSEOUT-CHECKPOINT-0007
+implementation_pr: 64
+implementation_merge: 3665dcc702e82859c78311e7bde68cb01c5ec6b1
+credential_cleanup_pr: 65
+credential_cleanup_merge: 1ad620ab0cdb8fa662a0733fadbddde655c5ca31
+closeout_result: COMPLETE
+closeout_provider_live_state: LIVE_VALIDATED
+closeout_smoke_tests: 20
+closeout_live_tests: 70
+closeout_focused_tests: 592
+closeout_total_tests: 989
+closeout_qa_result: PASS
+closeout_review_result: APPROVE
+closeout_owner_disposition: ACCEPT_LIVE_VALIDATED
+closeout_all_v02_validation_credentials_inactive: true
+closeout_worker_authority: NONE
+closeout_routing_authority: NONE
+closeout_ai_gateway_authority: NONE
+closeout_additional_real_request_authorized: false
+closeout_provider_calls: 0
+closeout_cloudflare_network_activity: NONE
+closeout_api_token_input_activity: NONE
+closeout_billable_spend_usd: 0
+closeout_record_semantics: EFFECTIVE_WHEN_MERGED
+next_phase: STUDIO-009P-03_PROVIDER_ONBOARDING_PLANNING
+<!-- STUDIO-009V-02-CLOSEOUT-CHECKPOINT-0007 -->
