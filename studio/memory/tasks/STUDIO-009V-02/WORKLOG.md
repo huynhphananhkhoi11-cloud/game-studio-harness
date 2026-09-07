@@ -136,3 +136,18 @@ canonical_task_contract: tasks/STUDIO-009V-02.md
 - No Cloudflare request, Account ID input, API-token input, or token recreation occurs in this correction.
 - Next gate: corrective PR + exact-head Rules CI + Owner manual merge.
 <!-- STUDIO-009V-02-POST-MERGE-CREDENTIAL-CLEANUP-0006B -->
+
+## 2026-09-07 — STUDIO-009V-02 durable closeout prepared
+
+- Implementation PR #64 is durably merged at `3665dcc702e82859c78311e7bde68cb01c5ec6b1`.
+- Post-merge credential-cleanup PR #65 is durably merged at `1ad620ab0cdb8fa662a0733fadbddde655c5ca31`.
+- Cloudflare V-02 final provider state remains `LIVE_VALIDATED`.
+- Connected QA `PASS`; Connected Review `APPROVE`; Owner disposition `ACCEPT_LIVE_VALIDATED`.
+- Exact bounded smoke history remains 3 successful requests, concurrency 1, retry 0.
+- Provider-observed Neurons remain 35.18; GAME historical estimate remains 37; observed billable spend remains 0 USD.
+- Both V-02 validation-token lineages are deleted/inactive; no active V-02 validation token remains.
+- Worker/routing/AI-Gateway authority remain `NONE`; additional real-request authority remains `NONE`; money ceiling remains 0 USD.
+- Closeout itself performs no Cloudflare request, Account ID input, API-token input, token creation, routing, worker promotion, deploy, publish, or spend.
+- Closeout record is effective only when the closeout PR is merged.
+- After durable closeout, resume roadmap at STUDIO-009P-03 provider-onboarding planning; no provider is selected by this closeout.
+<!-- STUDIO-009V-02-CLOSEOUT-CHECKPOINT-0007 -->
