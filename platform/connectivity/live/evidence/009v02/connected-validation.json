@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "CONNECTED_QA_PASS_PENDING_CONNECTED_REVIEW",
+  "status": "CONNECTED_REVIEW_APPROVE_PENDING_OWNER_DISPOSITION",
   "v_contract_ref": "v-contract:STUDIO-009V-02",
   "provider_profile_id": "provider-profile:cloudflare-workers-ai-free-nemotron-3-super",
   "provider_child_id": "STUDIO-009P-02",
@@ -136,5 +136,19 @@
   "qa_cloudflare_network_activity": "NONE",
   "qa_account_id_input_activity": "NONE",
   "qa_api_token_input_activity": "NONE",
-  "qa_completed_at": "2026-09-07T12:07:10Z"
+  "qa_completed_at": "2026-09-07T12:07:10Z",
+  "connected_review_ref": "review:connected-cloudflare-v02-1564c628a8c8",
+  "review_reviewed_head": "1564c628a8c8312bb028de6c2e329c2674becb51",
+  "review_result": "APPROVE",
+  "review_blockers": 0,
+  "review_independent_probes": 81,
+  "review_smoke_tests": 20,
+  "review_live_tests": 70,
+  "review_focused_tests": 592,
+  "review_total_tests": 989,
+  "review_provider_calls": 0,
+  "review_cloudflare_network_activity": "NONE",
+  "review_account_id_input_activity": "NONE",
+  "review_api_token_input_activity": "NONE",
+  "review_completed_at": "2026-09-07T12:53:13Z"
 }

@@ -5,13 +5,13 @@ memory_schema_version: 1
 task_id: STUDIO-009V-02
 package_path: studio/memory/tasks/STUDIO-009V-02
 canonical_task_contract: tasks/STUDIO-009V-02.md
-current_state: CONNECTED_QA_PASS_PENDING_CONNECTED_REVIEW
+current_state: CONNECTED_REVIEW_APPROVE_PENDING_OWNER_DISPOSITION
 resume_from: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
 branch: agent/studio-009v-02-cloudflare-live-validation
 
 safe_checkpoint: Groq V-01 is durably COMPLETE; Cloudflare P-02 is offline COMPLETE; R-01 permits a separate bounded V-02 connected-validation contract.
 
-next_action: Run independent Connected Review & Integration on the immutable Connected-QA checkpoint. No provider request or credential input is authorized.
+next_action: Obtain explicit Studio Owner final disposition. No provider request, credential input, routing/worker promotion, or merge is authorized yet.
 
 prohibited_next_actions: real Cloudflare Account ID input; API token input; Cloudflare/network/model call; AI Gateway; storage; tool execution; automatic retry; routing; worker promotion; paid plan; prepaid credits; Unified Billing; nonzero spend; Unity/game work.
 
@@ -25,7 +25,7 @@ credential_runtime_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: CONNECTED_REVIEW
+next_gate: OWNER_FINAL_DISPOSITION
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -106,3 +106,15 @@ qa_total_tests: 989
 provider_calls_during_qa: 0
 additional_real_request_authorized: false
 <!-- STUDIO-009V-02-CONNECTED-QA-CHECKPOINT-0005D -->
+
+connected_review_ref: review:connected-cloudflare-v02-1564c628a8c8
+review_result: APPROVE
+review_blockers: 0
+review_independent_probes: 81
+review_smoke_tests: 20
+review_live_tests: 70
+review_focused_tests: 592
+review_total_tests: 989
+provider_calls_during_review: 0
+additional_real_request_authorized: false
+<!-- STUDIO-009V-02-CONNECTED-REVIEW-CHECKPOINT-0005E -->
