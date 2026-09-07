@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-02
-state: CONNECTED_REVIEW_APPROVE_PENDING_OWNER_DISPOSITION
+state: OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_MERGE
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
 branch: agent/studio-009v-02-cloudflare-live-validation
@@ -52,8 +52,8 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Studio Owner gives explicit final disposition for Cloudflare V-02. Do not merge PR #64 and do not grant worker/routing/AI-Gateway authority. No Cloudflare request or credential input is authorized.
-next_phase: STUDIO-009V-02_OWNER_FINAL_DISPOSITION
+exact_next_action: Studio Owner opens PR #64 and manually merges it only after exact-head Rules CI SUCCESS. Do not grant worker, routing, AI-Gateway, deploy, publish, or additional provider-call authority.
+next_phase: STUDIO-009V-02_OWNER_MERGE_PR64
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -180,3 +180,15 @@ additional_real_request_authorized: false
 provider_live_state: LIVE_VALIDATION_READY
 connected_validation_status: CONNECTED_REVIEW_APPROVE_PENDING_OWNER_DISPOSITION
 <!-- STUDIO-009V-02-CONNECTED-REVIEW-CHECKPOINT-0005E -->
+
+owner_disposition_ref: owner-disposition:cloudflare-v02-98699b6d605e
+owner_disposition: ACCEPT_LIVE_VALIDATED
+final_connected_validation_ref: connected-validation:cloudflare-v02
+final_provider_live_state: LIVE_VALIDATED
+worker_authority: NONE
+routing_authority: NONE
+ai_gateway_authority: NONE
+additional_real_request_authorized: false
+money_ceiling_usd: 0
+connected_validation_status: OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_MERGE
+<!-- STUDIO-009V-02-OWNER-FINAL-DISPOSITION-0005F -->

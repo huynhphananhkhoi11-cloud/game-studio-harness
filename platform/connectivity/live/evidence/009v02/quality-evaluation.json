@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "CONNECTED_REVIEW_APPROVE_PENDING_OWNER_DISPOSITION",
+  "status": "OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_MERGE",
   "probe_count": 3,
   "quality_pass": true,
   "human_correction_count": 0,
@@ -87,5 +87,22 @@
   "review_live_tests": 70,
   "review_focused_tests": 592,
   "review_total_tests": 989,
-  "review_completed_at": "2026-09-07T12:53:13Z"
+  "review_completed_at": "2026-09-07T12:53:13Z",
+  "owner_disposition_ref": "owner-disposition:cloudflare-v02-98699b6d605e",
+  "owner_disposition": "ACCEPT_LIVE_VALIDATED",
+  "owner_disposition_basis": "OWNER_EXPLICIT_ACCEPTANCE_IN_CHAT",
+  "owner_disposition_reviewed_head": "98699b6d605e6b13277b85278a243f6916b988bf",
+  "worker_authority": "NONE",
+  "routing_authority": "NONE",
+  "ai_gateway_authority": "NONE",
+  "money_ceiling_usd": 0,
+  "final_connected_validation_ref": "connected-validation:cloudflare-v02",
+  "final_connected_validation_digest": "sha256:807971a3a0f4c1cd094a5b15b0aef96d4193344da08e0298be60d7d994154e59",
+  "final_live_state": "LIVE_VALIDATED",
+  "final_live_state_digest": "sha256:9d51b32848ba62732be5356e78cf338c2a7b6734ba4c913c4216a4e55473bd66",
+  "finalization_provider_calls": 0,
+  "finalization_cloudflare_network_activity": "NONE",
+  "finalization_account_id_input_activity": "NONE",
+  "finalization_api_token_input_activity": "NONE",
+  "finalized_at": "2026-09-07T13:54:52Z"
 }

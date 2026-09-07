@@ -21,7 +21,7 @@ account_ref: account-ref:cloudflare-workers-ai-owner-account
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: CONNECTED_REVIEW_APPROVE_PENDING_OWNER_DISPOSITION
+task_status: OWNER_DISPOSITION_ACCEPTED_LIVE_VALIDATED_PENDING_MERGE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
 planned_contract_branch: agent/studio-009v-02-cloudflare-contract
@@ -63,7 +63,7 @@ v02_connected_validation_authority: STUDIO-009V-02_ONLY
 full_studio_acceptance_authority: STUDIO-009F
 automatic_routing_authority: STUDIO-009E
 
-next_gate: OWNER_FINAL_DISPOSITION
+next_gate: OWNER_MERGE_PR64
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_pr: 62
@@ -211,3 +211,21 @@ additional_real_request_authorized: false
 provider_live_state: LIVE_VALIDATION_READY
 next_gate: OWNER_FINAL_DISPOSITION
 <!-- STUDIO-009V-02-CONNECTED-REVIEW-CHECKPOINT-0005E -->
+
+owner_disposition_ref: owner-disposition:cloudflare-v02-98699b6d605e
+owner_disposition: ACCEPT_LIVE_VALIDATED
+owner_disposition_basis: OWNER_EXPLICIT_ACCEPTANCE_IN_CHAT
+owner_disposition_reviewed_head: 98699b6d605e6b13277b85278a243f6916b988bf
+final_connected_validation_ref: connected-validation:cloudflare-v02
+final_connected_validation_digest: sha256:807971a3a0f4c1cd094a5b15b0aef96d4193344da08e0298be60d7d994154e59
+final_provider_live_state: LIVE_VALIDATED
+final_live_state_digest: sha256:9d51b32848ba62732be5356e78cf338c2a7b6734ba4c913c4216a4e55473bd66
+promotion_ceiling: LIVE_VALIDATED
+worker_authority: NONE
+routing_authority: NONE
+ai_gateway_authority: NONE
+additional_real_request_authorized: false
+money_ceiling_usd: 0
+finalization_provider_calls: 0
+next_gate: OWNER_MERGE_PR64
+<!-- STUDIO-009V-02-OWNER-FINAL-DISPOSITION-0005F -->
