@@ -1,11 +1,64 @@
 {
   "schema_version": "1.0",
-  "status": "OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION",
+  "status": "SMOKE_PASS_PENDING_OWNER_NEURON_SPEND_CONFIRMATION",
   "probe_count": 3,
-  "quality_pass": null,
-  "human_correction_count": null,
+  "quality_pass": true,
+  "human_correction_count": 0,
   "raw_outputs_persisted": false,
   "promotion_ceiling": "LIVE_VALIDATED",
   "owner_smoke_authorization_ref": "owner-authorization:cloudflare-v02-6a38a1fb1c03",
-  "authorized_probe_count": 3
+  "authorized_probe_count": 3,
+  "safe_probe_records": [
+    {
+      "account_identity_verified": true,
+      "content_sha256": "sha256:79560680b8a2be382aefa4bf5a2bb98dbe99ee2f966fdd2c66fc5dd2f0daa4b2",
+      "estimated_neurons": 9,
+      "finish_reason": "stop",
+      "model": "@cf/nvidia/nemotron-3-120b-a12b",
+      "model_identity_verified": true,
+      "probe_id": "STRUCTURED_OUTPUT",
+      "quality": "PASS",
+      "transport_identity_verified": true,
+      "usage": {
+        "input_tokens": 41,
+        "output_tokens": 47,
+        "total_tokens": 88
+      }
+    },
+    {
+      "account_identity_verified": true,
+      "content_sha256": "sha256:5aad4402dcc88d466fc76053c71aacda9d2ba93863122b6dfb1d65852a712d34",
+      "estimated_neurons": 10,
+      "finish_reason": "stop",
+      "model": "@cf/nvidia/nemotron-3-120b-a12b",
+      "model_identity_verified": true,
+      "probe_id": "INSTRUCTION_DISCIPLINE",
+      "quality": "PASS",
+      "transport_identity_verified": true,
+      "usage": {
+        "input_tokens": 47,
+        "output_tokens": 55,
+        "total_tokens": 102
+      }
+    },
+    {
+      "account_identity_verified": true,
+      "content_sha256": "sha256:d3198044544fde4eb357039e74160214907ff6f6730f8dcadeb64ab6daa749ec",
+      "estimated_neurons": 18,
+      "finish_reason": "stop",
+      "model": "@cf/nvidia/nemotron-3-120b-a12b",
+      "model_identity_verified": true,
+      "probe_id": "SYNTHETIC_TRANSFORM",
+      "quality": "PASS",
+      "transport_identity_verified": true,
+      "usage": {
+        "input_tokens": 53,
+        "output_tokens": 110,
+        "total_tokens": 163
+      }
+    }
+  ],
+  "additional_real_request_authorized": false,
+  "actual_smoke_token_name": "GAME-STUDIO-009V-02-RETRY",
+  "smoke_token_revocation_confirmed": true
 }

@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-02
-state: OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION
+state: SMOKE_PASS_TOKEN_REVOKED_PENDING_OWNER_NEURON_SPEND_CONFIRMATION
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
 branch: agent/studio-009v-02-cloudflare-live-validation
@@ -52,8 +52,8 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Run the separately generated bounded-smoke runner bound to this authorization checkpoint. That runner may request hidden local Account ID/API-token input and issue at most 3 sequential Cloudflare requests. Do not run curl manually and do not merge PR #64.
-next_phase: STUDIO-009V-02_EXECUTE_BOUNDED_SMOKE
+exact_next_action: Studio Owner checks Cloudflare post-smoke Workers AI usage and any cost/billable-charge display, then reports only non-secret observations. Do not rerun the smoke and do not merge PR #64.
+next_phase: STUDIO-009V-02_OWNER_POST_SMOKE_NEURON_SPEND_CONFIRMATION
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_merge: 2f9eeaf6b2bb56546155e3d962082bc20525a8cb
@@ -115,3 +115,20 @@ provider_runtime_activity: NONE
 network_activity: NONE
 spend: ZERO
 <!-- STUDIO-009V-02-OWNER-BOUNDED-SMOKE-AUTHORIZATION-0004 -->
+
+smoke_campaign_id: cloudflare-v02-405f777851bb5ca0
+smoke_result: PASS
+actual_smoke_token_name: GAME-STUDIO-009V-02-RETRY
+smoke_token_revocation_confirmed: true
+authorization_consumed: true
+real_request_count: 3
+network_attempt_count: 3
+network_success_count: 3
+reserved_neurons: 1536
+estimated_neurons_from_token_usage: 37
+quality_pass: true
+observed_neurons: UNCONFIRMED
+observed_spend: UNCONFIRMED
+additional_real_request_authorized: false
+provider_live_state: LIVE_VALIDATION_READY
+<!-- STUDIO-009V-02-SMOKE-EVIDENCE-CORRECTED-0005B -->

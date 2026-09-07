@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0",
-  "status": "OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION",
+  "status": "SMOKE_PASS_PENDING_OWNER_NEURON_SPEND_CONFIRMATION",
   "v_contract_ref": "v-contract:STUDIO-009V-02",
   "provider_profile_id": "provider-profile:cloudflare-workers-ai-free-nemotron-3-super",
   "provider_child_id": "STUDIO-009P-02",
   "model_id": "@cf/nvidia/nemotron-3-120b-a12b",
   "account_ref": "account-ref:cloudflare-workers-ai-owner-account",
-  "request_count": 0,
+  "request_count": 3,
   "request_ceiling": 3,
-  "reserved_neurons": 0,
+  "reserved_neurons": 1536,
   "campaign_neuron_ceiling": 2000,
   "concurrency": 1,
   "retry_count": 0,
@@ -45,6 +45,74 @@
   "authorized_retry_count": 0,
   "authorized_campaign_neuron_ceiling": 2000,
   "authorized_money_ceiling_usd": 0,
-  "authorization_consumed": false,
-  "real_request_count_after_authorization": 0
+  "authorization_consumed": true,
+  "real_request_count_after_authorization": 3,
+  "smoke_campaign_id": "cloudflare-v02-405f777851bb5ca0",
+  "network_attempt_count": 3,
+  "network_success_count": 3,
+  "estimated_neurons_from_token_usage": 37,
+  "observed_neurons": null,
+  "observed_spend": null,
+  "post_smoke_neuron_confirmation_required": true,
+  "post_smoke_spend_confirmation_required": true,
+  "quality_pass": true,
+  "human_correction_count": 0,
+  "safe_probe_records": [
+    {
+      "account_identity_verified": true,
+      "content_sha256": "sha256:79560680b8a2be382aefa4bf5a2bb98dbe99ee2f966fdd2c66fc5dd2f0daa4b2",
+      "estimated_neurons": 9,
+      "finish_reason": "stop",
+      "model": "@cf/nvidia/nemotron-3-120b-a12b",
+      "model_identity_verified": true,
+      "probe_id": "STRUCTURED_OUTPUT",
+      "quality": "PASS",
+      "transport_identity_verified": true,
+      "usage": {
+        "input_tokens": 41,
+        "output_tokens": 47,
+        "total_tokens": 88
+      }
+    },
+    {
+      "account_identity_verified": true,
+      "content_sha256": "sha256:5aad4402dcc88d466fc76053c71aacda9d2ba93863122b6dfb1d65852a712d34",
+      "estimated_neurons": 10,
+      "finish_reason": "stop",
+      "model": "@cf/nvidia/nemotron-3-120b-a12b",
+      "model_identity_verified": true,
+      "probe_id": "INSTRUCTION_DISCIPLINE",
+      "quality": "PASS",
+      "transport_identity_verified": true,
+      "usage": {
+        "input_tokens": 47,
+        "output_tokens": 55,
+        "total_tokens": 102
+      }
+    },
+    {
+      "account_identity_verified": true,
+      "content_sha256": "sha256:d3198044544fde4eb357039e74160214907ff6f6730f8dcadeb64ab6daa749ec",
+      "estimated_neurons": 18,
+      "finish_reason": "stop",
+      "model": "@cf/nvidia/nemotron-3-120b-a12b",
+      "model_identity_verified": true,
+      "probe_id": "SYNTHETIC_TRANSFORM",
+      "quality": "PASS",
+      "transport_identity_verified": true,
+      "usage": {
+        "input_tokens": 53,
+        "output_tokens": 110,
+        "total_tokens": 163
+      }
+    }
+  ],
+  "additional_real_request_authorized": false,
+  "preflight_token_name_recorded": "GAME-STUDIO-009V-02",
+  "actual_smoke_token_name": "GAME-STUDIO-009V-02-RETRY",
+  "token_lineage_correction_reason": "OWNER_REPORTED_ACTUAL_SMOKE_TOKEN_NAME_AFTER_PREFLIGHT",
+  "smoke_token_exposure_status": "EXPOSED_IN_CHAT_IMAGE",
+  "smoke_token_revocation_confirmed": true,
+  "smoke_token_revocation_basis": "OWNER_LOCAL_CONFIRMATION_AFTER_SMOKE",
+  "smoke_token_secret_persisted": false
 }

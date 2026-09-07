@@ -21,7 +21,7 @@ account_ref: account-ref:cloudflare-workers-ai-owner-account
 cost_class: ZERO_COST_ONLY
 money_ceiling: 0
 
-task_status: OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION
+task_status: SMOKE_PASS_TOKEN_REVOKED_PENDING_OWNER_NEURON_SPEND_CONFIRMATION
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 2dc93b84951999cce22c5c5a6c9e956e722f3c18
 planned_contract_branch: agent/studio-009v-02-cloudflare-contract
@@ -63,7 +63,7 @@ v02_connected_validation_authority: STUDIO-009V-02_ONLY
 full_studio_acceptance_authority: STUDIO-009F
 automatic_routing_authority: STUDIO-009E
 
-next_gate: EXECUTE_BOUNDED_SMOKE
+next_gate: OWNER_POST_SMOKE_NEURON_SPEND_CONFIRMATION
 <!-- STUDIO-009V-02-CONTRACT-CHECKPOINT-0001 -->
 
 contract_pr: 62
@@ -136,3 +136,24 @@ api_token_input_activity: NONE
 spend: ZERO
 next_gate: EXECUTE_BOUNDED_SMOKE
 <!-- STUDIO-009V-02-OWNER-BOUNDED-SMOKE-AUTHORIZATION-0004 -->
+
+smoke_campaign_id: cloudflare-v02-405f777851bb5ca0
+smoke_result: PASS
+actual_smoke_token_name: GAME-STUDIO-009V-02-RETRY
+preflight_token_name_recorded: GAME-STUDIO-009V-02
+smoke_token_exposure_status: EXPOSED_IN_CHAT_IMAGE
+smoke_token_revocation_confirmed: true
+authorization_consumed: true
+real_request_count: 3
+network_attempt_count: 3
+network_success_count: 3
+reserved_neurons: 1536
+estimated_neurons_from_token_usage: 37
+quality_pass: true
+human_correction_count: 0
+observed_neurons: UNCONFIRMED
+observed_spend: UNCONFIRMED
+additional_real_request_authorized: false
+provider_live_state: LIVE_VALIDATION_READY
+next_gate: OWNER_POST_SMOKE_NEURON_SPEND_CONFIRMATION
+<!-- STUDIO-009V-02-SMOKE-EVIDENCE-CORRECTED-0005B -->

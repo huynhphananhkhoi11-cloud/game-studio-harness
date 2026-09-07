@@ -26,3 +26,10 @@ Authorization ref: `owner-authorization:cloudflare-v02-6a38a1fb1c03`.
 This checkpoint records authority only. It performs zero Cloudflare calls and does not request or persist the Account ID/API token. The subsequent smoke runner must bind to the immutable authorization head and exact-head Rules CI before hidden credential input.
 
 <!-- STUDIO-009V-02-OWNER-BOUNDED-SMOKE-AUTHORIZATION-0004 -->
+
+## Corrected bounded real-smoke PASS evidence
+Campaign `cloudflare-v02-405f777851bb5ca0` completed exactly 3 requests / 3 network successes using `GAME-STUDIO-009V-02-RETRY`.
+The preflight evidence had recorded `GAME-STUDIO-009V-02`; Owner later clarified the actual smoke token name. This correction changes token lineage only, not provider/model/request results.
+Because the `GAME-STUDIO-009V-02-RETRY` secret appeared in a chat image, Owner revoked it after the smoke before this evidence checkpoint. No token secret, raw Account ID, or raw provider output is persisted.
+Reserved Neurons: 1,536; estimated Neurons from returned token usage: 37; quality PASS; human correction 0. Provider-observed Neurons and spend remain UNCONFIRMED. No additional real request is authorized.
+<!-- STUDIO-009V-02-SMOKE-EVIDENCE-CORRECTED-0005B -->

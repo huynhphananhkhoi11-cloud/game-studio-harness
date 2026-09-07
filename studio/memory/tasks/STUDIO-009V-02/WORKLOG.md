@@ -61,3 +61,12 @@ canonical_task_contract: tasks/STUDIO-009V-02.md
 - The next runner must bind to the immutable authorization head and pass exact-head Rules CI before any hidden credential input or network activity.
 - PR #64 remains open and must not be merged.
 <!-- STUDIO-009V-02-OWNER-BOUNDED-SMOKE-AUTHORIZATION-0004 -->
+
+## 2026-09-07 — Corrected Cloudflare smoke evidence
+- Campaign `cloudflare-v02-405f777851bb5ca0` completed exactly 3 real requests / 3 network successes.
+- Actual smoke token label: `GAME-STUDIO-009V-02-RETRY`; preflight had recorded `GAME-STUDIO-009V-02`.
+- Token-lineage correction is metadata-only and does not alter request/model/quality evidence.
+- The actual smoke token secret appeared in a chat image; Owner revoked that token after smoke before this checkpoint.
+- 1,536 Neurons reserved; 37 estimated from returned token usage; quality PASS; zero human correction.
+- No raw output, Account ID, or token secret is persisted. No additional request is authorized. PR #64 remains open.
+<!-- STUDIO-009V-02-SMOKE-EVIDENCE-CORRECTED-0005B -->
