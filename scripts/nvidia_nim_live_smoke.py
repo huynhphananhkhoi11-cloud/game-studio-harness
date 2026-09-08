@@ -1,0 +1,329 @@
+#!/usr/bin/env python3
+"""Bounded NVIDIA NIM V-03 smoke orchestrator.
+
+Import is offline. execute_smoke can issue at most three sequential requests
+only after accepted Owner preflight, a dedicated session credential lease,
+and durable request reservation.
+"""
+from __future__ import annotations
+
+import copy
+import hashlib
+import json
+import os
+import re
+import tempfile
+from pathlib import Path
+from typing import Any
+
+from scripts import nvidia_nim_live_transport as transport
+from scripts import nvidia_nim_session_credential_bridge as bridge
+
+V_CONTRACT_MERGE = "5a4290419003605ff8ca4b2a85dbe3653f3d22d5"
+P03_CLOSEOUT_MERGE = "eae0b9462bca1c7e3819402219c6225a3f56fb0f"
+PROVIDER_PROFILE_ID = "provider-profile:nvidia-nim-free-deepseek-v4-pro-0813"
+PROVIDER_CHILD_ID = "STUDIO-009P-03"
+MODEL_ID = "deepseek-ai/deepseek-v4-pro-0813"
+HOST = "integrate.api.nvidia.com"
+ACCOUNT_REF = "account-ref:nvidia-developer-program-owner-account"
+
+MAX_REQUESTS = 3
+CONCURRENCY = 1
+RETRY_COUNT = 0
+MONEY_CEILING = 0
+
+PREFLIGHT_FIELDS = {
+    "v_contract_merge", "p03_closeout_merge", "provider_profile_id",
+    "provider_child_id", "model", "host", "account_ref",
+    "free_endpoint_confirmed", "account_free_entitlement_confirmed",
+    "no_billing_method_required_confirmed", "no_purchase_required_confirmed",
+    "revocation_path_confirmed", "internal_testing_terms_confirmed",
+    "no_paid_path_confirmed", "money_ceiling", "max_requests",
+    "concurrency", "retry_count", "kill_switch_armed", "as_of",
+}
+
+PROBES = (
+    {
+        "id": "STRUCTURED_OUTPUT",
+        "estimated_input_tokens": 96,
+        "messages": [{"role": "user", "content":
+            'Synthetic validation. Return JSON only, exactly: {"status":"ok","value":7}'}],
+        "expected": {"status": "ok", "value": 7},
+    },
+    {
+        "id": "BOUNDED_REASONING",
+        "estimated_input_tokens": 128,
+        "messages": [{"role": "user", "content":
+            'Synthetic validation. Return JSON only. For integers [3,1,2], return exactly: {"sorted":[1,2,3],"sum":6}'}],
+        "expected": {"sorted": [1, 2, 3], "sum": 6},
+    },
+    {
+        "id": "SYNTHETIC_CODE_REVIEW",
+        "estimated_input_tokens": 192,
+        "messages": [{"role": "user", "content":
+            'Synthetic validation. A fictional function add(a,b) returns a-b. Return JSON only, exactly: {"bug":"uses subtraction","fix":"return a + b"}'}],
+        "expected": {"bug": "uses subtraction", "fix": "return a + b"},
+    },
+)
+
+SAFE_MESSAGES = {
+    "INVALID_PREFLIGHT": "NVIDIA V-03 preflight metadata is invalid",
+    "LINEAGE_MISMATCH": "NVIDIA V-03 lineage does not match accepted contract",
+    "FREE_ENDPOINT_NOT_CONFIRMED": "NVIDIA Free Endpoint must be confirmed",
+    "FREE_ENTITLEMENT_NOT_CONFIRMED": "NVIDIA account free/trial entitlement must be confirmed",
+    "BILLING_NOT_DENIED": "NVIDIA billing requirement must be explicitly denied",
+    "PURCHASE_NOT_DENIED": "NVIDIA purchase requirement must be explicitly denied",
+    "REVOCATION_NOT_CONFIRMED": "NVIDIA key revocation path must be confirmed",
+    "TERMS_NOT_CONFIRMED": "NVIDIA internal testing/evaluation terms must be confirmed",
+    "PAID_PATH_NOT_DENIED": "NVIDIA paid path must be explicitly denied",
+    "NONZERO_BUDGET": "NVIDIA V-03 requires zero monetary ceiling",
+    "REQUEST_LIMIT": "NVIDIA V-03 request ceiling reached",
+    "REQUEST_RESERVATION": "NVIDIA V-03 durable request reservation is required",
+    "KILL_SWITCH": "NVIDIA V-03 kill switch blocks additional calls",
+    "QUALITY_FAILED": "NVIDIA V-03 fixed smoke quality gate failed",
+    "LEDGER_INVALID": "NVIDIA V-03 campaign ledger is invalid",
+}
+
+class NvidiaNimSmokeError(ValueError):
+    def __init__(self, code: str):
+        self.code = code
+        self.safe_message = SAFE_MESSAGES.get(code, "NVIDIA V-03 smoke rejected")
+        super().__init__(self.safe_message)
+
+def _fail(code: str) -> None:
+    raise NvidiaNimSmokeError(code)
+
+class KillSwitch:
+    def __init__(self, armed: bool = True):
+        self._armed = bool(armed)
+    def revoke(self) -> None:
+        self._armed = False
+    def allows_call(self) -> bool:
+        return self._armed
+
+def validate_preflight(value: Any) -> dict[str, Any]:
+    before = copy.deepcopy(value)
+    if not isinstance(value, dict) or set(value) != PREFLIGHT_FIELDS:
+        _fail("INVALID_PREFLIGHT")
+    if (
+        value["v_contract_merge"] != V_CONTRACT_MERGE
+        or value["p03_closeout_merge"] != P03_CLOSEOUT_MERGE
+        or value["provider_profile_id"] != PROVIDER_PROFILE_ID
+        or value["provider_child_id"] != PROVIDER_CHILD_ID
+        or value["model"] != MODEL_ID
+        or value["host"] != HOST
+        or value["account_ref"] != ACCOUNT_REF
+    ):
+        _fail("LINEAGE_MISMATCH")
+    confirmations = (
+        ("free_endpoint_confirmed", "FREE_ENDPOINT_NOT_CONFIRMED"),
+        ("account_free_entitlement_confirmed", "FREE_ENTITLEMENT_NOT_CONFIRMED"),
+        ("no_billing_method_required_confirmed", "BILLING_NOT_DENIED"),
+        ("no_purchase_required_confirmed", "PURCHASE_NOT_DENIED"),
+        ("revocation_path_confirmed", "REVOCATION_NOT_CONFIRMED"),
+        ("internal_testing_terms_confirmed", "TERMS_NOT_CONFIRMED"),
+        ("no_paid_path_confirmed", "PAID_PATH_NOT_DENIED"),
+    )
+    for field, code in confirmations:
+        if value[field] is not True:
+            _fail(code)
+    if isinstance(value["money_ceiling"], bool) or value["money_ceiling"] != 0:
+        _fail("NONZERO_BUDGET")
+    if isinstance(value["max_requests"], bool) or value["max_requests"] != MAX_REQUESTS:
+        _fail("REQUEST_LIMIT")
+    if isinstance(value["concurrency"], bool) or value["concurrency"] != CONCURRENCY:
+        _fail("INVALID_PREFLIGHT")
+    if isinstance(value["retry_count"], bool) or value["retry_count"] != RETRY_COUNT:
+        _fail("INVALID_PREFLIGHT")
+    if value["kill_switch_armed"] is not True:
+        _fail("KILL_SWITCH")
+    if not isinstance(value["as_of"], str) or not re.fullmatch(
+        r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z", value["as_of"]
+    ):
+        _fail("INVALID_PREFLIGHT")
+    if value != before:
+        _fail("INVALID_PREFLIGHT")
+    return copy.deepcopy(value)
+
+class DurableCampaignLedger:
+    def __init__(self, path: str | Path, campaign_id: str):
+        self.path = Path(path)
+        self.campaign_id = campaign_id
+        if not isinstance(campaign_id, str) or not re.fullmatch(r"campaign:[a-z0-9._-]{3,96}", campaign_id):
+            _fail("LEDGER_INVALID")
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        if not self.path.exists():
+            self._write({
+                "schema_version": "1.0",
+                "campaign_id": campaign_id,
+                "request_count": 0,
+                "reservations": [],
+                "money_ceiling": 0,
+            })
+
+    def _read(self) -> dict[str, Any]:
+        try:
+            value = json.loads(self.path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError, UnicodeDecodeError):
+            _fail("LEDGER_INVALID")
+        if (
+            not isinstance(value, dict)
+            or value.get("schema_version") != "1.0"
+            or value.get("campaign_id") != self.campaign_id
+            or value.get("money_ceiling") != 0
+            or not isinstance(value.get("request_count"), int)
+            or isinstance(value.get("request_count"), bool)
+            or not isinstance(value.get("reservations"), list)
+        ):
+            _fail("LEDGER_INVALID")
+        return value
+
+    def _write(self, value: dict[str, Any]) -> None:
+        raw = json.dumps(value, sort_keys=True, indent=2, ensure_ascii=False).encode("utf-8") + b"\n"
+        fd, temp_name = tempfile.mkstemp(prefix=".v03-ledger-", dir=str(self.path.parent))
+        try:
+            with os.fdopen(fd, "wb") as handle:
+                handle.write(raw)
+                handle.flush()
+                os.fsync(handle.fileno())
+            os.replace(temp_name, self.path)
+        except Exception:
+            try:
+                os.unlink(temp_name)
+            except OSError:
+                pass
+            raise
+
+    def reserve(self, probe_id: str, expected_ordinal: int) -> dict[str, Any]:
+        value = self._read()
+        if value["request_count"] >= MAX_REQUESTS:
+            _fail("REQUEST_LIMIT")
+        if expected_ordinal != value["request_count"] + 1:
+            _fail("REQUEST_RESERVATION")
+        if not isinstance(probe_id, str) or not re.fullmatch(r"[A-Z0-9_]{3,64}", probe_id):
+            _fail("REQUEST_RESERVATION")
+        value["request_count"] = expected_ordinal
+        value["reservations"].append({
+            "request_ordinal": expected_ordinal,
+            "probe_id": probe_id,
+            "reserved_before_network": True,
+        })
+        self._write(value)
+        return {
+            "request_ordinal": expected_ordinal,
+            "reserved_before_network": True,
+            "ledger_campaign_id": self.campaign_id,
+        }
+
+    def snapshot(self) -> dict[str, Any]:
+        return copy.deepcopy(self._read())
+
+def _strict_json_object(content: Any) -> dict[str, Any]:
+    if not isinstance(content, str):
+        _fail("QUALITY_FAILED")
+    def hook(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                _fail("QUALITY_FAILED")
+            result[key] = value
+        return result
+    try:
+        value = json.loads(
+            content,
+            object_pairs_hook=hook,
+            parse_constant=lambda _: _fail("QUALITY_FAILED"),
+        )
+    except NvidiaNimSmokeError:
+        raise
+    except (json.JSONDecodeError, TypeError, ValueError):
+        _fail("QUALITY_FAILED")
+    if not isinstance(value, dict):
+        _fail("QUALITY_FAILED")
+    return value
+
+def _evaluate(probe: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
+    content = result.get("content")
+    if _strict_json_object(content) != probe["expected"]:
+        _fail("QUALITY_FAILED")
+    if result.get("model_identity_verified") is not True or result.get("transport_identity_verified") is not True:
+        _fail("QUALITY_FAILED")
+    return {
+        "probe_id": probe["id"],
+        "quality": "PASS",
+        "content_sha256": "sha256:" + hashlib.sha256(content.encode("utf-8")).hexdigest(),
+        "model": result.get("model"),
+        "finish_reason": result.get("finish_reason"),
+        "usage": copy.deepcopy(result.get("usage", {})),
+        "model_identity_verified": True,
+        "transport_identity_verified": True,
+    }
+
+def execute_smoke(
+    preflight: dict[str, Any],
+    lease: dict[str, Any],
+    *,
+    ledger: DurableCampaignLedger,
+    secret_supplier=None,
+    transport_fn=transport.perform_request,
+    kill_switch: KillSwitch | None = None,
+) -> dict[str, Any]:
+    accepted = validate_preflight(preflight)
+    if not isinstance(ledger, DurableCampaignLedger):
+        _fail("REQUEST_RESERVATION")
+    switch = kill_switch or KillSwitch(True)
+    if not switch.allows_call():
+        _fail("KILL_SWITCH")
+    request_count = 0
+
+    def consume(secret: str):
+        nonlocal request_count
+        records = []
+        for probe in PROBES:
+            if not switch.allows_call():
+                _fail("KILL_SWITCH")
+            if request_count >= MAX_REQUESTS:
+                _fail("REQUEST_LIMIT")
+            expected = request_count + 1
+            reservation = ledger.reserve(probe["id"], expected)
+            if reservation != {
+                "request_ordinal": expected,
+                "reserved_before_network": True,
+                "ledger_campaign_id": ledger.campaign_id,
+            }:
+                _fail("REQUEST_RESERVATION")
+            request_count = expected
+            body = transport.build_request(
+                copy.deepcopy(probe["messages"]),
+                estimated_input_tokens=probe["estimated_input_tokens"],
+                max_tokens=128,
+                response_format={"type": "json_object"},
+            )
+            result = transport_fn(secret, body)
+            records.append(_evaluate(probe, result))
+        return {
+            "status": "SMOKE_PASS",
+            "provider_profile_id": PROVIDER_PROFILE_ID,
+            "provider_child_id": PROVIDER_CHILD_ID,
+            "model": MODEL_ID,
+            "host": HOST,
+            "account_ref": ACCOUNT_REF,
+            "request_count": request_count,
+            "concurrency": CONCURRENCY,
+            "retry_count": RETRY_COUNT,
+            "money_ceiling": MONEY_CEILING,
+            "observed_spend": None,
+            "post_smoke_spend_confirmation_required": True,
+            "credential_revocation_required": True,
+            "quality_pass": True,
+            "human_correction_count": 0,
+            "records": records,
+            "ledger": ledger.snapshot(),
+        }
+
+    return bridge.with_secret(
+        lease,
+        consume,
+        as_of=accepted["as_of"],
+        secret_supplier=secret_supplier,
+    )

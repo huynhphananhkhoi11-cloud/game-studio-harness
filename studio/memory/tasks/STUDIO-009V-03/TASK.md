@@ -22,13 +22,13 @@ cost_class: ZERO_COST_ONLY
 usage_class: INTERNAL_TESTING_EVALUATION_ONLY
 money_ceiling: 0
 
-task_status: CONTRACT_READY_FOR_OWNER_MERGE
+task_status: OFFLINE_LIVE_IMPLEMENTATION_READY_FOR_QA
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: eae0b9462bca1c7e3819402219c6225a3f56fb0f
 p03_implementation_merge: ac04040f40f544d70db10dba975481b7da5930ea
 p03_closeout_merge: eae0b9462bca1c7e3819402219c6225a3f56fb0f
-planned_contract_branch: agent/studio-009v-03-nvidia-nim-contract
-planned_implementation_branch: agent/studio-009v-03-nvidia-nim-live-validation
+contract_branch: agent/studio-009v-03-nvidia-nim-contract
+implementation_branch: agent/studio-009v-03-nvidia-nim-live-validation
 
 provider_input_token_upper_ceiling: 32768
 provider_output_token_upper_ceiling: 16384
@@ -60,5 +60,21 @@ spend: ZERO
 
 full_studio_acceptance_authority: STUDIO-009F
 automatic_routing_authority: STUDIO-009E
-next_gate: OWNER_MERGE_V03_CONTRACT
+next_gate: INDEPENDENT_OFFLINE_QA_V03_IMPLEMENTATION
 <!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
+
+offline_live_implementation_base: 5a4290419003605ff8ca4b2a85dbe3653f3d22d5
+offline_live_implementation_scope_paths: 12
+offline_live_implementation_memory_paths: 4
+offline_live_implementation_cumulative_paths: 16
+offline_live_state: LIVE_VALIDATION_READY
+connected_validation_status: PENDING_REAL_SMOKE
+quality_evaluation_status: PENDING_REAL_SMOKE
+connected_execution_authorized: false
+offline_live_provider_runtime_activity: NONE
+offline_live_network_activity: NONE
+offline_live_credential_runtime_activity: NONE
+offline_live_tool_activity: NONE
+offline_live_routing_activity: NONE
+offline_live_spend: ZERO
+<!-- STUDIO-009V-03-OFFLINE-LIVE-IMPLEMENTATION-CHECKPOINT-0002 -->

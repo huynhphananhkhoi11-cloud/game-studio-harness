@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "status": "PENDING_REAL_SMOKE",
+  "provider_profile_id": "provider-profile:nvidia-nim-free-deepseek-v4-pro-0813",
+  "provider_child_id": "STUDIO-009P-03",
+  "model": "deepseek-ai/deepseek-v4-pro-0813",
+  "probe_count": 0,
+  "expected_probe_count": 3,
+  "human_correction_count": 0,
+  "quality_pass": false,
+  "records": [],
+  "raw_model_output_committed": false
+}
