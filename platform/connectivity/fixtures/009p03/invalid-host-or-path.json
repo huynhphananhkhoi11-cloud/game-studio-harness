@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "transport_profile_id": "transport-profile:nvidia-nim-https-openai-v1",
+  "scheme": "https",
+  "host": "example.invalid",
+  "base_path": "/v1",
+  "canonical_base_url": "https://integrate.api.nvidia.com/v1",
+  "chat_completions_path": "/v1/chat/completions",
+  "accepted_credential_profile_ref": "credential-profile:nvidia-nim-api-key",
+  "accepted_account_ref": "account-ref:nvidia-developer-program-owner-account",
+  "allow_redirects": false,
+  "allowed_protocols": [
+    "HTTPS"
+  ],
+  "network_activation": "NONE_P03_OFFLINE"
+}

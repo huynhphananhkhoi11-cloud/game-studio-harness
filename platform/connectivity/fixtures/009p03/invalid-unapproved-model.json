@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "provider_model_profile_id": "provider-model:nvidia-nim-deepseek-v4-pro-0813",
+  "provider_profile_id": "provider-profile:nvidia-nim-free-deepseek-v4-pro-0813",
+  "provider_profile_digest": "sha256:4c7603b4feb67ae288e5d383a27c4cdf75eb79fc38d0ffe091e8870b05e6eb62",
+  "child_contract_id": "STUDIO-009P-03",
+  "child_contract_digest": "sha256:ccc97af2df709a67c03b5bdb0402f948c111c0ab6df7c86fcd56d4ca84d74bb2",
+  "model_identity_ref": "model-id:other-model",
+  "model_version_policy_ref": "model-policy:exact-deepseek-v4-pro-0813",
+  "allowed_data_classifications": [
+    "PUBLIC"
+  ],
+  "max_request_bytes": 262144,
+  "max_output_bytes": 131072,
+  "owner_approval_ref": "owner-approval:studio-009p-03-contract",
+  "status": "DECLARED",
+  "not_before": "2026-09-08T10:09:56Z",
+  "expires_at": "2027-09-08T10:09:56Z",
+  "as_of": "2026-09-08T10:10:00Z",
+  "canonical_digest": "sha256:d1f382d8530850ed486754a9cfe232d4f5ea20f59da98fecf86942be13ad8f75"
+}

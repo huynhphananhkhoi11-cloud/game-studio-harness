@@ -16,10 +16,9 @@ account_ref_reserved: account-ref:nvidia-developer-program-owner-account
 cost_class: ZERO_COST_ONLY
 usage_class: INTERNAL_TESTING_EVALUATION_ONLY
 money_ceiling: 0
-state: CONTRACT_ACCEPTED
-branch: agent/studio-009p-03-nvidia-nim-contract
-base_head: cbcdd527fc549ccf474667661244e452bdcfc5a5
-contract_merge: NONE
+state: IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
+branch: agent/studio-009p-03-nvidia-nim-implementation
+contract_merge: 11830798fc41c43d517c007fc4adec653d0aaaaf
 provider_runtime_activity: NONE
 network_activity: NONE
 account_runtime_activity: NONE
@@ -30,10 +29,40 @@ remote_mcp_activity: NONE
 routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
-objective: Define NVIDIA-hosted NIM / DeepSeek V4 Pro 0813 provider child contract without activating a real connection.
-completion_boundary: Contract PR only. Offline implementation is forbidden until merge. Real NVIDIA activity requires separately merged STUDIO-009V-03.
-selected_after_v02_closeout: true
+objective: Deterministically implement the NVIDIA NIM provider child offline/synthetically without activating a real connection.
+completion_boundary: Implementation PR only. Real NVIDIA activity requires separately merged STUDIO-009V-03.
 p04_poolside_authority: NONE
 p05_opencode_authority: NONE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 contract_checkpoint: STUDIO-009P-03-CONTRACT-CHECKPOINT-0001
+implementation_checkpoint: STUDIO-009P-03-IMPLEMENTATION-CHECKPOINT-0002
+
+qa_result: PASS
+qa_reviewed_head: a06a737fb32bb3dc195a871fa1580a33bd31c09a
+qa_blockers: 0
+qa_new_nvidia_tests: 64
+qa_focused_tests: 548
+qa_total_tests: 1053
+qa_probes: 66
+qa_provider_runtime_activity: NONE
+qa_network_activity: NONE
+qa_credential_runtime_activity: NONE
+qa_tool_execution_activity: NONE
+qa_routing_activity: NONE
+qa_spend: ZERO
+<!-- STUDIO-009P-03-QA-CHECKPOINT-0003 -->
+
+review_result: APPROVE
+reviewed_qa_head: b81f52e1ee31aa566c81e69fc343d686652b2b98
+review_blockers: 0
+review_new_nvidia_tests: 64
+review_focused_tests: 548
+review_total_tests: 1053
+review_probes: 113
+review_provider_runtime_activity: NONE
+review_network_activity: NONE
+review_credential_runtime_activity: NONE
+review_tool_execution_activity: NONE
+review_routing_activity: NONE
+review_spend: ZERO
+<!-- STUDIO-009P-03-REVIEW-CHECKPOINT-0004 -->
