@@ -133,3 +133,18 @@ Poolside P/V-04 and OpenCode P/V-05 remain future planning tracks with no author
 
 Next gate: separate Studio Owner merge of the P-03 contract Pull Request.
 <!-- STUDIO-009P-03-CONTRACT-CHECKPOINT-0001 -->
+
+## STUDIO-009V-03 NVIDIA NIM connected-validation contract checkpoint
+
+STUDIO-009P-03 NVIDIA NIM is durably COMPLETE through implementation merge `ac04040f40f544d70db10dba975481b7da5930ea` and closeout merge `eae0b9462bca1c7e3819402219c6225a3f56fb0f`. Exact model remains `deepseek-ai/deepseek-v4-pro-0813`; connected provider, credential, tool and routing authority remain NONE and spend remains zero.
+
+STUDIO-009V-03 is now the provider-specific connected-validation contract track for the completed NVIDIA P-03 child.
+
+The V-03 contract may authorize only a later bounded NVIDIA-hosted Free Endpoint validation with promotion ceiling `LIVE_VALIDATED`: maximum three PUBLIC/SYNTHETIC real requests, concurrency 1, retry 0, first-campaign input estimate <=4096 tokens/request, requested output <=512 tokens/request, no tools, no partner endpoint, no production use and money ceiling zero.
+
+The contract PR itself authorizes no NVIDIA API-key creation/input, no private account probing, no NVIDIA/DeepSeek/model/network call, no real trial request/Credit consumption, no routing/worker promotion and no spend.
+
+Automatic routing/failover remains STUDIO-009E authority. Full connected studio acceptance remains STUDIO-009F.
+
+Next gate: separate Studio Owner merge of the V-03 contract Pull Request.
+<!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
