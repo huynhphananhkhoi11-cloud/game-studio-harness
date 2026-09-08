@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "budget_policy_id": "budget-policy:nvidia-nim-zero",
+  "currency": "USD",
+  "money_ceiling": 0,
+  "zero_cost_trial_required": true,
+  "paid_subscription_allowed": false,
+  "auto_recharge_allowed": false,
+  "paid_fallback_allowed": false,
+  "partner_paid_endpoint_allowed": false,
+  "production_use_under_trial_allowed": false
+}

@@ -16,10 +16,9 @@ account_ref_reserved: account-ref:nvidia-developer-program-owner-account
 cost_class: ZERO_COST_ONLY
 usage_class: INTERNAL_TESTING_EVALUATION_ONLY
 money_ceiling: 0
-state: CONTRACT_ACCEPTED
-branch: agent/studio-009p-03-nvidia-nim-contract
-base_head: cbcdd527fc549ccf474667661244e452bdcfc5a5
-contract_merge: NONE
+state: IMPLEMENTATION_READY_FOR_QA
+branch: agent/studio-009p-03-nvidia-nim-implementation
+contract_merge: 11830798fc41c43d517c007fc4adec653d0aaaaf
 provider_runtime_activity: NONE
 network_activity: NONE
 account_runtime_activity: NONE
@@ -30,10 +29,10 @@ remote_mcp_activity: NONE
 routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
-objective: Define NVIDIA-hosted NIM / DeepSeek V4 Pro 0813 provider child contract without activating a real connection.
-completion_boundary: Contract PR only. Offline implementation is forbidden until merge. Real NVIDIA activity requires separately merged STUDIO-009V-03.
-selected_after_v02_closeout: true
+objective: Deterministically implement the NVIDIA NIM provider child offline/synthetically without activating a real connection.
+completion_boundary: Implementation PR only. Real NVIDIA activity requires separately merged STUDIO-009V-03.
 p04_poolside_authority: NONE
 p05_opencode_authority: NONE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 contract_checkpoint: STUDIO-009P-03-CONTRACT-CHECKPOINT-0001
+implementation_checkpoint: STUDIO-009P-03-IMPLEMENTATION-CHECKPOINT-0002

@@ -34,3 +34,30 @@ tool_activity: NONE
 billable_spend_usd: 0
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 <!-- STUDIO-009P-03-CONTRACT-CHECKPOINT-0001 -->
+
+## Offline implementation
+
+- Contract PR #67 durable merge: 11830798fc41c43d517c007fc4adec653d0aaaaf.
+- Implementation branch: agent/studio-009p-03-nvidia-nim-implementation.
+- Exact implementation scope: 20 implementation paths plus four P-03 memory paths.
+- Provider profile remains DISABLED.
+- Model profile remains DECLARED.
+- Child evidence remains SYNTHETIC.
+- Exact model: deepseek-ai/deepseek-v4-pro-0813.
+- Future transport metadata: https://integrate.api.nvidia.com/v1 and /v1/chat/completions.
+- Data boundary: PUBLIC/synthetic only.
+- Dynamic trial entitlement is not converted into permanent RPM/RPD.
+- Future V-03 ceiling remains max 3 real requests, concurrency 1, retry 0; this implementation performs zero real requests.
+- Tools, browser/MCP/code execution/file search/URL context/routing remain unauthorized.
+- No NVIDIA account/API key was created, resolved, read, stored, or used.
+- Provider/network/account/credential/tool/routing activity: NONE.
+- Billable spend: USD 0.
+- Next gate: independent implementation QA.
+
+provider_calls: 0
+nvidia_network_activity: NONE
+nvidia_api_key_input_activity: NONE
+routing_activity: NONE
+tool_activity: NONE
+billable_spend_usd: 0
+<!-- STUDIO-009P-03-IMPLEMENTATION-CHECKPOINT-0002 -->
