@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009P-03
-state: IMPLEMENTATION_READY_FOR_QA
+state: IMPLEMENTATION_QA_PASS_PENDING_REVIEW
 logical_role: Platform Studio / Provider Integration Cell
 repository_context: game-studio-harness
 branch: agent/studio-009p-03-nvidia-nim-implementation
@@ -45,8 +45,8 @@ remaining: |
   - P/V-04 Poolside and P/V-05 OpenCode remain planning-only.
 blockers: |
   - NONE
-exact_next_action: Independent QA reviews the P-03 implementation PR. Do not create/use an NVIDIA API key and do not call NVIDIA/DeepSeek under P-03.
-next_phase: STUDIO-009P-03_IMPLEMENTATION_QA
+exact_next_action: Independent Review/Integration reviews the QA-approved P-03 implementation PR. Do not merge and do not call NVIDIA/DeepSeek yet.
+next_phase: STUDIO-009P-03_IMPLEMENTATION_REVIEW
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 implementation_contract_merge: 11830798fc41c43d517c007fc4adec653d0aaaaf
 implementation_scope_paths: 20
@@ -66,3 +66,22 @@ implementation_connected_execution_activity: NONE
 implementation_spend: ZERO
 <!-- STUDIO-009P-03-CONTRACT-CHECKPOINT-0001 -->
 <!-- STUDIO-009P-03-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+qa_result: PASS
+qa_reviewed_head: a06a737fb32bb3dc195a871fa1580a33bd31c09a
+qa_blockers: 0
+qa_new_nvidia_tests: 64
+qa_focused_tests: 548
+qa_total_tests: 1053
+qa_probes: 66
+qa_provider_runtime_activity: NONE
+qa_network_activity: NONE
+qa_account_runtime_activity: NONE
+qa_credential_runtime_activity: NONE
+qa_secret_store_activity: NONE
+qa_tool_execution_activity: NONE
+qa_remote_mcp_activity: NONE
+qa_routing_activity: NONE
+qa_connected_execution_activity: NONE
+qa_spend: ZERO
+<!-- STUDIO-009P-03-QA-CHECKPOINT-0003 -->

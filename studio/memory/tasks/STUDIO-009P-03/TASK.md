@@ -16,7 +16,7 @@ account_ref_reserved: account-ref:nvidia-developer-program-owner-account
 cost_class: ZERO_COST_ONLY
 usage_class: INTERNAL_TESTING_EVALUATION_ONLY
 money_ceiling: 0
-state: IMPLEMENTATION_READY_FOR_QA
+state: IMPLEMENTATION_QA_PASS_PENDING_REVIEW
 branch: agent/studio-009p-03-nvidia-nim-implementation
 contract_merge: 11830798fc41c43d517c007fc4adec653d0aaaaf
 provider_runtime_activity: NONE
@@ -36,3 +36,18 @@ p05_opencode_authority: NONE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 contract_checkpoint: STUDIO-009P-03-CONTRACT-CHECKPOINT-0001
 implementation_checkpoint: STUDIO-009P-03-IMPLEMENTATION-CHECKPOINT-0002
+
+qa_result: PASS
+qa_reviewed_head: a06a737fb32bb3dc195a871fa1580a33bd31c09a
+qa_blockers: 0
+qa_new_nvidia_tests: 64
+qa_focused_tests: 548
+qa_total_tests: 1053
+qa_probes: 66
+qa_provider_runtime_activity: NONE
+qa_network_activity: NONE
+qa_credential_runtime_activity: NONE
+qa_tool_execution_activity: NONE
+qa_routing_activity: NONE
+qa_spend: ZERO
+<!-- STUDIO-009P-03-QA-CHECKPOINT-0003 -->
