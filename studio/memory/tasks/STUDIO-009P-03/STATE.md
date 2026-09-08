@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009P-03
-state: IMPLEMENTATION_QA_PASS_PENDING_REVIEW
+state: IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
 logical_role: Platform Studio / Provider Integration Cell
 repository_context: game-studio-harness
 branch: agent/studio-009p-03-nvidia-nim-implementation
@@ -38,15 +38,15 @@ completed: |
   - Deterministic synthetic adapter and fail-closed policy fixtures/tests were materialized.
   - Implementation scope remains 20 implementation paths plus four memory paths.
 remaining: |
-  - Independent QA of the implementation PR.
-  - Independent Review/Integration approval after QA.
+  - Independent QA completed with PASS.
+  - Independent Review/Integration completed with APPROVE.
   - Owner merge and implementation closeout after zero blockers.
   - Only after durable P-03 offline completion: separate STUDIO-009V-03 contract.
   - P/V-04 Poolside and P/V-05 OpenCode remain planning-only.
 blockers: |
   - NONE
-exact_next_action: Independent Review/Integration reviews the QA-approved P-03 implementation PR. Do not merge and do not call NVIDIA/DeepSeek yet.
-next_phase: STUDIO-009P-03_IMPLEMENTATION_REVIEW
+exact_next_action: Owner may merge PR #68 only after GitHub Rules CI succeeds on the review head. Continue to prohibit NVIDIA/DeepSeek calls until separate V-03 authority.
+next_phase: STUDIO-009P-03_OWNER_MERGE_GATE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 implementation_contract_merge: 11830798fc41c43d517c007fc4adec653d0aaaaf
 implementation_scope_paths: 20
@@ -85,3 +85,22 @@ qa_routing_activity: NONE
 qa_connected_execution_activity: NONE
 qa_spend: ZERO
 <!-- STUDIO-009P-03-QA-CHECKPOINT-0003 -->
+
+review_result: APPROVE
+reviewed_qa_head: b81f52e1ee31aa566c81e69fc343d686652b2b98
+review_blockers: 0
+review_new_nvidia_tests: 64
+review_focused_tests: 548
+review_total_tests: 1053
+review_probes: 113
+review_provider_runtime_activity: NONE
+review_network_activity: NONE
+review_account_runtime_activity: NONE
+review_credential_runtime_activity: NONE
+review_secret_store_activity: NONE
+review_tool_execution_activity: NONE
+review_remote_mcp_activity: NONE
+review_routing_activity: NONE
+review_connected_execution_activity: NONE
+review_spend: ZERO
+<!-- STUDIO-009P-03-REVIEW-CHECKPOINT-0004 -->
