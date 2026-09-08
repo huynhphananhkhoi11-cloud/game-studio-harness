@@ -1,0 +1,64 @@
+# STUDIO-009V-03 TASK
+
+memory_schema_version: 1
+
+task_id: STUDIO-009V-03
+task_title: NVIDIA NIM / DeepSeek V4 Pro 0813 bounded connected validation
+task_type: provider-specific connected-validation contract and later implementation
+canonical_task_contract: tasks/STUDIO-009V-03.md
+implementation_contract: tasks/STUDIO-009V-03-IMPLEMENTATION.md
+parent_task: STUDIO-009
+provider_parent: STUDIO-009P-03
+live_governance_parent: STUDIO-009R-01
+logical_role: Platform Studio / Connected Validation Cell
+
+provider: NVIDIA-hosted NIM API Catalog
+provider_profile_id: provider-profile:nvidia-nim-free-deepseek-v4-pro-0813
+provider_child_id: STUDIO-009P-03
+model_allowlist: deepseek-ai/deepseek-v4-pro-0813
+credential_profile_ref: credential-profile:nvidia-nim-api-key
+account_ref: account-ref:nvidia-developer-program-owner-account
+cost_class: ZERO_COST_ONLY
+usage_class: INTERNAL_TESTING_EVALUATION_ONLY
+money_ceiling: 0
+
+task_status: CONTRACT_READY_FOR_OWNER_MERGE
+contract_record_semantics: EFFECTIVE_WHEN_MERGED
+base_head: eae0b9462bca1c7e3819402219c6225a3f56fb0f
+p03_implementation_merge: ac04040f40f544d70db10dba975481b7da5930ea
+p03_closeout_merge: eae0b9462bca1c7e3819402219c6225a3f56fb0f
+planned_contract_branch: agent/studio-009v-03-nvidia-nim-contract
+planned_implementation_branch: agent/studio-009v-03-nvidia-nim-live-validation
+
+provider_input_token_upper_ceiling: 32768
+provider_output_token_upper_ceiling: 16384
+first_campaign_input_token_ceiling: 4096
+first_campaign_completion_token_ceiling: 512
+real_request_ceiling: 3
+concurrency_ceiling: 1
+automatic_retry_ceiling: 0
+request_timeout_seconds_ceiling: 60
+request_bytes_ceiling: 32768
+response_bytes_ceiling: 131072
+allowed_data_classifications: PUBLIC,SYNTHETIC
+promotion_ceiling: LIVE_VALIDATED
+routing_authority: NONE
+worker_authority: NONE
+tool_authority: NONE
+production_authority: NONE
+money_ceiling_currency: USD
+
+provider_runtime_activity: NONE
+network_activity: NONE
+account_runtime_activity: NONE
+credential_runtime_activity: NONE
+secret_store_activity: NONE
+tool_execution_activity: NONE
+routing_activity: NONE
+connected_execution_activity: NONE
+spend: ZERO
+
+full_studio_acceptance_authority: STUDIO-009F
+automatic_routing_authority: STUDIO-009E
+next_gate: OWNER_MERGE_V03_CONTRACT
+<!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
