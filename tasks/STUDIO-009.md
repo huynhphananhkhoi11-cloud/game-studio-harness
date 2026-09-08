@@ -117,3 +117,19 @@ V-02 therefore authorizes a dedicated Cloudflare session credential bridge and d
 No Cloudflare/account/token/network/model activity is authorized by this correction.
 
 <!-- STUDIO-009V-02-CREDENTIAL-BRIDGE-CORRECTION-0001A -->
+## STUDIO-009P-03 NVIDIA NIM provider-child contract checkpoint
+
+STUDIO-009V-02 Cloudflare connected validation is durably COMPLETE through closeout merge cbcdd527fc549ccf474667661244e452bdcfc5a5; worker/routing/AI-Gateway authority remains NONE and spend remains zero.
+
+The V-02 closeout resumes at STUDIO-009P-03_PROVIDER_ONBOARDING_PLANNING and selected no provider itself.
+
+The Studio Owner has selected NVIDIA-hosted NIM as the third provider-child contract track, exact candidate model deepseek-ai/deepseek-v4-pro-0813.
+
+P-03 is specification-only: no NVIDIA account/API-key/network/model/tool/routing/worker/production-use authority; money ceiling zero; PUBLIC/synthetic only.
+
+Only after durable P-03 contract merge may bounded offline/synthetic implementation be created. Real NVIDIA validation requires separately accepted STUDIO-009V-03. Automatic routing/failover remains STUDIO-009E and full connected acceptance remains STUDIO-009F.
+
+Poolside P/V-04 and OpenCode P/V-05 remain future planning tracks with no authority from P-03.
+
+Next gate: separate Studio Owner merge of the P-03 contract Pull Request.
+<!-- STUDIO-009P-03-CONTRACT-CHECKPOINT-0001 -->
