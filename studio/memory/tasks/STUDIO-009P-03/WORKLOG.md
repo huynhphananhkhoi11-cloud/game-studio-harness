@@ -13,7 +13,7 @@ task_id: STUDIO-009P-03
 - Exact model: deepseek-ai/deepseek-v4-pro-0813.
 - Provider profile: provider-profile:nvidia-nim-free-deepseek-v4-pro-0813.
 - Credential lineage: credential-profile:nvidia-nim-api-key.
-- Account ref: ccount-ref:nvidia-developer-program-owner-account.
+- Account ref: account-ref:nvidia-developer-program-owner-account.
 - Cost: ZERO_COST_ONLY; money ceiling 0 USD.
 - Usage: INTERNAL_TESTING_EVALUATION_ONLY.
 - Current exact model page reports Free Endpoint Available, 1M context and coding/reasoning/agentic use.
