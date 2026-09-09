@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "quota_policy_id": "quota-policy:poolside-free-limited-dynamic",
+  "provider_snapshot": {
+    "availability": "FREE_FOR_LIMITED_TIME_DYNAMIC",
+    "permanent_rpm": null,
+    "permanent_rpd": null,
+    "free_window_expiry": null,
+    "account_level_zero_cost_required": true
+  },
+  "future_v04_limits": {
+    "max_real_requests": 3,
+    "max_concurrency": 1,
+    "max_retries": 0,
+    "timeout_seconds": 60,
+    "max_input_tokens": 4096,
+    "max_output_tokens": 1024,
+    "max_request_bytes": 32768,
+    "max_response_bytes": 131072,
+    "streaming": false,
+    "tools": false,
+    "mcp": false,
+    "acp": false
+  },
+  "free_eligibility_must_be_reverified": true,
+  "billing_path_allowed": false,
+  "payment_method_requirement_allowed": false,
+  "automatic_quota_increase_allowed": false,
+  "on_unproven": "FAIL_CLOSED"
+}

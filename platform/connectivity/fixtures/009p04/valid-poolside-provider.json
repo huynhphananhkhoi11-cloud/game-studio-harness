@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "provider_profile_id": "provider-profile:poolside-direct-laguna-s-2.1",
+  "provider_identity_ref": "provider-id:poolside-standalone-inference",
+  "transport_profile_ref": "transport-profile:poolside-direct-https-openai-v1",
+  "credential_profile_ref": "credential-profile:poolside-api-key",
+  "data_policy_ref": "data-policy:poolside-public-synthetic-training-risk",
+  "allowed_data_classifications": [
+    "PUBLIC"
+  ],
+  "allowed_capabilities": [
+    "REASONING",
+    "TEXT_GENERATION"
+  ],
+  "quota_policy_ref": "quota-policy:poolside-free-limited-dynamic",
+  "budget_policy_ref": "budget-policy:poolside-zero",
+  "money_ceiling": 0,
+  "kill_switch_ref": "kill-switch:studio-owner-poolside",
+  "incident_response_ref": "incident:poolside-provider",
+  "rollback_ref": "rollback:manual-fake",
+  "owner_approval_ref": "owner-approval:studio-009p-04-contract",
+  "status": "DISABLED",
+  "not_before": "2026-09-09T05:32:06Z",
+  "expires_at": "2027-09-09T05:32:06Z",
+  "as_of": "2026-09-09T05:32:10Z",
+  "canonical_digest": "sha256:2b10c6515c272c61a33193a2607cd198433fdaa8a5abd018ad2cc215e829a0ca"
+}

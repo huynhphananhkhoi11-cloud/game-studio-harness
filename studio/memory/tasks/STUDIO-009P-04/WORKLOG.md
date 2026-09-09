@@ -21,3 +21,19 @@ task_id: STUDIO-009P-04
 - Next gate: Owner contract review and merge.
 
 <!-- STUDIO-009P-04-CONTRACT-CHECKPOINT-0001 -->
+
+## Offline implementation
+
+- P-04 contract is durably merged at `99b852677c8c41114b52eefdad70760b63c0ceda`.
+- Materialized exactly 20 authorized implementation paths plus four existing P-04 memory paths.
+- Provider profile state: `DISABLED`.
+- Model profile state: `DECLARED`.
+- Child evidence class: `SYNTHETIC`.
+- Exact direct identity remains `poolside/laguna-s-2.1` at `https://inference.poolside.ai/v1`; no connection is made.
+- Added 100 Poolside offline tests.
+- Retained provider/connectivity focused suite: 762 tests PASS.
+- Full repository suite: 1267 tests PASS.
+- No Poolside account/API-key/provider/network/model/CLI/tool/MCP/ACP/routing activity; spend USD 0.
+- Next gate: Rules CI then independent offline QA on the immutable implementation head.
+
+<!-- STUDIO-009P-04-IMPLEMENTATION-CHECKPOINT-0002 -->
