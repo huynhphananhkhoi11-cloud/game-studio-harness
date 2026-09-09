@@ -3,12 +3,12 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-03
-state: CONTRACT_READY_FOR_OWNER_MERGE
+state: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
-branch: agent/studio-009v-03-nvidia-nim-contract
+branch: agent/studio-009v-03-nvidia-nim-live-validation
 base_head: eae0b9462bca1c7e3819402219c6225a3f56fb0f
-durability_state: PR_PENDING
+durability_state: OFFLINE_LIVE_IMPLEMENTATION_PR_PENDING
 
 provider: NVIDIA-hosted NIM API Catalog
 provider_profile_id: provider-profile:nvidia-nim-free-deepseek-v4-pro-0813
@@ -32,10 +32,10 @@ completed: |
   - Defined bounded V-03 contract and future 22-path implementation scope.
 
 remaining: |
-  - Studio Owner reviews and may merge the V-03 contract PR.
-  - No NVIDIA API key is created/requested/input before durable contract merge and later offline implementation/preflight.
-  - After contract merge, prepare offline live transport/smoke/credential-bridge code and hostile tests.
-  - Only then may separate Owner connected preflight authorize a bounded real smoke.
+  - Independent offline QA reviews repaired immutable implementation evidence.
+  - Independent Review/Integration follows only after QA PASS.
+  - Owner merge follows only after zero blockers and Rules CI success.
+  - Separate Owner connected preflight may occur only after durable implementation merge.
 
 blockers: |
   - NONE
@@ -50,6 +50,79 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Studio Owner reviews and may merge the STUDIO-009V-03 contract Pull Request. Do not create/input an NVIDIA API key and do not call NVIDIA before the contract is durable and the later offline live implementation passes its gates.
-next_phase: STUDIO-009V-03_OWNER_MERGE_CONTRACT
+exact_next_action: Wait for Rules CI on the immutable offline Review/Integration head. If CI succeeds and PR #71 remains mergeable with zero blockers, Studio Owner may merge using Create a merge commit. Do not create/input an NVIDIA API key and do not call NVIDIA before durable merge.
+next_phase: STUDIO-009V-03_OWNER_MERGE_OFFLINE_IMPLEMENTATION_AFTER_RULES_CI
 <!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
+
+v_contract_merge: 5a4290419003605ff8ca4b2a85dbe3653f3d22d5
+offline_live_state: LIVE_VALIDATION_READY
+connected_validation_status: PENDING_REAL_SMOKE
+quality_evaluation_status: PENDING_REAL_SMOKE
+connected_execution_authorized: false
+offline_live_scope_paths: 12
+offline_live_memory_paths: 4
+offline_live_cumulative_paths: 16
+offline_live_provider_runtime_activity: NONE
+offline_live_network_activity: NONE
+offline_live_account_runtime_activity: NONE
+offline_live_credential_runtime_activity: NONE
+offline_live_secret_store_activity: NONE
+offline_live_tool_execution_activity: NONE
+offline_live_routing_activity: NONE
+offline_live_connected_execution_activity: NONE
+offline_live_spend: ZERO
+<!-- STUDIO-009V-03-OFFLINE-LIVE-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+pre_qa_reviewed_head: 38b7768ab07fb9f3248dcf04d2345f96442af810
+pre_qa_repair_result: PASS
+pre_qa_repair_items: OWNER_INTERACTIVE_ONLY_CREDENTIAL;NO_FAKE_TRANSPORT_IN_LIVE_API;CAMPAIGN_LOCK_AND_LEDGER_INTEGRITY;PREFLIGHT_FRESHNESS;UNDOCUMENTED_RESPONSE_FORMAT_REMOVED;HOSTILE_TEST_COVERAGE
+new_v03_tests: 114
+nvidia_implementation_tests: 154
+pre_qa_repair_probes: 138
+pre_qa_live_framework_tests: 70
+pre_qa_focused_tests: 662
+pre_qa_total_tests: 1167
+pre_qa_provider_runtime_activity: NONE
+pre_qa_network_activity: NONE
+pre_qa_credential_runtime_activity: NONE
+pre_qa_tool_execution_activity: NONE
+pre_qa_routing_activity: NONE
+pre_qa_connected_execution_activity: NONE
+pre_qa_spend: ZERO
+<!-- STUDIO-009V-03-PRE-QA-REPAIR-CHECKPOINT-0003 -->
+
+offline_qa_ref: qa:offline-nvidia-v03-f8a94f04fa22
+offline_qa_reviewed_head: f8a94f04fa22d78ef1f45868925cbec11730de35
+offline_qa_result: PASS
+offline_qa_blockers: 0
+offline_qa_independent_probes: 88
+offline_qa_nvidia_tests: 154
+offline_qa_live_framework_tests: 70
+offline_qa_focused_tests: 662
+offline_qa_total_tests: 1167
+offline_qa_provider_calls: 0
+offline_qa_nvidia_network_activity: NONE
+offline_qa_api_key_activity: NONE
+offline_qa_tool_activity: NONE
+offline_qa_routing_activity: NONE
+offline_qa_billable_spend_usd: 0
+<!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-QA-CHECKPOINT-0004 -->
+
+offline_review_ref: review:offline-nvidia-v03-64998491486f
+offline_review_reviewed_qa_head: 64998491486fabbf72dbea24ed89340ccba0ccb8
+offline_review_result: APPROVE
+offline_review_blockers: 0
+offline_review_independent_probes: 130
+offline_review_qa_lineage_probes: 38
+offline_review_hygiene_probes: 32
+offline_review_nvidia_tests: 154
+offline_review_live_framework_tests: 70
+offline_review_focused_tests: 662
+offline_review_total_tests: 1167
+offline_review_provider_calls: 0
+offline_review_nvidia_network_activity: NONE
+offline_review_api_key_activity: NONE
+offline_review_tool_activity: NONE
+offline_review_routing_activity: NONE
+offline_review_billable_spend_usd: 0
+<!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-REVIEW-CHECKPOINT-0005 -->

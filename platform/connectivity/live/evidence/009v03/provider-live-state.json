@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "live_state_id": "provider-live-state:nvidia-nim-v03",
+  "provider_profile_id": "provider-profile:nvidia-nim-free-deepseek-v4-pro-0813",
+  "provider_child_id": "STUDIO-009P-03",
+  "offline_merge_ref": "git-merge:eae0b9462bca1c7e3819402219c6225a3f56fb0f",
+  "offline_qa_ref": "qa:b81f52e1ee31aa566c81e69fc343d686652b2b98",
+  "offline_review_ref": "review:b8e19364e8795acc7edf750c5c6d3ca3b345841a",
+  "offline_owner_merge_ref": "owner-merge:ac04040f40f544d70db10dba975481b7da5930ea",
+  "v_contract_ref": "v-contract:STUDIO-009V-03",
+  "connected_validation_ref": null,
+  "routing_authority_ref": null,
+  "state": "LIVE_VALIDATION_READY",
+  "allowed_data_classifications": [
+    "PUBLIC"
+  ],
+  "money_ceiling": 0,
+  "paused_at": null,
+  "revoked_at": null,
+  "as_of": "2026-09-08T16:53:46Z",
+  "canonical_digest": "sha256:9be1bf51e829346d9f0654bc254a0f47cd009ea248de4aa4a8453ceed1bd926d"
+}

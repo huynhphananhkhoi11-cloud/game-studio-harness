@@ -22,13 +22,13 @@ cost_class: ZERO_COST_ONLY
 usage_class: INTERNAL_TESTING_EVALUATION_ONLY
 money_ceiling: 0
 
-task_status: CONTRACT_READY_FOR_OWNER_MERGE
+task_status: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: eae0b9462bca1c7e3819402219c6225a3f56fb0f
 p03_implementation_merge: ac04040f40f544d70db10dba975481b7da5930ea
 p03_closeout_merge: eae0b9462bca1c7e3819402219c6225a3f56fb0f
-planned_contract_branch: agent/studio-009v-03-nvidia-nim-contract
-planned_implementation_branch: agent/studio-009v-03-nvidia-nim-live-validation
+contract_branch: agent/studio-009v-03-nvidia-nim-contract
+implementation_branch: agent/studio-009v-03-nvidia-nim-live-validation
 
 provider_input_token_upper_ceiling: 32768
 provider_output_token_upper_ceiling: 16384
@@ -60,5 +60,73 @@ spend: ZERO
 
 full_studio_acceptance_authority: STUDIO-009F
 automatic_routing_authority: STUDIO-009E
-next_gate: OWNER_MERGE_V03_CONTRACT
+next_gate: RULES_CI_THEN_OWNER_MERGE_V03_IMPLEMENTATION
 <!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
+
+offline_live_implementation_base: 5a4290419003605ff8ca4b2a85dbe3653f3d22d5
+offline_live_implementation_scope_paths: 12
+offline_live_implementation_memory_paths: 4
+offline_live_implementation_cumulative_paths: 16
+offline_live_state: LIVE_VALIDATION_READY
+connected_validation_status: PENDING_REAL_SMOKE
+quality_evaluation_status: PENDING_REAL_SMOKE
+connected_execution_authorized: false
+offline_live_provider_runtime_activity: NONE
+offline_live_network_activity: NONE
+offline_live_credential_runtime_activity: NONE
+offline_live_tool_activity: NONE
+offline_live_routing_activity: NONE
+offline_live_spend: ZERO
+<!-- STUDIO-009V-03-OFFLINE-LIVE-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+pre_qa_reviewed_head: 38b7768ab07fb9f3248dcf04d2345f96442af810
+pre_qa_repair_result: PASS
+new_v03_tests: 114
+nvidia_implementation_tests: 154
+pre_qa_repair_probes: 138
+pre_qa_live_framework_tests: 70
+pre_qa_focused_tests: 662
+pre_qa_total_tests: 1167
+pre_qa_connected_execution_authorized: false
+pre_qa_network_activity: NONE
+pre_qa_credential_activity: NONE
+pre_qa_tool_activity: NONE
+pre_qa_routing_activity: NONE
+pre_qa_spend: ZERO
+<!-- STUDIO-009V-03-PRE-QA-REPAIR-CHECKPOINT-0003 -->
+
+offline_qa_ref: qa:offline-nvidia-v03-f8a94f04fa22
+offline_qa_reviewed_head: f8a94f04fa22d78ef1f45868925cbec11730de35
+offline_qa_result: PASS
+offline_qa_blockers: 0
+offline_qa_independent_probes: 88
+offline_qa_nvidia_tests: 154
+offline_qa_live_framework_tests: 70
+offline_qa_focused_tests: 662
+offline_qa_total_tests: 1167
+offline_qa_provider_calls: 0
+offline_qa_nvidia_network_activity: NONE
+offline_qa_api_key_activity: NONE
+offline_qa_tool_activity: NONE
+offline_qa_routing_activity: NONE
+offline_qa_billable_spend_usd: 0
+<!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-QA-CHECKPOINT-0004 -->
+
+offline_review_ref: review:offline-nvidia-v03-64998491486f
+offline_review_reviewed_qa_head: 64998491486fabbf72dbea24ed89340ccba0ccb8
+offline_review_result: APPROVE
+offline_review_blockers: 0
+offline_review_independent_probes: 130
+offline_review_qa_lineage_probes: 38
+offline_review_hygiene_probes: 32
+offline_review_nvidia_tests: 154
+offline_review_live_framework_tests: 70
+offline_review_focused_tests: 662
+offline_review_total_tests: 1167
+offline_review_provider_calls: 0
+offline_review_nvidia_network_activity: NONE
+offline_review_api_key_activity: NONE
+offline_review_tool_activity: NONE
+offline_review_routing_activity: NONE
+offline_review_billable_spend_usd: 0
+<!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-REVIEW-CHECKPOINT-0005 -->
