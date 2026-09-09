@@ -3,12 +3,12 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009P-04
-state: CONTRACT_ACCEPTED
+state: OFFLINE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
 logical_role: Platform Studio / Provider Integration Cell
 repository_context: game-studio-harness
-branch: agent/studio-009p-04-poolside-laguna-s-contract
-last_observed_HEAD: 324fb3622f9037b5be8b4b4efead26ee43b50849
-durability_state: PR_PENDING
+branch: agent/studio-009p-04-poolside-laguna-s-implementation
+last_observed_HEAD: 99b852677c8c41114b52eefdad70760b63c0ceda
+durability_state: IMPLEMENTATION_PR_PENDING
 provider: Poolside standalone hosted inference API
 provider_profile_id: provider-profile:poolside-direct-laguna-s-2.1
 model_allowlist: poolside/laguna-s-2.1
@@ -44,14 +44,81 @@ completed: |
   - Official model/API/terms/CLI evidence captured in P-04 contract.
   - Direct Poolside standalone endpoint is separated from third-party gateways and Poolside enterprise deployments.
 remaining: |
-  - Owner reviews and may merge P-04 contract PR.
-  - After merge only: bounded offline/synthetic P-04 implementation.
-  - QA, Review, Owner implementation merge and closeout remain required.
+  - Independent QA completed with PASS.
+  - Independent Review/Integration completed with APPROVE.
+  - Owner implementation merge and closeout remain required.
   - After durable P-04 offline completion: separate V-04 contract.
   - P-05 OpenCode remains planning/read-only only.
 blockers: |
   - NONE
-exact_next_action: Owner reviews and may merge P-04 contract PR. Do not create/use a Poolside API key for GAME, install/use pool CLI, or call Poolside/Laguna under P-04.
-next_phase: STUDIO-009P-04_IMPLEMENTATION_ONLY_AFTER_CONTRACT_MERGE
+exact_next_action: Owner may merge PR #74 only after GitHub Rules CI succeeds on the review head and no new blockers appear. Poolside connected activity remains prohibited until separate V-04 authority.
+next_phase: STUDIO-009P-04_OWNER_MERGE_GATE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 <!-- STUDIO-009P-04-CONTRACT-CHECKPOINT-0001 -->
+
+implementation_contract_merge: 99b852677c8c41114b52eefdad70760b63c0ceda
+implementation_scope_paths: 20
+implementation_cumulative_pr_paths: 24
+implementation_new_poolside_tests: 100
+implementation_focused_tests: 762
+implementation_total_tests: 1267
+implementation_provider_profile_state: DISABLED
+implementation_model_profile_state: DECLARED
+implementation_child_evidence_class: SYNTHETIC
+implementation_provider_runtime_activity: NONE
+implementation_poolside_network_activity: NONE
+implementation_account_runtime_activity: NONE
+implementation_credential_runtime_activity: NONE
+implementation_secret_store_activity: NONE
+implementation_pool_cli_activity: NONE
+implementation_tool_execution_activity: NONE
+implementation_remote_mcp_activity: NONE
+implementation_acp_activity: NONE
+implementation_routing_activity: NONE
+implementation_connected_execution_activity: NONE
+implementation_spend: ZERO
+<!-- STUDIO-009P-04-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+qa_result: PASS
+qa_reviewed_head: 9b0a208a8dd1a3c1382a20f9fd1c405fbf8fabf0
+qa_blockers: 0
+qa_new_poolside_tests: 100
+qa_cli_regression_tests: 5
+qa_focused_tests: 762
+qa_total_tests: 1267
+qa_probes: 112
+qa_provider_runtime_activity: NONE
+qa_poolside_network_activity: NONE
+qa_account_runtime_activity: NONE
+qa_credential_runtime_activity: NONE
+qa_secret_store_activity: NONE
+qa_pool_cli_activity: NONE
+qa_tool_execution_activity: NONE
+qa_remote_mcp_activity: NONE
+qa_acp_activity: NONE
+qa_routing_activity: NONE
+qa_connected_execution_activity: NONE
+qa_spend: ZERO
+<!-- STUDIO-009P-04-QA-CHECKPOINT-0003 -->
+
+review_result: APPROVE
+reviewed_qa_head: 19b5ffc10db83bcd0219adcc38854a2e86c170f1
+review_blockers: 0
+review_new_poolside_tests: 100
+review_cli_regression_tests: 5
+review_focused_tests: 762
+review_total_tests: 1267
+review_probes: 170
+review_provider_runtime_activity: NONE
+review_poolside_network_activity: NONE
+review_account_runtime_activity: NONE
+review_credential_runtime_activity: NONE
+review_secret_store_activity: NONE
+review_pool_cli_activity: NONE
+review_tool_execution_activity: NONE
+review_remote_mcp_activity: NONE
+review_acp_activity: NONE
+review_routing_activity: NONE
+review_connected_execution_activity: NONE
+review_spend: ZERO
+<!-- STUDIO-009P-04-REVIEW-CHECKPOINT-0004 -->

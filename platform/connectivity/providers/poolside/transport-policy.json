@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "transport_profile_id": "transport-profile:poolside-direct-https-openai-v1",
+  "scheme": "https",
+  "host": "inference.poolside.ai",
+  "base_path": "/v1",
+  "canonical_base_url": "https://inference.poolside.ai/v1",
+  "chat_completions_path": "/v1/chat/completions",
+  "accepted_credential_profile_ref": "credential-profile:poolside-api-key",
+  "accepted_account_ref": "account-ref:poolside-owner-account",
+  "allow_redirects": false,
+  "allowed_protocols": [
+    "HTTPS"
+  ],
+  "third_party_gateway_allowed": false,
+  "enterprise_deployment_endpoint_allowed": false,
+  "local_or_self_hosted_allowed": false,
+  "network_activation": "NONE_P04_OFFLINE"
+}

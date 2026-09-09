@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "budget_policy_id": "budget-policy:poolside-zero",
+  "currency": "USD",
+  "money_ceiling": 0,
+  "zero_cost_route_required": true,
+  "paid_subscription_allowed": false,
+  "payment_method_requirement_allowed": false,
+  "credit_purchase_allowed": false,
+  "auto_recharge_allowed": false,
+  "paid_fallback_allowed": false,
+  "third_party_paid_gateway_allowed": false,
+  "self_hosted_spend_allowed": false,
+  "production_use_allowed": false
+}
