@@ -61,3 +61,23 @@ billable_spend_usd: 0
 - Next gate: independent offline QA.
 
 <!-- STUDIO-009V-03-PRE-QA-REPAIR-CHECKPOINT-0003 -->
+
+## Independent offline QA
+
+- Reviewed immutable implementation head: `f8a94f04fa22d78ef1f45868925cbec11730de35`.
+- QA reference: `qa:offline-nvidia-v03-f8a94f04fa22`.
+- Result: PASS.
+- Blockers: 0.
+- Independent probes: 88.
+- NVIDIA implementation tests: 154.
+- Progressive-live tests: 70.
+- Focused tests: 662.
+- Full tests: 1167.
+- Confirmed public credential path is Owner-interactive only.
+- Confirmed public real-smoke API has no fake transport injection.
+- Confirmed exact host/path/model, atomic campaign lock, fresh-preflight guard, durable request reservation, bounded response read and fail-closed provider normalization.
+- Confirmed connected-validation and quality evidence remain PENDING_REAL_SMOKE.
+- Confirmed no NVIDIA API key input, no NVIDIA request, no tools, no routing and USD 0 spend.
+- Next gate: independent offline Review/Integration.
+
+<!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-QA-CHECKPOINT-0004 -->

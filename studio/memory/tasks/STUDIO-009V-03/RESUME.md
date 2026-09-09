@@ -6,13 +6,13 @@ task_id: STUDIO-009V-03
 package_path: studio/memory/tasks/STUDIO-009V-03
 canonical_task_contract: tasks/STUDIO-009V-03.md
 implementation_contract: tasks/STUDIO-009V-03-IMPLEMENTATION.md
-current_state: OFFLINE_LIVE_IMPLEMENTATION_READY_FOR_QA
+current_state: OFFLINE_LIVE_IMPLEMENTATION_QA_PASS_PENDING_REVIEW
 resume_from: eae0b9462bca1c7e3819402219c6225a3f56fb0f
 branch: agent/studio-009v-03-nvidia-nim-live-validation
 
 safe_checkpoint: V-03 contract is durably merged; repaired offline live implementation PR #71 remains unmerged and ready for independent offline QA. NVIDIA remains unconnected.
 
-next_action: Independent offline QA reviews the exact 16-path V-03 implementation evidence. After QA and Review approve and the implementation is durably merged, proceed to separate Owner connected preflight. No NVIDIA API-key input or real request is authorized yet.
+next_action: Independent offline Review/Integration reviews the immutable QA checkpoint. Owner merge remains blocked until Review APPROVE and Rules CI succeeds. No NVIDIA API-key input or real request is authorized yet.
 
 prohibited_next_actions: NVIDIA API-key creation/request/input for GAME; NVIDIA/DeepSeek/model/network call; private account probing; partner endpoint; paid subscription; purchased credits; paid/self-hosted deployment; tool execution; routing; worker promotion; private/unreleased GAME export; production use; nonzero spend; P-04/P-05 authoritative write track.
 
@@ -28,7 +28,7 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: INDEPENDENT_OFFLINE_QA_V03_IMPLEMENTATION
+next_gate: INDEPENDENT_OFFLINE_REVIEW_V03_IMPLEMENTATION
 <!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
 
 v_contract_merge: 5a4290419003605ff8ca4b2a85dbe3653f3d22d5
@@ -56,3 +56,16 @@ pre_qa_total_tests: 1167
 pre_qa_connected_activity: NONE
 pre_qa_spend: ZERO
 <!-- STUDIO-009V-03-PRE-QA-REPAIR-CHECKPOINT-0003 -->
+
+offline_qa_ref: qa:offline-nvidia-v03-f8a94f04fa22
+offline_qa_reviewed_head: f8a94f04fa22d78ef1f45868925cbec11730de35
+offline_qa_result: PASS
+offline_qa_blockers: 0
+offline_qa_independent_probes: 88
+offline_qa_nvidia_tests: 154
+offline_qa_live_framework_tests: 70
+offline_qa_focused_tests: 662
+offline_qa_total_tests: 1167
+offline_qa_connected_activity: NONE
+offline_qa_spend: ZERO
+<!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-QA-CHECKPOINT-0004 -->

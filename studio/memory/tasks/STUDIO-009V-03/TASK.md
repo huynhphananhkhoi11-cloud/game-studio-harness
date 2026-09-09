@@ -60,7 +60,7 @@ spend: ZERO
 
 full_studio_acceptance_authority: STUDIO-009F
 automatic_routing_authority: STUDIO-009E
-next_gate: INDEPENDENT_OFFLINE_QA_V03_IMPLEMENTATION
+next_gate: INDEPENDENT_OFFLINE_REVIEW_V03_IMPLEMENTATION
 <!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
 
 offline_live_implementation_base: 5a4290419003605ff8ca4b2a85dbe3653f3d22d5
@@ -94,3 +94,20 @@ pre_qa_tool_activity: NONE
 pre_qa_routing_activity: NONE
 pre_qa_spend: ZERO
 <!-- STUDIO-009V-03-PRE-QA-REPAIR-CHECKPOINT-0003 -->
+
+offline_qa_ref: qa:offline-nvidia-v03-f8a94f04fa22
+offline_qa_reviewed_head: f8a94f04fa22d78ef1f45868925cbec11730de35
+offline_qa_result: PASS
+offline_qa_blockers: 0
+offline_qa_independent_probes: 88
+offline_qa_nvidia_tests: 154
+offline_qa_live_framework_tests: 70
+offline_qa_focused_tests: 662
+offline_qa_total_tests: 1167
+offline_qa_provider_calls: 0
+offline_qa_nvidia_network_activity: NONE
+offline_qa_api_key_activity: NONE
+offline_qa_tool_activity: NONE
+offline_qa_routing_activity: NONE
+offline_qa_billable_spend_usd: 0
+<!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-QA-CHECKPOINT-0004 -->
