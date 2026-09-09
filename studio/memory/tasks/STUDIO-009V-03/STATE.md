@@ -3,12 +3,12 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-03
-state: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
+state: CONNECTED_PREFLIGHT_FROZEN_ACCOUNT_VERIFICATION
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
-branch: agent/studio-009v-03-nvidia-nim-live-validation
+branch: agent/studio-009v-03-account-verification-freeze
 base_head: eae0b9462bca1c7e3819402219c6225a3f56fb0f
-durability_state: OFFLINE_LIVE_IMPLEMENTATION_PR_PENDING
+durability_state: OFFLINE_LIVE_IMPLEMENTATION_MERGED_CONNECTED_FROZEN
 
 provider: NVIDIA-hosted NIM API Catalog
 provider_profile_id: provider-profile:nvidia-nim-free-deepseek-v4-pro-0813
@@ -32,13 +32,13 @@ completed: |
   - Defined bounded V-03 contract and future 22-path implementation scope.
 
 remaining: |
-  - Independent offline QA reviews repaired immutable implementation evidence.
-  - Independent Review/Integration follows only after QA PASS.
-  - Owner merge follows only after zero blockers and Rules CI success.
-  - Separate Owner connected preflight may occur only after durable implementation merge.
+  - Wait for NVIDIA account verification/API access blocker to clear.
+  - Re-check current Free Endpoint, zero-cost entitlement, billing state, terms and revocation path.
+  - Only after Owner connected preflight PASS may a hidden session-only key be created/selected.
+  - The first real campaign remains capped at three PUBLIC/SYNTHETIC requests.
 
 blockers: |
-  - NONE
+  - NVIDIA account SMS verification currently blocks API access on build.nvidia.com.
 
 provider_runtime_activity: NONE
 network_activity: NONE
@@ -50,8 +50,8 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Wait for Rules CI on the immutable offline Review/Integration head. If CI succeeds and PR #71 remains mergeable with zero blockers, Studio Owner may merge using Create a merge commit. Do not create/input an NVIDIA API key and do not call NVIDIA before durable merge.
-next_phase: STUDIO-009V-03_OWNER_MERGE_OFFLINE_IMPLEMENTATION_AFTER_RULES_CI
+exact_next_action: Keep V-03 frozen. Resume only when the Owner can verify NVIDIA account/API access, zero-cost eligibility, no paid requirement and a revocation path. Until then do not create/input an NVIDIA API key and do not call NVIDIA. STUDIO-009P-04 contract work may proceed as the next authoritative provider write track.
+next_phase: STUDIO-009P-04_PROVIDER_ONBOARDING_CONTRACT_WHILE_V03_FROZEN
 <!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
 
 v_contract_merge: 5a4290419003605ff8ca4b2a85dbe3653f3d22d5
@@ -126,3 +126,26 @@ offline_review_tool_activity: NONE
 offline_review_routing_activity: NONE
 offline_review_billable_spend_usd: 0
 <!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-REVIEW-CHECKPOINT-0005 -->
+
+offline_implementation_pr: 71
+offline_implementation_merge: f124a51e792b66eba363b069108754f99edc1c79
+offline_implementation_review_head: c9a66ae01e9c7a57e4a67b846ce43c187edde6ed
+freeze_reason: NVIDIA_ACCOUNT_SMS_VERIFICATION_BLOCKER
+account_login_observed: true
+exact_model_visible_in_owner_ui: true
+free_api_endpoint_visible_in_owner_ui: true
+api_access_blocked_by_verification: true
+api_key_created_for_game: false
+real_request_count: 0
+connected_validation_status: PENDING_REAL_SMOKE
+quality_evaluation_status: PENDING_REAL_SMOKE
+connected_execution_authorized: false
+provider_runtime_activity_after_merge: NONE
+nvidia_network_activity_after_merge: NONE
+api_key_activity_after_merge: NONE
+tool_activity_after_merge: NONE
+routing_activity_after_merge: NONE
+billable_spend_usd_after_merge: 0
+freeze_allows_p04_contract_track: true
+resume_condition: OWNER_PROVES_NVIDIA_ACCOUNT_VERIFIED_ZERO_COST_ELIGIBLE_AND_REVOCABLE
+<!-- STUDIO-009V-03-ACCOUNT-VERIFICATION-FREEZE-CHECKPOINT-0006 -->

@@ -6,15 +6,15 @@ task_id: STUDIO-009V-03
 package_path: studio/memory/tasks/STUDIO-009V-03
 canonical_task_contract: tasks/STUDIO-009V-03.md
 implementation_contract: tasks/STUDIO-009V-03-IMPLEMENTATION.md
-current_state: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
+current_state: CONNECTED_PREFLIGHT_FROZEN_ACCOUNT_VERIFICATION
 resume_from: eae0b9462bca1c7e3819402219c6225a3f56fb0f
-branch: agent/studio-009v-03-nvidia-nim-live-validation
+branch: agent/studio-009v-03-account-verification-freeze
 
-safe_checkpoint: V-03 contract is durably merged; offline implementation QA PASS and offline Review/Integration APPROVE are recorded on PR #71. PR remains unmerged; NVIDIA remains unconnected.
+safe_checkpoint: V-03 offline implementation PR #71 is durably merged at f124a51e792b66eba363b069108754f99edc1c79; NVIDIA remains unconnected and the connected preflight is frozen on account SMS verification.
 
-next_action: Wait for Rules CI on the review head. If CI succeeds and PR #71 remains mergeable with zero blockers, Studio Owner may merge using Create a merge commit. No NVIDIA API-key input or real request is authorized before durable implementation merge.
+next_action: Keep V-03 frozen until NVIDIA account verification/API access is proven. Then re-run fresh Owner connected preflight for Free Endpoint, zero-cost entitlement, billing, terms and revocation. P-04 contract work may proceed meanwhile as the next authoritative provider write track.
 
-prohibited_next_actions: NVIDIA API-key creation/request/input for GAME; NVIDIA/DeepSeek/model/network call; private account probing; partner endpoint; paid subscription; purchased credits; paid/self-hosted deployment; tool execution; routing; worker promotion; private/unreleased GAME export; production use; nonzero spend; P-04/P-05 authoritative write track.
+prohibited_next_actions: NVIDIA API-key creation/request/input for GAME while account verification remains blocked; NVIDIA/DeepSeek/model/network call; private account probing; partner endpoint; paid subscription; purchased credits; paid/self-hosted deployment; tool execution; routing; worker promotion; private/unreleased GAME export; production use; nonzero spend; concurrent second authoritative provider writer beyond the selected P-04 track.
 
 fallback: STUDIO-007F/STUDIO-008 MANUAL/FAKE.
 
@@ -28,7 +28,7 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: RULES_CI_THEN_OWNER_MERGE_V03_IMPLEMENTATION
+next_gate: WAIT_NVIDIA_ACCOUNT_VERIFICATION_THEN_OWNER_CONNECTED_PREFLIGHT
 <!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
 
 v_contract_merge: 5a4290419003605ff8ca4b2a85dbe3653f3d22d5
@@ -84,3 +84,19 @@ offline_review_total_tests: 1167
 offline_review_connected_activity: NONE
 offline_review_spend: ZERO
 <!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-REVIEW-CHECKPOINT-0005 -->
+
+offline_implementation_pr: 71
+offline_implementation_merge: f124a51e792b66eba363b069108754f99edc1c79
+offline_implementation_review_head: c9a66ae01e9c7a57e4a67b846ce43c187edde6ed
+freeze_reason: NVIDIA_ACCOUNT_SMS_VERIFICATION_BLOCKER
+api_access_blocked_by_verification: true
+api_key_created_for_game: false
+real_request_count: 0
+connected_execution_authorized: false
+connected_validation_status: PENDING_REAL_SMOKE
+quality_evaluation_status: PENDING_REAL_SMOKE
+freeze_allows_p04_contract_track: true
+resume_condition: OWNER_PROVES_NVIDIA_ACCOUNT_VERIFIED_ZERO_COST_ELIGIBLE_AND_REVOCABLE
+connected_activity_since_merge: NONE
+spend_since_merge: ZERO
+<!-- STUDIO-009V-03-ACCOUNT-VERIFICATION-FREEZE-CHECKPOINT-0006 -->
