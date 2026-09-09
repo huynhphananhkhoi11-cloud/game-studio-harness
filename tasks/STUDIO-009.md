@@ -148,3 +148,19 @@ Automatic routing/failover remains STUDIO-009E authority. Full connected studio 
 
 Next gate: separate Studio Owner merge of the V-03 contract Pull Request.
 <!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
+
+## STUDIO-009V-03 post-merge account-verification freeze checkpoint
+
+STUDIO-009V-03 offline live-validation implementation is durably merged through PR #71 at `f124a51e792b66eba363b069108754f99edc1c79` from reviewed head `c9a66ae01e9c7a57e4a67b846ce43c187edde6ed`.
+
+The connected phase remains unexecuted. Owner inspection of `build.nvidia.com` confirmed the exact `deepseek-ai/deepseek-v4-pro-0813` Free API endpoint and exact NVIDIA-hosted base URL are visible, but NVIDIA account verification currently blocks API access because SMS OTP verification is not completing.
+
+V-03 is therefore frozen at `LIVE_VALIDATION_READY` before Owner connected preflight. No NVIDIA API key has been created for GAME; no real NVIDIA request has been sent; connected-validation and quality evidence remain `PENDING_REAL_SMOKE`; worker/tool/routing authority remain NONE; spend remains zero.
+
+This freeze does not grant connected authority. V-03 may resume only after the Owner can prove account verification/API access, current zero-cost eligibility, no paid/billing requirement for the bounded campaign, and a credential revocation path.
+
+While V-03 is frozen, STUDIO-009P-04 Poolside provider-child planning may become the next authoritative provider write track. P-04 receives no NVIDIA authority and must preserve the one-writer rule. STUDIO-009E routing and STUDIO-009F full acceptance remain later gates.
+
+Next gate for V-03: `WAIT_NVIDIA_ACCOUNT_VERIFICATION_THEN_OWNER_CONNECTED_PREFLIGHT`.
+Next provider write track: `STUDIO-009P-04_CONTRACT`.
+<!-- STUDIO-009V-03-ACCOUNT-VERIFICATION-FREEZE-CHECKPOINT-0006 -->

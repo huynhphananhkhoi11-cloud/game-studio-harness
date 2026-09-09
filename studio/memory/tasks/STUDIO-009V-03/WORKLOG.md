@@ -105,3 +105,16 @@ billable_spend_usd: 0
 - Next gate: Rules CI on this review head, then Owner merge decision.
 
 <!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-REVIEW-CHECKPOINT-0005 -->
+
+## Post-merge account-verification freeze
+
+- PR #71 offline live-validation implementation merged at `f124a51e792b66eba363b069108754f99edc1c79` from Review head `c9a66ae01e9c7a57e4a67b846ce43c187edde6ed`.
+- Owner reached the exact NVIDIA model page for `deepseek-ai/deepseek-v4-pro-0813`; the UI showed a free API endpoint and the expected NVIDIA-hosted base URL.
+- NVIDIA account API access remains blocked by account verification because SMS OTP did not arrive after the bounded verification attempts.
+- Clicking Generate API Key returned to the verification requirement; no GAME API key was created.
+- No real NVIDIA request was sent. Connected-validation and quality evidence remain `PENDING_REAL_SMOKE`.
+- V-03 is frozen before Owner connected preflight. Spend remains USD 0.
+- Resume only after account verification/API access, current zero-cost eligibility, no paid requirement and revocation capability are proven.
+- P-04 contract work may proceed as the next authoritative provider write track; this grants no NVIDIA authority and does not activate routing.
+
+<!-- STUDIO-009V-03-ACCOUNT-VERIFICATION-FREEZE-CHECKPOINT-0006 -->
