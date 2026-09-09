@@ -34,3 +34,33 @@ acp_activity: NONE
 routing_activity: NONE
 billable_spend_usd: 0
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
+
+
+## Offline live-transport implementation
+
+- V-04 contract merge: `a7beb556d19da1397cceb09431d47848e69c5b12`.
+- Implementation scope: 12 provider/live/code/test paths; memory scope: 4; cumulative: 16.
+- Reused the already-tested V-03 live architecture as a read-only implementation template, then bound it to exact Poolside V-04 provider/model/host/credential/account lineage.
+- Direct transport targets only `https://inference.poolside.ai/v1/chat/completions`.
+- Provider remains not connected; live state is only `LIVE_VALIDATION_READY`.
+- Connected/quality evidence remains `PENDING_REAL_SMOKE`.
+- Session bridge remains hidden Owner-interactive/in-memory only with no env/file/CLI/keychain/browser/clipboard secret lookup.
+- `pool` CLI remains disabled.
+- First campaign remains max 3 requests, concurrency 1, retry 0, <=4096 input estimate, <=1024 completion, USD 0.
+- Server-side key revocation proof and current zero-cost eligibility remain later Owner connected-preflight requirements.
+- New V-04 tests: 119; focused: 881; total: 1386; static probes: 126.
+- No Poolside account/API-key/provider/model/network/CLI/tool/MCP/ACP/routing activity occurred.
+- Spend: USD 0.
+- Next gate: independent offline QA.
+
+provider_calls: 0
+poolside_network_activity: NONE
+poolside_api_key_input_activity: NONE
+pool_cli_activity: NONE
+tool_activity: NONE
+mcp_activity: NONE
+acp_activity: NONE
+routing_activity: NONE
+billable_spend_usd: 0
+connected_execution_authorized: false
+<!-- STUDIO-009V-04-OFFLINE-LIVE-IMPLEMENTATION-CHECKPOINT-0002 -->

@@ -6,13 +6,13 @@ task_id: STUDIO-009V-04
 package_path: studio/memory/tasks/STUDIO-009V-04
 canonical_task_contract: tasks/STUDIO-009V-04.md
 implementation_contract: tasks/STUDIO-009V-04-IMPLEMENTATION.md
-current_state: CONTRACT_PENDING_OWNER_MERGE
-resume_from: 3726e2bd031ce2022f5a93ff1d40c404fb815682
-branch: agent/studio-009v-04-poolside-laguna-s-contract
+current_state: OFFLINE_LIVE_IMPLEMENTATION_READY_PENDING_QA
+resume_from: a7beb556d19da1397cceb09431d47848e69c5b12
+branch: agent/studio-009v-04-poolside-laguna-s-live-validation
 
-safe_checkpoint: P-04 is durably COMPLETE at main `3726e2bd031ce2022f5a93ff1d40c404fb815682`; V-04 contract is the next provider-connected write track while V-03 NVIDIA remains frozen.
+safe_checkpoint: V-04 contract is durably merged at a7beb556d19da1397cceb09431d47848e69c5b12; offline live transport/evidence is materialized with zero connected activity and provider state capped at LIVE_VALIDATION_READY.
 
-next_action: Verify Rules CI on the immutable V-04 contract head. If clean, Owner may merge the contract. After merge, create only the offline live-transport implementation; no Poolside account/key/network action yet.
+next_action: Run independent offline QA on this immutable implementation head. Do not login/create/copy/input a Poolside API key and do not send a real request.
 
 prohibited_next_actions: Poolside account login/creation/inspection in this contract PR; Poolside API-key creation/copy/input/resolution; Poolside/Laguna request; pool CLI installation/execution; credential-file/keychain/browser/clipboard secret lookup; tools; shell; files; browser; MCP; ACP; repository write; gateway/enterprise/local endpoint; routing; worker promotion; private/unreleased GAME export; production use; nonzero spend; concurrent P-05 authoritative writer.
 
@@ -33,5 +33,22 @@ spend: ZERO
 
 v03_nvidia_state: CONNECTED_PREFLIGHT_FROZEN_ACCOUNT_VERIFICATION
 p05_opencode_authority: NONE
-next_gate: V04_CONTRACT_OWNER_MERGE_GATE
+next_gate: V04_INDEPENDENT_OFFLINE_QA
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
+
+
+offline_live_implementation_base: a7beb556d19da1397cceb09431d47848e69c5b12
+offline_live_implementation_scope_paths: 12
+offline_live_implementation_memory_paths: 4
+offline_live_implementation_cumulative_paths: 16
+offline_live_state: LIVE_VALIDATION_READY
+connected_validation_status: PENDING_REAL_SMOKE
+quality_evaluation_status: PENDING_REAL_SMOKE
+connected_execution_authorized: false
+new_v04_tests: 119
+offline_live_focused_tests: 881
+offline_live_total_tests: 1386
+offline_live_static_probes: 126
+offline_live_connected_activity: NONE
+offline_live_spend: ZERO
+<!-- STUDIO-009V-04-OFFLINE-LIVE-IMPLEMENTATION-CHECKPOINT-0002 -->

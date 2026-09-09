@@ -1,0 +1,22 @@
+{
+  "allowed_data_classifications": [
+    "PUBLIC"
+  ],
+  "as_of": "2026-09-09T08:34:37Z",
+  "canonical_digest": "sha256:540d58f8fce0c36daba3ec0dc30acd5a2759b4896ea127106158e4fefda9dc50",
+  "connected_validation_ref": null,
+  "live_state_id": "provider-live-state:poolside-v04",
+  "money_ceiling": 0,
+  "offline_merge_ref": "git-merge:3726e2bd031ce2022f5a93ff1d40c404fb815682",
+  "offline_owner_merge_ref": "owner-merge:e7ed2d087117eacad42141ca2d0c6587d16721dc",
+  "offline_qa_ref": "qa:19b5ffc10db83bcd0219adcc38854a2e86c170f1",
+  "offline_review_ref": "review:7d37dd64db07b63037ad4d3fb434757f3974a589",
+  "paused_at": null,
+  "provider_child_id": "STUDIO-009P-04",
+  "provider_profile_id": "provider-profile:poolside-direct-laguna-s-2.1",
+  "revoked_at": null,
+  "routing_authority_ref": null,
+  "schema_version": "1.0",
+  "state": "LIVE_VALIDATION_READY",
+  "v_contract_ref": "v-contract:STUDIO-009V-04"
+}

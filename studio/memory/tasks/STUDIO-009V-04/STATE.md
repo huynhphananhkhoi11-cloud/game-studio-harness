@@ -3,12 +3,12 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-04
-state: CONTRACT_PENDING_OWNER_MERGE
+state: OFFLINE_LIVE_IMPLEMENTATION_READY_PENDING_QA
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
-branch: agent/studio-009v-04-poolside-laguna-s-contract
-last_observed_HEAD: 3726e2bd031ce2022f5a93ff1d40c404fb815682
-durability_state: CONTRACT_PR_PENDING
+branch: agent/studio-009v-04-poolside-laguna-s-live-validation
+last_observed_HEAD: a7beb556d19da1397cceb09431d47848e69c5b12
+durability_state: OFFLINE_LIVE_IMPLEMENTATION_PR_PENDING
 
 provider: Poolside standalone hosted inference API
 provider_profile_id: provider-profile:poolside-direct-laguna-s-2.1
@@ -49,15 +49,39 @@ completed: |
   - V-03 NVIDIA remains frozen at account verification.
 
 remaining: |
-  - Owner reviews and merges V-04 contract.
-  - Only after contract merge: bounded offline live-transport implementation.
-  - Independent offline QA and Review/Integration.
-  - Owner connected preflight proves current zero-cost eligibility and server-side key revocation path.
-  - Only then may bounded real smoke be considered.
-
+  - Independent offline QA on immutable V-04 implementation head.
+  - Independent Review/Integration after QA PASS.
+  - Owner merge of offline implementation PR.
+  - Separate Owner connected preflight after durable offline implementation.
+  - Only after current USD 0 eligibility and server-side key revocation proof may real smoke be considered.
 blockers: |
   - NONE at contract stage.
 
-exact_next_action: Verify V-04 contract PR and Rules CI. Owner may merge contract only if immutable head is clean; contract merge authorizes offline V-04 implementation only, not Poolside account/key/network activity.
-next_phase: STUDIO-009V-04_CONTRACT_OWNER_MERGE_GATE
+exact_next_action: Run independent offline QA on the immutable V-04 implementation head. Do not login/create/copy/input a Poolside API key and do not send a Poolside request.
+next_phase: STUDIO-009V-04_INDEPENDENT_OFFLINE_QA
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
+
+
+offline_live_implementation_base: a7beb556d19da1397cceb09431d47848e69c5b12
+offline_live_implementation_scope_paths: 12
+offline_live_implementation_memory_paths: 4
+offline_live_implementation_cumulative_paths: 16
+offline_live_state: LIVE_VALIDATION_READY
+connected_validation_status: PENDING_REAL_SMOKE
+quality_evaluation_status: PENDING_REAL_SMOKE
+connected_execution_authorized: false
+new_v04_tests: 119
+offline_live_focused_tests: 881
+offline_live_total_tests: 1386
+offline_live_static_probes: 126
+offline_live_provider_runtime_activity: NONE
+offline_live_poolside_network_activity: NONE
+offline_live_account_activity: NONE
+offline_live_api_key_activity: NONE
+offline_live_pool_cli_activity: NONE
+offline_live_tool_activity: NONE
+offline_live_mcp_activity: NONE
+offline_live_acp_activity: NONE
+offline_live_routing_activity: NONE
+offline_live_spend: ZERO
+<!-- STUDIO-009V-04-OFFLINE-LIVE-IMPLEMENTATION-CHECKPOINT-0002 -->
