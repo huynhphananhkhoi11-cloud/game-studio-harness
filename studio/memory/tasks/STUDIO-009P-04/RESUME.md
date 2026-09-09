@@ -6,13 +6,13 @@ task_id: STUDIO-009P-04
 package_path: studio/memory/tasks/STUDIO-009P-04
 canonical_task_contract: tasks/STUDIO-009P-04.md
 implementation_contract: tasks/STUDIO-009P-04-IMPLEMENTATION.md
-current_state: OFFLINE_IMPLEMENTATION_QA_PASS_PENDING_REVIEW
+current_state: OFFLINE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
 resume_from: 99b852677c8c41114b52eefdad70760b63c0ceda
 branch: agent/studio-009p-04-poolside-laguna-s-implementation
 
 safe_checkpoint: P-04 contract is durably merged at 99b852677c8c41114b52eefdad70760b63c0ceda; exact offline/synthetic implementation is materialized within the approved 20+4 path ceiling with zero connected activity.
 
-next_action: Wait for Rules CI on the QA checkpoint, then run Independent Review/Integration. Owner merge remains forbidden until Review APPROVE. Do not create/use a Poolside API key.
+next_action: Re-check GitHub Rules CI on the review head. If successful with no new blockers, Owner may merge PR #74 using Create a merge commit. Poolside connected activity remains prohibited.
 
 prohibited_next_actions: Poolside account/API-key creation or resolution for GAME; Poolside/Laguna network/model call; pool CLI installation/execution; credential-file/keychain lookup; tools; shell; files; browser; MCP; ACP; third-party gateway; enterprise deployment endpoint; local/self-hosted inference; routing; worker promotion; private/unreleased GAME export; production use; nonzero spend; concurrent P-05 authoritative writer.
 
@@ -31,7 +31,7 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: RULES_CI_THEN_INDEPENDENT_REVIEW_INTEGRATION
+next_gate: P04_OWNER_MERGE_GATE
 <!-- STUDIO-009P-04-CONTRACT-CHECKPOINT-0001 -->
 
 implementation_checkpoint: STUDIO-009P-04-IMPLEMENTATION-CHECKPOINT-0002
@@ -59,3 +59,15 @@ qa_probes: 112
 qa_connected_activity: NONE
 qa_spend: ZERO
 <!-- STUDIO-009P-04-QA-CHECKPOINT-0003 -->
+
+review_result: APPROVE
+reviewed_qa_head: 19b5ffc10db83bcd0219adcc38854a2e86c170f1
+review_blockers: 0
+review_new_poolside_tests: 100
+review_cli_regression_tests: 5
+review_focused_tests: 762
+review_total_tests: 1267
+review_probes: 170
+review_connected_activity: NONE
+review_spend: ZERO
+<!-- STUDIO-009P-04-REVIEW-CHECKPOINT-0004 -->

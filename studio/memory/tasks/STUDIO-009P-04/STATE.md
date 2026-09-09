@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009P-04
-state: OFFLINE_IMPLEMENTATION_QA_PASS_PENDING_REVIEW
+state: OFFLINE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
 logical_role: Platform Studio / Provider Integration Cell
 repository_context: game-studio-harness
 branch: agent/studio-009p-04-poolside-laguna-s-implementation
@@ -44,15 +44,15 @@ completed: |
   - Official model/API/terms/CLI evidence captured in P-04 contract.
   - Direct Poolside standalone endpoint is separated from third-party gateways and Poolside enterprise deployments.
 remaining: |
-  - Owner reviews and may merge P-04 contract PR.
-  - After merge only: bounded offline/synthetic P-04 implementation.
-  - QA, Review, Owner implementation merge and closeout remain required.
+  - Independent QA completed with PASS.
+  - Independent Review/Integration completed with APPROVE.
+  - Owner implementation merge and closeout remain required.
   - After durable P-04 offline completion: separate V-04 contract.
   - P-05 OpenCode remains planning/read-only only.
 blockers: |
   - NONE
-exact_next_action: Independent Review/Integration reviews the QA-approved P-04 implementation PR. Owner merge remains forbidden until Review APPROVE. No Poolside connected activity is authorized.
-next_phase: STUDIO-009P-04_INDEPENDENT_REVIEW_INTEGRATION
+exact_next_action: Owner may merge PR #74 only after GitHub Rules CI succeeds on the review head and no new blockers appear. Poolside connected activity remains prohibited until separate V-04 authority.
+next_phase: STUDIO-009P-04_OWNER_MERGE_GATE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 <!-- STUDIO-009P-04-CONTRACT-CHECKPOINT-0001 -->
 
@@ -100,3 +100,25 @@ qa_routing_activity: NONE
 qa_connected_execution_activity: NONE
 qa_spend: ZERO
 <!-- STUDIO-009P-04-QA-CHECKPOINT-0003 -->
+
+review_result: APPROVE
+reviewed_qa_head: 19b5ffc10db83bcd0219adcc38854a2e86c170f1
+review_blockers: 0
+review_new_poolside_tests: 100
+review_cli_regression_tests: 5
+review_focused_tests: 762
+review_total_tests: 1267
+review_probes: 170
+review_provider_runtime_activity: NONE
+review_poolside_network_activity: NONE
+review_account_runtime_activity: NONE
+review_credential_runtime_activity: NONE
+review_secret_store_activity: NONE
+review_pool_cli_activity: NONE
+review_tool_execution_activity: NONE
+review_remote_mcp_activity: NONE
+review_acp_activity: NONE
+review_routing_activity: NONE
+review_connected_execution_activity: NONE
+review_spend: ZERO
+<!-- STUDIO-009P-04-REVIEW-CHECKPOINT-0004 -->
