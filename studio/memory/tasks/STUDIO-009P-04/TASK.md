@@ -16,8 +16,8 @@ account_ref_reserved: account-ref:poolside-owner-account
 cost_class: ZERO_COST_ONLY
 usage_class: INTERNAL_TESTING_EVALUATION_ONLY
 money_ceiling: 0
-state: OFFLINE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
-branch: agent/studio-009p-04-poolside-laguna-s-implementation
+state: COMPLETE
+branch: agent/studio-009p-04-poolside-laguna-s-closeout
 base_head: 99b852677c8c41114b52eefdad70760b63c0ceda
 contract_merge: 99b852677c8c41114b52eefdad70760b63c0ceda
 provider_runtime_activity: NONE
@@ -61,7 +61,7 @@ implementation_acp_activity: NONE
 implementation_routing_activity: NONE
 implementation_connected_execution_activity: NONE
 implementation_spend: ZERO
-next_phase: STUDIO-009P-04_OWNER_MERGE_GATE
+next_phase: STUDIO-009V-04_CONTRACT
 <!-- STUDIO-009P-04-IMPLEMENTATION-CHECKPOINT-0002 -->
 
 qa_result: PASS
@@ -103,3 +103,32 @@ review_routing_activity: NONE
 review_connected_execution_activity: NONE
 review_spend: ZERO
 <!-- STUDIO-009P-04-REVIEW-CHECKPOINT-0004 -->
+
+
+implementation_pr: 74
+implementation_merge: e7ed2d087117eacad42141ca2d0c6587d16721dc
+final_review_head: 7d37dd64db07b63037ad4d3fb434757f3974a589
+completion_result: COMPLETE
+completion_new_poolside_tests: 100
+completion_cli_regression_tests: 5
+completion_focused_tests: 762
+completion_total_tests: 1267
+completion_provider_profile_state: DISABLED
+completion_model_profile_state: DECLARED
+completion_child_evidence_class: SYNTHETIC
+completion_provider_runtime_activity: NONE
+completion_poolside_network_activity: NONE
+completion_account_runtime_activity: NONE
+completion_credential_runtime_activity: NONE
+completion_secret_store_activity: NONE
+completion_pool_cli_activity: NONE
+completion_tool_execution_activity: NONE
+completion_remote_mcp_activity: NONE
+completion_acp_activity: NONE
+completion_routing_activity: NONE
+completion_connected_execution_activity: NONE
+completion_spend: ZERO
+completion_real_provider_approved_for_connection: false
+closeout_record_semantics: EFFECTIVE_WHEN_MERGED
+next_phase_after_closeout_merge: STUDIO-009V-04_CONTRACT
+<!-- STUDIO-009P-04-CLOSEOUT-CHECKPOINT-0005 -->

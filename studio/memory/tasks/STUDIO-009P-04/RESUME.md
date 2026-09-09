@@ -6,13 +6,13 @@ task_id: STUDIO-009P-04
 package_path: studio/memory/tasks/STUDIO-009P-04
 canonical_task_contract: tasks/STUDIO-009P-04.md
 implementation_contract: tasks/STUDIO-009P-04-IMPLEMENTATION.md
-current_state: OFFLINE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
+current_state: COMPLETE
 resume_from: 99b852677c8c41114b52eefdad70760b63c0ceda
-branch: agent/studio-009p-04-poolside-laguna-s-implementation
+branch: agent/studio-009p-04-poolside-laguna-s-closeout
 
-safe_checkpoint: P-04 contract is durably merged at 99b852677c8c41114b52eefdad70760b63c0ceda; exact offline/synthetic implementation is materialized within the approved 20+4 path ceiling with zero connected activity.
+safe_checkpoint: P-04 implementation PR #74 is durably merged at e7ed2d087117eacad42141ca2d0c6587d16721dc; QA PASS and Review APPROVE are preserved with zero connected activity.
 
-next_action: Re-check GitHub Rules CI on the review head. If successful with no new blockers, Owner may merge PR #74 using Create a merge commit. Poolside connected activity remains prohibited.
+next_action: Owner reviews and may merge this P-04 closeout Pull Request. After durable closeout, begin STUDIO-009V-04 contract; no Poolside/Laguna real request is authorized yet.
 
 prohibited_next_actions: Poolside account/API-key creation or resolution for GAME; Poolside/Laguna network/model call; pool CLI installation/execution; credential-file/keychain lookup; tools; shell; files; browser; MCP; ACP; third-party gateway; enterprise deployment endpoint; local/self-hosted inference; routing; worker promotion; private/unreleased GAME export; production use; nonzero spend; concurrent P-05 authoritative writer.
 
@@ -31,7 +31,7 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: P04_OWNER_MERGE_GATE
+next_gate: P04_CLOSEOUT_OWNER_MERGE
 <!-- STUDIO-009P-04-CONTRACT-CHECKPOINT-0001 -->
 
 implementation_checkpoint: STUDIO-009P-04-IMPLEMENTATION-CHECKPOINT-0002
@@ -71,3 +71,20 @@ review_probes: 170
 review_connected_activity: NONE
 review_spend: ZERO
 <!-- STUDIO-009P-04-REVIEW-CHECKPOINT-0004 -->
+
+
+implementation_pr: 74
+implementation_merge: e7ed2d087117eacad42141ca2d0c6587d16721dc
+final_review_head: 7d37dd64db07b63037ad4d3fb434757f3974a589
+completion_result: COMPLETE
+completion_tests: 100 Poolside / 5 CLI / 762 focused / 1267 total
+completion_provider_state: DISABLED
+completion_model_state: DECLARED
+completion_child_evidence: SYNTHETIC
+completion_connected_activity: NONE
+completion_spend: ZERO
+completion_real_provider_approved_for_connection: false
+closeout_record_semantics: EFFECTIVE_WHEN_MERGED
+next_phase: STUDIO-009V-04_CONTRACT
+closeout_checkpoint: STUDIO-009P-04-CLOSEOUT-CHECKPOINT-0005
+<!-- STUDIO-009P-04-CLOSEOUT-CHECKPOINT-0005 -->

@@ -88,3 +88,35 @@ acp_activity: NONE
 routing_activity: NONE
 billable_spend_usd: 0
 <!-- STUDIO-009P-04-REVIEW-CHECKPOINT-0004 -->
+
+
+## Implementation merge closeout
+
+- Contract merge: `99b852677c8c41114b52eefdad70760b63c0ceda`.
+- Implementation PR #74 merge: `e7ed2d087117eacad42141ca2d0c6587d16721dc`.
+- Final Review head: `7d37dd64db07b63037ad4d3fb434757f3974a589`.
+- Completion evidence: 100 Poolside tests / 5 STUDIO-007F CLI regressions / 762 focused / 1267 total; QA PASS; Review APPROVE; blockers 0.
+- Provider profile remains DISABLED; model profile remains DECLARED; child evidence remains SYNTHETIC.
+- PUBLIC/SYNTHETIC-only, direct-host, dynamic-zero-cost and fail-closed boundaries remain intact.
+- No Poolside account/API-key/provider/network/model/CLI/tool/MCP/ACP/routing/connected execution occurred.
+- Money ceiling and billable spend remain ZERO.
+- P-04 does not authorize a real Poolside connection.
+- This closeout record is effective only when its Pull Request is merged.
+- After durable closeout, the next track is separate STUDIO-009V-04 bounded connected-validation contract.
+- Do not create/use a Poolside API key and do not call Poolside/Laguna until V-04 authority is explicitly merged.
+
+implementation_pr: 74
+implementation_merge: e7ed2d087117eacad42141ca2d0c6587d16721dc
+final_review_head: 7d37dd64db07b63037ad4d3fb434757f3974a589
+completion_result: COMPLETE
+completion_provider_runtime_activity: NONE
+completion_poolside_network_activity: NONE
+completion_credential_runtime_activity: NONE
+completion_pool_cli_activity: NONE
+completion_tool_activity: NONE
+completion_mcp_activity: NONE
+completion_acp_activity: NONE
+completion_routing_activity: NONE
+completion_spend: ZERO
+completion_real_provider_approved_for_connection: false
+<!-- STUDIO-009P-04-CLOSEOUT-CHECKPOINT-0005 -->
