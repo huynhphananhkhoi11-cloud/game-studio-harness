@@ -164,3 +164,20 @@ While V-03 is frozen, STUDIO-009P-04 Poolside provider-child planning may become
 Next gate for V-03: `WAIT_NVIDIA_ACCOUNT_VERIFICATION_THEN_OWNER_CONNECTED_PREFLIGHT`.
 Next provider write track: `STUDIO-009P-04_CONTRACT`.
 <!-- STUDIO-009V-03-ACCOUNT-VERIFICATION-FREEZE-CHECKPOINT-0006 -->
+
+## STUDIO-009P-04 Poolside / Laguna S 2.1 provider child contract checkpoint
+
+STUDIO-009V-03 NVIDIA connected preflight remains durably frozen on account verification. The freeze checkpoint authorizes `STUDIO-009P-04_CONTRACT` as the next provider write track without granting any NVIDIA connected authority.
+
+STUDIO-009P-04 defines Poolside's direct standalone hosted inference path with exact model `poolside/laguna-s-2.1`, exact candidate base URL `https://inference.poolside.ai/v1`, PUBLIC/SYNTHETIC-only data, dynamic `Free to use for a limited time` evidence, and money ceiling zero.
+
+The P-04 contract itself authorizes no Poolside account/API-key creation or resolution, no Poolside/Laguna network/model call, no `pool` CLI, no tools/MCP/ACP, no third-party gateway, no local/self-hosted inference, no routing/worker promotion, no private GAME export, and no spend.
+
+Poolside Terms permit Content use for training unless opted out; therefore P-04 remains PUBLIC/SYNTHETIC-only regardless of future Training Opt-Out status. The `pool` CLI is intentionally outside the initial provider/model evaluation because it can persist credentials and exercise repository/tool/MCP capabilities.
+
+After contract merge only, P-04 may proceed to its exact offline/synthetic implementation scope. A separate STUDIO-009V-04 contract is required before any real Poolside connection.
+
+Automatic routing/failover remains STUDIO-009E authority. Full connected acceptance remains STUDIO-009F.
+
+Next gate: separate Studio Owner review and merge of the P-04 contract Pull Request.
+<!-- STUDIO-009P-04-CONTRACT-CHECKPOINT-0001 -->
