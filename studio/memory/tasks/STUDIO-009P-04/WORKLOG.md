@@ -37,3 +37,28 @@ task_id: STUDIO-009P-04
 - Next gate: Rules CI then independent offline QA on the immutable implementation head.
 
 <!-- STUDIO-009P-04-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+## Independent offline QA
+
+- Reviewed immutable implementation head: `9b0a208a8dd1a3c1382a20f9fd1c405fbf8fabf0`.
+- QA result: PASS; blockers: 0.
+- Exact implementation boundary: 20 implementation paths + four P-04 memory paths.
+- Poolside tests: 100; STUDIO-007F CLI regressions: 5; focused: 762; total: 1267.
+- Independent static/adversarial probes: 112.
+- Provider remains DISABLED; model DECLARED; child evidence SYNTHETIC.
+- PUBLIC/SYNTHETIC only, direct host, fail-closed policy and USD 0 remain intact.
+- No Poolside account/API-key/provider/network/model/CLI/tool/MCP/ACP/routing activity.
+- Next gate: Rules CI on QA head, then Independent Review/Integration.
+
+qa_result: PASS
+qa_blockers: 0
+provider_calls: 0
+poolside_network_activity: NONE
+poolside_api_key_input_activity: NONE
+pool_cli_activity: NONE
+tool_activity: NONE
+mcp_activity: NONE
+acp_activity: NONE
+routing_activity: NONE
+billable_spend_usd: 0
+<!-- STUDIO-009P-04-QA-CHECKPOINT-0003 -->

@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009P-04
-state: OFFLINE_IMPLEMENTATION_READY_FOR_QA
+state: OFFLINE_IMPLEMENTATION_QA_PASS_PENDING_REVIEW
 logical_role: Platform Studio / Provider Integration Cell
 repository_context: game-studio-harness
 branch: agent/studio-009p-04-poolside-laguna-s-implementation
@@ -51,8 +51,8 @@ remaining: |
   - P-05 OpenCode remains planning/read-only only.
 blockers: |
   - NONE
-exact_next_action: Independent offline QA reviews the immutable P-04 implementation head after Rules CI. No Poolside account/key/network/model/CLI/tool/MCP/ACP/routing activity is authorized.
-next_phase: STUDIO-009P-04_INDEPENDENT_OFFLINE_QA
+exact_next_action: Independent Review/Integration reviews the QA-approved P-04 implementation PR. Owner merge remains forbidden until Review APPROVE. No Poolside connected activity is authorized.
+next_phase: STUDIO-009P-04_INDEPENDENT_REVIEW_INTEGRATION
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 <!-- STUDIO-009P-04-CONTRACT-CHECKPOINT-0001 -->
 
@@ -78,3 +78,25 @@ implementation_routing_activity: NONE
 implementation_connected_execution_activity: NONE
 implementation_spend: ZERO
 <!-- STUDIO-009P-04-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+qa_result: PASS
+qa_reviewed_head: 9b0a208a8dd1a3c1382a20f9fd1c405fbf8fabf0
+qa_blockers: 0
+qa_new_poolside_tests: 100
+qa_cli_regression_tests: 5
+qa_focused_tests: 762
+qa_total_tests: 1267
+qa_probes: 112
+qa_provider_runtime_activity: NONE
+qa_poolside_network_activity: NONE
+qa_account_runtime_activity: NONE
+qa_credential_runtime_activity: NONE
+qa_secret_store_activity: NONE
+qa_pool_cli_activity: NONE
+qa_tool_execution_activity: NONE
+qa_remote_mcp_activity: NONE
+qa_acp_activity: NONE
+qa_routing_activity: NONE
+qa_connected_execution_activity: NONE
+qa_spend: ZERO
+<!-- STUDIO-009P-04-QA-CHECKPOINT-0003 -->
