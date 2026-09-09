@@ -81,3 +81,27 @@ billable_spend_usd: 0
 - Next gate: independent offline Review/Integration.
 
 <!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-QA-CHECKPOINT-0004 -->
+
+## Independent offline Review/Integration
+
+- Reviewed immutable QA head: `64998491486fabbf72dbea24ed89340ccba0ccb8`.
+- Review reference: `review:offline-nvidia-v03-64998491486f`.
+- Result: APPROVE.
+- Blockers: 0.
+- Independent review probes: 130.
+- QA-lineage probes: 38.
+- Hygiene probes: 32.
+- NVIDIA implementation tests: 154.
+- Progressive-live tests: 70.
+- Focused tests: 662.
+- Full tests: 1167.
+- Confirmed the 16-path PR remains a subset of the 22-path contract allowlist.
+- Confirmed stable P-03 provider policies/adapter/tests were not rewritten.
+- Confirmed exact NVIDIA host/path/model, bounded request/response/token/time ceilings, atomic campaign lock, fresh preflight, reserve-before-network ledger semantics, hidden Owner-only credential input and synthetic-only test seam.
+- Confirmed no public fake transport/secret supplier injection in the real smoke path.
+- Confirmed connected-validation and quality evidence remain PENDING_REAL_SMOKE with no fabricated provider/spend/quality result.
+- Confirmed no worker, tool or routing authority and MANUAL/FAKE rollback remains available.
+- NVIDIA/API-key/network/tool/routing activity during review: NONE. Spend: ZERO.
+- Next gate: Rules CI on this review head, then Owner merge decision.
+
+<!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-REVIEW-CHECKPOINT-0005 -->

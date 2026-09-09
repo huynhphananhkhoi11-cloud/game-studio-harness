@@ -3,7 +3,7 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-03
-state: OFFLINE_LIVE_IMPLEMENTATION_QA_PASS_PENDING_REVIEW
+state: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
 branch: agent/studio-009v-03-nvidia-nim-live-validation
@@ -50,8 +50,8 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Independent offline Review/Integration reviews immutable offline QA head derived from f8a94f04fa22d78ef1f45868925cbec11730de35. Do not create/input an NVIDIA API key and do not call NVIDIA.
-next_phase: STUDIO-009V-03_OFFLINE_IMPLEMENTATION_REVIEW
+exact_next_action: Wait for Rules CI on the immutable offline Review/Integration head. If CI succeeds and PR #71 remains mergeable with zero blockers, Studio Owner may merge using Create a merge commit. Do not create/input an NVIDIA API key and do not call NVIDIA before durable merge.
+next_phase: STUDIO-009V-03_OWNER_MERGE_OFFLINE_IMPLEMENTATION_AFTER_RULES_CI
 <!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
 
 v_contract_merge: 5a4290419003605ff8ca4b2a85dbe3653f3d22d5
@@ -107,3 +107,22 @@ offline_qa_tool_activity: NONE
 offline_qa_routing_activity: NONE
 offline_qa_billable_spend_usd: 0
 <!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-QA-CHECKPOINT-0004 -->
+
+offline_review_ref: review:offline-nvidia-v03-64998491486f
+offline_review_reviewed_qa_head: 64998491486fabbf72dbea24ed89340ccba0ccb8
+offline_review_result: APPROVE
+offline_review_blockers: 0
+offline_review_independent_probes: 130
+offline_review_qa_lineage_probes: 38
+offline_review_hygiene_probes: 32
+offline_review_nvidia_tests: 154
+offline_review_live_framework_tests: 70
+offline_review_focused_tests: 662
+offline_review_total_tests: 1167
+offline_review_provider_calls: 0
+offline_review_nvidia_network_activity: NONE
+offline_review_api_key_activity: NONE
+offline_review_tool_activity: NONE
+offline_review_routing_activity: NONE
+offline_review_billable_spend_usd: 0
+<!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-REVIEW-CHECKPOINT-0005 -->

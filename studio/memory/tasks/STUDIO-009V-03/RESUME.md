@@ -6,13 +6,13 @@ task_id: STUDIO-009V-03
 package_path: studio/memory/tasks/STUDIO-009V-03
 canonical_task_contract: tasks/STUDIO-009V-03.md
 implementation_contract: tasks/STUDIO-009V-03-IMPLEMENTATION.md
-current_state: OFFLINE_LIVE_IMPLEMENTATION_QA_PASS_PENDING_REVIEW
+current_state: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
 resume_from: eae0b9462bca1c7e3819402219c6225a3f56fb0f
 branch: agent/studio-009v-03-nvidia-nim-live-validation
 
-safe_checkpoint: V-03 contract is durably merged; repaired offline live implementation PR #71 remains unmerged and ready for independent offline QA. NVIDIA remains unconnected.
+safe_checkpoint: V-03 contract is durably merged; offline implementation QA PASS and offline Review/Integration APPROVE are recorded on PR #71. PR remains unmerged; NVIDIA remains unconnected.
 
-next_action: Independent offline Review/Integration reviews the immutable QA checkpoint. Owner merge remains blocked until Review APPROVE and Rules CI succeeds. No NVIDIA API-key input or real request is authorized yet.
+next_action: Wait for Rules CI on the review head. If CI succeeds and PR #71 remains mergeable with zero blockers, Studio Owner may merge using Create a merge commit. No NVIDIA API-key input or real request is authorized before durable implementation merge.
 
 prohibited_next_actions: NVIDIA API-key creation/request/input for GAME; NVIDIA/DeepSeek/model/network call; private account probing; partner endpoint; paid subscription; purchased credits; paid/self-hosted deployment; tool execution; routing; worker promotion; private/unreleased GAME export; production use; nonzero spend; P-04/P-05 authoritative write track.
 
@@ -28,7 +28,7 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-next_gate: INDEPENDENT_OFFLINE_REVIEW_V03_IMPLEMENTATION
+next_gate: RULES_CI_THEN_OWNER_MERGE_V03_IMPLEMENTATION
 <!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
 
 v_contract_merge: 5a4290419003605ff8ca4b2a85dbe3653f3d22d5
@@ -69,3 +69,18 @@ offline_qa_total_tests: 1167
 offline_qa_connected_activity: NONE
 offline_qa_spend: ZERO
 <!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-QA-CHECKPOINT-0004 -->
+
+offline_review_ref: review:offline-nvidia-v03-64998491486f
+offline_review_reviewed_qa_head: 64998491486fabbf72dbea24ed89340ccba0ccb8
+offline_review_result: APPROVE
+offline_review_blockers: 0
+offline_review_independent_probes: 130
+offline_review_qa_lineage_probes: 38
+offline_review_hygiene_probes: 32
+offline_review_nvidia_tests: 154
+offline_review_live_framework_tests: 70
+offline_review_focused_tests: 662
+offline_review_total_tests: 1167
+offline_review_connected_activity: NONE
+offline_review_spend: ZERO
+<!-- STUDIO-009V-03-INDEPENDENT-OFFLINE-REVIEW-CHECKPOINT-0005 -->
