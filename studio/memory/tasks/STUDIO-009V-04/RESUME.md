@@ -6,13 +6,13 @@ task_id: STUDIO-009V-04
 package_path: studio/memory/tasks/STUDIO-009V-04
 canonical_task_contract: tasks/STUDIO-009V-04.md
 implementation_contract: tasks/STUDIO-009V-04-IMPLEMENTATION.md
-current_state: OFFLINE_LIVE_IMPLEMENTATION_READY_PENDING_QA
+current_state: OFFLINE_LIVE_IMPLEMENTATION_QA_PASS_PENDING_REVIEW
 resume_from: a7beb556d19da1397cceb09431d47848e69c5b12
 branch: agent/studio-009v-04-poolside-laguna-s-live-validation
 
 safe_checkpoint: V-04 contract is durably merged at a7beb556d19da1397cceb09431d47848e69c5b12; offline live transport/evidence is materialized with zero connected activity and provider state capped at LIVE_VALIDATION_READY.
 
-next_action: Run independent offline QA on this immutable implementation head. Do not login/create/copy/input a Poolside API key and do not send a real request.
+next_action: Run Independent Review/Integration on the immutable QA head. Do not login/create/copy/input a Poolside API key and do not send a real request.
 
 prohibited_next_actions: Poolside account login/creation/inspection in this contract PR; Poolside API-key creation/copy/input/resolution; Poolside/Laguna request; pool CLI installation/execution; credential-file/keychain/browser/clipboard secret lookup; tools; shell; files; browser; MCP; ACP; repository write; gateway/enterprise/local endpoint; routing; worker promotion; private/unreleased GAME export; production use; nonzero spend; concurrent P-05 authoritative writer.
 
@@ -33,7 +33,7 @@ spend: ZERO
 
 v03_nvidia_state: CONNECTED_PREFLIGHT_FROZEN_ACCOUNT_VERIFICATION
 p05_opencode_authority: NONE
-next_gate: V04_INDEPENDENT_OFFLINE_QA
+next_gate: V04_INDEPENDENT_REVIEW_INTEGRATION
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
 
 
@@ -52,3 +52,20 @@ offline_live_static_probes: 126
 offline_live_connected_activity: NONE
 offline_live_spend: ZERO
 <!-- STUDIO-009V-04-OFFLINE-LIVE-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+
+qa_result: PASS
+qa_reviewed_head: 224c6c10f49cabdb7033b26b1354fab3ea90daf4
+qa_blockers: 0
+qa_new_v04_tests: 119
+qa_cli_regression_tests: 5
+qa_focused_tests: 881
+qa_total_tests: 1386
+qa_probes: 101
+qa_live_state: LIVE_VALIDATION_READY
+qa_connected_validation_status: PENDING_REAL_SMOKE
+qa_quality_evaluation_status: PENDING_REAL_SMOKE
+connected_execution_authorized: false
+qa_connected_activity: NONE
+qa_spend: ZERO
+<!-- STUDIO-009V-04-OFFLINE-QA-CHECKPOINT-0003 -->

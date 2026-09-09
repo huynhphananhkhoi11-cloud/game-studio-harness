@@ -64,3 +64,40 @@ routing_activity: NONE
 billable_spend_usd: 0
 connected_execution_authorized: false
 <!-- STUDIO-009V-04-OFFLINE-LIVE-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+
+## Independent offline QA
+
+- Reviewed immutable V-04 implementation head: `224c6c10f49cabdb7033b26b1354fab3ea90daf4`.
+- QA result: PASS; blockers: 0.
+- Exact cumulative implementation PR scope remains 16 paths.
+- New V-04 Poolside live tests: 119 PASS.
+- STUDIO-007F CLI regression tests: 5 PASS.
+- Provider/connectivity focused tests: 881 PASS.
+- Full repository tests: 1386 PASS.
+- Independent static/adversarial QA probes: 101 PASS.
+- Live state remains `LIVE_VALIDATION_READY`.
+- Connected and quality evidence remain `PENDING_REAL_SMOKE`.
+- No Poolside account/API-key/provider/model/network/CLI/tool/MCP/ACP/routing activity occurred.
+- Billable spend remains USD 0.
+- Next gate: independent Review/Integration.
+
+qa_result: PASS
+qa_reviewed_head: 224c6c10f49cabdb7033b26b1354fab3ea90daf4
+qa_blockers: 0
+qa_new_v04_tests: 119
+qa_cli_regression_tests: 5
+qa_focused_tests: 881
+qa_total_tests: 1386
+qa_probes: 101
+connected_execution_authorized: false
+provider_calls: 0
+poolside_network_activity: NONE
+poolside_api_key_input_activity: NONE
+pool_cli_activity: NONE
+tool_activity: NONE
+mcp_activity: NONE
+acp_activity: NONE
+routing_activity: NONE
+billable_spend_usd: 0
+<!-- STUDIO-009V-04-OFFLINE-QA-CHECKPOINT-0003 -->
