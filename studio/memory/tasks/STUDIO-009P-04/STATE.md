@@ -3,12 +3,12 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009P-04
-state: OFFLINE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
+state: COMPLETE
 logical_role: Platform Studio / Provider Integration Cell
 repository_context: game-studio-harness
-branch: agent/studio-009p-04-poolside-laguna-s-implementation
-last_observed_HEAD: 99b852677c8c41114b52eefdad70760b63c0ceda
-durability_state: IMPLEMENTATION_PR_PENDING
+branch: agent/studio-009p-04-poolside-laguna-s-closeout
+last_observed_HEAD: e7ed2d087117eacad42141ca2d0c6587d16721dc
+durability_state: IMPLEMENTATION_MERGED
 provider: Poolside standalone hosted inference API
 provider_profile_id: provider-profile:poolside-direct-laguna-s-2.1
 model_allowlist: poolside/laguna-s-2.1
@@ -46,13 +46,13 @@ completed: |
 remaining: |
   - Independent QA completed with PASS.
   - Independent Review/Integration completed with APPROVE.
-  - Owner implementation merge and closeout remain required.
-  - After durable P-04 offline completion: separate V-04 contract.
+  - Implementation PR #74 merged durably; closeout record now awaits Owner merge.
+  - Only after durable P-04 closeout: separate STUDIO-009V-04 contract.
   - P-05 OpenCode remains planning/read-only only.
 blockers: |
   - NONE
-exact_next_action: Owner may merge PR #74 only after GitHub Rules CI succeeds on the review head and no new blockers appear. Poolside connected activity remains prohibited until separate V-04 authority.
-next_phase: STUDIO-009P-04_OWNER_MERGE_GATE
+exact_next_action: Owner reviews and may merge the P-04 closeout PR. After durable closeout, begin STUDIO-009V-04 contract only; Poolside/Laguna calls remain prohibited until V-04 grants bounded connected authority.
+next_phase: STUDIO-009V-04_CONTRACT_AFTER_CLOSEOUT_MERGE
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 <!-- STUDIO-009P-04-CONTRACT-CHECKPOINT-0001 -->
 
@@ -122,3 +122,31 @@ review_routing_activity: NONE
 review_connected_execution_activity: NONE
 review_spend: ZERO
 <!-- STUDIO-009P-04-REVIEW-CHECKPOINT-0004 -->
+
+
+implementation_pr: 74
+implementation_merge: e7ed2d087117eacad42141ca2d0c6587d16721dc
+final_review_head: 7d37dd64db07b63037ad4d3fb434757f3974a589
+completion_result: COMPLETE
+completion_new_poolside_tests: 100
+completion_cli_regression_tests: 5
+completion_focused_tests: 762
+completion_total_tests: 1267
+completion_provider_profile_state: DISABLED
+completion_model_profile_state: DECLARED
+completion_child_evidence_class: SYNTHETIC
+completion_provider_runtime_activity: NONE
+completion_poolside_network_activity: NONE
+completion_account_runtime_activity: NONE
+completion_credential_runtime_activity: NONE
+completion_secret_store_activity: NONE
+completion_pool_cli_activity: NONE
+completion_tool_execution_activity: NONE
+completion_remote_mcp_activity: NONE
+completion_acp_activity: NONE
+completion_routing_activity: NONE
+completion_connected_execution_activity: NONE
+completion_spend: ZERO
+completion_real_provider_approved_for_connection: false
+closeout_record_semantics: EFFECTIVE_WHEN_MERGED
+<!-- STUDIO-009P-04-CLOSEOUT-CHECKPOINT-0005 -->
