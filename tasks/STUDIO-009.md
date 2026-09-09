@@ -181,3 +181,29 @@ Automatic routing/failover remains STUDIO-009E authority. Full connected accepta
 
 Next gate: separate Studio Owner review and merge of the P-04 contract Pull Request.
 <!-- STUDIO-009P-04-CONTRACT-CHECKPOINT-0001 -->
+
+
+## STUDIO-009V-04 Poolside / Laguna S 2.1 bounded connected-validation contract checkpoint
+
+P-04 is durably COMPLETE after implementation PR #74 and closeout PR #75.
+
+V-04 is the next provider-connected contract track for the direct Poolside standalone path:
+
+- provider profile: `provider-profile:poolside-direct-laguna-s-2.1`;
+- child: `STUDIO-009P-04`;
+- model: `poolside/laguna-s-2.1`;
+- direct base: `https://inference.poolside.ai/v1`;
+- first campaign maximum: 3 requests, concurrency 1, retry 0;
+- PUBLIC/SYNTHETIC only;
+- `pool` CLI/tools/MCP/ACP/routing remain forbidden;
+- money ceiling remains USD 0;
+- V-03 NVIDIA remains frozen at account verification;
+- P-05 OpenCode remains non-authoritative while V-04 is active.
+
+This contract checkpoint performs no Poolside account/key/provider/model/network/CLI/tool/MCP/ACP/routing activity.
+
+Contract merge authorizes only the separate offline V-04 live-transport implementation. A real request remains forbidden until offline implementation + QA + Review and a separate Owner connected preflight prove current zero-cost eligibility and server-side validation-key revocation/deletion/invalidation.
+
+Next gate: `VERIFY_V04_CONTRACT_PR_AND_RULES_CI`.
+
+<!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
