@@ -10,7 +10,7 @@ current_state: OFFLINE_LIVE_IMPLEMENTATION_READY_FOR_QA
 resume_from: eae0b9462bca1c7e3819402219c6225a3f56fb0f
 branch: agent/studio-009v-03-nvidia-nim-live-validation
 
-safe_checkpoint: P-03 is durably COMPLETE through closeout merge eae0b9462bca1c7e3819402219c6225a3f56fb0f; NVIDIA remains unconnected and V-03 currently exists only as a contract proposal.
+safe_checkpoint: V-03 contract is durably merged; repaired offline live implementation PR #71 remains unmerged and ready for independent offline QA. NVIDIA remains unconnected.
 
 next_action: Independent offline QA reviews the exact 16-path V-03 implementation evidence. After QA and Review approve and the implementation is durably merged, proceed to separate Owner connected preflight. No NVIDIA API-key input or real request is authorized yet.
 
@@ -44,3 +44,15 @@ offline_live_tool_activity: NONE
 offline_live_routing_activity: NONE
 offline_live_spend: ZERO
 <!-- STUDIO-009V-03-OFFLINE-LIVE-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+pre_qa_reviewed_head: 38b7768ab07fb9f3248dcf04d2345f96442af810
+pre_qa_repair_result: PASS
+new_v03_tests: 114
+nvidia_implementation_tests: 154
+pre_qa_repair_probes: 138
+pre_qa_live_framework_tests: 70
+pre_qa_focused_tests: 662
+pre_qa_total_tests: 1167
+pre_qa_connected_activity: NONE
+pre_qa_spend: ZERO
+<!-- STUDIO-009V-03-PRE-QA-REPAIR-CHECKPOINT-0003 -->

@@ -15,6 +15,7 @@ import re
 import tempfile
 from pathlib import Path
 from typing import Any
+from datetime import datetime, timezone
 
 from scripts import nvidia_nim_live_transport as transport
 from scripts import nvidia_nim_session_credential_bridge as bridge
@@ -82,6 +83,8 @@ SAFE_MESSAGES = {
     "KILL_SWITCH": "NVIDIA V-03 kill switch blocks additional calls",
     "QUALITY_FAILED": "NVIDIA V-03 fixed smoke quality gate failed",
     "LEDGER_INVALID": "NVIDIA V-03 campaign ledger is invalid",
+    "CAMPAIGN_ACTIVE": "NVIDIA V-03 campaign is already active",
+    "PREFLIGHT_STALE": "NVIDIA V-03 connected preflight is stale or future-dated",
 }
 
 class NvidiaNimSmokeError(ValueError):
@@ -93,6 +96,9 @@ class NvidiaNimSmokeError(ValueError):
 def _fail(code: str) -> None:
     raise NvidiaNimSmokeError(code)
 
+def _utc_now() -> datetime:
+    return datetime.now(timezone.utc)
+
 class KillSwitch:
     def __init__(self, armed: bool = True):
         self._armed = bool(armed)
@@ -100,6 +106,43 @@ class KillSwitch:
         self._armed = False
     def allows_call(self) -> bool:
         return self._armed
+
+class CampaignExecutionLock:
+    def __init__(self, ledger: "DurableCampaignLedger"):
+        self.path = ledger.path.with_name(ledger.path.name + ".lock")
+        self.campaign_id = ledger.campaign_id
+        self._held = False
+
+    def acquire(self) -> None:
+        try:
+            fd = os.open(str(self.path), os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+        except FileExistsError:
+            _fail("CAMPAIGN_ACTIVE")
+        try:
+            payload = (self.campaign_id + "\n").encode("utf-8")
+            os.write(fd, payload)
+            os.fsync(fd)
+        finally:
+            os.close(fd)
+        self._held = True
+
+    def release(self) -> None:
+        if not self._held:
+            return
+        try:
+            self.path.unlink()
+        except FileNotFoundError:
+            pass
+        finally:
+            self._held = False
+
+    def __enter__(self):
+        self.acquire()
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        self.release()
+        return False
 
 def validate_preflight(value: Any) -> dict[str, Any]:
     before = copy.deepcopy(value)
@@ -141,6 +184,10 @@ def validate_preflight(value: Any) -> dict[str, Any]:
         r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z", value["as_of"]
     ):
         _fail("INVALID_PREFLIGHT")
+    observed = datetime.strptime(value["as_of"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+    age_seconds = (_utc_now() - observed).total_seconds()
+    if age_seconds < -120 or age_seconds > 900:
+        _fail("PREFLIGHT_STALE")
     if value != before:
         _fail("INVALID_PREFLIGHT")
     return copy.deepcopy(value)
@@ -168,6 +215,7 @@ class DurableCampaignLedger:
             _fail("LEDGER_INVALID")
         if (
             not isinstance(value, dict)
+            or set(value) != {"schema_version", "campaign_id", "request_count", "reservations", "money_ceiling"}
             or value.get("schema_version") != "1.0"
             or value.get("campaign_id") != self.campaign_id
             or value.get("money_ceiling") != 0
@@ -176,6 +224,20 @@ class DurableCampaignLedger:
             or not isinstance(value.get("reservations"), list)
         ):
             _fail("LEDGER_INVALID")
+        count = value["request_count"]
+        reservations = value["reservations"]
+        if count < 0 or count > MAX_REQUESTS or len(reservations) != count:
+            _fail("LEDGER_INVALID")
+        for ordinal, record in enumerate(reservations, start=1):
+            if (
+                not isinstance(record, dict)
+                or set(record) != {"request_ordinal", "probe_id", "reserved_before_network"}
+                or record.get("request_ordinal") != ordinal
+                or record.get("reserved_before_network") is not True
+                or not isinstance(record.get("probe_id"), str)
+                or not re.fullmatch(r"[A-Z0-9_]{3,64}", record["probe_id"])
+            ):
+                _fail("LEDGER_INVALID")
         return value
 
     def _write(self, value: dict[str, Any]) -> None:
@@ -259,14 +321,15 @@ def _evaluate(probe: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
         "transport_identity_verified": True,
     }
 
-def execute_smoke(
+def _execute_smoke_core(
     preflight: dict[str, Any],
     lease: dict[str, Any],
     *,
     ledger: DurableCampaignLedger,
+    transport_fn,
+    kill_switch: KillSwitch | None,
+    secret_runner,
     secret_supplier=None,
-    transport_fn=transport.perform_request,
-    kill_switch: KillSwitch | None = None,
 ) -> dict[str, Any]:
     accepted = validate_preflight(preflight)
     if not isinstance(ledger, DurableCampaignLedger):
@@ -297,7 +360,6 @@ def execute_smoke(
                 copy.deepcopy(probe["messages"]),
                 estimated_input_tokens=probe["estimated_input_tokens"],
                 max_tokens=128,
-                response_format={"type": "json_object"},
             )
             result = transport_fn(secret, body)
             records.append(_evaluate(probe, result))
@@ -321,9 +383,51 @@ def execute_smoke(
             "ledger": ledger.snapshot(),
         }
 
-    return bridge.with_secret(
+    with CampaignExecutionLock(ledger):
+        try:
+            if secret_supplier is None:
+                return secret_runner(lease, consume, as_of=accepted["as_of"])
+            return secret_runner(
+                lease,
+                consume,
+                as_of=accepted["as_of"],
+                secret_supplier=secret_supplier,
+            )
+        except Exception:
+            switch.revoke()
+            raise
+
+def execute_smoke(
+    preflight: dict[str, Any],
+    lease: dict[str, Any],
+    *,
+    ledger: DurableCampaignLedger,
+    kill_switch: KillSwitch | None = None,
+) -> dict[str, Any]:
+    return _execute_smoke_core(
+        preflight,
         lease,
-        consume,
-        as_of=accepted["as_of"],
+        ledger=ledger,
+        transport_fn=transport.perform_request,
+        kill_switch=kill_switch,
+        secret_runner=bridge.with_secret,
+    )
+
+def _execute_smoke_for_test(
+    preflight: dict[str, Any],
+    lease: dict[str, Any],
+    *,
+    ledger: DurableCampaignLedger,
+    secret_supplier,
+    transport_fn=transport.perform_request,
+    kill_switch: KillSwitch | None = None,
+) -> dict[str, Any]:
+    return _execute_smoke_core(
+        preflight,
+        lease,
+        ledger=ledger,
+        transport_fn=transport_fn,
+        kill_switch=kill_switch,
+        secret_runner=bridge._with_secret_for_test,
         secret_supplier=secret_supplier,
     )

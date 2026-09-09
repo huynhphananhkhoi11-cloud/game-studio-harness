@@ -84,26 +84,26 @@ class NvidiaSessionCredentialBridgeTests(unittest.TestCase):
         self.assert_code("INVALID_LEASE", b.validate_lease, x, as_of=AS_OF)
 
     def test_13_hidden_supplier_success(self):
-        out = b.with_secret(lease(), lambda s: {"ok": s == SECRET}, as_of=AS_OF,
+        out = b._with_secret_for_test(lease(), lambda s: {"ok": s == SECRET}, as_of=AS_OF,
                             secret_supplier=lambda: SECRET)
         self.assertEqual(out, {"ok": True})
 
     def test_14_secret_cannot_escape_result(self):
-        self.assert_code("SECRET_ESCAPE", b.with_secret, lease(), lambda s: {"x": s},
+        self.assert_code("SECRET_ESCAPE", b._with_secret_for_test, lease(), lambda s: {"x": s},
                          as_of=AS_OF, secret_supplier=lambda: SECRET)
 
     def test_15_secret_cannot_escape_exception(self):
         def consumer(s):
             raise ValueError("failure " + s)
-        self.assert_code("SECRET_ESCAPE", b.with_secret, lease(), consumer,
+        self.assert_code("SECRET_ESCAPE", b._with_secret_for_test, lease(), consumer,
                          as_of=AS_OF, secret_supplier=lambda: SECRET)
 
     def test_16_short_secret(self):
-        self.assert_code("INVALID_SECRET", b.with_secret, lease(), lambda s: {},
+        self.assert_code("INVALID_SECRET", b._with_secret_for_test, lease(), lambda s: {},
                          as_of=AS_OF, secret_supplier=lambda: "short")
 
     def test_17_whitespace_secret(self):
-        self.assert_code("INVALID_SECRET", b.with_secret, lease(), lambda s: {},
+        self.assert_code("INVALID_SECRET", b._with_secret_for_test, lease(), lambda s: {},
                          as_of=AS_OF, secret_supplier=lambda: "synthetic secret 012345")
 
     def test_18_noninteractive_requires_supplier(self):
@@ -131,3 +131,32 @@ class NvidiaSessionCredentialBridgeTests(unittest.TestCase):
     def test_24_operation_digest_forbidden(self):
         x = lease(); x["operation_digest"] = "sha256:"+"d"*64; x["canonical_digest"] = b.canonical_digest(x)
         self.assert_code("LEASE_LINEAGE", b.validate_lease, x, as_of=AS_OF)
+
+import inspect as _v03_inspect
+
+class NvidiaSessionCredentialBridgeRepairTests(unittest.TestCase):
+    def assert_code(self, code, fn, *args, **kwargs):
+        with self.assertRaises(b.NvidiaSessionCredentialError) as cm:
+            fn(*args, **kwargs)
+        self.assertEqual(cm.exception.code, code)
+        self.assertNotIn(SECRET, str(cm.exception))
+
+    def test_repair_01_public_signature_has_no_supplier(self):
+        params = _v03_inspect.signature(b.with_secret).parameters
+        self.assertNotIn("secret_supplier", params)
+
+    def test_repair_02_public_owner_interactive_hidden_path(self):
+        with mock.patch.object(b.sys.stdin, "isatty", return_value=True), \
+             mock.patch.object(b.getpass, "getpass", return_value=SECRET):
+            out = b.with_secret(lease(), lambda s: {"ok": s == SECRET}, as_of=AS_OF)
+        self.assertEqual(out, {"ok": True})
+
+    def test_repair_03_test_helper_requires_synthetic_secret(self):
+        self.assert_code(
+            "TEST_SECRET_REQUIRED",
+            b._with_secret_for_test,
+            lease(),
+            lambda s: {"ok": True},
+            as_of=AS_OF,
+            secret_supplier=lambda: "real-looking-secret-0123456789",
+        )

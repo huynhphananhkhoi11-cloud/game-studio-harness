@@ -4,7 +4,10 @@ import copy
 import json
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
+from datetime import datetime, timezone
+import inspect as _v03_inspect
 
 from scripts import nvidia_nim_live_smoke as s
 from scripts import nvidia_nim_session_credential_bridge as b
@@ -78,6 +81,17 @@ def fake_transport(secret, body):
     }
 
 class NvidiaNimLiveSmokeTests(unittest.TestCase):
+    def setUp(self):
+        self._now_patch = mock.patch.object(
+            s,
+            "_utc_now",
+            return_value=datetime(2026, 9, 8, 17, 0, 0, tzinfo=timezone.utc),
+        )
+        self._now_patch.start()
+
+    def tearDown(self):
+        self._now_patch.stop()
+
     def assert_code(self, code, fn, *args, **kwargs):
         with self.assertRaises(s.NvidiaNimSmokeError) as cm:
             fn(*args, **kwargs)
@@ -178,7 +192,7 @@ class NvidiaNimLiveSmokeTests(unittest.TestCase):
     def test_21_smoke_pass(self):
         with tempfile.TemporaryDirectory() as d:
             led = s.DurableCampaignLedger(Path(d)/"ledger.json", "campaign:test-v03")
-            out = s.execute_smoke(preflight(), lease(), ledger=led,
+            out = s._execute_smoke_for_test(preflight(), lease(), ledger=led,
                                   secret_supplier=lambda: SECRET, transport_fn=fake_transport)
             self.assertEqual(out["status"], "SMOKE_PASS")
             self.assertEqual(out["request_count"], 3)
@@ -187,7 +201,7 @@ class NvidiaNimLiveSmokeTests(unittest.TestCase):
     def test_22_smoke_no_raw_output(self):
         with tempfile.TemporaryDirectory() as d:
             led = s.DurableCampaignLedger(Path(d)/"ledger.json", "campaign:test-v03")
-            out = s.execute_smoke(preflight(), lease(), ledger=led,
+            out = s._execute_smoke_for_test(preflight(), lease(), ledger=led,
                                   secret_supplier=lambda: SECRET, transport_fn=fake_transport)
             self.assertNotIn('{"status":"ok","value":7}', repr(out))
             self.assertNotIn(SECRET, repr(out))
@@ -195,7 +209,7 @@ class NvidiaNimLiveSmokeTests(unittest.TestCase):
     def test_23_smoke_ledger_three(self):
         with tempfile.TemporaryDirectory() as d:
             led = s.DurableCampaignLedger(Path(d)/"ledger.json", "campaign:test-v03")
-            s.execute_smoke(preflight(), lease(), ledger=led,
+            s._execute_smoke_for_test(preflight(), lease(), ledger=led,
                             secret_supplier=lambda: SECRET, transport_fn=fake_transport)
             self.assertEqual(led.snapshot()["request_count"], 3)
 
@@ -203,7 +217,7 @@ class NvidiaNimLiveSmokeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             led = s.DurableCampaignLedger(Path(d)/"ledger.json", "campaign:test-v03")
             switch = s.KillSwitch(True); switch.revoke()
-            self.assert_code("KILL_SWITCH", s.execute_smoke, preflight(), lease(),
+            self.assert_code("KILL_SWITCH", s._execute_smoke_for_test, preflight(), lease(),
                              ledger=led, secret_supplier=lambda: SECRET,
                              transport_fn=fake_transport, kill_switch=switch)
 
@@ -214,7 +228,7 @@ class NvidiaNimLiveSmokeTests(unittest.TestCase):
             return x
         with tempfile.TemporaryDirectory() as d:
             led = s.DurableCampaignLedger(Path(d)/"ledger.json", "campaign:test-v03")
-            self.assert_code("QUALITY_FAILED", s.execute_smoke, preflight(), lease(),
+            self.assert_code("QUALITY_FAILED", s._execute_smoke_for_test, preflight(), lease(),
                              ledger=led, secret_supplier=lambda: SECRET, transport_fn=bad)
 
     def test_26_identity_failure(self):
@@ -224,7 +238,7 @@ class NvidiaNimLiveSmokeTests(unittest.TestCase):
             return x
         with tempfile.TemporaryDirectory() as d:
             led = s.DurableCampaignLedger(Path(d)/"ledger.json", "campaign:test-v03")
-            self.assert_code("QUALITY_FAILED", s.execute_smoke, preflight(), lease(),
+            self.assert_code("QUALITY_FAILED", s._execute_smoke_for_test, preflight(), lease(),
                              ledger=led, secret_supplier=lambda: SECRET, transport_fn=bad)
 
     def test_27_failed_request_consumes_reservation(self):
@@ -233,25 +247,25 @@ class NvidiaNimLiveSmokeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             led = s.DurableCampaignLedger(Path(d)/"ledger.json", "campaign:test-v03")
             with self.assertRaises(RuntimeError):
-                s.execute_smoke(preflight(), lease(), ledger=led,
+                s._execute_smoke_for_test(preflight(), lease(), ledger=led,
                                 secret_supplier=lambda: SECRET, transport_fn=fail)
             self.assertEqual(led.snapshot()["request_count"], 1)
 
     def test_28_invalid_ledger_type(self):
-        self.assert_code("REQUEST_RESERVATION", s.execute_smoke, preflight(), lease(),
+        self.assert_code("REQUEST_RESERVATION", s._execute_smoke_for_test, preflight(), lease(),
                          ledger=object(), secret_supplier=lambda: SECRET, transport_fn=fake_transport)
 
     def test_29_output_hash_present(self):
         with tempfile.TemporaryDirectory() as d:
             led = s.DurableCampaignLedger(Path(d)/"ledger.json", "campaign:test-v03")
-            out = s.execute_smoke(preflight(), lease(), ledger=led,
+            out = s._execute_smoke_for_test(preflight(), lease(), ledger=led,
                                   secret_supplier=lambda: SECRET, transport_fn=fake_transport)
             self.assertTrue(out["records"][0]["content_sha256"].startswith("sha256:"))
 
     def test_30_spend_not_fabricated(self):
         with tempfile.TemporaryDirectory() as d:
             led = s.DurableCampaignLedger(Path(d)/"ledger.json", "campaign:test-v03")
-            out = s.execute_smoke(preflight(), lease(), ledger=led,
+            out = s._execute_smoke_for_test(preflight(), lease(), ledger=led,
                                   secret_supplier=lambda: SECRET, transport_fn=fake_transport)
             self.assertIsNone(out["observed_spend"])
             self.assertTrue(out["post_smoke_spend_confirmation_required"])
@@ -319,3 +333,100 @@ class NvidiaNimV03OfflineEvidenceTests(unittest.TestCase):
         self.assertEqual(p["promotion_ceiling"], "LIVE_VALIDATED")
         self.assertFalse(p["routing"])
         self.assertFalse(p["tools"])
+
+class NvidiaNimV03PreQaRepairTests(unittest.TestCase):
+    def setUp(self):
+        self._now_patch = mock.patch.object(
+            s,
+            "_utc_now",
+            return_value=datetime(2026, 9, 8, 17, 0, 0, tzinfo=timezone.utc),
+        )
+        self._now_patch.start()
+
+    def tearDown(self):
+        self._now_patch.stop()
+
+    def assert_code(self, code, fn, *args, **kwargs):
+        with self.assertRaises(s.NvidiaNimSmokeError) as cm:
+            fn(*args, **kwargs)
+        self.assertEqual(cm.exception.code, code)
+
+    def test_repair_01_public_smoke_has_no_test_injection(self):
+        params = _v03_inspect.signature(s.execute_smoke).parameters
+        self.assertNotIn("secret_supplier", params)
+        self.assertNotIn("transport_fn", params)
+
+    def test_repair_02_stale_preflight_rejected(self):
+        x = preflight(); x["as_of"] = "2026-09-08T16:44:59Z"
+        self.assert_code("PREFLIGHT_STALE", s.validate_preflight, x)
+
+    def test_repair_03_future_preflight_rejected(self):
+        x = preflight(); x["as_of"] = "2026-09-08T17:02:01Z"
+        self.assert_code("PREFLIGHT_STALE", s.validate_preflight, x)
+
+    def test_repair_04_concurrent_campaign_lock_rejected(self):
+        with tempfile.TemporaryDirectory() as d:
+            led = s.DurableCampaignLedger(Path(d)/"ledger.json", "campaign:test-v03")
+            lock = s.CampaignExecutionLock(led)
+            lock.acquire()
+            try:
+                self.assert_code(
+                    "CAMPAIGN_ACTIVE",
+                    s._execute_smoke_for_test,
+                    preflight(),
+                    lease(),
+                    ledger=led,
+                    secret_supplier=lambda: SECRET,
+                    transport_fn=fake_transport,
+                )
+            finally:
+                lock.release()
+
+    def test_repair_05_tampered_ledger_rejected(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d)/"ledger.json"
+            led = s.DurableCampaignLedger(p, "campaign:test-v03")
+            value = led.snapshot()
+            value["request_count"] = 1
+            value["reservations"] = []
+            p.write_text(json.dumps(value), encoding="utf-8")
+            self.assert_code("LEDGER_INVALID", led.snapshot)
+
+    def test_repair_06_unsafe_failure_revokes_switch(self):
+        def fail(secret, body):
+            raise RuntimeError("synthetic failure")
+        with tempfile.TemporaryDirectory() as d:
+            led = s.DurableCampaignLedger(Path(d)/"ledger.json", "campaign:test-v03")
+            switch = s.KillSwitch(True)
+            with self.assertRaises(RuntimeError):
+                s._execute_smoke_for_test(
+                    preflight(), lease(), ledger=led,
+                    secret_supplier=lambda: SECRET,
+                    transport_fn=fail,
+                    kill_switch=switch,
+                )
+            self.assertFalse(switch.allows_call())
+            self.assertEqual(led.snapshot()["request_count"], 1)
+
+    def test_repair_07_live_smoke_omits_undocumented_response_format(self):
+        seen = []
+        def checking_transport(secret, body):
+            seen.append(copy.deepcopy(body))
+            self.assertNotIn("response_format", body)
+            return fake_transport(secret, body)
+
+        with tempfile.TemporaryDirectory() as d:
+            led = s.DurableCampaignLedger(Path(d)/"ledger.json", "campaign:test-v03")
+            out = s._execute_smoke_for_test(
+                preflight(), lease(), ledger=led,
+                secret_supplier=lambda: SECRET,
+                transport_fn=checking_transport,
+            )
+            self.assertEqual(out["status"], "SMOKE_PASS")
+            self.assertEqual(len(seen), 3)
+
+    def test_repair_08_manual_fake_fallback_retained(self):
+        resume = (
+            _V03_ROOT / "studio/memory/tasks/STUDIO-009V-03/RESUME.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("MANUAL/FAKE", resume)

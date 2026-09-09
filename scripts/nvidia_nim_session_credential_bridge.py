@@ -43,6 +43,7 @@ SAFE_MESSAGES = {
     "INTERACTIVE_REQUIRED": "Owner-interactive NVIDIA key input is required",
     "INVALID_SECRET": "NVIDIA V-03 session credential is invalid",
     "SECRET_ESCAPE": "NVIDIA credential material escaped the trusted call boundary",
+    "TEST_SECRET_REQUIRED": "deterministic tests require an explicitly synthetic credential supplier",
 }
 
 class NvidiaSessionCredentialError(ValueError):
@@ -142,19 +143,14 @@ def _contains_secret(value: Any, secret: str) -> bool:
             stack.extend(item)
     return False
 
-def with_secret(
+def _consume_secret(
     lease: dict[str, Any],
     consumer: Callable[[str], Any],
     *,
     as_of: str,
-    secret_supplier: Callable[[], str] | None = None,
+    secret_supplier: Callable[[], str],
 ) -> Any:
     validate_lease(lease, as_of=as_of)
-    if secret_supplier is None and not sys.stdin.isatty():
-        _fail("INTERACTIVE_REQUIRED")
-    if secret_supplier is None:
-        secret_supplier = lambda: getpass.getpass("NVIDIA API key (hidden, session only): ")
-
     secret = ""
     try:
         secret = _validate_secret(secret_supplier())
@@ -169,3 +165,38 @@ def with_secret(
         return result
     finally:
         secret = ""
+
+def with_secret(
+    lease: dict[str, Any],
+    consumer: Callable[[str], Any],
+    *,
+    as_of: str,
+) -> Any:
+    if not sys.stdin.isatty():
+        _fail("INTERACTIVE_REQUIRED")
+    return _consume_secret(
+        lease,
+        consumer,
+        as_of=as_of,
+        secret_supplier=lambda: getpass.getpass("NVIDIA API key (hidden, session only): "),
+    )
+
+def _with_secret_for_test(
+    lease: dict[str, Any],
+    consumer: Callable[[str], Any],
+    *,
+    as_of: str,
+    secret_supplier: Callable[[], str],
+) -> Any:
+    def synthetic_supplier() -> str:
+        value = _validate_secret(secret_supplier())
+        if not value.startswith("synthetic_"):
+            _fail("TEST_SECRET_REQUIRED")
+        return value
+
+    return _consume_secret(
+        lease,
+        consumer,
+        as_of=as_of,
+        secret_supplier=synthetic_supplier,
+    )

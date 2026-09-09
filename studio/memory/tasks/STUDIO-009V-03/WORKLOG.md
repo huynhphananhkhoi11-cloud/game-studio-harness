@@ -40,3 +40,24 @@ routing_activity: NONE
 tool_activity: NONE
 billable_spend_usd: 0
 <!-- STUDIO-009V-03-OFFLINE-LIVE-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+## Independent pre-QA repair
+
+- Reviewed implementation head: `38b7768ab07fb9f3248dcf04d2345f96442af810`.
+- Repair result: PASS.
+- Removed test-only credential supplier from the public Owner-interactive credential path.
+- Removed fake transport injection from the public real-smoke API; synthetic injection remains private/test-only.
+- Added fresh-preflight enforcement, atomic campaign execution lock and stricter durable-ledger integrity checks.
+- Removed `response_format` from the real smoke request shape because the current exact-model NVIDIA API reference does not document that request field.
+- Added explicit hostile coverage for provider error-body redaction, forbidden live request fields, endpoint override denial, concurrency, stale preflight, ledger tampering, unsafe-failure kill and MANUAL/FAKE fallback retention.
+- New V-03 tests: 114.
+- NVIDIA implementation tests: 154.
+- Live framework tests: 70.
+- Focused tests: 662.
+- Full tests: 1167.
+- Pre-QA repair probes: 138.
+- Cumulative PR scope remains exactly 16 paths, within the contract maximum of 22.
+- NVIDIA/API-key/network/tool/routing activity: NONE. Spend: ZERO.
+- Next gate: independent offline QA.
+
+<!-- STUDIO-009V-03-PRE-QA-REPAIR-CHECKPOINT-0003 -->

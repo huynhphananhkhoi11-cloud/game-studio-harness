@@ -32,10 +32,10 @@ completed: |
   - Defined bounded V-03 contract and future 22-path implementation scope.
 
 remaining: |
-  - Studio Owner reviews and may merge the V-03 contract PR.
-  - No NVIDIA API key is created/requested/input before durable contract merge and later offline implementation/preflight.
-  - After contract merge, prepare offline live transport/smoke/credential-bridge code and hostile tests.
-  - Only then may separate Owner connected preflight authorize a bounded real smoke.
+  - Independent offline QA reviews repaired immutable implementation evidence.
+  - Independent Review/Integration follows only after QA PASS.
+  - Owner merge follows only after zero blockers and Rules CI success.
+  - Separate Owner connected preflight may occur only after durable implementation merge.
 
 blockers: |
   - NONE
@@ -50,7 +50,7 @@ routing_activity: NONE
 connected_execution_activity: NONE
 spend: ZERO
 
-exact_next_action: Independent offline QA reviews the V-03 live transport, smoke, dedicated session credential bridge, pending evidence, hostile tests, and exact 22-path boundary. Do not create/input an NVIDIA API key and do not call NVIDIA.
+exact_next_action: Independent offline QA reviews repaired PR #71 at the exact 16-path cumulative implementation boundary within the contract's 22-path maximum. Do not create/input an NVIDIA API key and do not call NVIDIA.
 next_phase: STUDIO-009V-03_OFFLINE_IMPLEMENTATION_QA
 <!-- STUDIO-009V-03-CONTRACT-CHECKPOINT-0001 -->
 
@@ -72,3 +72,21 @@ offline_live_routing_activity: NONE
 offline_live_connected_execution_activity: NONE
 offline_live_spend: ZERO
 <!-- STUDIO-009V-03-OFFLINE-LIVE-IMPLEMENTATION-CHECKPOINT-0002 -->
+
+pre_qa_reviewed_head: 38b7768ab07fb9f3248dcf04d2345f96442af810
+pre_qa_repair_result: PASS
+pre_qa_repair_items: OWNER_INTERACTIVE_ONLY_CREDENTIAL;NO_FAKE_TRANSPORT_IN_LIVE_API;CAMPAIGN_LOCK_AND_LEDGER_INTEGRITY;PREFLIGHT_FRESHNESS;UNDOCUMENTED_RESPONSE_FORMAT_REMOVED;HOSTILE_TEST_COVERAGE
+new_v03_tests: 114
+nvidia_implementation_tests: 154
+pre_qa_repair_probes: 138
+pre_qa_live_framework_tests: 70
+pre_qa_focused_tests: 662
+pre_qa_total_tests: 1167
+pre_qa_provider_runtime_activity: NONE
+pre_qa_network_activity: NONE
+pre_qa_credential_runtime_activity: NONE
+pre_qa_tool_execution_activity: NONE
+pre_qa_routing_activity: NONE
+pre_qa_connected_execution_activity: NONE
+pre_qa_spend: ZERO
+<!-- STUDIO-009V-03-PRE-QA-REPAIR-CHECKPOINT-0003 -->

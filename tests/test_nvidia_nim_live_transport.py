@@ -217,3 +217,67 @@ class NvidiaNimLiveTransportTests(unittest.TestCase):
         conn = FakeConnection(FakeResponse())
         t.perform_request(SECRET, body(), connection_factory=factory_for(conn))
         self.assertTrue(conn.closed)
+
+import inspect as _v03_transport_inspect
+
+class NvidiaNimLiveTransportPreQaRepairTests(unittest.TestCase):
+    def assert_code(self, code, fn, *args, **kwargs):
+        with self.assertRaises(t.NvidiaNimTransportError) as cm:
+            fn(*args, **kwargs)
+        self.assertEqual(cm.exception.code, code)
+        self.assertNotIn(SECRET, str(cm.exception))
+
+    def test_repair_01_auth_error_body_redacted(self):
+        raw = ("provider diagnostic contains " + SECRET).encode("utf-8")
+        r = FakeResponse(status=401, raw=raw, headers=[
+            ("Content-Type", "application/json"),
+            ("Content-Length", str(len(raw))),
+        ])
+        self.assert_code("AUTH_FAILURE", t.perform_request, SECRET, body(),
+                         connection_factory=factory_for(FakeConnection(r)))
+
+    def test_repair_02_server_error_body_redacted(self):
+        raw = ("unsafe provider body " + SECRET).encode("utf-8")
+        r = FakeResponse(status=500, raw=raw, headers=[
+            ("Content-Type", "application/json"),
+            ("Content-Length", str(len(raw))),
+        ])
+        self.assert_code("PROVIDER_EXECUTION_FAILURE", t.perform_request, SECRET, body(),
+                         connection_factory=factory_for(FakeConnection(r)))
+
+    def test_repair_03_tools_field_rejected(self):
+        x = body(); x["tools"] = []
+        self.assert_code("INVALID_REQUEST", t.perform_request, SECRET, x,
+                         connection_factory=factory_for(FakeConnection(FakeResponse())))
+
+    def test_repair_04_remote_mcp_field_rejected(self):
+        x = body(); x["remote_mcp"] = []
+        self.assert_code("INVALID_REQUEST", t.perform_request, SECRET, x,
+                         connection_factory=factory_for(FakeConnection(FakeResponse())))
+
+    def test_repair_05_code_execution_field_rejected(self):
+        x = body(); x["code_execution"] = False
+        self.assert_code("INVALID_REQUEST", t.perform_request, SECRET, x,
+                         connection_factory=factory_for(FakeConnection(FakeResponse())))
+
+    def test_repair_06_file_search_field_rejected(self):
+        x = body(); x["file_search"] = False
+        self.assert_code("INVALID_REQUEST", t.perform_request, SECRET, x,
+                         connection_factory=factory_for(FakeConnection(FakeResponse())))
+
+    def test_repair_07_url_context_field_rejected(self):
+        x = body(); x["url_context"] = False
+        self.assert_code("INVALID_REQUEST", t.perform_request, SECRET, x,
+                         connection_factory=factory_for(FakeConnection(FakeResponse())))
+
+    def test_repair_08_no_host_or_path_override_surface(self):
+        params = _v03_transport_inspect.signature(t.perform_request).parameters
+        self.assertNotIn("host", params)
+        self.assertNotIn("path", params)
+        self.assertNotIn("base_url", params)
+
+    def test_repair_09_default_connection_rejects_wrong_host(self):
+        self.assert_code("INVALID_REQUEST", t._default_connection,
+                         host="partner.example",
+                         timeout=t.TIMEOUT_SECONDS,
+                         context=None)
