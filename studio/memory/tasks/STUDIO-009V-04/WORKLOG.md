@@ -157,3 +157,21 @@ billable_spend_usd: 0
 - Observed billable spend remains USD 0.
 
 <!-- STUDIO-009V-04-OWNER-CONNECTED-PREFLIGHT-CHECKPOINT-0005 -->
+
+## Owner bounded-smoke authorization
+
+- Durable Owner connected preflight merge: `e47210ec73c7a03e1cbce9abc67c84ac6e48f745`.
+- Authorization ref: `owner-authorization:poolside-v04-e47210ec73c7`.
+- Authorizes only the existing fixed V-04 smoke campaign after this checkpoint is durably merged.
+- Maximum 3 real requests; concurrency 1; retry 0; timeout <=60 seconds; max_tokens=128 per fixed probe; USD 0.
+- Exact model/route only: `poolside/laguna-s-2.1` at `https://inference.poolside.ai/v1/chat/completions`.
+- Data remains PUBLIC/SYNTHETIC only; fixed probes only: STRUCTURED_OUTPUT, BOUNDED_REASONING, SYNTHETIC_CODE_REVIEW.
+- API key may be supplied only through the existing hidden Owner-interactive session bridge.
+- No chat, CLI argument, environment variable, credential file, clipboard automation, keychain automation or repo persistence is authorized.
+- pool CLI, tools/functions, MCP, ACP, shell, files, browser context, repo writes, routing and fallbacks remain forbidden.
+- Every request must be reserved before network I/O; failures consume their reservation; no automatic retry.
+- At authorization time: real requests 0; Poolside network activity NONE; billable spend USD 0.
+- After smoke and connected Review, validation key must be revoked/deleted/invalidated server-side before final Owner disposition.
+- This authorization checkpoint itself performs zero provider calls.
+
+<!-- STUDIO-009V-04-OWNER-BOUNDED-SMOKE-AUTHORIZATION-CHECKPOINT-0006 -->
