@@ -1,0 +1,13 @@
+{
+  "expected_probe_count": 3,
+  "human_correction_count": 0,
+  "model": "poolside/laguna-s-2.1",
+  "probe_count": 0,
+  "provider_child_id": "STUDIO-009P-04",
+  "provider_profile_id": "provider-profile:poolside-direct-laguna-s-2.1",
+  "quality_pass": false,
+  "raw_model_output_committed": false,
+  "records": [],
+  "schema_version": "1.0",
+  "status": "PENDING_REAL_SMOKE"
+}
