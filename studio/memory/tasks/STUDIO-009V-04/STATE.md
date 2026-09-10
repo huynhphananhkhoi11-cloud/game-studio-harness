@@ -3,12 +3,12 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-04
-state: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
+state: OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_BOUNDED_SMOKE_AUTHORIZATION
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
-branch: agent/studio-009v-04-poolside-laguna-s-live-validation
-last_observed_HEAD: a7beb556d19da1397cceb09431d47848e69c5b12
-durability_state: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
+branch: agent/studio-009v-04-owner-connected-preflight
+last_observed_HEAD: 1848295279a4ebf5681c4a2026dd4c274738d52d
+durability_state: OFFLINE_LIVE_IMPLEMENTATION_MERGED_OWNER_PREFLIGHT_ACCEPTED
 
 provider: Poolside standalone hosted inference API
 provider_profile_id: provider-profile:poolside-direct-laguna-s-2.1
@@ -49,16 +49,17 @@ completed: |
   - V-03 NVIDIA remains frozen at account verification.
 
 remaining: |
-  - Independent offline QA on immutable V-04 implementation head.
-  - Independent Review/Integration after QA PASS.
-  - Owner merge of offline implementation PR.
-  - Separate Owner connected preflight after durable offline implementation.
-  - Only after current USD 0 eligibility and server-side key revocation proof may real smoke be considered.
+  - Obtain a separate Studio Owner bounded-smoke authorization checkpoint.
+  - Only after that authorization may the existing V-04 bridge request hidden local key input.
+  - Run at most three fixed PUBLIC/SYNTHETIC requests, serially, retry 0, USD 0.
+  - Record sanitized smoke/quality evidence and Owner monetary confirmation.
+  - Connected QA/Review follow without additional provider calls.
+  - Revoke/delete/invalidate the validation key server-side before final disposition.
 blockers: |
-  - NONE at contract stage.
+  - NONE at Owner connected preflight checkpoint.
 
-exact_next_action: Verify Rules CI on the immutable Review head. If clean, Owner may merge PR #77 using Create a merge commit. Real Poolside account/key/network activity remains forbidden until a separate post-merge Owner connected preflight.
-next_phase: STUDIO-009V-04_OWNER_MERGE_GATE
+exact_next_action: Obtain a separate Owner bounded-smoke authorization. This checkpoint authorizes zero real Poolside requests. Do not paste the API key into chat, command line, files, environment variables, credential files or repository content.
+next_phase: STUDIO-009V-04_OWNER_BOUNDED_SMOKE_AUTHORIZATION
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
 
 
@@ -136,3 +137,29 @@ review_acp_activity: NONE
 review_routing_activity: NONE
 review_spend: ZERO
 <!-- STUDIO-009V-04-OFFLINE-REVIEW-CHECKPOINT-0004 -->
+
+offline_implementation_pr: 77
+offline_implementation_merge: 1848295279a4ebf5681c4a2026dd4c274738d52d
+offline_implementation_review_head: 86df7f1174c4084a1f75c9d44750caf28da982d3
+owner_connected_preflight: PASS
+exact_model_confirmed: poolside/laguna-s-2.1
+exact_direct_base_url_confirmed: https://inference.poolside.ai/v1
+account_zero_cost_confirmed: true
+no_billing_method_required_confirmed: true
+no_purchase_required_confirmed: true
+server_side_revocation_confirmed: true
+terms_data_policy_compatible_confirmed: true
+training_opt_out_enabled: true
+no_paid_path_confirmed: true
+owner_reports_validation_api_key_created: true
+raw_api_key_input_into_game_runtime: false
+raw_api_key_persisted_in_repo: false
+real_request_authorized_by_this_checkpoint: false
+real_request_count: 0
+provider_live_state: LIVE_VALIDATION_READY
+connected_validation_status: PENDING_REAL_SMOKE
+quality_evaluation_status: PENDING_REAL_SMOKE
+poolside_model_request_activity: NONE
+billable_spend_usd: 0
+next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
+<!-- STUDIO-009V-04-OWNER-CONNECTED-PREFLIGHT-CHECKPOINT-0005 -->

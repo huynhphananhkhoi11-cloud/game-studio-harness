@@ -22,7 +22,7 @@ cost_class: ZERO_COST_ONLY
 usage_class: INTERNAL_TESTING_EVALUATION_ONLY
 money_ceiling: 0
 
-task_status: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
+task_status: OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_BOUNDED_SMOKE_AUTHORIZATION
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 3726e2bd031ce2022f5a93ff1d40c404fb815682
 p04_implementation_merge: e7ed2d087117eacad42141ca2d0c6587d16721dc
@@ -65,7 +65,7 @@ spend: ZERO
 
 v03_nvidia_state: CONNECTED_PREFLIGHT_FROZEN_ACCOUNT_VERIFICATION
 p05_opencode_authority: NONE
-next_gate: V04_OWNER_MERGE_GATE
+next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
 
 
@@ -143,3 +143,33 @@ review_acp_activity: NONE
 review_routing_activity: NONE
 review_spend: ZERO
 <!-- STUDIO-009V-04-OFFLINE-REVIEW-CHECKPOINT-0004 -->
+
+offline_implementation_pr: 77
+offline_implementation_merge: 1848295279a4ebf5681c4a2026dd4c274738d52d
+offline_implementation_review_head: 86df7f1174c4084a1f75c9d44750caf28da982d3
+owner_connected_preflight: PASS
+owner_account_access_confirmed: true
+exact_model_confirmed: poolside/laguna-s-2.1
+exact_direct_base_url_confirmed: https://inference.poolside.ai/v1
+standalone_offer_confirmed: true
+standalone_offer_class: FREE_FOR_LIMITED_TIME
+account_zero_cost_confirmed: true
+no_billing_method_required_confirmed: true
+no_purchase_required_confirmed: true
+server_side_revocation_confirmed: true
+terms_data_policy_compatible_confirmed: true
+training_opt_out_enabled: true
+no_paid_path_confirmed: true
+owner_reports_validation_api_key_created: true
+raw_api_key_input_into_game_runtime: false
+raw_api_key_persisted_in_repo: false
+real_request_authorized_by_this_checkpoint: false
+real_request_count: 0
+provider_live_state: LIVE_VALIDATION_READY
+connected_validation_status: PENDING_REAL_SMOKE
+quality_evaluation_status: PENDING_REAL_SMOKE
+pool_cli_used: false
+routing_activity: NONE
+billable_spend_usd: 0
+next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
+<!-- STUDIO-009V-04-OWNER-CONNECTED-PREFLIGHT-CHECKPOINT-0005 -->

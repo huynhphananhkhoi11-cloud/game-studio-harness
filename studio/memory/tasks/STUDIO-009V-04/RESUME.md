@@ -6,15 +6,15 @@ task_id: STUDIO-009V-04
 package_path: studio/memory/tasks/STUDIO-009V-04
 canonical_task_contract: tasks/STUDIO-009V-04.md
 implementation_contract: tasks/STUDIO-009V-04-IMPLEMENTATION.md
-current_state: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
+current_state: OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_BOUNDED_SMOKE_AUTHORIZATION
 resume_from: a7beb556d19da1397cceb09431d47848e69c5b12
-branch: agent/studio-009v-04-poolside-laguna-s-live-validation
+branch: agent/studio-009v-04-owner-connected-preflight
 
-safe_checkpoint: V-04 contract is durably merged at a7beb556d19da1397cceb09431d47848e69c5b12; offline live transport/evidence is materialized with zero connected activity and provider state capped at LIVE_VALIDATION_READY.
+safe_checkpoint: V-04 offline implementation PR #77 is durably merged at 1848295279a4ebf5681c4a2026dd4c274738d52d; Owner connected preflight is accepted with exact direct Poolside Laguna S 2.1, zero-cost account eligibility, server-side revocation path and Training Opt-Out confirmed. No real model request has occurred.
 
-next_action: Verify Rules CI on the immutable Review head. If clean, Owner may merge PR #77 using Create a merge commit. Do not login/create/copy/input a Poolside API key and do not send a real request.
+next_action: Obtain a separate Studio Owner bounded-smoke authorization checkpoint. Only the later smoke runner may request the Poolside API key through hidden session-only input and issue at most three fixed PUBLIC/SYNTHETIC requests.
 
-prohibited_next_actions: Poolside account login/creation/inspection in this contract PR; Poolside API-key creation/copy/input/resolution; Poolside/Laguna request; pool CLI installation/execution; credential-file/keychain/browser/clipboard secret lookup; tools; shell; files; browser; MCP; ACP; repository write; gateway/enterprise/local endpoint; routing; worker promotion; private/unreleased GAME export; production use; nonzero spend; concurrent P-05 authoritative writer.
+prohibited_next_actions: real Poolside/Laguna request before separate bounded-smoke authorization; API key pasted into chat, command line, shell history, environment, file, credential file, browser extraction, keychain automation or clipboard automation; pool CLI; tools; shell; files; browser context; MCP; ACP; routing; worker promotion; private/unreleased GAME export; production use; nonzero spend; concurrent P-05 authoritative writer.
 
 fallback: STUDIO-007F/STUDIO-008 MANUAL/FAKE.
 
@@ -33,7 +33,7 @@ spend: ZERO
 
 v03_nvidia_state: CONNECTED_PREFLIGHT_FROZEN_ACCOUNT_VERIFICATION
 p05_opencode_authority: NONE
-next_gate: V04_OWNER_MERGE_GATE
+next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
 
 
@@ -87,3 +87,30 @@ connected_execution_authorized: false
 review_connected_activity: NONE
 review_spend: ZERO
 <!-- STUDIO-009V-04-OFFLINE-REVIEW-CHECKPOINT-0004 -->
+
+offline_implementation_pr: 77
+offline_implementation_merge: 1848295279a4ebf5681c4a2026dd4c274738d52d
+offline_implementation_review_head: 86df7f1174c4084a1f75c9d44750caf28da982d3
+owner_connected_preflight: PASS
+exact_model_confirmed: poolside/laguna-s-2.1
+exact_direct_base_url_confirmed: https://inference.poolside.ai/v1
+account_zero_cost_confirmed: true
+no_billing_method_required_confirmed: true
+no_purchase_required_confirmed: true
+server_side_revocation_confirmed: true
+terms_data_policy_compatible_confirmed: true
+training_opt_out_enabled: true
+no_paid_path_confirmed: true
+owner_reports_validation_api_key_created: true
+raw_api_key_input_into_game_runtime: false
+raw_api_key_persisted_in_repo: false
+real_request_authorized_by_this_checkpoint: false
+real_request_count: 0
+provider_live_state: LIVE_VALIDATION_READY
+connected_validation_status: PENDING_REAL_SMOKE
+quality_evaluation_status: PENDING_REAL_SMOKE
+additional_real_request_authorized: false
+connected_model_request_activity: NONE
+spend: ZERO
+next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
+<!-- STUDIO-009V-04-OWNER-CONNECTED-PREFLIGHT-CHECKPOINT-0005 -->
