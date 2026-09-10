@@ -6,15 +6,15 @@ task_id: STUDIO-009V-04
 package_path: studio/memory/tasks/STUDIO-009V-04
 canonical_task_contract: tasks/STUDIO-009V-04.md
 implementation_contract: tasks/STUDIO-009V-04-IMPLEMENTATION.md
-current_state: OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_BOUNDED_SMOKE_AUTHORIZATION
+current_state: OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION
 resume_from: a7beb556d19da1397cceb09431d47848e69c5b12
-branch: agent/studio-009v-04-owner-connected-preflight
+branch: agent/studio-009v-04-owner-bounded-smoke-authorization
 
-safe_checkpoint: V-04 offline implementation PR #77 is durably merged at 1848295279a4ebf5681c4a2026dd4c274738d52d; Owner connected preflight is accepted with exact direct Poolside Laguna S 2.1, zero-cost account eligibility, server-side revocation path and Training Opt-Out confirmed. No real model request has occurred.
+safe_checkpoint: V-04 Owner connected preflight is durably merged at e47210ec73c7a03e1cbce9abc67c84ac6e48f745. Owner now authorizes a fixed bounded smoke checkpoint: max 3 PUBLIC/SYNTHETIC requests, concurrency 1, retry 0, max_tokens 128, USD 0. No real request has occurred at this authorization checkpoint.
 
-next_action: Obtain a separate Studio Owner bounded-smoke authorization checkpoint. Only the later smoke runner may request the Poolside API key through hidden session-only input and issue at most three fixed PUBLIC/SYNTHETIC requests.
+next_action: Verify Rules CI and merge this authorization checkpoint. Only after durable merge run the dedicated V-04 smoke runner, which may ask for the Poolside API key through hidden session-only input and execute the fixed three-probe campaign.
 
-prohibited_next_actions: real Poolside/Laguna request before separate bounded-smoke authorization; API key pasted into chat, command line, shell history, environment, file, credential file, browser extraction, keychain automation or clipboard automation; pool CLI; tools; shell; files; browser context; MCP; ACP; routing; worker promotion; private/unreleased GAME export; production use; nonzero spend; concurrent P-05 authoritative writer.
+prohibited_next_actions: Poolside/Laguna request before this authorization checkpoint is durably merged; API key in chat/CLI args/environment/files/credential files/browser extraction/keychain automation/clipboard automation; pool CLI; tools/functions; shell; files; browser context; MCP; ACP; repository write; gateway/enterprise/local endpoint; routing; fallback; private/unreleased GAME export; production use; nonzero spend; concurrent P-05 authoritative writer.
 
 fallback: STUDIO-007F/STUDIO-008 MANUAL/FAKE.
 
@@ -33,7 +33,7 @@ spend: ZERO
 
 v03_nvidia_state: CONNECTED_PREFLIGHT_FROZEN_ACCOUNT_VERIFICATION
 p05_opencode_authority: NONE
-next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
+next_gate: EXECUTE_OWNER_AUTHORIZED_BOUNDED_SMOKE
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
 
 
@@ -114,3 +114,21 @@ connected_model_request_activity: NONE
 spend: ZERO
 next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
 <!-- STUDIO-009V-04-OWNER-CONNECTED-PREFLIGHT-CHECKPOINT-0005 -->
+
+owner_bounded_smoke_authorization: PASS
+owner_smoke_authorization_ref: owner-authorization:poolside-v04-e47210ec73c7
+authorization_base_merge: e47210ec73c7a03e1cbce9abc67c84ac6e48f745
+authorized_real_requests: 3
+authorized_probe_ids: STRUCTURED_OUTPUT,BOUNDED_REASONING,SYNTHETIC_CODE_REVIEW
+authorized_max_tokens_per_request: 128
+authorized_concurrency: 1
+authorized_retry: 0
+authorized_data: PUBLIC_SYNTHETIC_ONLY
+authorized_money_ceiling_usd: 0
+credential_input_mode: HIDDEN_OWNER_INTERACTIVE_SESSION_ONLY
+real_request_count_at_authorization: 0
+additional_real_request_authorized_beyond_campaign: false
+network_activity_at_authorization: NONE
+spend_at_authorization: ZERO
+next_gate: EXECUTE_OWNER_AUTHORIZED_BOUNDED_SMOKE
+<!-- STUDIO-009V-04-OWNER-BOUNDED-SMOKE-AUTHORIZATION-CHECKPOINT-0006 -->

@@ -22,7 +22,7 @@ cost_class: ZERO_COST_ONLY
 usage_class: INTERNAL_TESTING_EVALUATION_ONLY
 money_ceiling: 0
 
-task_status: OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_BOUNDED_SMOKE_AUTHORIZATION
+task_status: OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 3726e2bd031ce2022f5a93ff1d40c404fb815682
 p04_implementation_merge: e7ed2d087117eacad42141ca2d0c6587d16721dc
@@ -65,7 +65,7 @@ spend: ZERO
 
 v03_nvidia_state: CONNECTED_PREFLIGHT_FROZEN_ACCOUNT_VERIFICATION
 p05_opencode_authority: NONE
-next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
+next_gate: EXECUTE_OWNER_AUTHORIZED_BOUNDED_SMOKE
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
 
 
@@ -173,3 +173,41 @@ routing_activity: NONE
 billable_spend_usd: 0
 next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
 <!-- STUDIO-009V-04-OWNER-CONNECTED-PREFLIGHT-CHECKPOINT-0005 -->
+
+owner_bounded_smoke_authorization: PASS
+owner_smoke_authorization_ref: owner-authorization:poolside-v04-e47210ec73c7
+authorization_base_merge: e47210ec73c7a03e1cbce9abc67c84ac6e48f745
+authorized_provider_profile: provider-profile:poolside-direct-laguna-s-2.1
+authorized_model: poolside/laguna-s-2.1
+authorized_endpoint: https://inference.poolside.ai/v1/chat/completions
+authorized_real_requests: 3
+authorized_probe_ids: STRUCTURED_OUTPUT,BOUNDED_REASONING,SYNTHETIC_CODE_REVIEW
+authorized_max_tokens_per_request: 128
+authorized_input_token_ceiling_per_request: 4096
+authorized_request_bytes_ceiling: 32768
+authorized_response_bytes_ceiling: 131072
+authorized_timeout_seconds_ceiling: 60
+authorized_concurrency: 1
+authorized_retry: 0
+authorized_data: PUBLIC_SYNTHETIC_ONLY
+authorized_streaming: false
+authorized_tools: false
+authorized_functions: false
+authorized_pool_cli: false
+authorized_mcp: false
+authorized_acp: false
+authorized_shell: false
+authorized_files: false
+authorized_browser: false
+authorized_repo_write: false
+authorized_routing: false
+authorized_provider_fallback: false
+authorized_model_fallback: false
+authorized_money_ceiling_usd: 0
+credential_input_mode: HIDDEN_OWNER_INTERACTIVE_SESSION_ONLY
+validation_key_server_side_revocation_required_after_connected_review: true
+real_request_count_at_authorization: 0
+network_activity_at_authorization: NONE
+billable_spend_usd_at_authorization: 0
+next_gate: EXECUTE_OWNER_AUTHORIZED_BOUNDED_SMOKE
+<!-- STUDIO-009V-04-OWNER-BOUNDED-SMOKE-AUTHORIZATION-CHECKPOINT-0006 -->

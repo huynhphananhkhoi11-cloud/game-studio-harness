@@ -3,12 +3,12 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-04
-state: OWNER_CONNECTED_PREFLIGHT_ACCEPTED_PENDING_BOUNDED_SMOKE_AUTHORIZATION
+state: OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
-branch: agent/studio-009v-04-owner-connected-preflight
-last_observed_HEAD: 1848295279a4ebf5681c4a2026dd4c274738d52d
-durability_state: OFFLINE_LIVE_IMPLEMENTATION_MERGED_OWNER_PREFLIGHT_ACCEPTED
+branch: agent/studio-009v-04-owner-bounded-smoke-authorization
+last_observed_HEAD: e47210ec73c7a03e1cbce9abc67c84ac6e48f745
+durability_state: OWNER_CONNECTED_PREFLIGHT_MERGED_BOUNDED_SMOKE_AUTHORIZATION_PENDING_MERGE
 
 provider: Poolside standalone hosted inference API
 provider_profile_id: provider-profile:poolside-direct-laguna-s-2.1
@@ -49,17 +49,18 @@ completed: |
   - V-03 NVIDIA remains frozen at account verification.
 
 remaining: |
-  - Obtain a separate Studio Owner bounded-smoke authorization checkpoint.
-  - Only after that authorization may the existing V-04 bridge request hidden local key input.
-  - Run at most three fixed PUBLIC/SYNTHETIC requests, serially, retry 0, USD 0.
-  - Record sanitized smoke/quality evidence and Owner monetary confirmation.
-  - Connected QA/Review follow without additional provider calls.
-  - Revoke/delete/invalidate the validation key server-side before final disposition.
+  - Merge this bounded-smoke authorization checkpoint after exact-head CI verification.
+  - Only after durable merge may the dedicated smoke runner ask for the API key through hidden local input.
+  - Execute at most three fixed PUBLIC/SYNTHETIC requests, serially, retry 0, USD 0.
+  - Stop on identity, billing, redirect, auth, quota, policy, quality or capability anomaly.
+  - Record sanitized smoke/quality evidence; no raw key or raw provider output is committed.
+  - Obtain Owner post-smoke monetary confirmation, then Connected QA and Review with zero extra calls.
+  - Revoke/delete/invalidate the validation key server-side before final Owner disposition.
 blockers: |
   - NONE at Owner connected preflight checkpoint.
 
-exact_next_action: Obtain a separate Owner bounded-smoke authorization. This checkpoint authorizes zero real Poolside requests. Do not paste the API key into chat, command line, files, environment variables, credential files or repository content.
-next_phase: STUDIO-009V-04_OWNER_BOUNDED_SMOKE_AUTHORIZATION
+exact_next_action: Verify this authorization PR and Rules CI, then Owner may merge it. After durable merge only, run the dedicated bounded-smoke runner; the key is entered only through its hidden session prompt.
+next_phase: STUDIO-009V-04_EXECUTE_OWNER_AUTHORIZED_BOUNDED_SMOKE
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
 
 
@@ -163,3 +164,26 @@ poolside_model_request_activity: NONE
 billable_spend_usd: 0
 next_gate: OWNER_AUTHORIZE_BOUNDED_SMOKE
 <!-- STUDIO-009V-04-OWNER-CONNECTED-PREFLIGHT-CHECKPOINT-0005 -->
+
+owner_bounded_smoke_authorization: PASS
+owner_smoke_authorization_ref: owner-authorization:poolside-v04-e47210ec73c7
+authorization_base_merge: e47210ec73c7a03e1cbce9abc67c84ac6e48f745
+authorized_real_requests: 3
+authorized_probe_ids: STRUCTURED_OUTPUT,BOUNDED_REASONING,SYNTHETIC_CODE_REVIEW
+authorized_max_tokens_per_request: 128
+authorized_concurrency: 1
+authorized_retry: 0
+authorized_data: PUBLIC_SYNTHETIC_ONLY
+authorized_money_ceiling_usd: 0
+authorized_pool_cli: false
+authorized_tools: false
+authorized_mcp: false
+authorized_acp: false
+authorized_routing: false
+credential_input_mode: HIDDEN_OWNER_INTERACTIVE_SESSION_ONLY
+real_request_count_at_authorization: 0
+connected_execution_activity_at_authorization: NONE
+network_activity_at_authorization: NONE
+billable_spend_usd_at_authorization: 0
+next_gate: EXECUTE_OWNER_AUTHORIZED_BOUNDED_SMOKE
+<!-- STUDIO-009V-04-OWNER-BOUNDED-SMOKE-AUTHORIZATION-CHECKPOINT-0006 -->
