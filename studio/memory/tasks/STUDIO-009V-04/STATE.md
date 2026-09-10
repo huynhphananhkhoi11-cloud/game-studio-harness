@@ -3,12 +3,12 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-04
-state: OFFLINE_LIVE_IMPLEMENTATION_QA_PASS_PENDING_REVIEW
+state: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
 branch: agent/studio-009v-04-poolside-laguna-s-live-validation
 last_observed_HEAD: a7beb556d19da1397cceb09431d47848e69c5b12
-durability_state: OFFLINE_LIVE_IMPLEMENTATION_QA_CHECKPOINT_PENDING_REVIEW
+durability_state: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
 
 provider: Poolside standalone hosted inference API
 provider_profile_id: provider-profile:poolside-direct-laguna-s-2.1
@@ -57,8 +57,8 @@ remaining: |
 blockers: |
   - NONE at contract stage.
 
-exact_next_action: Independent Review/Integration reviews the QA-approved V-04 offline implementation head. Do not login/create/copy/input a Poolside API key and do not send a Poolside request.
-next_phase: STUDIO-009V-04_INDEPENDENT_REVIEW_INTEGRATION
+exact_next_action: Verify Rules CI on the immutable Review head. If clean, Owner may merge PR #77 using Create a merge commit. Real Poolside account/key/network activity remains forbidden until a separate post-merge Owner connected preflight.
+next_phase: STUDIO-009V-04_OWNER_MERGE_GATE
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
 
 
@@ -110,3 +110,29 @@ qa_acp_activity: NONE
 qa_routing_activity: NONE
 qa_spend: ZERO
 <!-- STUDIO-009V-04-OFFLINE-QA-CHECKPOINT-0003 -->
+
+
+review_result: APPROVE
+review_reviewed_qa_head: 80fc99b028d35ee77b221ab051fc25e1bad613f9
+review_implementation_head: 224c6c10f49cabdb7033b26b1354fab3ea90daf4
+review_blockers: 0
+review_new_v04_tests: 119
+review_cli_regression_tests: 5
+review_focused_tests: 881
+review_total_tests: 1386
+review_probes: 152
+review_live_state: LIVE_VALIDATION_READY
+review_connected_validation_status: PENDING_REAL_SMOKE
+review_quality_evaluation_status: PENDING_REAL_SMOKE
+connected_execution_authorized: false
+review_provider_runtime_activity: NONE
+review_poolside_network_activity: NONE
+review_account_activity: NONE
+review_api_key_activity: NONE
+review_pool_cli_activity: NONE
+review_tool_activity: NONE
+review_mcp_activity: NONE
+review_acp_activity: NONE
+review_routing_activity: NONE
+review_spend: ZERO
+<!-- STUDIO-009V-04-OFFLINE-REVIEW-CHECKPOINT-0004 -->

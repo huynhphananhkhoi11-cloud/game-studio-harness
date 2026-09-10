@@ -6,13 +6,13 @@ task_id: STUDIO-009V-04
 package_path: studio/memory/tasks/STUDIO-009V-04
 canonical_task_contract: tasks/STUDIO-009V-04.md
 implementation_contract: tasks/STUDIO-009V-04-IMPLEMENTATION.md
-current_state: OFFLINE_LIVE_IMPLEMENTATION_QA_PASS_PENDING_REVIEW
+current_state: OFFLINE_LIVE_IMPLEMENTATION_REVIEW_APPROVED_PENDING_OWNER_MERGE
 resume_from: a7beb556d19da1397cceb09431d47848e69c5b12
 branch: agent/studio-009v-04-poolside-laguna-s-live-validation
 
 safe_checkpoint: V-04 contract is durably merged at a7beb556d19da1397cceb09431d47848e69c5b12; offline live transport/evidence is materialized with zero connected activity and provider state capped at LIVE_VALIDATION_READY.
 
-next_action: Run Independent Review/Integration on the immutable QA head. Do not login/create/copy/input a Poolside API key and do not send a real request.
+next_action: Verify Rules CI on the immutable Review head. If clean, Owner may merge PR #77 using Create a merge commit. Do not login/create/copy/input a Poolside API key and do not send a real request.
 
 prohibited_next_actions: Poolside account login/creation/inspection in this contract PR; Poolside API-key creation/copy/input/resolution; Poolside/Laguna request; pool CLI installation/execution; credential-file/keychain/browser/clipboard secret lookup; tools; shell; files; browser; MCP; ACP; repository write; gateway/enterprise/local endpoint; routing; worker promotion; private/unreleased GAME export; production use; nonzero spend; concurrent P-05 authoritative writer.
 
@@ -33,7 +33,7 @@ spend: ZERO
 
 v03_nvidia_state: CONNECTED_PREFLIGHT_FROZEN_ACCOUNT_VERIFICATION
 p05_opencode_authority: NONE
-next_gate: V04_INDEPENDENT_REVIEW_INTEGRATION
+next_gate: V04_OWNER_MERGE_GATE
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
 
 
@@ -69,3 +69,21 @@ connected_execution_authorized: false
 qa_connected_activity: NONE
 qa_spend: ZERO
 <!-- STUDIO-009V-04-OFFLINE-QA-CHECKPOINT-0003 -->
+
+
+review_result: APPROVE
+review_reviewed_qa_head: 80fc99b028d35ee77b221ab051fc25e1bad613f9
+review_implementation_head: 224c6c10f49cabdb7033b26b1354fab3ea90daf4
+review_blockers: 0
+review_new_v04_tests: 119
+review_cli_regression_tests: 5
+review_focused_tests: 881
+review_total_tests: 1386
+review_probes: 152
+review_live_state: LIVE_VALIDATION_READY
+review_connected_validation_status: PENDING_REAL_SMOKE
+review_quality_evaluation_status: PENDING_REAL_SMOKE
+connected_execution_authorized: false
+review_connected_activity: NONE
+review_spend: ZERO
+<!-- STUDIO-009V-04-OFFLINE-REVIEW-CHECKPOINT-0004 -->
