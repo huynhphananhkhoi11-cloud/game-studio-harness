@@ -141,3 +141,19 @@ acp_activity: NONE
 routing_activity: NONE
 billable_spend_usd: 0
 <!-- STUDIO-009V-04-OFFLINE-REVIEW-CHECKPOINT-0004 -->
+
+## Owner connected preflight after durable V-04 offline implementation merge
+
+- PR #77 is durably merged at `1848295279a4ebf5681c4a2026dd4c274738d52d` from offline Review head `86df7f1174c4084a1f75c9d44750caf28da982d3`.
+- Owner confirmed the standalone Poolside account, exact `poolside/laguna-s-2.1` model and direct `https://inference.poolside.ai/v1` route.
+- Current public offer remains `Free to use for a limited time`; this is dynamic, not permanent entitlement.
+- Owner confirmed the bounded campaign is USD 0 with no mandatory billing method, subscription, credit purchase, auto-recharge or paid fallback.
+- Owner confirmed a server-side key revoke/delete/invalidate path.
+- Owner enabled Training Opt-Out. V-04 remains PUBLIC/SYNTHETIC only.
+- Owner reports a validation API key exists, but the raw key has not entered GAME runtime or repository material.
+- No real Poolside/Laguna model request has been sent. Connected/quality evidence remains `PENDING_REAL_SMOKE`.
+- This checkpoint authorizes zero real requests. A separate Owner bounded-smoke authorization is required next.
+- `pool` CLI, tools, MCP, ACP, routing, worker promotion, private GAME export and paid paths remain forbidden.
+- Observed billable spend remains USD 0.
+
+<!-- STUDIO-009V-04-OWNER-CONNECTED-PREFLIGHT-CHECKPOINT-0005 -->
