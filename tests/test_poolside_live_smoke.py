@@ -309,17 +309,27 @@ class PoolsideV04OfflineEvidenceTests(unittest.TestCase):
         self.assertIsNone(record["routing_authority_ref"])
         self.assertEqual(record["allowed_data_classifications"], ["PUBLIC"])
 
-    def test_35_connected_evidence_pending(self):
+    def test_35_connected_evidence_smoke_pass_owner_zero_cost(self):
         record = self._load(_V04_EVIDENCE / "connected-validation.json")
-        self.assertEqual(record["status"], "PENDING_REAL_SMOKE")
-        self.assertEqual(record["request_count"], 0)
-        self.assertIsNone(record["observed_spend"])
+        self.assertEqual(record["status"], "SMOKE_PASS_OWNER_ZERO_COST_CONFIRMED_PENDING_CONNECTED_QA")
+        self.assertEqual(record["request_count"], 3)
+        self.assertEqual(record["network_success_count"], 3)
+        self.assertEqual(record["observed_spend"], 0)
+        self.assertTrue(record["owner_post_smoke_zero_cost_confirmation"])
+        self.assertEqual(record["provider_billing_surface_observation"], "NOT_EXPOSED")
+        self.assertIsNone(record["provider_metered_charge_usd"])
+        self.assertTrue(record["model_identity_verified"])
+        self.assertTrue(record["transport_identity_verified"])
 
-    def test_36_quality_evidence_pending(self):
+    def test_36_quality_evidence_smoke_pass(self):
         record = self._load(_V04_EVIDENCE / "quality-evaluation.json")
-        self.assertEqual(record["status"], "PENDING_REAL_SMOKE")
-        self.assertFalse(record["quality_pass"])
-        self.assertEqual(record["probe_count"], 0)
+        self.assertEqual(record["status"], "SMOKE_PASS_OWNER_ZERO_COST_CONFIRMED_PENDING_CONNECTED_QA")
+        self.assertTrue(record["quality_pass"])
+        self.assertEqual(record["probe_count"], 3)
+        self.assertEqual(
+            [x["probe_id"] for x in record["records"]],
+            ["STRUCTURED_OUTPUT", "BOUNDED_REASONING", "SYNTHETIC_CODE_REVIEW"],
+        )
 
     def test_37_pending_evidence_contains_no_raw_material(self):
         connected = self._load(_V04_EVIDENCE / "connected-validation.json")
@@ -442,10 +452,14 @@ class PoolsideV04AdditionalOfflineBoundaryTests(unittest.TestCase):
         self.assertFalse(p["acp"])
         self.assertTrue(p["server_side_credential_revocation_required"])
 
-    def test_poolside_v04_connected_placeholder_does_not_fabricate_entitlement_or_revocation(self):
+    def test_poolside_v04_connected_evidence_records_zero_cost_without_premature_revocation(self):
         with open(_V04_EVIDENCE / "connected-validation.json", "r", encoding="utf-8") as h:
             record = _v04_json.load(h)
-        self.assertFalse(record["zero_cost_eligibility_verified"])
+        self.assertTrue(record["zero_cost_eligibility_verified"])
+        self.assertTrue(record["owner_post_smoke_zero_cost_confirmation"])
+        self.assertEqual(record["owner_observed_charge_usd"], 0)
+        self.assertEqual(record["provider_billing_surface_observation"], "NOT_EXPOSED")
+        self.assertIsNone(record["provider_metered_charge_usd"])
         self.assertFalse(record["server_side_revocation_verified"])
         self.assertFalse(record["pool_cli_used"])
 

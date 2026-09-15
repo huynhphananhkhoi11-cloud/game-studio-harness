@@ -22,7 +22,7 @@ cost_class: ZERO_COST_ONLY
 usage_class: INTERNAL_TESTING_EVALUATION_ONLY
 money_ceiling: 0
 
-task_status: OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION
+task_status: SMOKE_PASS_OWNER_ZERO_COST_CONFIRMED_PENDING_CONNECTED_QA
 contract_record_semantics: EFFECTIVE_WHEN_MERGED
 base_head: 3726e2bd031ce2022f5a93ff1d40c404fb815682
 p04_implementation_merge: e7ed2d087117eacad42141ca2d0c6587d16721dc
@@ -50,22 +50,22 @@ acp_authority: NONE
 production_authority: NONE
 money_ceiling_currency: USD
 
-provider_runtime_activity: NONE
-poolside_network_activity: NONE
+provider_runtime_activity: BOUNDED_SMOKE_COMPLETE
+poolside_network_activity: EXACTLY_3_SUCCESSFUL_REQUESTS
 account_runtime_activity: NONE
-credential_runtime_activity: NONE
+credential_runtime_activity: SESSION_ONLY_COMPLETED
 secret_store_activity: NONE
 pool_cli_activity: NONE
 tool_execution_activity: NONE
 remote_mcp_activity: NONE
 acp_activity: NONE
 routing_activity: NONE
-connected_execution_activity: NONE
-spend: ZERO
+connected_execution_activity: BOUNDED_SMOKE_COMPLETE
+spend: ZERO_OWNER_CONFIRMED
 
 v03_nvidia_state: CONNECTED_PREFLIGHT_FROZEN_ACCOUNT_VERIFICATION
 p05_opencode_authority: NONE
-next_gate: EXECUTE_OWNER_AUTHORIZED_BOUNDED_SMOKE
+next_gate: CONNECTED_QA
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
 
 
@@ -211,3 +211,28 @@ network_activity_at_authorization: NONE
 billable_spend_usd_at_authorization: 0
 next_gate: EXECUTE_OWNER_AUTHORIZED_BOUNDED_SMOKE
 <!-- STUDIO-009V-04-OWNER-BOUNDED-SMOKE-AUTHORIZATION-CHECKPOINT-0006 -->
+
+
+smoke_campaign_id: campaign:poolside-v04-c966b37a
+smoke_result: PASS
+authorization_consumed: true
+real_request_count: 3
+network_success_count: 3
+quality_pass: true
+human_correction_count: 0
+model_identity_verified: true
+transport_identity_verified: true
+owner_post_smoke_zero_cost_confirmation: PASS
+owner_observed_charge_usd: 0
+provider_billing_surface_observation: NOT_EXPOSED
+provider_metered_charge_usd: UNAVAILABLE
+public_free_api_offer_class: FREE_FOR_LIMITED_TIME
+public_free_api_offer_reverified_date: 2026-09-10
+observed_spend_usd: 0
+observed_spend_basis: OWNER_CONFIRMED_PUBLIC_FREE_API_OFFER_NO_BILLING_SURFACE_NO_PAYMENT_PURCHASE_OR_PAID_FALLBACK
+raw_api_key_persisted: false
+raw_provider_output_persisted: false
+additional_real_request_authorized: false
+validation_key_revocation_pending_after_connected_review: true
+next_gate: CONNECTED_QA
+<!-- STUDIO-009V-04-SMOKE-OWNER-ZERO-COST-CHECKPOINT-0007 -->

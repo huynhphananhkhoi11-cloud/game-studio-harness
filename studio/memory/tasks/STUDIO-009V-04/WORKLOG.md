@@ -175,3 +175,24 @@ billable_spend_usd: 0
 - This authorization checkpoint itself performs zero provider calls.
 
 <!-- STUDIO-009V-04-OWNER-BOUNDED-SMOKE-AUTHORIZATION-CHECKPOINT-0006 -->
+
+
+## 2026-09-10 — Bounded smoke PASS and Owner zero-cost confirmation
+
+- Durable authorization merge: `c966b37a96794e7471463b631796bb7e1259d366`.
+- Campaign: `campaign:poolside-v04-c966b37a`.
+- Exact model/host: `poolside/laguna-s-2.1` / `inference.poolside.ai`.
+- Exactly 3 requests / 3 network successes; concurrency 1; retry 0; max_tokens 128.
+- STRUCTURED_OUTPUT, BOUNDED_REASONING, and SYNTHETIC_CODE_REVIEW all PASS without human correction.
+- Raw API key and raw provider output are not persisted.
+- Poolside official model/release evidence was re-verified 2026-09-10 as `free to use for a limited time` via API.
+- Owner reports no Billing / Usage / Credits / Payment / Invoices / Subscription surface exposed in the account UI.
+- No payment-method requirement, purchase/subscription requirement, auto-recharge, or paid fallback was encountered.
+- The public `poolsideai/pool` repository is recorded as CLI/agent/integration evidence, not pricing authority.
+- Owner explicitly confirms the bounded V-04 campaign at USD 0 on this combined evidence basis.
+- Provider-metered billable charge remains unavailable because no authoritative billing meter is exposed; GAME does not invent a provider-metered amount.
+- No additional real request is authorized.
+- Next gate: independent Connected QA, with zero Poolside requests.
+- Validation key remains pending server-side revocation after Connected Review per contract lifecycle.
+
+<!-- STUDIO-009V-04-SMOKE-OWNER-ZERO-COST-CHECKPOINT-0007 -->
