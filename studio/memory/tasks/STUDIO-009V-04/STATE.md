@@ -3,12 +3,12 @@
 memory_schema_version: 1
 
 task_id: STUDIO-009V-04
-state: OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION
+state: SMOKE_PASS_OWNER_ZERO_COST_CONFIRMED_PENDING_CONNECTED_QA
 logical_role: Platform Studio / Connected Validation Cell
 repository_context: game-studio-harness
-branch: agent/studio-009v-04-owner-bounded-smoke-authorization
-last_observed_HEAD: e47210ec73c7a03e1cbce9abc67c84ac6e48f745
-durability_state: OWNER_CONNECTED_PREFLIGHT_MERGED_BOUNDED_SMOKE_AUTHORIZATION_PENDING_MERGE
+branch: agent/studio-009v-04-smoke-evidence-owner-zero-cost
+last_observed_HEAD: c966b37a96794e7471463b631796bb7e1259d366
+durability_state: AUTHORIZATION_MERGED_SMOKE_PASS_OWNER_ZERO_COST_CONFIRMATION_PENDING_MERGE
 
 provider: Poolside standalone hosted inference API
 provider_profile_id: provider-profile:poolside-direct-laguna-s-2.1
@@ -27,18 +27,18 @@ pool_cli_authority: NONE
 mcp_authority: NONE
 acp_authority: NONE
 
-provider_runtime_activity: NONE
-poolside_network_activity: NONE
+provider_runtime_activity: BOUNDED_SMOKE_COMPLETE
+poolside_network_activity: EXACTLY_3_SUCCESSFUL_REQUESTS
 account_runtime_activity: NONE
-credential_runtime_activity: NONE
+credential_runtime_activity: SESSION_ONLY_COMPLETED
 secret_store_activity: NONE
 pool_cli_activity: NONE
 tool_execution_activity: NONE
 remote_mcp_activity: NONE
 acp_activity: NONE
 routing_activity: NONE
-connected_execution_activity: NONE
-spend: ZERO
+connected_execution_activity: BOUNDED_SMOKE_COMPLETE
+spend: ZERO_OWNER_CONFIRMED
 
 completed: |
   - P-04 offline provider child is durably COMPLETE.
@@ -49,18 +49,15 @@ completed: |
   - V-03 NVIDIA remains frozen at account verification.
 
 remaining: |
-  - Merge this bounded-smoke authorization checkpoint after exact-head CI verification.
-  - Only after durable merge may the dedicated smoke runner ask for the API key through hidden local input.
-  - Execute at most three fixed PUBLIC/SYNTHETIC requests, serially, retry 0, USD 0.
-  - Stop on identity, billing, redirect, auth, quota, policy, quality or capability anomaly.
-  - Record sanitized smoke/quality evidence; no raw key or raw provider output is committed.
-  - Obtain Owner post-smoke monetary confirmation, then Connected QA and Review with zero extra calls.
-  - Revoke/delete/invalidate the validation key server-side before final Owner disposition.
+  - Merge this smoke-evidence / Owner zero-cost-confirmation checkpoint after exact-head CI verification.
+  - Run independent Connected QA against the immutable merged evidence; zero additional Poolside requests.
+  - Run Connected Review/Integration against the immutable QA head; zero additional Poolside requests.
+  - Revoke/delete/invalidate the validation key server-side after Connected Review and record safe revocation evidence.
+  - Record final Owner disposition; promotion ceiling remains LIVE_VALIDATED and routing remains unauthorized.
 blockers: |
-  - NONE at Owner connected preflight checkpoint.
-
-exact_next_action: Verify this authorization PR and Rules CI, then Owner may merge it. After durable merge only, run the dedicated bounded-smoke runner; the key is entered only through its hidden session prompt.
-next_phase: STUDIO-009V-04_EXECUTE_OWNER_AUTHORIZED_BOUNDED_SMOKE
+  - NONE for progression to independent Connected QA after this checkpoint is durably merged.
+exact_next_action: Merge this exact smoke-evidence / Owner zero-cost-confirmation checkpoint after Rules CI success, then run independent Connected QA with zero provider calls.
+next_phase: STUDIO-009V-04_CONNECTED_QA
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
 
 
@@ -187,3 +184,26 @@ network_activity_at_authorization: NONE
 billable_spend_usd_at_authorization: 0
 next_gate: EXECUTE_OWNER_AUTHORIZED_BOUNDED_SMOKE
 <!-- STUDIO-009V-04-OWNER-BOUNDED-SMOKE-AUTHORIZATION-CHECKPOINT-0006 -->
+
+
+smoke_campaign_id: campaign:poolside-v04-c966b37a
+smoke_result: PASS
+authorization_consumed: true
+real_request_count: 3
+network_success_count: 3
+quality_pass: true
+human_correction_count: 0
+owner_post_smoke_zero_cost_confirmation: PASS
+owner_observed_charge_usd: 0
+provider_billing_surface_observation: NOT_EXPOSED
+provider_metered_charge_usd: UNAVAILABLE
+public_free_api_offer_class: FREE_FOR_LIMITED_TIME
+observed_spend_usd: 0
+observed_spend_basis: OWNER_CONFIRMED_PUBLIC_FREE_API_OFFER_NO_BILLING_SURFACE_NO_PAYMENT_PURCHASE_OR_PAID_FALLBACK
+additional_real_request_authorized: false
+validation_key_revocation_pending_after_connected_review: true
+provider_live_state: LIVE_VALIDATION_READY
+connected_validation_status: SMOKE_PASS_OWNER_ZERO_COST_CONFIRMED_PENDING_CONNECTED_QA
+quality_evaluation_status: SMOKE_PASS_OWNER_ZERO_COST_CONFIRMED_PENDING_CONNECTED_QA
+next_gate: CONNECTED_QA
+<!-- STUDIO-009V-04-SMOKE-OWNER-ZERO-COST-CHECKPOINT-0007 -->

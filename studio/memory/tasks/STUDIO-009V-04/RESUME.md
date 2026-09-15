@@ -6,34 +6,34 @@ task_id: STUDIO-009V-04
 package_path: studio/memory/tasks/STUDIO-009V-04
 canonical_task_contract: tasks/STUDIO-009V-04.md
 implementation_contract: tasks/STUDIO-009V-04-IMPLEMENTATION.md
-current_state: OWNER_BOUNDED_SMOKE_AUTHORIZED_PENDING_EXECUTION
+current_state: SMOKE_PASS_OWNER_ZERO_COST_CONFIRMED_PENDING_CONNECTED_QA
 resume_from: a7beb556d19da1397cceb09431d47848e69c5b12
-branch: agent/studio-009v-04-owner-bounded-smoke-authorization
+branch: agent/studio-009v-04-smoke-evidence-owner-zero-cost
 
-safe_checkpoint: V-04 Owner connected preflight is durably merged at e47210ec73c7a03e1cbce9abc67c84ac6e48f745. Owner now authorizes a fixed bounded smoke checkpoint: max 3 PUBLIC/SYNTHETIC requests, concurrency 1, retry 0, max_tokens 128, USD 0. No real request has occurred at this authorization checkpoint.
+safe_checkpoint: V-04 bounded smoke completed exactly 3/3 requests with all fixed probes PASS. Owner confirms zero-cost basis from current official free-limited API offer plus no exposed billing surface and no payment/purchase/paid-fallback requirement. Provider-metered billable charge remains unavailable and is not invented.
 
-next_action: Verify Rules CI and merge this authorization checkpoint. Only after durable merge run the dedicated V-04 smoke runner, which may ask for the Poolside API key through hidden session-only input and execute the fixed three-probe campaign.
+next_action: Merge the immutable smoke-evidence / Owner zero-cost-confirmation checkpoint after Rules CI success, then run independent Connected QA with zero additional Poolside requests.
 
-prohibited_next_actions: Poolside/Laguna request before this authorization checkpoint is durably merged; API key in chat/CLI args/environment/files/credential files/browser extraction/keychain automation/clipboard automation; pool CLI; tools/functions; shell; files; browser context; MCP; ACP; repository write; gateway/enterprise/local endpoint; routing; fallback; private/unreleased GAME export; production use; nonzero spend; concurrent P-05 authoritative writer.
+prohibited_next_actions: rerun Poolside smoke; any additional Poolside/Laguna request; API key in chat/CLI args/environment/files/browser/keychain/clipboard; pool CLI; tools/functions; MCP; ACP; shell/file/browser context; routing; fallback; private GAME export; production use; nonzero spend; premature LIVE_VALIDATED promotion.
 
 fallback: STUDIO-007F/STUDIO-008 MANUAL/FAKE.
 
-provider_runtime_activity: NONE
-poolside_network_activity: NONE
+provider_runtime_activity: BOUNDED_SMOKE_COMPLETE
+poolside_network_activity: EXACTLY_3_SUCCESSFUL_REQUESTS
 account_runtime_activity: NONE
-credential_runtime_activity: NONE
+credential_runtime_activity: SESSION_ONLY_COMPLETED
 secret_store_activity: NONE
 pool_cli_activity: NONE
 tool_execution_activity: NONE
 remote_mcp_activity: NONE
 acp_activity: NONE
 routing_activity: NONE
-connected_execution_activity: NONE
-spend: ZERO
+connected_execution_activity: BOUNDED_SMOKE_COMPLETE
+spend: ZERO_OWNER_CONFIRMED
 
 v03_nvidia_state: CONNECTED_PREFLIGHT_FROZEN_ACCOUNT_VERIFICATION
 p05_opencode_authority: NONE
-next_gate: EXECUTE_OWNER_AUTHORIZED_BOUNDED_SMOKE
+next_gate: CONNECTED_QA
 <!-- STUDIO-009V-04-CONTRACT-CHECKPOINT-0001 -->
 
 
@@ -132,3 +132,21 @@ network_activity_at_authorization: NONE
 spend_at_authorization: ZERO
 next_gate: EXECUTE_OWNER_AUTHORIZED_BOUNDED_SMOKE
 <!-- STUDIO-009V-04-OWNER-BOUNDED-SMOKE-AUTHORIZATION-CHECKPOINT-0006 -->
+
+
+smoke_campaign_id: campaign:poolside-v04-c966b37a
+smoke_result: PASS
+real_request_count: 3
+network_success_count: 3
+quality_pass: true
+owner_post_smoke_zero_cost_confirmation: PASS
+owner_observed_charge_usd: 0
+provider_billing_surface_observation: NOT_EXPOSED
+provider_metered_charge_usd: UNAVAILABLE
+public_free_api_offer_class: FREE_FOR_LIMITED_TIME
+observed_spend_usd: 0
+observed_spend_basis: OWNER_CONFIRMED_PUBLIC_FREE_API_OFFER_NO_BILLING_SURFACE_NO_PAYMENT_PURCHASE_OR_PAID_FALLBACK
+additional_real_request_authorized: false
+validation_key_revocation_pending_after_connected_review: true
+next_gate: CONNECTED_QA
+<!-- STUDIO-009V-04-SMOKE-OWNER-ZERO-COST-CHECKPOINT-0007 -->

@@ -1,13 +1,58 @@
 {
+  "additional_real_request_authorized": false,
   "expected_probe_count": 3,
   "human_correction_count": 0,
   "model": "poolside/laguna-s-2.1",
-  "probe_count": 0,
+  "owner_zero_cost_confirmation_recorded": true,
+  "probe_count": 3,
   "provider_child_id": "STUDIO-009P-04",
   "provider_profile_id": "provider-profile:poolside-direct-laguna-s-2.1",
-  "quality_pass": false,
+  "quality_pass": true,
   "raw_model_output_committed": false,
-  "records": [],
+  "records": [
+    {
+      "content_sha256": "sha256:79560680b8a2be382aefa4bf5a2bb98dbe99ee2f966fdd2c66fc5dd2f0daa4b2",
+      "finish_reason": "stop",
+      "model": "poolside/laguna-s-2.1",
+      "model_identity_verified": true,
+      "probe_id": "STRUCTURED_OUTPUT",
+      "quality": "PASS",
+      "transport_identity_verified": true,
+      "usage": {
+        "input_tokens": 61,
+        "output_tokens": 10,
+        "total_tokens": 71
+      }
+    },
+    {
+      "content_sha256": "sha256:269691df5a9d6253aab83d667e519b528982032eb027916f33f4ee168770ba0c",
+      "finish_reason": "stop",
+      "model": "poolside/laguna-s-2.1",
+      "model_identity_verified": true,
+      "probe_id": "BOUNDED_REASONING",
+      "quality": "PASS",
+      "transport_identity_verified": true,
+      "usage": {
+        "input_tokens": 75,
+        "output_tokens": 14,
+        "total_tokens": 89
+      }
+    },
+    {
+      "content_sha256": "sha256:0fb8c5fc5a3be9de0b772065fa45488e15e42732c00cdaa9ed63ffc1dec5a1fe",
+      "finish_reason": "stop",
+      "model": "poolside/laguna-s-2.1",
+      "model_identity_verified": true,
+      "probe_id": "SYNTHETIC_CODE_REVIEW",
+      "quality": "PASS",
+      "transport_identity_verified": true,
+      "usage": {
+        "input_tokens": 77,
+        "output_tokens": 14,
+        "total_tokens": 91
+      }
+    }
+  ],
   "schema_version": "1.0",
-  "status": "PENDING_REAL_SMOKE"
+  "status": "SMOKE_PASS_OWNER_ZERO_COST_CONFIRMED_PENDING_CONNECTED_QA"
 }

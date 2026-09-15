@@ -1,28 +1,89 @@
 {
   "account_private_data_committed": false,
+  "additional_real_request_authorized": false,
+  "authorization_consumed": true,
   "concurrency": 1,
   "connected_qa_ref": null,
   "connected_review_ref": null,
   "connected_validation_id": "connected-validation:poolside-v04",
   "credential_profile_ref": "credential-profile:poolside-api-key",
-  "model_identity_verified": false,
+  "model_identity_verified": true,
   "model_ref": "model-id:poolside/laguna-s-2.1",
   "money_ceiling": 0,
-  "observed_spend": null,
+  "network_success_count": 3,
+  "observed_spend": 0,
+  "observed_spend_basis": "OWNER_CONFIRMED_PUBLIC_FREE_API_OFFER_NO_BILLING_SURFACE_NO_PAYMENT_PURCHASE_OR_PAID_FALLBACK",
   "owner_disposition_ref": null,
+  "owner_observed_charge_usd": 0,
+  "owner_post_smoke_zero_cost_confirmation": true,
+  "owner_smoke_authorization_ref": "owner-authorization:poolside-v04-e47210ec73c7",
   "pool_cli_used": false,
+  "pool_repository_pricing_authority": false,
+  "post_smoke_spend_confirmation_required": false,
+  "provider_billing_surface_observation": "NOT_EXPOSED",
   "provider_child_id": "STUDIO-009P-04",
+  "provider_metered_charge_status": "UNAVAILABLE_NO_BILLING_SURFACE",
+  "provider_metered_charge_usd": null,
   "provider_profile_id": "provider-profile:poolside-direct-laguna-s-2.1",
-  "quality_pass": false,
+  "public_free_api_offer_class": "FREE_FOR_LIMITED_TIME",
+  "public_free_api_offer_observed": true,
+  "public_free_api_offer_reverified_date": "2026-09-10",
+  "public_free_api_offer_source": "https://poolside.ai/models",
+  "quality_pass": true,
   "raw_credential_committed": false,
   "raw_provider_output_committed": false,
-  "request_count": 0,
+  "records": [
+    {
+      "content_sha256": "sha256:79560680b8a2be382aefa4bf5a2bb98dbe99ee2f966fdd2c66fc5dd2f0daa4b2",
+      "finish_reason": "stop",
+      "model": "poolside/laguna-s-2.1",
+      "model_identity_verified": true,
+      "probe_id": "STRUCTURED_OUTPUT",
+      "quality": "PASS",
+      "transport_identity_verified": true,
+      "usage": {
+        "input_tokens": 61,
+        "output_tokens": 10,
+        "total_tokens": 71
+      }
+    },
+    {
+      "content_sha256": "sha256:269691df5a9d6253aab83d667e519b528982032eb027916f33f4ee168770ba0c",
+      "finish_reason": "stop",
+      "model": "poolside/laguna-s-2.1",
+      "model_identity_verified": true,
+      "probe_id": "BOUNDED_REASONING",
+      "quality": "PASS",
+      "transport_identity_verified": true,
+      "usage": {
+        "input_tokens": 75,
+        "output_tokens": 14,
+        "total_tokens": 89
+      }
+    },
+    {
+      "content_sha256": "sha256:0fb8c5fc5a3be9de0b772065fa45488e15e42732c00cdaa9ed63ffc1dec5a1fe",
+      "finish_reason": "stop",
+      "model": "poolside/laguna-s-2.1",
+      "model_identity_verified": true,
+      "probe_id": "SYNTHETIC_CODE_REVIEW",
+      "quality": "PASS",
+      "transport_identity_verified": true,
+      "usage": {
+        "input_tokens": 77,
+        "output_tokens": 14,
+        "total_tokens": 91
+      }
+    }
+  ],
+  "request_count": 3,
   "retry_count": 0,
   "schema_version": "1.0",
   "server_side_revocation_verified": false,
-  "status": "PENDING_REAL_SMOKE",
-  "transport_identity_verified": false,
+  "smoke_campaign_id": "campaign:poolside-v04-c966b37a",
+  "status": "SMOKE_PASS_OWNER_ZERO_COST_CONFIRMED_PENDING_CONNECTED_QA",
+  "transport_identity_verified": true,
   "transport_ref": "transport-profile:poolside-direct-https-openai-v1",
   "v_contract_ref": "v-contract:STUDIO-009V-04",
-  "zero_cost_eligibility_verified": false
+  "zero_cost_eligibility_verified": true
 }
